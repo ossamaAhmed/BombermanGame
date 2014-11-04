@@ -1,0 +1,64 @@
+/* 
+ * File: BomberMan.java
+ * -----------------------
+ * This Class represents the BomberMan character on the game board. Which is controlled by the 
+ * Player/User of the game using the keyboard 
+ */
+package bomberMan.gamePlay.Model;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+
+public class BomberMan extends Character {
+	
+	/*Instance Variables*/
+	private ArrayList<PowerUp> myPowerUps;
+	private ArrayList<Bomb> myBombs;
+	
+	/** 
+	 * Constructor
+	 * This method takes care of any initialization needed for 
+	 * the BomberMan private variables. BomberMan has a list of powerUps where it gets
+	 * updated everytime he picks a powerUp and also we keep track of the bombs bomberMan
+	 * drops for detonating purposes.
+	 */
+	public BomberMan(int xPos,int yPos)
+	{
+		super(xPos,yPos,CONSTANTS.BomberMan_IMAGE,"BomberMan");
+		this.myPowerUps=new ArrayList<PowerUp>();
+		this.myBombs=new ArrayList<Bomb>();
+	}
+	/** 
+	 * This method prints out the position of bomberMan for debugging purposes.
+	 * It should be deleted at the end of the project. When everything is tested out, or 
+	 * moved to testing package.
+	 */
+	public void infoToString() {
+		System.out.print("My Position(x,y) is: ");
+		System.out.print(getPositionX());
+		System.out.print("  "+getPositionY());
+	}
+	/** 
+	 * This method returns the image of the bomberMan currently to be drawn on the screen.
+	 * This method is missing as it should implement the changes of bomberman pictures 
+	 * corresponding to each move he does. This function throws an exception that should be collected 
+	 * in a log file.
+	 */
+	public BufferedImage getImage()
+	{
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File(getImageLocation()));
+		    }
+		catch (IOException e) 
+		{
+			System.out.println("Not found");
+		}
+
+		return image;
+	}
+	
+}
