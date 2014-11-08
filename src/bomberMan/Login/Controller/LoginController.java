@@ -1,44 +1,24 @@
 package bomberMan.Login.Controller;
 
-public class LoginController extends Controller {
-
-	private String username;
-	private String password;
-
-	public void checkNextView(int buttonPressed) {
-		if (buttonPressed == 1) {
-			// checks if it logs in properly
-			if (checkLogin(username, password) == true
-					&& (username != null && password != null)) {
-
-				// UserDatabase.setCurrentView("MainMenu");
-				System.out.println("Set Current View: MainMenu");
-				System.out.println("Set Current User: " + username);
-				// UserDatabase.setCurrentUser(LoginView.getUsername());
-			}
-
-			else {
-
-				System.out.println("Set Current View: Login");
-				loginError();
-
-				// UserDatabase.setNextView("Login");
-			}
-
+public class LoginController{
+	//login button being pressed, returns 0 or 1 depending if it is successful
+	public int login(String username, String password){
+		if(checkLogin(username, password) == true){
+			System.out.println("Goes into MainMenu");
+			System.out.println("set current user: " + username);
+			return 0;
 		}
-
-		else if (buttonPressed == 2) {
-
-			System.out.println("Set Current View: SignUp");
-			// UserDatabase.setCurrentView("SignUp");
-		}
-
-		else if (buttonPressed == 3) {
-			Controller.exitGame();
-			// ExitController.exitGame();
+			
+		else{
+			return 1;
 		}
 	}
-
+	//sign up button was pressed, goes into signup
+	public void SignUp(){
+		System.out.println("Goes into SignUp");
+	}
+	
+	// login check not complete need to know how the information is being stored.
 	public boolean checkLogin(String username, String password) {
 		if (username == "bob" && password == "abc123") {
 			return true;
@@ -49,16 +29,4 @@ public class LoginController extends Controller {
 		}
 	}
 
-	public void loginError() {
-		System.out.println("Login Error");
-		// call some method in the view to display error message.
-	}
-
-	public void setUserName(String userName) {
-		username = userName;
-	}
-
-	public void setPassword(String passWord) {
-		password = passWord;
-	}
 }
