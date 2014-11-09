@@ -1,16 +1,22 @@
 package bomberMan.Login.Controller;
 
+import bomberMan.Login.Model.UserDatabase;
+
 public class SignUpController {
 	
 	//signup button was pressed, these strings are passed from the text fields
 	public int signUp(String username, String password1, String password2,
 			String firstName, String lastName) {
-		//checks if password is correct
+		//checks if password matches
 		if (checkPassWordMatches(password1, password2) == true) {
 			
-			//success scenario
+			//success scenario, creates user
 			if (checkUsernameNotTaken(username)
 					&& checkPassWordStrength(password1) == true) {
+				
+				String userData[] = {firstName + " "+ lastName, password1, username};
+				UserDatabase.createUser(userData);
+				
 				System.out.println("Go to login view");
 				// also need to call methods from model to create the new
 				// account
@@ -41,14 +47,9 @@ public class SignUpController {
 		}
 	}
 	
-	//login button was pressed in the signup menu
-	public void returnToLogin(){
-		System.out.println("go back to login menu");
-	}
-	
-	//How the user data is stored hasn't been implemented yet, using place holder code
+	//check if username is not taken by calling method in userdatabase
 	public boolean checkUsernameNotTaken(String username) {
-		if (username != "Bob") {
+		if (UserDatabase.userExists(username) != true) {
 			return true;
 		} else {
 			return false;
