@@ -116,9 +116,9 @@ public class LoginView extends JPanel
 	private void signupButtonActionPerformed(ActionEvent evt)
 	{
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView();
+		SignUpView x=new SignUpView(myframe);
 		myframe.setFocusable(true);
-		myframe.addKeyListener(x);
+		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
