@@ -59,6 +59,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 public void updateGameBoardView(int num)
 	 {
 		 this.repaint();
+//		 GameObject o;
+//		 
+//		 if (o instanceof Character) {
+//			 Character c = (Character) o;
+//		 }
 		 
 	 }
 	 
