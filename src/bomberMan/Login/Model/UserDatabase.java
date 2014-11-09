@@ -88,7 +88,7 @@ public class UserDatabase {
 	/*
 	 * Add a new user to the existing database
 	 */
-	public boolean createUser(String[] userData) {
+	public static boolean createUser(String[] userData) {
 		// User data is passed as string array. Data is as follows:
 		// * Name
 		// * Password
@@ -177,7 +177,7 @@ public class UserDatabase {
 	/*
 	 * Search the database and return true if given username and password is found
 	 */
-	public boolean login(String userName, String password) {
+	public static boolean login(String userName, String password) {
 		try {
 	        CSVReader reader = new CSVReader(new FileReader(accountFile));
 	        List<String[]> allRecords = reader.readAll();
