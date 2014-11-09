@@ -178,17 +178,6 @@ public class SignUpView extends JPanel
 	}
 	private void goBackButtonActionPerformed(ActionEvent evt)
 	{
-//		myframe.remove(this);
-//		GameBoardView x=new GameBoardView();
-//		myframe.setFocusable(true);
-//		myframe.addKeyListener(x);
-//		x.setBackground(Color.black);
-//		x.setVisible(true);
-//		myframe.add(x);
-//	        myframe.validate();
-//	        myframe.repaint();
-//	        x.requestFocusInWindow();
-//		myframe.setVisible(true);
 		myframe.remove(this);
 		LoginView x=new LoginView(myframe);
 		myframe.setFocusable(true);

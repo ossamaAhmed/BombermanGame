@@ -1,9 +1,6 @@
 package bomberMan.Login.View;
 
 import javax.swing.*;
-
-import bomberMan.gamePlay.View.GameBoardView;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -72,6 +69,17 @@ public class LoginView extends JPanel
 	{
         System.out.println(userNameInput.getText());
         System.out.println(userPasswordInput.getText());
+		myframe.remove(this);
+		MainMenuView x=new MainMenuView(myframe);
+		myframe.setFocusable(true);
+		//myframe.addKeyListener(x);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
         
     }
 	public void setExitButton()

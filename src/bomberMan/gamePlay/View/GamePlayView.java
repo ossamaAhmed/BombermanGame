@@ -17,7 +17,7 @@ public class GamePlayView {
 	public static void main(String[] args)
 	{
 		gameView = new JFrame("BomberMan");
-		board= new GameBoardView();
+		board= new GameBoardView(gameView);
 		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameView.setSize(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT); 
 		//gameView.setResizable(false); //Resizing Not working should look into it

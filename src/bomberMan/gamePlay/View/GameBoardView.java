@@ -7,10 +7,12 @@
 
 package bomberMan.gamePlay.View;
 
+import bomberMan.Login.View.PauseMenuView;
 import bomberMan.gamePlay.Controller.CharacterController;
 import bomberMan.gamePlay.Model.*;
 import javax.swing.*;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyListener;
@@ -23,15 +25,26 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private GameBoard myBoard;
 	private Graphics2D myCanvas;
 	private CharacterController controller;
+	private JFrame myFrame;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
 	 * and adding a key listener to the canvas and painting the init board.
 	 */
-	  public GameBoardView()
+	  public GameBoardView(JFrame myFrame)
 	  {
 		  super();
+		  this.myFrame=myFrame;
 		  myBoard=new GameBoard(12);
+		  controller=new CharacterController(myBoard);
+		  this.addKeyListener(this);
+		  this.repaint();		  
+	  }
+	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
+	  {
+		  super();
+		  this.myFrame=myFrame;
+		  this.myBoard=myBoard;
 		  controller=new CharacterController(myBoard);
 		  this.addKeyListener(this);
 		  this.repaint();		  
@@ -45,6 +58,20 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 {
 			 controller.move(keyE);
 			 this.updateGameBoardView(10);
+		 }
+		 if(keyE.getKeyCode()==KeyEvent.VK_SPACE)
+		 {
+			 myFrame.remove(this);
+				PauseMenuView x=new PauseMenuView(myFrame,this.myBoard);
+				myFrame.setFocusable(true);
+				//myframe.addKeyListener(x);
+				x.setBackground(Color.black);
+				x.setVisible(true);
+				myFrame.add(x);
+				myFrame.validate();
+				myFrame.repaint();
+			        x.requestFocusInWindow();
+			        myFrame.setVisible(true);
 		 }
 	 }
 	  /** 
