@@ -6,8 +6,12 @@
  */
 package bomberMan.gamePlay.Model;
 
-public class GameBoard {
+
+public class GameBoard{
 	
+	/**
+	 * 
+	 */
 	/*Instance Variables*/
 	Cell board[][];
 	BomberMan myBomberMan;

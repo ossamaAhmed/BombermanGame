@@ -119,7 +119,7 @@ public class PauseMenuView extends JPanel
     }
 	public void setSaveGameButton()
 	{
-		saveGameButton= new JButton("LOAD GAME");
+		saveGameButton= new JButton("SAVE GAME");
 		saveGameButton.setSize(200, 40);
 		saveGameButton.setBorderPainted(false);
 		saveGameButton.setOpaque(true);

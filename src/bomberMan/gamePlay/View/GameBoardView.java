@@ -95,7 +95,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 }
 	 
 	 /** 
-	   * This function Draws the gameBoard on the screen. Renderes the data only. Any changes 
+	   * This function Draws the gameBoard on the screen. Renders the data only. Any changes 
 	   * shouldn't happen here. 
 	  */
 	 public void paintComponent(Graphics g)

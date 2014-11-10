@@ -2,6 +2,7 @@ package bomberMan.Login.View;
 
 import javax.swing.*;
 
+import bomberMan.Login.Controller.LoginController;
 import bomberMan.Login.Model.UserDatabase;
 
 import java.awt.Color;
@@ -85,9 +86,11 @@ public class LoginView extends JPanel
 	}
 	private void loginButtonActionPerformed(ActionEvent evt) 
 	{
-        System.out.println(userNameInput.getText());
-        System.out.println(userPasswordInput.getText());
-        if(DB.login(userNameInput.getText(), userPasswordInput.getText()))
+        System.out.println();
+        System.out.println();
+        LoginController myController=new LoginController(DB);
+        int errorCode=myController.login(userNameInput.getText(), userPasswordInput.getText());
+        if(errorCode==0)
         {	myframe.remove(this);
 			MainMenuView x=new MainMenuView(myframe);
 			myframe.setFocusable(true);

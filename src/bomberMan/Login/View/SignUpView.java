@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import bomberMan.Login.Controller.SignUpController;
 import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.View.GameBoardView;
 
@@ -152,22 +153,35 @@ public class SignUpView extends JPanel
 	{
 		 System.out.println(userNameInput.getText()+"hi");
 	        System.out.println(userPasswordInput.getText());
-	        if(DB.userExists(userNameInput.getText()))
+	        SignUpController myController=new SignUpController(DB);
+	        int errorNum=myController.signUp(userFirstNameInput.getText(), userLastNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
+	        if(errorNum==3)
+	        {
+	        	error.setText("please fill out all the information above");
+	        	this.add(error);
+	        	
+	        }
+	        else if(errorNum==1)
 	        {
 	        	error.setText("user name already exists");
 	        	this.add(error);
 	        }
 	        //check also for password match 
-	        else if(userFirstNameInput.getText().length()==0)
+	        else if(errorNum==4)
 	        {
-	        	error.setText("please fill out all the information above");
+	        	error.setText("Password doesn't match");
 	        	this.add(error);
 	        }
+	        else if(errorNum==2)
+	        {
+	        	error.setText("Password is wrong format");
+	        	this.add(error);
+	        }
+	        
 	        else
-	        {	String [] temp={userFirstNameInput.getText()+userLastNameInput.getText(),userPasswordInput.getText(),userNameInput.getText()};
-	        	DB.createUser(temp);
+	        {
 	        	myframe.remove(this);
-				MainMenuView x=new MainMenuView(myframe);
+				LoginView x=new LoginView(myframe);
 				myframe.setFocusable(true);
 				//myframe.addKeyListener(x);
 				x.setBackground(Color.black);
