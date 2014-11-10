@@ -217,7 +217,7 @@ public class PauseMenuView extends JPanel
 	public void setBackgroundImage()
 	{
 	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    mainMenuImage=Toolkit.getDefaultToolkit().createImage("MainMenu.png");
+	    mainMenuImage=Toolkit.getDefaultToolkit().createImage("PauseMenu.png");
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
 	

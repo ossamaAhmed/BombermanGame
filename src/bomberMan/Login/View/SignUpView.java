@@ -10,10 +10,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.View.GameBoardView;
 
 public class SignUpView extends JPanel   
@@ -25,12 +27,14 @@ public class SignUpView extends JPanel
 	private JTextField userLastNameInput;
 	private JPasswordField userPasswordInput;
 	private JPasswordField confirmUserPasswordInput;
+	private JLabel error;
 	private JButton confirmButton;
 	private JButton goBackButton;
 	private JButton exitButton;
 	private Image backgroundImage;
 	private Image loginImage;
 	private JFrame myframe;
+	private UserDatabase DB;
 	private int startFrame=110;
 
 	
@@ -38,11 +42,13 @@ public class SignUpView extends JPanel
 	{
 		super();
 		myframe=x;
+		DB=new UserDatabase("CSVfiles/trial.csv");
 	    this.setOpaque(true);
 	    setBackgroundImage();
 	    this.setLayout(null);
 	    setButtons();
 	    setTextFields();
+	    setErrorText();
 	    this.repaint();
 	    
 	}
@@ -97,6 +103,7 @@ public class SignUpView extends JPanel
 		this.add(userPasswordInput);
 		
 	}
+
 	public void setConfirmPasswordTextField()
 	{
 		confirmUserPasswordInput=new JPasswordField();
@@ -106,6 +113,16 @@ public class SignUpView extends JPanel
 		confirmUserPasswordInput.setForeground(Color.WHITE);
 		confirmUserPasswordInput.setLocation(CONSTANTS.WINDOW_WIDTH/2, userPasswordInput.getY()+userPasswordInput.getHeight()+10);
 		this.add(confirmUserPasswordInput);
+	}
+	public void setErrorText()
+	{
+		 error= new JLabel();
+		 error.setSize(200, 40);
+		 error.setOpaque(true);
+		 error.setForeground(Color.red);
+		 error.setBackground(new Color(0, 0, 0, 0));
+		 error.setLocation(CONSTANTS.WINDOW_WIDTH/2, confirmButton.getY()+confirmButton.getHeight()+10);
+		 //adding action listener and directing it to the appropiate function
 	}
 	
 	public void setButtons()
@@ -133,8 +150,34 @@ public class SignUpView extends JPanel
 	}
 	private void setConfirmButtonActionPerformed(ActionEvent evt) 
 	{
-        System.out.println(userNameInput.getText());
-        System.out.println(userPasswordInput.getText());
+		 System.out.println(userNameInput.getText()+"hi");
+	        System.out.println(userPasswordInput.getText());
+	        if(DB.userExists(userNameInput.getText()))
+	        {
+	        	error.setText("user name already exists");
+	        	this.add(error);
+	        }
+	        //check also for password match 
+	        else if(userFirstNameInput.getText().length()==0)
+	        {
+	        	error.setText("please fill out all the information above");
+	        	this.add(error);
+	        }
+	        else
+	        {	String [] temp={userFirstNameInput.getText()+userLastNameInput.getText(),userPasswordInput.getText(),userNameInput.getText()};
+	        	DB.createUser(temp);
+	        	myframe.remove(this);
+				MainMenuView x=new MainMenuView(myframe);
+				myframe.setFocusable(true);
+				//myframe.addKeyListener(x);
+				x.setBackground(Color.black);
+				x.setVisible(true);
+				myframe.add(x);
+			        myframe.validate();
+			        myframe.repaint();
+			        x.requestFocusInWindow();
+				myframe.setVisible(true);
+			}
         
     }
 	public void setExitButton()

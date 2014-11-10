@@ -2,11 +2,18 @@ package bomberMan.Login.Controller;
 
 import bomberMan.Login.Model.UserDatabase;
 
-public class SignUpController {
+public class SignUpController 
+{
+	private UserDatabase DB;
+	
+	public SignUpController(UserDatabase database)
+	{
+		this.DB=database;
+	}
 	
 	//signup button was pressed, these strings are passed from the text fields
-	public int signUp(String username, String password1, String password2,
-			String firstName, String lastName) {
+	public int signUp(String firstName, String lastName,String username, String password1, String password2) 
+	{
 		//checks if password matches
 		if (checkPassWordMatches(password1, password2) == true) {
 			

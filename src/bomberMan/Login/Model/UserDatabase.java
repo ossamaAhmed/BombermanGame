@@ -1,50 +1,47 @@
 package bomberMan.Login.Model;
 
+import java.util.List;
+import java.util.Arrays;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Console;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 
 
-import java.util.List;
-import java.util.Arrays;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Console;
+public class UserDatabase 
 
-import java.io.IOException;
-import java.io.FileNotFoundException;
-
-
-
-public class UserDatabase {
+{
 	
 	private User currentUser;
 	private Game currentGame;
-//	private View currentView;
-//	private View previousView;
 	private LeaderBoard currentLeaderBoard;
-	private String accountFile = "trial.csv";
+	private String accountFile;
 
 	private final int NAME_IND = 0;
 	private final int PASS_IND = 1;
 	private final int USER_IND = 2;
 	
-	public UserDatabase(String fileName) {
+	public UserDatabase(String fileName) 
+	{
 		accountFile = fileName;		
 	}
 	
 	/*
 	 * Create a proper database if existing one is empty or doesn't exist
 	 */
-	private boolean createDatabase(String accountFile) {
-		
+	private boolean createDatabase(String accountFile) 
+	{
 		// Write header in the following format:
 		// Name,Password,Username
 		
 		try {
 			// Open up the database file for writing
 	        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
-	        writer.writeNext(new String[]{"Name","Password","Username"}, false);
+	        writer.writeNext(new String[]{"Name","Password","Username"});
 	        writer.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());			
@@ -84,11 +81,10 @@ public class UserDatabase {
 		}
 		return false;
 	}
-	
 	/*
 	 * Add a new user to the existing database
 	 */
-	public static boolean createUser(String[] userData) {
+	public  boolean createUser(String[] userData) {
 		// User data is passed as string array. Data is as follows:
 		// * Name
 		// * Password
@@ -112,7 +108,7 @@ public class UserDatabase {
 		try {
 			// Open up the database file in write append
 	        CSVWriter writer = new CSVWriter(new FileWriter(accountFile, true));
-	        writer.writeNext(userData, false);
+	        writer.writeNext(userData);
 	        writer.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());			
@@ -153,8 +149,8 @@ public class UserDatabase {
 	    	reader.close();	        	    	
 	        if (userFound) {
 	        	// Write the update record list into the file
-		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
-		        writer.writeAll(allRecords, false);
+		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile,true));
+		        writer.writeAll(allRecords);
 		        writer.close();
 		        return true;
 	        }
@@ -177,7 +173,7 @@ public class UserDatabase {
 	/*
 	 * Search the database and return true if given username and password is found
 	 */
-	public static boolean login(String userName, String password) {
+	public  boolean login(String userName, String password) {
 		try {
 	        CSVReader reader = new CSVReader(new FileReader(accountFile));
 	        List<String[]> allRecords = reader.readAll();

@@ -1,6 +1,9 @@
 package bomberMan.Login.View;
 
 import javax.swing.*;
+
+import bomberMan.Login.Model.UserDatabase;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,28 +14,32 @@ import java.awt.event.*;
 public class LoginView extends JPanel   
 {
 	//constants to be moved
-	private int window_width=900;
-	private int window_height=500;
+	private int window_width=CONSTANTS.WINDOW_WIDTH;
+	private int window_height=CONSTANTS.WINDOW_HEIGHT;
 	private Graphics2D myCanvas;
 	private JTextField userNameInput;
 	private JPasswordField userPasswordInput;
+	private JLabel error;
 	private JButton loginButton;
 	private JButton signupButton;
 	private JButton exitButton;
 	private Image backgroundImage;
 	private Image loginImage;
 	private JFrame myframe;
+	private UserDatabase DB;
 
 	
 	public LoginView(JFrame x)
 	{
 		super();
 		myframe=x;
+		DB=new UserDatabase("CSVfiles/trial.csv");
 	    this.setOpaque(true);
 	   // this.setBackground(Color.WHITE);
 	    setBackgroundImage();
 	    this.setLayout(null);
 	    setTextFields();
+	    seterrorText();
 	    setButtons();
 	    this.repaint();
 	    
@@ -45,8 +52,9 @@ public class LoginView extends JPanel
 	public void setButtons()
 	{
 		setLoginButton();
-		setSignupButton();
 		setExitButton();
+		setSignupButton();
+
 	}
 	public void setLoginButton()
 	{
@@ -65,21 +73,37 @@ public class LoginView extends JPanel
 	            }
 		 });
 	}
+	public void seterrorText()
+	{
+		 error= new JLabel("Invalid username and password");
+		 error.setSize(200, 40);
+		 error.setOpaque(true);
+		 error.setForeground(Color.red);
+		 error.setBackground(new Color(0, 0, 0, 0));
+		 error.setLocation(window_width/2, window_height-250);
+		 //adding action listener and directing it to the appropiate function
+	}
 	private void loginButtonActionPerformed(ActionEvent evt) 
 	{
         System.out.println(userNameInput.getText());
         System.out.println(userPasswordInput.getText());
-		myframe.remove(this);
-		MainMenuView x=new MainMenuView(myframe);
-		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
-		x.setBackground(Color.black);
-		x.setVisible(true);
-		myframe.add(x);
-	        myframe.validate();
-	        myframe.repaint();
-	        x.requestFocusInWindow();
-		myframe.setVisible(true);
+        if(DB.login(userNameInput.getText(), userPasswordInput.getText()))
+        {	myframe.remove(this);
+			MainMenuView x=new MainMenuView(myframe);
+			myframe.setFocusable(true);
+			//myframe.addKeyListener(x);
+			x.setBackground(Color.black);
+			x.setVisible(true);
+			myframe.add(x);
+		        myframe.validate();
+		        myframe.repaint();
+		        x.requestFocusInWindow();
+			myframe.setVisible(true);
+		}
+        else
+        {
+        	this.add(error);
+        }
         
     }
 	public void setExitButton()
@@ -90,7 +114,7 @@ public class LoginView extends JPanel
 		exitButton.setOpaque(true);
 		exitButton.setBackground(Color.BLACK);
 		exitButton.setForeground(Color.white);
-		exitButton.setLocation(window_width/2-70, window_height-200);
+		exitButton.setLocation(loginButton.getX()-exitButton.getWidth()-10, window_height-200);
 		 this.add(exitButton);
 		 //adding action listener and directing it to the appropiate function
 		 exitButton.addActionListener(new ActionListener() {
@@ -113,7 +137,7 @@ public class LoginView extends JPanel
 		signupButton.setOpaque(true);
 		signupButton.setBackground(Color.BLACK);
 		signupButton.setForeground(Color.white);
-		signupButton.setLocation(window_width/2-200, window_height-200);
+		signupButton.setLocation(exitButton.getX()-signupButton.getWidth()-10, window_height-200);
 		 this.add(signupButton);
 		 signupButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
@@ -166,7 +190,7 @@ public class LoginView extends JPanel
 	{
 	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
 	    loginImage=Toolkit.getDefaultToolkit().createImage("LoginMenu.png");
-	    backgroundImage=backgroundImage.getScaledInstance(window_width, window_height, Image.SCALE_DEFAULT);
+	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
 	
 	//updates the login view, not used till now
