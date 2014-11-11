@@ -71,4 +71,7 @@ public class GameObject implements Position {
 	public void setPositionY(int yPos) {
 		this.yPosition=yPos;
 	}
+	public void setType(String type) {
+		this.objectType = type;
+	}
 }

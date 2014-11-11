@@ -6,12 +6,8 @@
  */
 package bomberMan.gamePlay.Model;
 
-
-public class GameBoard{
+public class GameBoard {
 	
-	/**
-	 * 
-	 */
 	/*Instance Variables*/
 	Cell board[][];
 	BomberMan myBomberMan;
@@ -33,7 +29,7 @@ public class GameBoard{
 		/*The Starting position shouldn't be hard coded. 
 		**The starting position will be added to constants
 		*/
-		myBomberMan=new BomberMan(40,40);
+		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
 	}
@@ -43,6 +39,10 @@ public class GameBoard{
 	public Cell getCell(int x, int y)
 	{
 		return board[x][y];
+	}
+	public void setCell(int x, int y, GameObject gameObject)
+	{
+		this.board[x][y].insert(gameObject);
 	}
 	/** 
 	 * This is a helper method to build the surrounding walls.Some numbers here are hard coded
@@ -89,5 +89,16 @@ public class GameBoard{
 	{
 		return this.myBomberMan;
 	}
+	public void addBomb(int xCellPos, int yCellPos, Bomb objectBomb)
+	{
+		
+		this.board[yCellPos][xCellPos].insert(objectBomb);
+		this.myBomberMan.addBomb(objectBomb);
+	}
+	public void killBomberman(){
+		this.myBomberMan.die();
+	}
+	
+	
 	
 }

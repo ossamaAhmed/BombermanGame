@@ -9,14 +9,23 @@
 package bomberMan.gamePlay.Model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import  java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 public class Cell {
 	
 	/*Instance Variables*/
+	boolean hasABomb = false;
+	boolean isEmpty = true;
+	boolean hasADetonateBomb = false;
+	boolean hasAPowerUp = false;
+	boolean hasADestructibleBrick = false;
+	Calendar timer;
+	
 	private ArrayList<GameObject> myObjects;
 	
 	/** 
@@ -27,6 +36,8 @@ public class Cell {
 	public Cell()
 	{
 		this.myObjects=new ArrayList<GameObject>();
+		this.isEmpty = true;
+		timer = Calendar.getInstance();
 	}
 	/** 
 	 * Constructor
@@ -36,8 +47,10 @@ public class Cell {
 	 */
 	public Cell(GameObject myObject)
 	{
+		timer = Calendar.getInstance();
 		this.myObjects=new ArrayList<GameObject>();
 		this.myObjects.add(myObject);
+		this.isEmpty = true;
 	}
 	
 	/** 
@@ -92,5 +105,48 @@ public class Cell {
 	{
 		return this.myObjects.isEmpty();
 	}
+	public void setHasABomb(boolean set){this.hasABomb = set;}
+	public boolean getHasABomb(){return this.hasABomb;}
+	public Bomb searchBomb(){
+		int i = 0;
+		for(i =0; i< this.myObjects.size(); i++){
+			
+			if(this.myObjects.get(i).getType().equals("Bomb")){
+				System.out.println("BombFound");
+				
+				return (Bomb)this.myObjects.get(i);}}
+		return new Bomb();
+	}
+	public void deleteElement(String type){
+		int i = 0;
+		for(i =0; i< this.myObjects.size(); i++){
+			
+			if(this.myObjects.get(i).getType().equals(type)){
+				if(this.myObjects.get(i).getType().equals("Bomb")){
+				    long start = timer.getTimeInMillis();
+				    long finish = start + CONSTANTS.BOMB_EXPLOSION_SHOWING_TIME;
+				    this.myObjects.get(i).setImageLocation(CONSTANTS.Bomb_EXPLOSION);
+				   System.out.println("Start showing bomb explosion "+ start);
+				   System.out.println("Finish showing bomb explosion "+ finish);
+				    while(start <= finish){
+				
+				    System.out.println("Showing explosion " + type);
+					start = start + 10;
+					System.out.println("Time showing bomb explosion "+ start);
+				    }}
+				System.out.println("Deleting " + type);
+			this.myObjects.remove(i);
+			
+			this.hasABomb = false;
+			this.hasADetonateBomb = false;
+			this.hasAPowerUp = false;
+			this.hasADestructibleBrick = false;
+				}
+						}
+		
+	}
+	public boolean getIsEmpty(){return this.isEmpty;}
+	public void setIsEmpty(boolean set){this.isEmpty = set;}
+	
 	
 }

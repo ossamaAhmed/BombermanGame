@@ -18,6 +18,7 @@ public class BomberMan extends Character {
 	private ArrayList<PowerUp> myPowerUps;
 	private ArrayList<Bomb> myBombs;
 	
+	
 	/** 
 	 * Constructor
 	 * This method takes care of any initialization needed for 
@@ -60,5 +61,17 @@ public class BomberMan extends Character {
 
 		return image;
 	}
+	public void addBomb(Bomb objectBomb){this.myBombs.add(objectBomb);}
+	public int getICell(){
+		return (int)(this.getPositionY()/ CONSTANTS.TILE_SIDE_SIZE);
+	}
+	public int getJCell(){
+		return (int)(this.getPositionX()/ CONSTANTS.TILE_SIDE_SIZE);
+	}
+	public void die(){
+		super.die();
+		this.setImageLocation(CONSTANTS.BMB_dead);
+		
+	}	
 	
 }
