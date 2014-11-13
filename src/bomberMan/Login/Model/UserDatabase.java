@@ -139,7 +139,7 @@ public class UserDatabase
 	        // Go through each user in the database
 	        for (int i=1; i<allRecords.size(); i++) {
 	        	record = allRecords.get(i);
-	            if (record[USER_IND].equals(user)) {
+	            if (record[USER_IND].equals(user.getUserName())) {
 	            	allRecords.remove(i);
 	            	userFound = true;
 	            	break;
@@ -149,7 +149,7 @@ public class UserDatabase
 	    	reader.close();	        	    	
 	        if (userFound) {
 	        	// Write the update record list into the file
-		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile,true));
+		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
 		        writer.writeAll(allRecords);
 		        writer.close();
 		        return true;
@@ -160,6 +160,59 @@ public class UserDatabase
 		}
 		return false;		
 	}
+	
+
+
+public boolean modifyProfile(String[] userData) {
+		boolean userFound = false;
+        String[] record;
+		
+		try {
+	        CSVReader reader = new CSVReader(new FileReader(accountFile));
+	        List<String[]> allRecords = reader.readAll();
+
+	        if (allRecords.size() == 0) {
+	        	// File is empty for some reason. A valid file should have header.
+	        	// Recreate the file with a header.
+	        	createDatabase(accountFile);
+	        	reader.close();
+	        	return false;
+	        }
+	        
+	        // Go through each user in the database
+	        for (int i=1; i<allRecords.size(); i++) {
+	        	record = allRecords.get(i);
+	            if (record[USER_IND].equals(userData[2])) {
+	            	
+	            	if(!record[NAME_IND].equals(userData[0]))
+	            		record[NAME_IND]=userData[0];
+	            	
+	            	if(!record[PASS_IND].equals(userData[1]))
+	            		record[PASS_IND]=userData[1];
+	            	
+	            	userFound = true;
+	            	break;
+	            }
+	        }
+	        
+	        	    	
+	        if (userFound) {
+	        	// Write the update record list into the file
+		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
+		        writer.writeAll(allRecords);
+		        writer.close();
+		        return true;
+	        }
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return false;		
+	}
+
+
+	
+	
 
 	public boolean updateDatabase() {
 		return true;

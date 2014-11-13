@@ -1,6 +1,7 @@
 package bomberMan.Login.View;
 
 import javax.swing.*;
+import bomberMan.Login.Model.*;
 
 
 public class BomberManMain {
@@ -10,6 +11,7 @@ public class BomberManMain {
 
 	public static void main(String[] args) throws Exception
 	{
+		
 		final int window_width=CONSTANTS.WINDOW_WIDTH;
 		final int window_height=CONSTANTS.WINDOW_HEIGHT;
 		game = new JFrame("BomberMan");
