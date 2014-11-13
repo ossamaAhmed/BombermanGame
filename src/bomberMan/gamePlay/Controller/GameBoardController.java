@@ -63,26 +63,94 @@ public void killBomberman(int i, int j){
 	System.out.println("KILLING BOMBERMAN");
 	this.gameBoard.killBomberman();
 	
-	}counter++;}
+	}
+	if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
+		System.out.println("KILLING BOMBERMAN");
+		this.gameBoard.killBomberman();
+		
+		}
+	if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+		System.out.println("KILLING BOMBERMAN");
+		this.gameBoard.killBomberman();
+		
+		}
+	if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+		System.out.println("KILLING BOMBERMAN");
+		this.gameBoard.killBomberman();
+		
+		}
+	counter++;
+	
+	}
 	counter = -1;
 	while(counter >=-CONSTANTS.BOMB_RANGE1 ){
 		if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 		System.out.println("KILLING BOMBERMAN");
 		this.gameBoard.killBomberman();
-		}counter--;}
+		}
+		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
+			System.out.println("KILLING BOMBERMAN");
+			this.gameBoard.killBomberman();
+			
+			}
+		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+			System.out.println("KILLING BOMBERMAN");
+			this.gameBoard.killBomberman();
+			
+			}
+		if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+			System.out.println("KILLING BOMBERMAN");
+			this.gameBoard.killBomberman();
+			
+			}
+		counter--;}
 	counter =1;
 	while(counter <=CONSTANTS.BOMB_RANGE1 ){
 		if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
 		System.out.println("KILLING BOMBERMAN");
 		this.gameBoard.killBomberman();
 		
-		}counter++;}
+		}
+		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
+			System.out.println("KILLING BOMBERMAN");
+			this.gameBoard.killBomberman();
+			
+			}
+		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
+			System.out.println("KILLING BOMBERMAN");
+			this.gameBoard.killBomberman();
+			
+			}
+		if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
+			System.out.println("KILLING BOMBERMAN");
+			this.gameBoard.killBomberman();
+			
+			}
+		counter++;
+		
+	}
 		counter = -1;
 		while(counter >=-CONSTANTS.BOMB_RANGE1 ){
 			if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
 			System.out.println("KILLING BOMBERMAN");
 			this.gameBoard.killBomberman();
-			}counter--;}
+			}
+			if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
+				System.out.println("KILLING BOMBERMAN");
+				this.gameBoard.killBomberman();
+				
+				}
+			if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
+				System.out.println("KILLING BOMBERMAN");
+				this.gameBoard.killBomberman();
+				
+				}
+			if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
+				System.out.println("KILLING BOMBERMAN");
+				this.gameBoard.killBomberman();
+				
+				}
+			counter--;}
 		
 
 	
