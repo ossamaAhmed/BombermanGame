@@ -17,8 +17,10 @@ public class CONSTANTS {
 	public final static int BOMB_TIMER=8000;//in milliseconds
 	public final static int BOMB_EXPLOSION_SHOWING_TIME = 100000; // in milliseconds
 	public final static int BOMB_FLAME_SHOWING_TIME = 10000; // in milliseconds
-	public final static int BOMB_RANGE1 =2;
-	public final static int DEFAULT_SPEED=5;
+	public static int BOMB_RANGE1 =2;
+	public static int DEFAULT_SPEED=5;
+	public static int DEFAULT_SPEEDBOMBERMAN=5;
+	public static int DEFAULT_SPEEDENEMY=5;
 	public final static int NUMBER_OF_HORIZONTAL_TILES=31;
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
 	public final static int TILE_SIDE_SIZE=40; //in pixels
@@ -30,5 +32,6 @@ public class CONSTANTS {
 	public final static String BMB_dead = "SkullBMB.png";
 	public final static int WINDOW_WIDTH=NUMBER_OF_HORIZONTAL_TILES*TILE_SIDE_SIZE;
 	public final static int WINDOW_HEIGHT=NUMBER_OF_VERTICAL_TILES*TILE_SIDE_SIZE;
-
+    public void setBombRange(int range){this.BOMB_RANGE1 = range;}
+    public void setSpeedBomberman(int speed){ DEFAULT_SPEEDBOMBERMAN = speed;}
 }
