@@ -42,13 +42,115 @@ public void detonateRegularBombs(){
 					 System.out.println("TimeExplosionC: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
 					 System.out.println("TimeExplosionD: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
 					 System.out.println("EXPLODE");
-					 
+					System.out.println(i+ " " +j);
+					this.gameBoard.getCell(i, j).setFlameImages();
+					int counter1 = 1;
+					boolean right = true;
+					boolean left = true;
+					boolean down = true;
+					boolean up = true;
+					while(counter1 <= CONSTANTS.BOMB_RANGE1){
+						if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
+							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+								if(this.gameBoard.getCell(i, j+counter1).isEmpty()== false){right = false;}
+							}}
+							if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).isEmpty()){
+						this.gameBoard.getCell(i, j+counter1).setFlameImages();}
+						
+						if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+							if(this.gameBoard.getCell(i, j+counter1+1).isEmpty()== false){right = false;}}
+							
+						
+						if(j -counter1 >=0 && left == true ){
+							if(j -counter1  >=0 && left== true){
+								if(this.gameBoard.getCell(i, j-counter1).isEmpty()== false){left = false;}}
+							if(left == true && j -counter1 >= 0 && this.gameBoard.getCell(i, j-counter1).isEmpty()){
+							this.gameBoard.getCell(i, j-counter1).setFlameImages();}
+							}
+						    
+							if(j -counter1 - 1 >=0 && left == true){
+								if(this.gameBoard.getCell(i, j-counter1-1).isEmpty()== false){left = false;}
+						
+							}
+					   if(i -counter1 >=0 && up == true ){
+								if(i -counter1  >=0 && up== true){
+									if(this.gameBoard.getCell(i-counter1, j).isEmpty()== false){up = false;}}
+								if(up == true && i -counter1 >= 0 && this.gameBoard.getCell(i-counter1, j).isEmpty()){
+								this.gameBoard.getCell(i-counter1, j).setFlameImages();}
+								}
+							    
+								if(i -counter1 - 1 >=0 && left == true){
+									if(this.gameBoard.getCell(i-counter1-1, j).isEmpty()== false){up = false;}
+							
+								}
+					 if(i +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && down == true ){
+									if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down== true){
+										if(this.gameBoard.getCell(i+counter1, j).isEmpty()== false){down = false;}
+									}}
+									if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).isEmpty()){
+								this.gameBoard.getCell(i+counter1, j).setFlameImages();}
+								
+								if(i+counter1 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+									if(this.gameBoard.getCell(i+counter1 +1, j).isEmpty()== false){down = false;}}
+									
+						counter1++;
+					}
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
 					 this.killBomberman(i, j);
-					int counter2 = 1;
+						int counter2 = 1;
+						boolean right2 = true;
+						boolean left2 = true;
+						boolean down2 = true;
+						boolean up2 = true;
+						while(counter2 <= CONSTANTS.BOMB_RANGE1){
+							if(j +counter2 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true ){
+								if(j +counter2  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true){
+									if(this.gameBoard.getCell(i, j+counter2).hasAFlame()== false){right2 = false;}
+								}}
+								if(right2 == true && j +counter2 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter2).hasAFlame()){
+							this.gameBoard.getCell(i, j+counter2).removeFlames();}
+							
+							if(j +counter2 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true){
+								if(this.gameBoard.getCell(i, j+counter2+1).hasAFlame()== false){right2 = false;}}
+								
+							
+							if(j -counter2 >=0 && left2 == true ){
+								if(j -counter2  >=0 && left2== true){
+									if(this.gameBoard.getCell(i, j-counter2).hasAFlame()== false){left2 = false;}}
+								if(left2 == true && j -counter2 >= 0 && this.gameBoard.getCell(i, j-counter2).hasAFlame()){
+								this.gameBoard.getCell(i, j-counter2).removeFlames();}
+								}
+							    
+								if(j -counter2 - 1 >=0 && left2 == true){
+									if(this.gameBoard.getCell(i, j-counter2-1).hasAFlame()== false){left2 = false;}
+							
+								}
+						   if(i -counter2 >=0 && up2 == true ){
+									if(i -counter2  >=0 && up2== true){
+										if(this.gameBoard.getCell(i-counter2, j).hasAFlame()== false){up2 = false;}}
+									if(up2 == true && i -counter2 >= 0 && this.gameBoard.getCell(i-counter2, j).hasAFlame()){
+									this.gameBoard.getCell(i-counter2, j).removeFlames();}
+									}
+								    
+									if(i -counter2 - 1 >=0 && up2 == true){
+										if(this.gameBoard.getCell(i-counter2-1, j).hasAFlame()== false){up2 = false;}
+								
+									}
+						 if(i +counter2 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && down2 == true ){
+										if(i +counter2  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down2== true){
+											if(this.gameBoard.getCell(i+counter2, j).hasAFlame()== false){down2 = false;}
+										}}
+										if(down2 == true && i +counter2 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter2, j).hasAFlame()){
+									this.gameBoard.getCell(i+counter2, j).removeFlames();}
+									
+									if(i+counter2 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down2 == true){
+										if(this.gameBoard.getCell(i+counter2 +1, j).hasAFlame()== false){down2 = false;}}
+										
+							counter2++;
+						}
 					
-					
-					 
+					  if(this.gameBoard.getCell(i, j).hasAFlame()){
+						this.gameBoard.getCell(i, j).removeFlames();}
 					 
 					   
 						 
