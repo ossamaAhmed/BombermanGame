@@ -55,7 +55,8 @@ public void detonateRegularBombs(){
 								if(this.gameBoard.getCell(i, j+counter1).isEmpty()== false){right = false;}
 							}}
 							if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).isEmpty()){
-						this.gameBoard.getCell(i, j+counter1).setFlameImages();}
+						this.gameBoard.getCell(i, j+counter1).setFlameImages();
+						}
 						
 						if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
 							if(this.gameBoard.getCell(i, j+counter1+1).isEmpty()== false){right = false;}}
@@ -96,7 +97,8 @@ public void detonateRegularBombs(){
 						counter1++;
 					}
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
-					 this.killBomberman(i, j);
+					this.gameBoard.killBomberman(i, j);
+					 
 						int counter2 = 1;
 						boolean right2 = true;
 						boolean left2 = true;
@@ -166,13 +168,22 @@ public void detonateRegularBombs(){
  * 
  */
 public void killBomberman(int i, int j){
+	boolean up = true;
+	boolean down = true;
+	boolean right = true;
+	boolean left = true;
 	int counter = 0;
 	while(counter <=CONSTANTS.BOMB_RANGE1 ){
+	if(i+counter < CONSTANTS.NUMBER_OF_VERTICAL_TILES){	
+	if(this.gameBoard.getCell(i+counter, j).getObjects().size()>0){
+	if(this.gameBoard.getCell(i+counter, j).searcHasAConcreteWall() == true){down = false;}}
+	if(down){
 	if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 	System.out.println("KILLING BOMBERMAN");
 	this.gameBoard.getBomberMan().die();
 	
 	}
+	
 	if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 		System.out.println("KILLING BOMBERMAN");
 		this.gameBoard.getBomberMan().die();
@@ -187,7 +198,7 @@ public void killBomberman(int i, int j){
 		System.out.println("KILLING BOMBERMAN");
 		this.gameBoard.getBomberMan().die();
 		
-		}
+		}}}
 	counter++;
 	
 	}
