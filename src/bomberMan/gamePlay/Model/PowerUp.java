@@ -11,12 +11,12 @@ public class PowerUp extends GameObject {
 	}
 	
 	public PowerUp(PowerUpType type){
-		this.type=type;
+		this.type = type;
 	}
 	
 	//getters and setters
 	public void setPowerUp(PowerUpType type){
-		this.type=type;
+		this.type = type;
 	}
 	
 	public PowerUpType getPowerUpType()

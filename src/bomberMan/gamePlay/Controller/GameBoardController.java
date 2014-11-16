@@ -5,6 +5,7 @@ import bomberMan.gamePlay.Model.*;
 
 public class GameBoardController  extends Thread{
 Calendar timer;
+Calendar timer2;
 GameBoard gameBoard;
 int bombRange;
 int indexjCell;
@@ -34,7 +35,7 @@ public void detonateRegularBombs(){
 		 {
 			 if(this.gameBoard.getCell(i, j).getHasABomb()){
 				
-				 //System.out.println("TimeExplosionB: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
+				 
 				 if(this.gameBoard.getCell(i, j).searchBomb().getDetonationTime() <= this.gameBoard.getCell(i, j).searchBomb().getBombTimer()){
 					 System.out.println("TimeExplosionA: "+this.gameBoard.getCell(i, j).searchBomb().getDetonationTime());
 					 System.out.println("TimeExplosionB: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
@@ -42,9 +43,15 @@ public void detonateRegularBombs(){
 					 System.out.println("TimeExplosionD: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
 					 System.out.println("EXPLODE");
 					 
-					 this.gameBoard.getCell(i, j).deleteElement("Bomb");
+					this.gameBoard.getCell(i, j).deleteElement("Bomb");
 					 this.killBomberman(i, j);
+					int counter2 = 1;
 					
+					
+					 
+					 
+					   
+						 
 					
 					 
 				 }
@@ -61,22 +68,22 @@ public void killBomberman(int i, int j){
 	while(counter <=CONSTANTS.BOMB_RANGE1 ){
 	if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 	System.out.println("KILLING BOMBERMAN");
-	this.gameBoard.killBomberman();
+	this.gameBoard.getBomberMan().die();
 	
 	}
 	if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 		System.out.println("KILLING BOMBERMAN");
-		this.gameBoard.killBomberman();
+		this.gameBoard.getBomberMan().die();
 		
 		}
 	if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
 		System.out.println("KILLING BOMBERMAN");
-		this.gameBoard.killBomberman();
+		this.gameBoard.getBomberMan().die();
 		
 		}
 	if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
 		System.out.println("KILLING BOMBERMAN");
-		this.gameBoard.killBomberman();
+		this.gameBoard.getBomberMan().die();
 		
 		}
 	counter++;
@@ -86,21 +93,20 @@ public void killBomberman(int i, int j){
 	while(counter >=-CONSTANTS.BOMB_RANGE1 ){
 		if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 		System.out.println("KILLING BOMBERMAN");
-		this.gameBoard.killBomberman();
+		this.gameBoard.getBomberMan().die();
 		}
 		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCell() == j){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
+			this.gameBoard.getBomberMan().die();
 			
 			}
 		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
-			
+			this.gameBoard.getBomberMan().die();
 			}
 		if(this.gameBoard.getBomberMan().getICell() == (i+counter) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
+			this.gameBoard.getBomberMan().die();
 			
 			}
 		counter--;}
@@ -108,22 +114,22 @@ public void killBomberman(int i, int j){
 	while(counter <=CONSTANTS.BOMB_RANGE1 ){
 		if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
 		System.out.println("KILLING BOMBERMAN");
-		this.gameBoard.killBomberman();
+		this.gameBoard.getBomberMan().die();
 		
 		}
 		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
+			this.gameBoard.getBomberMan().die();
 			
 			}
 		if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
+			this.gameBoard.getBomberMan().die();
 			
 			}
 		if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
+			this.gameBoard.getBomberMan().die();
 			
 			}
 		counter++;
@@ -133,21 +139,21 @@ public void killBomberman(int i, int j){
 		while(counter >=-CONSTANTS.BOMB_RANGE1 ){
 			if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
 			System.out.println("KILLING BOMBERMAN");
-			this.gameBoard.killBomberman();
+			this.gameBoard.getBomberMan().die();
 			}
 			if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCell() == (j+counter)){
 				System.out.println("KILLING BOMBERMAN");
-				this.gameBoard.killBomberman();
+				this.gameBoard.getBomberMan().die();
 				
 				}
 			if(this.gameBoard.getBomberMan().getICellBottomBomberman() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
 				System.out.println("KILLING BOMBERMAN");
-				this.gameBoard.killBomberman();
+				this.gameBoard.getBomberMan().die();
 				
 				}
 			if(this.gameBoard.getBomberMan().getICell() == (i) && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == (j+counter)){
 				System.out.println("KILLING BOMBERMAN");
-				this.gameBoard.killBomberman();
+				this.gameBoard.getBomberMan().die();
 				
 				}
 			counter--;}

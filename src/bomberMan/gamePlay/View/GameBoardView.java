@@ -46,7 +46,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 
 		  
 		  this.addKeyListener(this);
-		  this.repaint();		  
+		  this.repaint();	
+		 
 	  }
 	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
 	  {

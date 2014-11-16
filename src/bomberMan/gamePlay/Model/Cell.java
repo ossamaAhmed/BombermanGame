@@ -20,6 +20,10 @@ public class Cell {
 	
 	/*Instance Variables*/
 	boolean hasABomb = false;
+	int xPos;
+	int yPos;
+	boolean hasAFlame = false;
+	boolean hasABrick = false;
 	boolean isEmpty = true;
 	boolean hasADetonateBomb = false;
 	boolean hasAPowerUp = false;
@@ -33,8 +37,10 @@ public class Cell {
 	 * This method takes care of the initialization of the ArrayList of gameObjects which will hold 
 	 * any gameObject present in this cell except characters.
 	 */
-	public Cell()
-	{
+	public Cell(int xPos, int yPos)
+	{   this.xPos = xPos;
+	    this.yPos = yPos;
+	   
 		this.myObjects=new ArrayList<GameObject>();
 		this.isEmpty = true;
 		timer = Calendar.getInstance();
@@ -129,24 +135,49 @@ public class Cell {
 				   System.out.println("Start showing bomb explosion "+ start);
 				   System.out.println("Finish showing bomb explosion "+ finish);
 				    while(start <= finish){
-				
+				    
 				    System.out.println("Showing explosion " + type);
 					start = start + 10;
 					System.out.println("Time showing bomb explosion "+ start);
 				    }}
+			
 				System.out.println("Deleting " + type);
 			this.myObjects.remove(i);
 			
 			this.hasABomb = false;
+			boolean hasAPowerUp = false;
+			boolean hasADestructibleBrick = false;
 			this.hasADetonateBomb = false;
-			this.hasAPowerUp = false;
-			this.hasADestructibleBrick = false;
+			boolean hasAFlame = false;
+			//this.hasAPowerUp = false;
+			//this.hasADestructibleBrick = false;
 				}
 						}
 		
 	}
+	public void setFlameImages(){
+		
+		this.hasAFlame = true;
+	    this.insert( new GameObject(this.yPos, this.xPos,CONSTANTS.Bomb_EXPLOSION, "Flame"));
+	    
+	    
+	}
+	public int searchFlameObject(){
+		int i = 0;
+		if(this.myObjects.size() >0){
+		for(i =0; i< this.myObjects.size(); i++){
+			
+			if(this.myObjects.get(i).getType().equals("Flame")){
+				System.out.println("FlamesFound");
+				
+				return i;}}}
+		return 0;
+		
+		
+	}
+	public void removeFlames(){if(this.myObjects.size() > 0){this.myObjects.remove(searchFlameObject());}}
 	public boolean getIsEmpty(){return this.isEmpty;}
 	public void setIsEmpty(boolean set){this.isEmpty = set;}
-	
+	public boolean hasAFlame(){return this.hasAFlame;}
 	
 }

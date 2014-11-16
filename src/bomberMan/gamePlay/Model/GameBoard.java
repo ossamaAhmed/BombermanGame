@@ -23,7 +23,7 @@ public class GameBoard {
 		{
 			for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 			{
-				board[i][j]=new Cell();
+				board[i][j]=new Cell(i*CONSTANTS.TILE_SIDE_SIZE, j*CONSTANTS.TILE_SIDE_SIZE);
 			}
 		}
 		/*The Starting position shouldn't be hard coded. 
@@ -95,7 +95,7 @@ public class GameBoard {
 		this.board[yCellPos][xCellPos].insert(objectBomb);
 		this.myBomberMan.addBomb(objectBomb);
 	}
-	public void killBomberman(){
+	public void killBomberman(int i, int j){
 		this.myBomberMan.die();
 	}
 	
