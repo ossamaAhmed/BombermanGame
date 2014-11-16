@@ -29,7 +29,16 @@ public class CONSTANTS {
 	public final static String Bomb_IMAGE ="Bomb.png";
 	public final static String Bomb_EXPLOSION ="BombMainExplosionV1.png";
 	public final static String Bomb_EXPLOSION2 ="BombMainExplosionV2.png";
+	public final static String MYSTERY_POWERUP ="mysteryPowerup.png";
+	public final static String IMMUNITY_POWERUP ="ImmunityPowerUp.png";
+	public final static String FLAME_POWERUP ="FlamePowerUp.png";
+	public final static String BOMB_RANGE_POWERUP ="BombRangePowerUp.png";
+	public final static String BOMB_POWERUP ="BombPowerUp.png";
+	public final static String BOMB_IMMUNITY_POWERUP ="BombImmunity.png";
+	public final static String SPEED_POWERUP ="SpeedPowerUp.png";
+	public final static String WALLPASS_POWERUP ="WallPassPowerUp.png";
 	public final static String BMB_dead = "SkullBMB.png";
+	
 	public final static int WINDOW_WIDTH=NUMBER_OF_HORIZONTAL_TILES*TILE_SIDE_SIZE;
 	public final static int WINDOW_HEIGHT=NUMBER_OF_VERTICAL_TILES*TILE_SIDE_SIZE;
     public void setBombRange(int range){this.BOMB_RANGE1 = range;}
