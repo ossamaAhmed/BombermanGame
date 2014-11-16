@@ -68,7 +68,7 @@ private boolean checkCollision(Character myCharacter, int direction)
 		 }
 		 	 
 		 myGameBoard.getBomberMan().moveRight(myGameBoard.getBomberMan().getSpeed());
-		// this.myGameBoard.getBomberMan().setLastDirection(2);
+	
 	 }
 	 else if(keyE.getKeyCode() == KeyEvent.VK_LEFT && !(checkCollision(myGameBoard.getBomberMan(), 1)))
 	 {

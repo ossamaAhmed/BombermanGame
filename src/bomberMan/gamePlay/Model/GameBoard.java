@@ -95,9 +95,6 @@ public class GameBoard {
 		this.board[yCellPos][xCellPos].insert(objectBomb);
 		this.myBomberMan.addBomb(objectBomb);
 	}
-	public void killBomberman(int i, int j){
-		this.myBomberMan.die();
-	}
 	
 	
 	
