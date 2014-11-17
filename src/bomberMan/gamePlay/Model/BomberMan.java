@@ -74,7 +74,13 @@ public class BomberMan extends Character {
 	public int getJCellRightMostBomberman(){
 		return (int)((this.getPositionX()+ CONSTANTS.BOMBERMAN_WIDTH)/ CONSTANTS.TILE_SIDE_SIZE);
 	}
-	
+	public Bomb getOldestBomb(){
+		
+		if(this.myBombs.size() > 0){
+			return this.myBombs.get(this.myBombs.size()-1);
+		}
+		return new Bomb();
+	}
 	public void die(){
 		super.die();
 		this.setImageLocation(CONSTANTS.BMB_dead);

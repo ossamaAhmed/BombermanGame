@@ -129,7 +129,9 @@ public class Cell {
 	//sets the boolean hasADetonatorBomb of the cell
 	public void setHasADetonatorBomb(boolean set){this.hasADetonateBomb = set;}
 	//returns true if the cell has  a Bomb and false if not
-	public boolean getHasABomb(){return this.hasABomb;}
+	public boolean getHasABomb(){
+		if(this.hasADetonateBomb == true){return false;}
+		return this.hasABomb;}
 	//returns true if the cell has  a Detonator Bomb and false if not
 	public boolean getHasADetonateBomb(){return this.hasADetonateBomb;}
 	public Bomb searchBomb(){
@@ -162,22 +164,6 @@ public class Cell {
 				    }
 				    				
 				    this.hasABomb = false;
-					this.myObjects.remove(i);
-				}
-				if(this.myObjects.get(i).getType().equals("BombDetonator")){
-				    long start = timer.getTimeInMillis();
-				    long finish = start + CONSTANTS.BOMB_EXPLOSION_SHOWING_TIME2;
-				    this.myObjects.get(i).setImageLocation(CONSTANTS.Bomb_EXPLOSION);
-				   System.out.println("Start showing bomb explosion "+ start);
-				   System.out.println("Finish showing bomb explosion "+ finish);
-				    while(start <= finish){
-				    
-				    System.out.println("Showing explosion " + type);
-					start = start + 10;
-					System.out.println("Time showing bomb explosion "+ start);
-				    }
-				    				
-					this.hasADetonateBomb = false;
 					this.myObjects.remove(i);
 				}
 				

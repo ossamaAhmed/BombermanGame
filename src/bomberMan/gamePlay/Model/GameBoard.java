@@ -9,7 +9,7 @@ package bomberMan.gamePlay.Model;
 public class GameBoard {
 	
 	/*Instance Variables*/
-	Cell board[][];
+	public Cell board[][];
 	BomberMan myBomberMan;
 	/** 
 	 * Constructor
@@ -78,7 +78,7 @@ public class GameBoard {
 		 {
 			 for(int j=2;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1;j+=2)
 			 {
-				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.CONCRETE));
+				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 			 }
 		 }
 	}

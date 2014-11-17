@@ -90,7 +90,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 if(keyE.getKeyCode()==KeyEvent.VK_D)
 		 { 
 			
-			 controller.detonateOldestBomb();
+			 gmController.detonateOldestBomb();
 		 }
 	 }
 	  /** 

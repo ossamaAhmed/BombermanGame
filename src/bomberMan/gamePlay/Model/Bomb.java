@@ -38,16 +38,25 @@ public class Bomb extends GameObject {
 	public Bomb(int xPos, int yPos, long timerTime, int explosionRange,boolean detonatorActivated, String typeBomb) {
 		super(xPos,yPos,CONSTANTS.Bomb_IMAGE,typeBomb);
 		this.timeToExplode=timerTime;
-		
+		long creationTime = 0;
 		this.timer=Calendar.getInstance();
-		long creationTime = timer.getTimeInMillis();
-		this.detonationTime = creationTime+timerTime;
+		if(detonatorActivated == false){
+		 creationTime = timer.getTimeInMillis();
+		this.detonationTime = creationTime+timerTime;}
+		if(detonatorActivated == true){
+		    creationTime = timer.getTimeInMillis();
+			this.detonationTime = creationTime + timerTime;}
 		this.explosionRange=explosionRange;
 		this.detonatorActivated=detonatorActivated;
 		System.out.println("CreationTime: "+creationTime);
 		System.out.println("TimerTime: "+timerTime);
 		System.out.println("detonationTime: "+detonationTime);
-		this.setType(typeBomb);
+		if(detonatorActivated == false){
+		this.setType("Bomb");}
+		if(detonatorActivated == true){
+			this.setType("Bomb");}
+			
+		
 	}
 	/** 
 	 * This method return a boolean if the detonator is activated which indicates that bomberMan should 
