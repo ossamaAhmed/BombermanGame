@@ -21,11 +21,7 @@ public void run(){
 	timer =Calendar.getInstance();
 	while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
-		/*try {
-		    this.sleep(2000);                 //1000 milliseconds is one second.
-		} catch(InterruptedException ex) {
-		    this.currentThread().interrupt();
-		}*/
+		
 	}
 }
 /*
@@ -38,7 +34,7 @@ public void detonateRegularBombs(){
 	 {
 		 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 		 {
-			 if(this.gameBoard.getCell(i, j).getHasABomb()){
+			 if(this.gameBoard.board[i][j].getHasABomb()){
 				
 				 
 				 if(this.gameBoard.getCell(i, j).searchBomb().getDetonationTime() <= this.gameBoard.getCell(i, j).searchBomb().getBombTimer()){
@@ -101,7 +97,7 @@ public void detonateRegularBombs(){
 									
 						counter1++;
 					}
-					this.gameBoard.getCell(i, j).deleteElement("Bomb");
+					this.gameBoard.board[i][j].deleteElement("Bomb");
 					this.killBomberman1(i, j);
 					this.destroyBricks(i, j);
 						int counter2 = 1;
@@ -356,8 +352,27 @@ public void killBomberman1(int i, int j){
 		System.out.println("ICELL " + iCell);
 		this.gameBoard.board[iCell][jCell].setHasADetonatorBomb(false);
 		this.gameBoard.myBomberMan.removeOldestBomb();
+		
+		
 	}
 	
-	
+	/*
+	 * Drops a  bomb that is  going to be detonated
+	 */
+	public void dropBombDetonator(){
+		 
+		 int posXBomb = this.gameBoard.myBomberMan.getPositionX();
+		 int posYBomb = this.gameBoard.myBomberMan.getPositionY();
+		 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
+		 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
+		 if(this.gameBoard.board[celY][celX].isEmpty()){
+		 this.gameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
+		 this.gameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
+		 this.gameBoard.board[celY][celX].setHasABomb(true);
+		 
+		 this.gameBoard.board[celY][celX].setHasADetonatorBomb(true);
+		 
+		 }
+	}
 
 }

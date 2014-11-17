@@ -434,29 +434,12 @@ public void dropBomb(){
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
 	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
-	// this.myGameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
+	
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
 	 
 	 }
 }
-/*
- * Drops a  bomb that is  going to be detonated
- */
-public void dropBombDetonator(){
-	 
-	 int posXBomb = this.myGameBoard.getBomberMan().getPositionX();
-	 int posYBomb = this.myGameBoard.getBomberMan().getPositionY();
-	 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
-	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
-	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
-	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
-	 this.myGameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
-	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
-	 
-	 this.myGameBoard.getCell(celY, celX).setHasADetonatorBomb(true);
-	 
-	 }
-}
+
 /*
  * gets a forbidden direction for the bomberman
  */

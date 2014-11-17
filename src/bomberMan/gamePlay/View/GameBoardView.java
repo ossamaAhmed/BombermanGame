@@ -85,7 +85,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 }
 		 if(keyE.getKeyCode()==KeyEvent.VK_A)
 		 {
-			 controller.dropBombDetonator();
+			 gmController.dropBombDetonator();
 		 }
 		 if(keyE.getKeyCode()==KeyEvent.VK_D)
 		 { 
