@@ -10,9 +10,9 @@ public class PowerUp extends GameObject {
 		type=null;
 	}
 	
-	public PowerUp(int xPos, int yPos, String locationImage, PowerUpType type, String namePowerUp){
-		super(xPos, yPos,locationImage, namePowerUp);
-		this.type = type;
+	public PowerUp(int xPos, int yPos, String locationImage, PowerUpType namePowerUp, String typeObject){
+		super(xPos, yPos,locationImage,typeObject ); // type object is supposed to be equal to PowerUp
+		this.type = namePowerUp;
 		
 	}
 	

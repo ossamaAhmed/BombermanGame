@@ -98,7 +98,7 @@ public void detonateRegularBombs(){
 					}
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
 					this.killBomberman1(i, j);
-					 
+					this.destroyBricks(i, j);
 						int counter2 = 1;
 						boolean right2 = true;
 						boolean left2 = true;
@@ -256,9 +256,85 @@ public void killBomberman1(int i, int j){
 		
 		counter1++;
 	}
-	
-	
-	
+}
+/*
+ * Destroys the bricks in the bombs range
+ * 	
+ */
+	public void destroyBricks(int i, int j){
+		boolean up = true;
+		boolean down = true;
+		boolean right = true;
+		boolean left = true;
+		
+		
+		int counter1 = 1;
+		while(counter1 <= CONSTANTS.BOMB_RANGE1){
+			// checking the right range of the bomb; if a brick is present and there is no concrete walls at bomb range
+			if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
+				if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+					if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
+				}}
+				if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getCell(i, j+ counter1).searcHasABrickWall() == true){
+						System.out.println("DESTROYING BRICK");
+						this.gameBoard.getCell(i, j+ counter1).deleteElement("Brick");}			
+					
+		         	}
+			
+			if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+				if(this.gameBoard.getCell(i, j+counter1+1).searcHasAConcreteWall()== true){right = false;}}
+			// checking the left range of the bomb; if a brick is present and there is no concrete walls at bomb range
+			if(j -counter1 >=0 && left == true ){
+				if(j -counter1  >=0 && left == true){
+					if(this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall()== true){left = false;}
+				}}
+				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getCell(i, j- counter1).searcHasABrickWall() == true){
+						System.out.println("DESTROYING BRICK");
+						this.gameBoard.getCell(i, j-counter1).deleteElement("Brick");}
+									
+			}
+			
+			if(j -counter1 - 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && left == true){
+				if(this.gameBoard.getCell(i, j-counter1-1).searcHasAConcreteWall()== true){left = false;}}
+			// checking the south range of the bomb;if a brick is present and there is no concrete walls at range
+			if(i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true ){
+				if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+					if(this.gameBoard.getCell(i + counter1, j).searcHasAConcreteWall()== true){down = false;}
+				}}
+				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getCell(i +counter1,j).searcHasABrickWall() == true){
+						System.out.println("DESTROYING BRICK");
+						this.gameBoard.getCell(i+counter1,j).deleteElement("Brick");}
+					
+					
+			}
+			
+			if(i +counter1 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+				if(this.gameBoard.getCell(i + counter1 + 1, j).searcHasAConcreteWall()== true){down = false;}}
+			
+			// checking the north range of the bomb;if a brick is present and there is no concrete walls at range
+			
+			if(i -counter1 >= 0 && up == true ){
+				if(i - counter1  >= 0 && up == true){
+					if(this.gameBoard.getCell(i - counter1, j).searcHasAConcreteWall()== true){up = false;}
+				}}
+				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getCell(i-counter1,j).searcHasABrickWall() == true){
+						System.out.println("DESTROYING BRICK");
+						this.gameBoard.getCell(i-counter1,j).deleteElement("Brick");}
+					
+					
+			}
+			
+			if(i -counter1 - 1 >= 0 && up == true){
+				if(this.gameBoard.getCell(i - counter1 - 1, j).searcHasAConcreteWall()== true){up = false;}}
+			
+				
+			
+			counter1++;
+		}
 }
 
 

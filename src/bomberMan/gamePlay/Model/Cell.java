@@ -148,10 +148,11 @@ public class Cell {
 					this.hasADetonateBomb = false;
 					this.myObjects.remove(i);
 				}
-				if(this.myObjects.get(i).getType().equals("Concrete")){
-				   this.hasADestructibleBrick = false;
-				   this.myObjects.remove(i);
-				  }
+				
+				if(this.myObjects.get(i).getType().equals("Brick")){
+					   this.hasADestructibleBrick = false;
+					   this.myObjects.remove(i);
+					  }
 			
 				System.out.println("Deleting " + type);
 				

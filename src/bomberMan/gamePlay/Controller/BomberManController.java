@@ -259,7 +259,7 @@ if((!up && !down) || (!downA && !upA)){
 	collision = true;}}
 return collision;
 }
-/*Checks if the character is centered with the X sxis = 0;
+/*Checks if the character is centered with the X axis = 0;
  * 
  */
 public boolean checkIfCharacterIsCenteredXAxis(Character character){
