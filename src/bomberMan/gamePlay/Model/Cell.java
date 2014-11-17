@@ -143,18 +143,23 @@ public class Cell {
 				    System.out.println("Showing explosion " + type);
 					start = start + 10;
 					System.out.println("Time showing bomb explosion "+ start);
-				    }}
+				    }
+				    this.hasABomb = false;					
+					this.hasADetonateBomb = false;
+					this.myObjects.remove(i);
+				}
+				if(this.myObjects.get(i).getType().equals("Concrete")){
+				   this.hasADestructibleBrick = false;
+				   this.myObjects.remove(i);
+				  }
 			
 				System.out.println("Deleting " + type);
-			this.myObjects.remove(i);
+				
+				
 			
-			this.hasABomb = false;
-			boolean hasAPowerUp = false;
-			boolean hasADestructibleBrick = false;
-			this.hasADetonateBomb = false;
-			boolean hasAFlame = false;
-			//this.hasAPowerUp = false;
-			//this.hasADestructibleBrick = false;
+		
+			
+		
 				}
 						}
 		
@@ -193,6 +198,18 @@ public class Cell {
 				return true;}}}
 		return false;
 	}
+	//search for a brick wall in the cell
+		public boolean searcHasABrickWall(){
+			int i = 0;
+			if(this.myObjects.size() >0){
+			for(i =0; i< this.myObjects.size(); i++){
+				
+				if(this.myObjects.get(i).getType().equals("Brick")){
+					System.out.println("Brick");
+					
+					return true;}}}
+			return false;
+		}
 	//removes the flames from the cell
 	public void removeFlames(){if(this.myObjects.size() > 0){this.myObjects.remove(searchFlameObject());}}
 	//verifies if the cell has no GameObjects

@@ -110,7 +110,9 @@ public void detonateRegularBombs(){
 									if(this.gameBoard.getCell(i, j+counter2).hasAFlame()== false){right2 = false;}
 								}}
 								if(right2 == true && j +counter2 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter2).hasAFlame()){
-							this.gameBoard.getCell(i, j+counter2).removeFlames();}
+							this.gameBoard.getCell(i, j+counter2).removeFlames();
+							
+								}
 							
 							if(j +counter2 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true){
 								if(this.gameBoard.getCell(i, j+counter2+1).hasAFlame()== false){right2 = false;}}
