@@ -346,15 +346,16 @@ public void killBomberman1(int i, int j){
 	 */
 	public void detonateOldestBomb(){
 		
-		int xPos =this.gameBoard.getBomberMan().getOldestBomb().getPositionX();
+		int xPos =this.gameBoard.myBomberMan.getOldestBomb().getPositionX();
 		System.out.println("X POSITION "+ xPos );
-		int yPos = this.gameBoard.getBomberMan().getOldestBomb().getPositionY();
+		int yPos = this.gameBoard.myBomberMan.getOldestBomb().getPositionY();
 		System.out.println("Y POSITION" + yPos);
 		int jCell = xPos/CONSTANTS.TILE_SIDE_SIZE;
 		System.out.println("jCELL " + jCell);
 		int iCell = yPos/CONSTANTS.TILE_SIDE_SIZE;
 		System.out.println("ICELL " + iCell);
 		this.gameBoard.board[iCell][jCell].setHasADetonatorBomb(false);
+		this.gameBoard.myBomberMan.removeOldestBomb();
 	}
 	
 	

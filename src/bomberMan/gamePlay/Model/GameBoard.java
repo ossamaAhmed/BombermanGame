@@ -10,7 +10,7 @@ public class GameBoard {
 	
 	/*Instance Variables*/
 	public Cell board[][];
-	BomberMan myBomberMan;
+	public BomberMan myBomberMan;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 

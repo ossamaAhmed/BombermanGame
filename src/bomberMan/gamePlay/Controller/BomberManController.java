@@ -434,7 +434,7 @@ public void dropBomb(){
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
 	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
-	 this.myGameBoard.getBomberMan().addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
+	// this.myGameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
 	 
 	 }
@@ -450,7 +450,7 @@ public void dropBombDetonator(){
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
 	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
-	 this.myGameBoard.getBomberMan().addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
+	 this.myGameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
 	 
 	 this.myGameBoard.getCell(celY, celX).setHasADetonatorBomb(true);

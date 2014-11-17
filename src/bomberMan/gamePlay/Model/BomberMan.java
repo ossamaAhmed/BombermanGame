@@ -17,7 +17,9 @@ public class BomberMan extends Character {
 	/*Instance Variables*/
 	private ArrayList<PowerUp> myPowerUps;
 	private ArrayList<Bomb> myBombs;
-	
+	boolean canBrickPass = false;
+	boolean canFlamePass = false;
+	int currentBombRange = CONSTANTS.BOMB_RANGE1;
 	
 	/** 
 	 * Constructor
@@ -74,10 +76,15 @@ public class BomberMan extends Character {
 	public int getJCellRightMostBomberman(){
 		return (int)((this.getPositionX()+ CONSTANTS.BOMBERMAN_WIDTH)/ CONSTANTS.TILE_SIDE_SIZE);
 	}
+	public void removeOldestBomb(){
+		
+		this.myBombs.remove(0);
+	}
+	// returns the oldest detonator bomb dropped
 	public Bomb getOldestBomb(){
 		
 		if(this.myBombs.size() > 0){
-			return this.myBombs.get(this.myBombs.size()-1);
+			return this.myBombs.get(0);
 		}
 		return new Bomb();
 	}
