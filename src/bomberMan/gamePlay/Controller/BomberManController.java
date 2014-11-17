@@ -118,9 +118,9 @@ private boolean checkCollision(Character myCharacter, int direction)
 	 
  }
  /*
-  * Returns the GameBoard field of the BomberManController class
+  * Returns the myGameBoard field of the BomberManController class
   * */
- public GameBoard getGameBoard(){return this.myGameBoard;}
+ public GameBoard getmyGameBoard(){return this.myGameBoard;}
  /*
   * Checks if the Bomberman move to the right is going to cause a collision with a GameObject
   * */
@@ -419,7 +419,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 		
 }
 /*
- * Drops a bomb in the gameboard
+ * Drops a  bomb that is not going to be detonated
  */
 public void dropBomb(){
 	 
@@ -428,9 +428,26 @@ public void dropBomb(){
 	 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
-	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false));
+	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
+	 this.myGameBoard.getBomberMan().addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
-	 //this.myGameBoard.getCell(celY,celX).searchBomb();
+	 
+	 }
+}
+/*
+ * Drops a  bomb that is  going to be detonated
+ */
+public void dropBombDetonator(){
+	 
+	 int posXBomb = this.myGameBoard.getBomberMan().getPositionX();
+	 int posYBomb = this.myGameBoard.getBomberMan().getPositionY();
+	 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
+	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
+	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
+	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, true, "BombDetonator"));
+	 this.myGameBoard.getBomberMan().addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, true, "BombDetonator"));
+	 this.myGameBoard.getCell(celY, celX).setHasADetonatorBomb(true);
+	 
 	 }
 }
 /*
@@ -453,12 +470,6 @@ public int getDirection(KeyEvent key){
 	if(KeyEvent.VK_DOWN == key.getKeyCode()){return 4;}
 	return -1;
 }
-/*
- * Detonate a bomb which has a detonator
- */
-/*public void detonateBomb(){
-	
-	this.myGameBoard
-	
-}*/
+
+
 }

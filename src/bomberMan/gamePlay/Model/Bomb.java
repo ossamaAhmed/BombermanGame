@@ -35,8 +35,8 @@ public class Bomb extends GameObject {
 	 * detonatorActivated is a boolean that indicated if bomberMan is the one who controls the bomb or 
 	 * should the bomb explodes with the timer counting down to 0.
 	 */
-	public Bomb(int xPos, int yPos, long timerTime, int explosionRange,boolean detonatorActivated) {
-		super(xPos,yPos,CONSTANTS.Bomb_IMAGE,"Bomb");
+	public Bomb(int xPos, int yPos, long timerTime, int explosionRange,boolean detonatorActivated, String typeBomb) {
+		super(xPos,yPos,CONSTANTS.Bomb_IMAGE,typeBomb);
 		this.timeToExplode=timerTime;
 		
 		this.timer=Calendar.getInstance();

@@ -83,6 +83,14 @@ public class GameBoardView extends JPanel implements KeyListener {
 			        x.requestFocusInWindow();
 			        myFrame.setVisible(true);
 		 }
+		 if(keyE.getKeyCode()==KeyEvent.VK_A)
+		 {
+			 controller.dropBombDetonator();
+		 }
+		 if(keyE.getKeyCode()==KeyEvent.VK_D)
+		 {
+			 gmController.detonateOldestBomb();
+		 }
 	 }
 	  /** 
 	   * These methods are required by the interface implemented. Not used yet. 
