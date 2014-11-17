@@ -21,6 +21,11 @@ public void run(){
 	timer =Calendar.getInstance();
 	while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
+		/*try {
+		    this.sleep(2000);                 //1000 milliseconds is one second.
+		} catch(InterruptedException ex) {
+		    this.currentThread().interrupt();
+		}*/
 	}
 }
 /*

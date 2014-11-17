@@ -119,6 +119,8 @@ public class Cell {
 	 */
 	public boolean isEmptyPowerUpException()
 	{
+		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false && this.searcHasAConcreteWall()== false){
+		return true;}
 		return this.myObjects.isEmpty();
 	}
 	//sets the boolean hasABomb of the cell
@@ -242,6 +244,18 @@ public class Cell {
 					return true;}}}
 			return false;
 		}
+		//search for a powerup in the cell
+				public boolean searcHasAPowerUp(){
+					int i = 0;
+					if(this.myObjects.size() >0){
+					for(i =0; i< this.myObjects.size(); i++){
+						
+						if(this.myObjects.get(i).getType().equals("PowerUp")){
+							System.out.println("PowerUp");
+							
+							return true;}}}
+					return false;
+				}
 	//removes the flames from the cell
 	public void removeFlames(){if(this.myObjects.size() > 0){this.myObjects.remove(searchFlameObject());}}
 

@@ -14,7 +14,7 @@ import bomberMan.gamePlay.Model.*;
 import bomberMan.gamePlay.Model.Character;
 
 
-public class CharacterController{
+public class CharacterController extends Thread{
 	
 	/*Instance Variables*/
 	GameBoard myGameBoard;
