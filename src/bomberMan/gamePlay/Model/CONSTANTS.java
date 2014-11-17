@@ -9,12 +9,12 @@
 package bomberMan.gamePlay.Model;
 
 public class CONSTANTS {
-	public final static int DEFAULT_BOMB_RANGE=2; // in number Of blocks
+	public  static int DEFAULT_BOMB_RANGE=2; // in number Of blocks
 	public final static int INITIAL_BOMBERMAN_X_POS = 50;
 	public final static int INITIAL_BOMBERMAN_Y_POS = 50;
 	public final static int BOMBERMAN_WIDTH = 20;
 	public final static int BOMBERMAN_HEIGHT = 20;
-	public final static int BOMB_TIMER=8000;//in milliseconds
+	public static int BOMB_TIMER=8000;//in milliseconds
 	public final static int BOMB_EXPLOSION_SHOWING_TIME = 100000; // in milliseconds
 	public final static int BOMB_FLAME_SHOWING_TIME = 10000; // in milliseconds
 	public static int BOMB_RANGE1 =2;
@@ -42,6 +42,7 @@ public class CONSTANTS {
 	
 	public final static int WINDOW_WIDTH=NUMBER_OF_HORIZONTAL_TILES*TILE_SIDE_SIZE;
 	public final static int WINDOW_HEIGHT=NUMBER_OF_VERTICAL_TILES*TILE_SIDE_SIZE;
-    public void setBombRange(int range){this.BOMB_RANGE1 = range;}
-    public void setSpeedBomberman(int speed){ DEFAULT_SPEEDBOMBERMAN = speed;}
+    public void setBombRange(int range){CONSTANTS.BOMB_RANGE1 = range;}
+    public void setSpeedBomberman(int speed){ CONSTANTS.DEFAULT_SPEEDBOMBERMAN = speed;}
+    public void setBombTime(int timer){ CONSTANTS.BOMB_TIMER = timer;}
 }

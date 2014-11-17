@@ -136,12 +136,12 @@ boolean collision = false;
 int width = CONSTANTS.TILE_SIDE_SIZE;
 if(direction == 2){
 	
-	if(!this.myGameBoard.getCell((yPos)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 1");
 		
 	}
-	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 2");	
 	}
@@ -163,12 +163,12 @@ boolean collision = false;
 int width = CONSTANTS.TILE_SIDE_SIZE;
 if(direction == 1){
 	
-	if(!this.myGameBoard.getCell((yPos)/width,(xPos - speed)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos)/width,(xPos - speed)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 1");
 		
 	}
-	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos - speed)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos - speed)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 2");	
 	}
@@ -190,12 +190,12 @@ boolean collision = false;
 int width = CONSTANTS.TILE_SIDE_SIZE;
 if(direction == 3){
 	
-	if(!this.myGameBoard.getCell((yPos - speed)/width,(xPos)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos - speed)/width,(xPos)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 1");
 		
 	}
-	if(!this.myGameBoard.getCell((yPos- speed)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos- speed)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 2");	
 	}
@@ -217,12 +217,12 @@ boolean collision = false;
 int width = CONSTANTS.TILE_SIDE_SIZE;
 if(direction == 4){
 	
-	if(!this.myGameBoard.getCell((yPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 1");
 		
 	}
-	if(!this.myGameBoard.getCell((yPos+ speed+ CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmpty()){
+	if(!this.myGameBoard.getCell((yPos+ speed+ CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
 		System.out.println("COLLISION 2");	
 	}
@@ -243,18 +243,18 @@ int heightBMB = CONSTANTS.BOMBERMAN_HEIGHT;
 int widthBMB = CONSTANTS.BOMBERMAN_WIDTH;
 int width = CONSTANTS.TILE_SIDE_SIZE;
 if(direction == 1 || direction == 2){
-boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmpty();
-boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmpty();
-boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmpty();
-boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmpty();
+boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmptyPowerUpException();
+boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
+boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
+boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
 if((!left &&! right) || (!leftA && !rightA)){collision = true;}
 }
 
 if(direction == 3 || direction == 4){
-	boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmpty();
-	boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmpty();
-	boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmpty();
-	boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmpty();
+	boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmptyPowerUpException();
+	boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmptyPowerUpException();
+	boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
+	boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 if((!up && !down) || (!downA && !upA)){
 	collision = true;}}
 return collision;
@@ -332,12 +332,12 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 		 	 
 		 
 		 int displacement = myGameBoard.getBomberMan().getSpeed();
-		 boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmpty();
-		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmpty();
-		 boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmpty();
-		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmpty();
+		 boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmptyPowerUpException();
+		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
+		 boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
+		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
 		 boolean sidesFree = (!left &&! right) || (!leftA && !rightA);
-		 if(this.myGameBoard.getCell( (yPos)/width,(xPos+widthBMB)/width).isEmpty()|| !sidesFree){
+		 if(this.myGameBoard.getCell( (yPos)/width,(xPos+widthBMB)/width).isEmptyPowerUpException()|| !sidesFree){
 			 if(!centeredYAxis){
 				 int offset = computeOffsetFromCenterYaxis(myGameBoard.getBomberMan());
 				 if(offset > 0){
@@ -353,13 +353,13 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 	 if(directionMove == 1 ){
 		
 		 int displacement = myGameBoard.getBomberMan().getSpeed();
-		 boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmpty();
-		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmpty();
-		 boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmpty();
-		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmpty();
+		 boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmptyPowerUpException();
+		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
+		 boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
+		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
 		 boolean sidesFree = (!left &&! right) || (!leftA && !rightA);
 		  	
-		 if(this.myGameBoard.getCell( (yPos)/width,(xPos)/width).isEmpty()|| !sidesFree){
+		 if(this.myGameBoard.getCell( (yPos)/width,(xPos)/width).isEmptyPowerUpException()|| !sidesFree){
 			 if(!centeredYAxis){
 				 int offset = computeOffsetFromCenterYaxis(myGameBoard.getBomberMan());
 				 if(offset > 0){
@@ -377,13 +377,13 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 
 		
 		 int displacement = myGameBoard.getBomberMan().getSpeed();
-		 boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmpty();
-			boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmpty();
-			boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmpty();
-			boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmpty();
+		 boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmptyPowerUpException();
+			boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmptyPowerUpException();
+			boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
+			boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 			boolean sidesFree = (!up &&! down) || (!upA && !downA);
 			  	
-		   if(this.myGameBoard.getCell( (yPos+widthBMB)/width,(xPos)/width).isEmpty()|| !sidesFree){
+		   if(this.myGameBoard.getCell( (yPos+widthBMB)/width,(xPos)/width).isEmptyPowerUpException()|| !sidesFree){
 			   if(!centeredXAxis){
 					 int offset = computeOffsetFromCenterXaxis(myGameBoard.getBomberMan());
 					 if(offset > 0){
@@ -397,13 +397,13 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 	 if(directionMove == 3 ){
 		 
 		 int displacement = myGameBoard.getBomberMan().getSpeed();
-		 boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmpty();
-			boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmpty();
-			boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmpty();
-			boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmpty();
+		 boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmptyPowerUpException();
+			boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmptyPowerUpException();
+			boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
+			boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 			boolean sidesFree = (!up &&! down) || (!upA && !downA);
 			  	
-		   if(this.myGameBoard.getCell( (yPos)/width,(xPos)/width).isEmpty()|| !sidesFree){
+		   if(this.myGameBoard.getCell( (yPos)/width,(xPos)/width).isEmptyPowerUpException()|| !sidesFree){
 			   if(!centeredXAxis){
 					 int offset = computeOffsetFromCenterXaxis(myGameBoard.getBomberMan());
 					 if(offset < 0){

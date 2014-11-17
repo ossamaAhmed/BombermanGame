@@ -112,6 +112,15 @@ public class Cell {
 	{
 		return this.myObjects.isEmpty();
 	}
+	/** 
+	 * This method returns a boolean depending if the cell is totally empty and there 
+	 * are no gameObjects including characters present in this cell. Characters part should be 
+	 * implemented soon. However, it returns empty if a power up is present 
+	 */
+	public boolean isEmptyPowerUpException()
+	{
+		return this.myObjects.isEmpty();
+	}
 	//sets the boolean hasABomb of the cell
 	public void setHasABomb(boolean set){this.hasABomb = set;}
 	//returns true if the cell has  a Bomb and false if not
@@ -213,10 +222,8 @@ public class Cell {
 		}
 	//removes the flames from the cell
 	public void removeFlames(){if(this.myObjects.size() > 0){this.myObjects.remove(searchFlameObject());}}
-	//verifies if the cell has no GameObjects
-	public boolean getIsEmpty(){return this.isEmpty;}
-	//sets the boolean isEmpty of the cell
-	public void setIsEmpty(boolean set){this.isEmpty = set;}
+
+	
 	//verifies if the cuttent cell has a flame
 	public boolean hasAFlame(){return this.hasAFlame;}
 	
