@@ -47,7 +47,7 @@ public class Bomb extends GameObject {
 		System.out.println("CreationTime: "+creationTime);
 		System.out.println("TimerTime: "+timerTime);
 		System.out.println("detonationTime: "+detonationTime);
-		this.setType("Bomb");
+		this.setType(typeBomb);
 	}
 	/** 
 	 * This method return a boolean if the detonator is activated which indicates that bomberMan should 

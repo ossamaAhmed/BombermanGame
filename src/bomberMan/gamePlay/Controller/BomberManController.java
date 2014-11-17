@@ -298,16 +298,16 @@ int xLeft =character.getPositionX();
 int yLeft = character.getPositionY();
 int widthBMB = CONSTANTS.BOMBERMAN_WIDTH;
 int size = CONSTANTS.TILE_SIDE_SIZE;
-if(this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasABomb()){
+if(this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasABomb() || this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasADetonateBomb()){
 	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
 	return true;}
-if(this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasABomb()){
+if(this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasABomb() || this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasADetonateBomb()){
 	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
 	return true;}
-if(this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasABomb()){
+if(this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasABomb()|| this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasADetonateBomb()){
 	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
 	return true;}
-if(this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasABomb()){
+if(this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasABomb() || this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasADetonateBomb()){
 	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
 	return true;}
 System.out.println("IS not SHARED WITH A BOMB AND HAS NO BOMB");

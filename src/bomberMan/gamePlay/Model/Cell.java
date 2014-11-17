@@ -159,12 +159,12 @@ public class Cell {
 					System.out.println("Time showing bomb explosion "+ start);
 				    }
 				    				
-				    this.hasADetonateBomb = false;
+				    this.hasABomb = false;
 					this.myObjects.remove(i);
 				}
 				if(this.myObjects.get(i).getType().equals("BombDetonator")){
 				    long start = timer.getTimeInMillis();
-				    long finish = start + CONSTANTS.BOMB_EXPLOSION_SHOWING_TIME;
+				    long finish = start + CONSTANTS.BOMB_EXPLOSION_SHOWING_TIME2;
 				    this.myObjects.get(i).setImageLocation(CONSTANTS.Bomb_EXPLOSION);
 				   System.out.println("Start showing bomb explosion "+ start);
 				   System.out.println("Finish showing bomb explosion "+ finish);

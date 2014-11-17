@@ -466,9 +466,10 @@ public void killBomberman1(int i, int j){
 						   
 							 
 						
-						 
+						return;
 					 
 			 }
+				
 		 }
 	}
 		
