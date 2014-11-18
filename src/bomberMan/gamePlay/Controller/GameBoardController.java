@@ -374,5 +374,21 @@ public void killBomberman1(int i, int j){
 		 
 		 }
 	}
-
+	/*Function that gives if bomberman is in a power up, if true, the bomberman picks up the powerup
+	 * 
+	 * */
+   public void PickPowerUp(){
+	for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
+	 {
+		 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
+		 {
+			 
+			 if(this.gameBoard.getCell(i, j).searcHasAPowerUp() == true){
+				 
+				 if(this.gameBoard.myBomberMan.getICell() == i && this.gameBoard.myBomberMan.getJCell() == j){
+				 this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType();
+				 }
+			 }
+		 }}}
+ 
 }

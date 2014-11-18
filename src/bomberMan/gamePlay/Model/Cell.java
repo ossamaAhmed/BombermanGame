@@ -243,6 +243,18 @@ public class Cell {
 							return true;}}}
 					return false;
 				}
+				//return the powerup contained in the cell.
+				public PowerUp searchAPowerUp(){
+					int i = 0;
+					if(this.myObjects.size() >0){
+					for(i =0; i< this.myObjects.size(); i++){
+						
+						if(this.myObjects.get(i).getType().equals("PowerUp")){
+							System.out.println("PowerUp");
+							
+							return (PowerUp) this.myObjects.get(i);}}}
+					return new PowerUp();
+				}
 	//removes the flames from the cell
 	public void removeFlames(){if(this.myObjects.size() > 0){this.myObjects.remove(searchFlameObject());}}
 
