@@ -341,7 +341,7 @@ public void killBomberman1(int i, int j){
 	 * Detonate a bomb which has a detonator
 	 */
 	public void detonateOldestBomb(){
-		
+		 if(this.gameBoard.myBomberMan.getHasDetonator()){
 		int xPos =this.gameBoard.myBomberMan.getOldestBomb().getPositionX();
 		System.out.println("X POSITION "+ xPos );
 		int yPos = this.gameBoard.myBomberMan.getOldestBomb().getPositionY();
@@ -352,7 +352,7 @@ public void killBomberman1(int i, int j){
 		System.out.println("ICELL " + iCell);
 		this.gameBoard.board[iCell][jCell].setHasADetonatorBomb(false);
 		this.gameBoard.myBomberMan.removeOldestBomb();
-		
+		 }
 		
 	}
 	
@@ -360,7 +360,7 @@ public void killBomberman1(int i, int j){
 	 * Drops a  bomb that is  going to be detonated
 	 */
 	public void dropBombDetonator(){
-		 
+		 if(this.gameBoard.myBomberMan.getHasDetonator()){
 		 int posXBomb = this.gameBoard.myBomberMan.getPositionX();
 		 int posYBomb = this.gameBoard.myBomberMan.getPositionY();
 		 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
@@ -370,7 +370,7 @@ public void killBomberman1(int i, int j){
 		 this.gameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
 		 this.gameBoard.board[celY][celX].setHasABomb(true);
 		 
-		 this.gameBoard.board[celY][celX].setHasADetonatorBomb(true);
+		 this.gameBoard.board[celY][celX].setHasADetonatorBomb(true);}
 		 
 		 }
 	}

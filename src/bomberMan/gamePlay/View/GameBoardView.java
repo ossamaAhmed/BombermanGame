@@ -91,6 +91,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 { 
 			
 			 gmController.detonateOldestBomb();
+			 gmController.detonateOldestBomb();
 		 }
 	 }
 	  /** 

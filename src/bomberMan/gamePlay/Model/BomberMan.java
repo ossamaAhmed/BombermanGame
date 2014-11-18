@@ -20,6 +20,7 @@ public class BomberMan extends Character {
 	boolean canBrickPass = false;
 	boolean canFlamePass = false;
 	int currentBombRange = CONSTANTS.BOMB_RANGE1;
+	boolean hasDetonator = false ;
 	
 	/** 
 	 * Constructor
@@ -77,8 +78,8 @@ public class BomberMan extends Character {
 		return (int)((this.getPositionX()+ CONSTANTS.BOMBERMAN_WIDTH)/ CONSTANTS.TILE_SIDE_SIZE);
 	}
 	public void removeOldestBomb(){
-		
-		this.myBombs.remove(0);
+		if(this.myBombs.size() > 0){
+		this.myBombs.remove(0);}
 	}
 	// returns the oldest detonator bomb dropped
 	public Bomb getOldestBomb(){
@@ -93,5 +94,6 @@ public class BomberMan extends Character {
 		this.setImageLocation(CONSTANTS.BMB_dead);
 		
 	}	
+	public boolean getHasDetonator(){return this.hasDetonator;}
 	
 }
