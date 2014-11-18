@@ -8,6 +8,10 @@ package bomberMan.gamePlay.Controller;
 
 
 import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import bomberMan.gamePlay.Model.*;
 import bomberMan.gamePlay.Model.Character;
 
@@ -22,9 +26,12 @@ public class CharacterController{
 	 * This method takes care of the passing of the game board to the controller to have
 	 * access to it
 	 */
-	public CharacterController(GameBoard  board){
+	public CharacterController(GameBoard  board)
+	{
 		
 	this.myGameBoard=board;
+	EnemyController enemyController=new EnemyController(this);
+	enemyController.start();
 
 	}
 	/** 
@@ -109,6 +116,33 @@ public class CharacterController{
 		 {
 			 myGameBoard.getBomberMan().moveUp(myGameBoard.getBomberMan().getSpeed());
 		 }
+	 }
+	 public void moveEnemy() 
+	 {
+		 if(myGameBoard.getEnemy().getMovmentDirection()==2 && !(checkCollision(myGameBoard.getEnemy(), 2)) )
+		 {
+			 myGameBoard.getEnemy().moveRight(myGameBoard.getEnemy().getSpeed());
+		 }
+		 else if(myGameBoard.getEnemy().getMovmentDirection()==1 && !(checkCollision(myGameBoard.getEnemy(), 1)))
+		 {
+			 myGameBoard.getEnemy().moveLeft(myGameBoard.getEnemy().getSpeed());
+		 }
+		 else if(myGameBoard.getEnemy().getMovmentDirection()==4 && !(checkCollision(myGameBoard.getEnemy(), 4)))
+		 {
+			 myGameBoard.getEnemy().moveDown(myGameBoard.getEnemy().getSpeed());
+		 }
+		 else  if(myGameBoard.getEnemy().getMovmentDirection()==3 && !(checkCollision(myGameBoard.getEnemy(), 3)))
+		 {
+			 myGameBoard.getEnemy().moveUp(myGameBoard.getEnemy().getSpeed());
+		 }
+		 else
+		 {
+			 myGameBoard.getEnemy().changeDirection();
+		 }
+	 }
+	 public GameBoard getGameBoard()
+	 {
+		 return this.myGameBoard;
 	 }
 
 }

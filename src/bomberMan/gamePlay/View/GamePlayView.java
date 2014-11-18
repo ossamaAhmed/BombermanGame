@@ -6,7 +6,9 @@
  */package bomberMan.gamePlay.View;
 
 import bomberMan.gamePlay.Model.*;
+
 import javax.swing.*;
+
 import java.awt.Color;
 
 public class GamePlayView {
@@ -18,14 +20,23 @@ public class GamePlayView {
 	{
 		gameView = new JFrame("BomberMan");
 		board= new GameBoardView(gameView);
-		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameView.setSize(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT); 
-		//gameView.setResizable(false); //Resizing Not working should look into it
-		gameView.addKeyListener(board);		
-		board.setBackground(Color.black);
-		board.setVisible(true);
-		gameView.add(board);
-		gameView.setVisible(true);
+
+		SwingUtilities.invokeLater(new Runnable() 
+	    {
+	      @Override
+	      public void run()  
+	      {  	
+	  		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			gameView.setSize(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT); 
+			//gameView.setResizable(false); //Resizing Not working should look into it
+			gameView.addKeyListener(board);		
+			board.setBackground(Color.black);
+			board.setVisible(true);
+			gameView.add(board);
+			gameView.setVisible(true);
+	    	
+	      }
+	    });
 	}
 
 }

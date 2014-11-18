@@ -10,6 +10,7 @@ package bomberMan.gamePlay.View;
 import bomberMan.Login.View.PauseMenuView;
 import bomberMan.gamePlay.Controller.CharacterController;
 import bomberMan.gamePlay.Model.*;
+
 import javax.swing.*;
 
 import java.awt.Color;
@@ -86,12 +87,6 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 public void updateGameBoardView(int num)
 	 {
 		 this.repaint();
-//		 GameObject o;
-//		 
-//		 if (o instanceof Character) {
-//			 Character c = (Character) o;
-//		 }
-		 
 	 }
 	 
 	 /** 
@@ -102,7 +97,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 super.paintComponent(g);
 		 this.myCanvas = (Graphics2D) g;
-		 
+		 myCanvas.drawImage(myBoard.getEnemy().getImage(), myBoard.getEnemy().getPositionX(),myBoard.getEnemy().getPositionY(), null);
 		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
 		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		 {
@@ -112,6 +107,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 					 myCanvas.drawImage(myBoard.getCell(i, j).getImage(),myBoard.getCell(i, j).getObjects().get(0).getPositionX(),myBoard.getCell(i, j).getObjects().get(0).getPositionY(), null);
 			 }
 		 }
+		 this.repaint();
 	 }
 	 
 	

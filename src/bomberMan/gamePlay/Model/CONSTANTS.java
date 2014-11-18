@@ -17,6 +17,7 @@ public class CONSTANTS {
 	public final static int TILE_SIDE_SIZE=40; //in pixels
 	public final static String CONCRETE_WALL_IMAGE="concrete.png";
 	public final static String BomberMan_IMAGE="Bomberman.png";
+	public final static String BALLOON_IMAGE="balloon.png";
 	public final static int WINDOW_WIDTH=NUMBER_OF_HORIZONTAL_TILES*TILE_SIDE_SIZE;
 	public final static int WINDOW_HEIGHT=NUMBER_OF_VERTICAL_TILES*TILE_SIDE_SIZE;
 

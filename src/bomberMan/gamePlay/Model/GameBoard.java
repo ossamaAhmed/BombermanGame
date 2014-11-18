@@ -15,6 +15,7 @@ public class GameBoard{
 	/*Instance Variables*/
 	Cell board[][];
 	BomberMan myBomberMan;
+	Enemy myEnemy;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
@@ -33,6 +34,7 @@ public class GameBoard{
 		/*The Starting position shouldn't be hard coded. 
 		**The starting position will be added to constants
 		*/
+		myEnemy=new Enemy(200,40);
 		myBomberMan=new BomberMan(40,40);
 		buildSurroundingWall();
 		buildConcreteWalls();
@@ -88,6 +90,10 @@ public class GameBoard{
 	public BomberMan getBomberMan()
 	{
 		return this.myBomberMan;
+	}
+	public Enemy getEnemy()
+	{
+		return this.myEnemy;
 	}
 	
 }
