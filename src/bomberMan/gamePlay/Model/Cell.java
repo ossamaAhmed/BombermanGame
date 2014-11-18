@@ -29,7 +29,7 @@ public class Cell {
 	boolean hasAPowerUp = false;
 	boolean hasADestructibleBrick = false;
 	Calendar timer;
-	
+	BomberMan myBomberMan;
 	private ArrayList<GameObject> myObjects;
 	
 	/** 
@@ -37,8 +37,9 @@ public class Cell {
 	 * This method takes care of the initialization of the ArrayList of gameObjects which will hold 
 	 * any gameObject present in this cell except characters.
 	 */
-	public Cell(int xPos, int yPos)
-	{   this.xPos = xPos;
+	public Cell(int xPos, int yPos, BomberMan myBomberman)
+	{   this.myBomberMan = myBomberman;
+		this.xPos = xPos;
 	    this.yPos = yPos;
 	   
 		this.myObjects=new ArrayList<GameObject>();

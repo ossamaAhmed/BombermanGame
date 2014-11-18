@@ -23,7 +23,7 @@ public class GameBoard {
 		{
 			for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 			{
-				board[i][j]=new Cell(i*CONSTANTS.TILE_SIDE_SIZE, j*CONSTANTS.TILE_SIDE_SIZE);
+				board[i][j]=new Cell(i*CONSTANTS.TILE_SIDE_SIZE, j*CONSTANTS.TILE_SIDE_SIZE, myBomberMan);
 			}
 		}
 		/*The Starting position shouldn't be hard coded. 

@@ -20,7 +20,10 @@ public class BomberMan extends Character {
 	boolean canBrickPass = false;
 	boolean canFlamePass = false;
 	int currentBombRange = CONSTANTS.BOMB_RANGE1;
+	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
 	boolean hasDetonator = false ;
+	boolean canBombPass = false;
+	
 	
 	/** 
 	 * Constructor
