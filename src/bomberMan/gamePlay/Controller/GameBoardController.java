@@ -21,6 +21,7 @@ public void run(){
 	timer =Calendar.getInstance();
 	while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
+		this.PickPowerUp();
 		
 	}
 }
@@ -366,8 +367,8 @@ public void killBomberman1(int i, int j){
 		 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
 		 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 		 if(this.gameBoard.board[celY][celX].isEmpty()){
-		 this.gameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
-		 this.gameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, CONSTANTS.BOMB_RANGE1, true, "Bomb"));
+		 this.gameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2, gameBoard.myBomberMan.getBombRange(), true, "Bomb"));
+		 this.gameBoard.myBomberMan.addBomb(new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER2,gameBoard.myBomberMan.getBombRange(), true, "Bomb"));
 		 this.gameBoard.board[celY][celX].setHasABomb(true);
 		 
 		 this.gameBoard.board[celY][celX].setHasADetonatorBomb(true);}
@@ -386,7 +387,14 @@ public void killBomberman1(int i, int j){
 			 if(this.gameBoard.getCell(i, j).searcHasAPowerUp() == true){
 				 
 				 if(this.gameBoard.myBomberMan.getICell() == i && this.gameBoard.myBomberMan.getJCell() == j){
-				 this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType();
+				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
+					 System.out.println("Getting speed powerUp");
+					 this.gameBoard.myBomberMan.updateSpeed(this.gameBoard.myBomberMan.getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
+				 }
+				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
+					 System.out.println("Getting speed powerUp");
+					 this.gameBoard.myBomberMan.setHasDetonator(true);
+				 }
 				 }
 			 }
 		 }}}

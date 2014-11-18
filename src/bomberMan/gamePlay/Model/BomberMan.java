@@ -98,5 +98,8 @@ public class BomberMan extends Character {
 		
 	}	
 	public boolean getHasDetonator(){return this.hasDetonator;}
+	public void addPowerUp(PowerUp powerUp){this.myPowerUps.add(powerUp);}
+	public void setHasDetonator(boolean set){this.hasDetonator = set;}
+	public int getBombRange(){return this.currentBombRange;}
 	
 }

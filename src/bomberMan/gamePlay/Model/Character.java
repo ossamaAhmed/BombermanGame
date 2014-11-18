@@ -83,9 +83,11 @@ public class Character extends GameObject {
 		
 		this.speed=speed;
 	}
+	
 	/** 
 	 * This method kills the character and updates the private variables accordingly. 
 	 */
+	
 	public void die() {
 		
 		this.alive=false;

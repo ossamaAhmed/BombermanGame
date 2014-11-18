@@ -433,7 +433,7 @@ public void dropBomb(){
 	 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
-	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, CONSTANTS.BOMB_RANGE1, false, "Bomb"));
+	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, myGameBoard.myBomberMan.getBombRange(), false, "Bomb"));
 	
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
 	 
