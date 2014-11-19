@@ -51,6 +51,7 @@ public void detonateRegularBombs(){
 					boolean left = true;
 					boolean down = true;
 					boolean up = true;
+					this.destroyBricks(i, j);
 					while(counter1 <= CONSTANTS.BOMB_RANGE1){
 						if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -101,7 +102,7 @@ public void detonateRegularBombs(){
 					this.gameBoard.board[i][j].deleteElement("Bomb");
 				
 					this.killBomberman1(i, j);
-					this.destroyBricks(i, j);
+					
 						int counter2 = 1;
 						boolean right2 = true;
 						boolean left2 = true;

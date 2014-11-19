@@ -133,6 +133,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 }
 		 }
 		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
+		 this.repaint();
 	 }
 	 
 	

@@ -9,7 +9,7 @@
 package bomberMan.gamePlay.Model;
 
 public class CONSTANTS {
-	public final static int maximumBrickMAP = 20; //max of bricks per map
+	public final static int maximumBrickMAP = 30; //max of bricks per map
 	public  static int DEFAULT_BOMB_RANGE=2; // in number Of blocks
 	public final static int INITIAL_BOMBERMAN_X_POS = 50;
 	public final static int INITIAL_BOMBERMAN_Y_POS = 50;
@@ -21,9 +21,9 @@ public class CONSTANTS {
 	public final static int BOMB_EXPLOSION_SHOWING_TIME2 = 100000;
 	public final static int BOMB_FLAME_SHOWING_TIME = 10000; // in milliseconds
 	public static int BOMB_RANGE1 =3;
-	public static int DEFAULT_SPEED=5;
-	public static int DEFAULT_SPEEDBOMBERMAN=5;
-	public static int DEFAULT_SPEEDENEMY=5;
+	public static int DEFAULT_SPEED=1;
+	public static int DEFAULT_SPEEDBOMBERMAN=1;
+	public static int DEFAULT_SPEEDENEMY=1;
 	public static int DEFAULT_POWERUPSPEED_INCREASE=3;
 	public final static int NUMBER_OF_HORIZONTAL_TILES=31;
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
