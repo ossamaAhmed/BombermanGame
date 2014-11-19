@@ -5,6 +5,7 @@
  * be used to draw the gameboard for the player
  */
 package bomberMan.gamePlay.Model;
+import java.util.Random;
 
 public class GameBoard {
 	
@@ -33,6 +34,7 @@ public class GameBoard {
 		
 		buildSurroundingWall();
 		buildConcreteWalls();
+		buildRandomMap();
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -79,7 +81,7 @@ public class GameBoard {
 		 {
 			 for(int j=2;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1;j+=2)
 			 {
-				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.CONCRETE));
 			 }
 		 }
 	}
@@ -96,7 +98,29 @@ public class GameBoard {
 		this.board[yCellPos][xCellPos].insert(objectBomb);
 		this.myBomberMan.addBomb(objectBomb);
 	}
-	
-	
+	/*
+	 * 
+	 * This function builds a random map
+	 */
+	public void buildRandomMap(){
+		
+		int maxBricks = CONSTANTS.maximumBrickMAP;
+		Random objectRandom = new Random();
+		int brickNumber = 0;
+		int counter = 0;
+		int numberChosen;
+		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES-1;i+=1)
+		 {
+			 for(int j=1;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1;j+=1)
+			 {
+				 numberChosen = objectRandom.nextInt(9);
+				 if(board[i][j].isEmpty()&& numberChosen == brickNumber && counter < maxBricks&& (i > 2 || j >  2) ){
+				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				 counter++;
+				 }
+				 }
+		 }
+		
+	}
 	
 }
