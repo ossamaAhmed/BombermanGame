@@ -34,6 +34,7 @@ public class GamePlayView {
 		
 		gameView.add(board);
 		gameView.setVisible(true);
+		board.startController();
 		//while(gameView.isVisible()){board.updateGameBoardView();}
 	}
 

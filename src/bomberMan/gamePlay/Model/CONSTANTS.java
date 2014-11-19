@@ -21,9 +21,9 @@ public class CONSTANTS {
 	public final static int BOMB_EXPLOSION_SHOWING_TIME2 = 100000;
 	public final static int BOMB_FLAME_SHOWING_TIME = 10000; // in milliseconds
 	public static int BOMB_RANGE1 =3;
-	public static int DEFAULT_SPEED=1;
-	public static int DEFAULT_SPEEDBOMBERMAN=1;
-	public static int DEFAULT_SPEEDENEMY=1;
+	public static int DEFAULT_SPEED=5;
+	public static int DEFAULT_SPEEDBOMBERMAN=5;
+	public static int DEFAULT_SPEEDENEMY=5;
 	public static int DEFAULT_POWERUPSPEED_INCREASE=3;
 	public final static int NUMBER_OF_HORIZONTAL_TILES=31;
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
