@@ -394,30 +394,42 @@ public void killBomberman1(int i, int j){
 				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
 					 System.out.println("Getting speed powerUp");
 					 this.gameBoard.myBomberMan.updateSpeed(this.gameBoard.myBomberMan.getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
+					 this.gameBoard.board[i][j].removePowerUp();
+					 System.out.println("DELETING POWER UP");
 				 }
 				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
-					 System.out.println("Getting speed powerUp");
+					 System.out.println("Getting detonator powerUp");
 					 this.gameBoard.myBomberMan.setHasDetonator(true);
+					 this.gameBoard.board[i][j].removePowerUp();
+					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
-					 System.out.println("Getting speed powerUp");
+					 System.out.println("Getting bombpass powerUp");
 					 this.gameBoard.myBomberMan.setBombPass(true);
+					 this.gameBoard.board[i][j].removePowerUp();
+					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
-					 System.out.println("Getting speed powerUp");
+					 System.out.println("Getting flamepass powerUp");
 					 this.gameBoard.myBomberMan.setFlamePass(true);
+					 this.gameBoard.board[i][j].removePowerUp();
+					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
-					 System.out.println("Getting speed powerUp");
+					 System.out.println("Getting brickpass powerUp");
 					 this.gameBoard.myBomberMan.setBrickPass(true);
+					 this.gameBoard.board[i][j].removePowerUp();
+					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
-					 System.out.println("Getting speed powerUp");
-					 this.gameBoard.myBomberMan.setBrickPass(true);
+					 System.out.println("Getting bombs powerUp");
+					 this.gameBoard.myBomberMan.setNumBombsToDrop(1);
+					 this.gameBoard.board[i][j].removePowerUp();
+					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 }

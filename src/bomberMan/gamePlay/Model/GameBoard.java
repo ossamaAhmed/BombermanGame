@@ -67,7 +67,7 @@ public class GameBoard {
 		{
 			board[12][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.WINDOW_HEIGHT-CONSTANTS.TILE_SIDE_SIZE,WallType.CONCRETE));
 		}
-		
+		board[2][1].insert(new PowerUp(CONSTANTS.TILE_SIDE_SIZE, 2*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_POWERUP, PowerUpType.BOMBS, "PowerUp"));
 	}
 	/** 
 	 * This is a helper method to build the concrete walls.Some numbers here are hard coded
