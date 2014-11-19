@@ -190,10 +190,10 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
 			}}
 			if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
-				if(this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
-				if(this.gameBoard.getBomberMan().getICellBottomBomberman() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICellBottomBomberman() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
 				
@@ -207,10 +207,10 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall()== true){left = false;}
 			}}
 			if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
-				if(this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j- counter1){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j- counter1){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
-				if(this.gameBoard.getBomberMan().getICellBottomBomberman() == i && this.gameBoard.getBomberMan().getJCell() == j- counter1){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICellBottomBomberman() == i && this.gameBoard.getBomberMan().getJCell() == j- counter1){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
 				
@@ -224,10 +224,10 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i + counter1, j).searcHasAConcreteWall()== true){down = false;}
 			}}
 			if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
-				if(this.gameBoard.getBomberMan().getICell() == i +counter1 && this.gameBoard.getBomberMan().getJCell() == j){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i +counter1 && this.gameBoard.getBomberMan().getJCell() == j){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
-				if(this.gameBoard.getBomberMan().getICell() == i +counter1 && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i +counter1 && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
 				
@@ -243,10 +243,10 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i - counter1, j).searcHasAConcreteWall()== true){up = false;}
 			}}
 			if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
-				if(this.gameBoard.getBomberMan().getICell() == i-counter1 && this.gameBoard.getBomberMan().getJCell() == j){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i-counter1 && this.gameBoard.getBomberMan().getJCell() == j){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
-				if(this.gameBoard.getBomberMan().getICell() == i -counter1 && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+				if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i -counter1 && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
 				
