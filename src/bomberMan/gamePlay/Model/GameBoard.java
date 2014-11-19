@@ -18,6 +18,7 @@ public class GameBoard {
 	 */
 	public GameBoard(int numberOfWall)
 	{
+		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		board=new Cell[CONSTANTS.NUMBER_OF_VERTICAL_TILES][CONSTANTS.NUMBER_OF_HORIZONTAL_TILES];
 		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		{
@@ -29,7 +30,7 @@ public class GameBoard {
 		/*The Starting position shouldn't be hard coded. 
 		**The starting position will be added to constants
 		*/
-		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
+		
 		buildSurroundingWall();
 		buildConcreteWalls();
 	}

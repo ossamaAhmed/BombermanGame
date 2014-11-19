@@ -23,6 +23,8 @@ public class BomberMan extends Character {
 	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
 	boolean hasDetonator = false ;
 	boolean canBombPass = false;
+	int numBombsAllowToDrop = 0;
+	int bombsDropped = 0;
 	
 	
 	/** 
@@ -97,9 +99,24 @@ public class BomberMan extends Character {
 		this.setImageLocation(CONSTANTS.BMB_dead);
 		
 	}	
+	
+	
 	public boolean getHasDetonator(){return this.hasDetonator;}
 	public void addPowerUp(PowerUp powerUp){this.myPowerUps.add(powerUp);}
 	public void setHasDetonator(boolean set){this.hasDetonator = set;}
+	//changes
 	public int getBombRange(){return this.currentBombRange;}
+	public void setBombRange(int range){this.currentBombRange = range;}
+	public int getNumBombsToDrop(){return this.numBombsAllowToDrop;}
+	public void setNumBombsToDrop(int num){this.numBombsAllowToDrop += num;}
+	public void setBrickPass(boolean set){this.canBrickPass = set;}
+	public boolean getBrickPass(){return this.canBrickPass;}
+	public void setBombPass(boolean set){this.canBombPass = set;}
+	public boolean getBombPass(){return this.canBombPass;}
+	public void setFlamePass(boolean set){this.canFlamePass = set;}
+	public boolean getFlamePass(){return this.canFlamePass;}
+	public int getQteOfBombsDropped(){return this.bombsDropped;}
+	public void setQteOfBombsDropped(int num){ this.bombsDropped += num;}
+	
 	
 }
