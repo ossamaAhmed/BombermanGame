@@ -16,13 +16,15 @@ public class GameBoard {
 	Cell board[][];
 	BomberMan myBomberMan;
 	private ArrayList<Enemy> myEnemies;
+	private ArrayList<Bomb> myBombs;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
 	public GameBoard(int numberOfWall)
-	{
+	
+	{   myBombs  = new ArrayList <Bomb>();
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		board=new Cell[CONSTANTS.NUMBER_OF_VERTICAL_TILES][CONSTANTS.NUMBER_OF_HORIZONTAL_TILES];
 		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
@@ -150,7 +152,7 @@ public class GameBoard {
 	{
 		
 		this.board[yCellPos][xCellPos].insert(objectBomb);
-		this.myBomberMan.addBomb(objectBomb);
+		this.myBombs.add(objectBomb);
 	}
 	/*
 	 * 
@@ -176,5 +178,7 @@ public class GameBoard {
 		 }
 		
 	}
+	public ArrayList <Bomb> getBombs(){return this.myBombs;}
+	public void removeBomb(){this.myBombs.remove(0);}
 	
 }

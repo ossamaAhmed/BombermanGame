@@ -41,12 +41,13 @@ public void run(){
 public void detonateRegularBombs(){
 	
 	
-	for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
+	for(int k=0;k<gameBoard.getBombs().size();k++)
 	 {
-		 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
-		 {
-			 if(this.gameBoard.getCell(i, j).getHasABomb()){
-			 this.pickPowerUp(i, j);
+		     System.out.println("TRYONG TO DETONATE BOMBS");
+		     if(this.gameBoard.getBombs().size() > 0){
+		     int j = gameBoard.getBombs().get(k).getPositionX()/ CONSTANTS.TILE_SIDE_SIZE;
+		     int i = gameBoard.getBombs().get(k).getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
+			 
 			 if(this.gameBoard.getCell(i, j).getHasABomb()){
 				
 				 
@@ -111,9 +112,9 @@ public void detonateRegularBombs(){
 									
 						counter1++;
 					}
+					 this.gameBoard.getBombs().remove(k);
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
-					this.gameBoard.getCell(i, j).deleteElement("Bomb");
-				
+				   
 					this.killBomberman1(i, j);
 					
 						int counter2 = 1;
@@ -179,9 +180,9 @@ public void detonateRegularBombs(){
 					 
 				 }
 		 }
-	 }
-}}
+	 }}
 }
+
 /*This functions kills the bomberman if for (i,j) in the gameboard, the Bomberman is in the bombs range given by the cells at (i+BombRange, j), (i-Bombrange, j)
  * (i, j+BombRange), (i, j-Bombrange)
  * 

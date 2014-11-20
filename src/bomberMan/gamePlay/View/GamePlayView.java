@@ -1,9 +1,4 @@
-/* 
- * File: GamePlayView.java
- * -----------------------
- * This Class takes care of the initialization of the frame and adding the gameboard panel in it. 
- * Run the game from here for now. 
- */
+
 package bomberMan.gamePlay.View;
 
 import bomberMan.gamePlay.Controller.GameBoardController;
