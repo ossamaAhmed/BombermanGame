@@ -11,7 +11,8 @@ GameBoard gameBoard;
 int bombRange;
 int indexjCell;
 int indexiCell;
-
+PickPowerUps pickPowerUp;
+DestroyBomb bombDestroyer;
 public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
 /*
  * This function executes the GameBoardController thread, which detonates bombs without detonator 
@@ -20,11 +21,15 @@ public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
 public void run(){
 	
 	timer = Calendar.getInstance();
-	while(gameBoard.getBomberMan().getIsAlive()){
+	bombDestroyer = new DestroyBomb(gameBoard, this);
+	pickPowerUp = new PickPowerUps(gameBoard, this);
+	bombDestroyer.run();
+	pickPowerUp.run();
+	/*while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
 		this.pickPowerUp();
 		
-	}
+	}*/
 }
 /*
  *This functions detonates bombs that dont have a detonator.
