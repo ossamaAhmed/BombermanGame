@@ -13,6 +13,7 @@ public class DestroyBomb implements Runnable {
 	@Override
 	public void run() {
 		while(gameBoard.getBomberMan().getIsAlive()){
+			//this.controller.pickPowerUp();
 			this.controller.detonateRegularBombs();}
 		
 

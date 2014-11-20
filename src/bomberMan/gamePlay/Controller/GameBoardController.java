@@ -23,14 +23,13 @@ public void run(){
 	
 	timer = Calendar.getInstance();
 	bombDestroyer = new DestroyBomb(this.gameBoard, this);
-	//pickPowerUp = new PickPowerUps(this.gameBoard, this);
-	//pickPowerUp.start();
-	bombDestroyer.run();
 	
-	/*while(gameBoard.getBomberMan().getIsAlive()){
+	//bombDestroyer.run();
+	
+	while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
-		this.pickPowerUp();
-		}*/
+		
+		}
 		
 		
 	
@@ -40,12 +39,13 @@ public void run(){
  * **/
  
 public void detonateRegularBombs(){
-	this.pickPowerUp();
+	
 	
 	for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 	 {
 		 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 		 {
+			 this.pickPowerUp(i, j);
 			 if(this.gameBoard.board[i][j].getHasABomb()){
 				
 				 
@@ -394,11 +394,8 @@ public void killBomberman1(int i, int j){
 	/*Function that gives if bomberman is in a power up, if true, the bomberman picks up the powerup
 	 * 
 	 * */
-   public void pickPowerUp(){
-	for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
-	 {
-		 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
-		 {
+   public void pickPowerUp(int i, int j){
+	
 			 
 			 if(gameBoard.getCell(i, j).searcHasAPowerUp() == true){
 				 System.out.println("DOING THE RIGHT THING");
@@ -444,8 +441,6 @@ public void killBomberman1(int i, int j){
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
-				 }
-			 }
-		 }}}
+				 }}}
  
 }
