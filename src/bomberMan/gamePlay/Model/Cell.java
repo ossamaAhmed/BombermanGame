@@ -111,7 +111,19 @@ public class Cell {
 	
 	public boolean isEmpty()
 	{
+		//if(this.searcHasABrickWall() == true){return true;}
 		return this.myObjects.isEmpty();
+	}
+	/** 
+	 * This method returns a boolean depending if the cell is totally empty and there 
+	 * are no gameObjects including characters present in this cell. Characters part should be 
+	 * implemented soon. However, it returns empty if a Brick is present 
+	 */
+	public boolean isEmptyBrickException()
+	{
+		if(this.searcHasABrickWall() == true){return true;}
+		return this.myObjects.isEmpty();
+		
 	}
 	/** 
 	 * This method returns a boolean depending if the cell is totally empty and there 
@@ -120,6 +132,8 @@ public class Cell {
 	 */
 	public boolean isEmptyPowerUpException()
 	{
+		if(this.getHasABomb() == true &&  this.myBomberMan.getBombPass() == true ){return true;}
+		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == true){return true;}
 		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false && this.searcHasAConcreteWall()== false){
 		return true;}
 		return this.myObjects.isEmpty();
@@ -261,5 +275,20 @@ public class Cell {
 	
 	//verifies if the cuttent cell has a flame
 	public boolean hasAFlame(){return this.hasAFlame;}
+	
+	//changes
+	//removes the powerup from the cell
+	public void removePowerUp(){
+		
+		int i = 0;
+		if(this.myObjects.size() >0){
+		for(i =0; i< this.myObjects.size(); i++){
+			
+			if(this.myObjects.get(i).getType().equals("PowerUp")){
+				System.out.println("PowerUp");
+				
+				 this.myObjects.remove(i);}}}
+	
+	}
 	
 }

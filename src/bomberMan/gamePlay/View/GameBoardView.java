@@ -20,18 +20,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-
+import java.util.Calendar;
 
 public class GameBoardView extends JPanel implements KeyListener {
 	
 	/*Instance Variables*/
-	
 	private GameBoard myBoard;
+
 	private Graphics2D myCanvas;
-	
+	Calendar timer = Calendar.getInstance();
 	private JFrame myFrame;
 	private BomberManController controller;
-	private GameBoardController gmController;
+	public GameBoardController gmController;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
@@ -43,7 +43,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame=myFrame ;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
-		  gmController.start();
+		
 		  controller=new BomberManController(myBoard);
 		  this.addKeyListener(this);
 		  this.repaint();	
@@ -66,6 +66,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 	   * according to the key pressed or the event happening
 	   */
 	 public void keyPressed(KeyEvent keyE){
+		 long timeA = timer.getTimeInMillis();
+		 long timeB = timeA + 1000;
+		/* while(timeA <= timeB){
+			 timeA +=10;
+		 }*/
 		 if (keyE.getKeyCode() == KeyEvent.VK_RIGHT || keyE.getKeyCode() == KeyEvent.VK_LEFT || keyE.getKeyCode() == KeyEvent.VK_DOWN || keyE.getKeyCode() == KeyEvent.VK_UP)
 		 {
 			 controller.move(keyE);
@@ -136,12 +141,12 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 }
 		 this.repaint();
 		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
+		 this.repaint();
 	 }
 	 public void unpause()
 	 {
 		 this.controller.unpause();
 	 }
 	 
-	
-
+	public void startController(){  this.gmController.run();}
 }

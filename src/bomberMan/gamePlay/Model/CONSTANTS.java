@@ -9,6 +9,7 @@
 package bomberMan.gamePlay.Model;
 
 public class CONSTANTS {
+	public final static int maximumBrickMAP = 30; //max of bricks per map
 	public  static int DEFAULT_BOMB_RANGE=2; // in number Of blocks
 	public final static int INITIAL_BOMBERMAN_X_POS = 50;
 	public final static int INITIAL_BOMBERMAN_Y_POS = 50;
