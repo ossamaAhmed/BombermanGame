@@ -43,7 +43,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame=myFrame ;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
-		
+		  gmController.start();
 		  controller=new BomberManController(myBoard);
 		  this.addKeyListener(this);
 		  this.repaint();	
@@ -55,6 +55,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  super();
 		  this.myFrame=myFrame;
 		  this.myBoard=myBoard;
+		  gmController = new GameBoardController(myBoard);
+		  gmController.start();
 		  controller=new BomberManController(myBoard);
 		  this.addKeyListener(this);
 		  this.repaint();		  

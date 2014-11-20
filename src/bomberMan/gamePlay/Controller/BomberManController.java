@@ -339,7 +339,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 		 int displacement = myGameBoard.getBomberMan().getSpeed();
 		 boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmptyPowerUpException();
 		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
-		 boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
+		 boolean leftA = this.myGameBoard.getCell((( yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
 		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
 		 boolean sidesFree = (!left &&! right) || (!leftA && !rightA);
 		 if(this.myGameBoard.getCell( (yPos)/width,(xPos+widthBMB)/width).isEmptyPowerUpException()|| !sidesFree){

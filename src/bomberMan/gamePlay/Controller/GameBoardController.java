@@ -4,7 +4,7 @@ import java.lang.Runnable;
 import bomberMan.gamePlay.Model.*;
 
 
-public class GameBoardController implements Runnable{
+public class GameBoardController extends Thread{
 Calendar timer = Calendar.getInstance();
 Calendar timer2;
 GameBoard gameBoard;
