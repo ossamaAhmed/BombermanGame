@@ -24,12 +24,12 @@ import java.util.Calendar;
 public class GameBoardView extends JPanel implements KeyListener {
 	
 	/*Instance Variables*/
-	private GameBoard myBoard;
+	public GameBoard myBoard;
 	private Graphics2D myCanvas;
 	Calendar timer = Calendar.getInstance();
 	private JFrame myFrame;
 	private BomberManController controller;
-	private GameBoardController gmController;
+	public GameBoardController gmController;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
@@ -65,9 +65,9 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 public void keyPressed(KeyEvent keyE){
 		 long timeA = timer.getTimeInMillis();
 		 long timeB = timeA + 1000;
-		 while(timeA <= timeB){
-			 timeA +=100;
-		 }
+		/* while(timeA <= timeB){
+			 timeA +=10;
+		 }*/
 		 if (keyE.getKeyCode() == KeyEvent.VK_RIGHT || keyE.getKeyCode() == KeyEvent.VK_LEFT || keyE.getKeyCode() == KeyEvent.VK_DOWN || keyE.getKeyCode() == KeyEvent.VK_UP)
 		 {
 			 controller.move(keyE);
@@ -145,5 +145,5 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  * Starting the controller
 	  */
 	 
-	public void startController(){  this.gmController.start();}
+	public void startController(){  this.gmController.run();}
 }

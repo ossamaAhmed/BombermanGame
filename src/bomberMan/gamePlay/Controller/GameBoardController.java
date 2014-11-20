@@ -1,10 +1,11 @@
 package bomberMan.gamePlay.Controller;
 import java.util.*;
-
+import java.lang.Runnable;
 import bomberMan.gamePlay.Model.*;
 
-public class GameBoardController  extends Thread{
-Calendar timer;
+
+public class GameBoardController implements Runnable{
+Calendar timer = Calendar.getInstance();
 Calendar timer2;
 GameBoard gameBoard;
 int bombRange;
@@ -18,7 +19,7 @@ public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
  */
 public void run(){
 	
-	timer =Calendar.getInstance();
+	timer = Calendar.getInstance();
 	while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
 		this.pickPowerUp();

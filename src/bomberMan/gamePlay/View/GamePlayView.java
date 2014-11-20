@@ -34,7 +34,12 @@ public class GamePlayView {
 		
 		gameView.add(board);
 		gameView.setVisible(true);
-		board.startController();
+		board.gmController.run();
+		//while(board.myBoard.getBomberMan().getIsAlive()){
+			//board.gmController.detonateRegularBombs();
+			//board.gmController.pickPowerUp();
+			
+		//}
 		//while(gameView.isVisible()){board.updateGameBoardView();}
 	}
 
