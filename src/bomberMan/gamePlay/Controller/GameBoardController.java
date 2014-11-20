@@ -11,8 +11,9 @@ GameBoard gameBoard;
 int bombRange;
 int indexjCell;
 int indexiCell;
-PickPowerUps pickPowerUp;
+
 DestroyBomb bombDestroyer;
+public GameBoardController(){}
 public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
 /*
  * This function executes the GameBoardController thread, which detonates bombs without detonator 
@@ -21,21 +22,25 @@ public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
 public void run(){
 	
 	timer = Calendar.getInstance();
-	bombDestroyer = new DestroyBomb(gameBoard, this);
-	pickPowerUp = new PickPowerUps(gameBoard, this);
+	bombDestroyer = new DestroyBomb(this.gameBoard, this);
+	//pickPowerUp = new PickPowerUps(this.gameBoard, this);
+	//pickPowerUp.start();
 	bombDestroyer.run();
-	pickPowerUp.run();
+	
 	/*while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
 		this.pickPowerUp();
+		}*/
 		
-	}*/
+		
+	
 }
 /*
  *This functions detonates bombs that dont have a detonator.
  * **/
  
 public void detonateRegularBombs(){
+	this.pickPowerUp();
 	
 	for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 	 {
@@ -395,47 +400,47 @@ public void killBomberman1(int i, int j){
 		 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 		 {
 			 
-			 if(this.gameBoard.getCell(i, j).searcHasAPowerUp() == true){
-				 
-				 if(this.gameBoard.myBomberMan.getICell() == i && this.gameBoard.myBomberMan.getJCell() == j){
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
+			 if(gameBoard.getCell(i, j).searcHasAPowerUp() == true){
+				 System.out.println("DOING THE RIGHT THING");
+				 if(gameBoard.myBomberMan.getICell() == i && gameBoard.myBomberMan.getJCell() == j){
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
 					 System.out.println("Getting speed powerUp");
-					 this.gameBoard.myBomberMan.updateSpeed(this.gameBoard.myBomberMan.getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
-					 this.gameBoard.getCell(i,j).removePowerUp();
+					 gameBoard.myBomberMan.updateSpeed(gameBoard.myBomberMan.getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
+					 gameBoard.getCell(i,j).removePowerUp();
 					 System.out.println("DELETING POWER UP");
 				 }
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
 					 System.out.println("Getting detonator powerUp");
-					 this.gameBoard.myBomberMan.setHasDetonator(true);
-					 this.gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.myBomberMan.setHasDetonator(true);
+					 gameBoard.getCell(i,j).removePowerUp();
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
 					 System.out.println("Getting bombpass powerUp");
-					 this.gameBoard.myBomberMan.setBombPass(true);
-					 this.gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.myBomberMan.setBombPass(true);
+					gameBoard.getCell(i,j).removePowerUp();
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
 					 System.out.println("Getting flamepass powerUp");
-					 this.gameBoard.myBomberMan.setFlamePass(true);
-					 this.gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.myBomberMan.setFlamePass(true);
+					gameBoard.getCell(i,j).removePowerUp();
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
 					 System.out.println("Getting brickpass powerUp");
-					 this.gameBoard.myBomberMan.setBrickPass(true);
-					 this.gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.myBomberMan.setBrickPass(true);
+					 gameBoard.getCell(i,j).removePowerUp();
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
 					 System.out.println("Getting bombs powerUp");
-					 this.gameBoard.myBomberMan.setNumBombsToDrop(1);
-					 this.gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.myBomberMan.setNumBombsToDrop(1);
+					gameBoard.getCell(i,j).removePowerUp();
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
