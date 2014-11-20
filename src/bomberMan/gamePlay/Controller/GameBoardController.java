@@ -24,12 +24,12 @@ public void run(){
 	timer = Calendar.getInstance();
 	bombDestroyer = new DestroyBomb(this.gameBoard, this);
 	
-	//bombDestroyer.run();
+	bombDestroyer.run();
 	
-	while(gameBoard.getBomberMan().getIsAlive()){
+	//while(gameBoard.getBomberMan().getIsAlive()){
 		this.detonateRegularBombs();
 		
-		}
+		//}
 		
 		
 	
