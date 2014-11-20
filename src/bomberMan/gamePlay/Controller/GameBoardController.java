@@ -27,7 +27,7 @@ public void run(){
 	bombDestroyer.run();
 	
 	//while(gameBoard.getBomberMan().getIsAlive()){
-		this.detonateRegularBombs();
+		//this.detonateRegularBombs();
 		
 		//}
 		
@@ -189,7 +189,7 @@ public void killBomberman1(int i, int j){
 	boolean down = true;
 	boolean right = true;
 	boolean left = true;
-	if(this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j){
+	if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j){
 	System.out.println("KILLING BOMBERMAN");
 	this.gameBoard.getBomberMan().die();
 	}
