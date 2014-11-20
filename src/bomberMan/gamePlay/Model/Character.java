@@ -12,7 +12,8 @@ public class Character extends GameObject {
 	private boolean alive;
 	private int speed;
 	private int numOfLives;
-	
+	protected int lastDirection = -1;
+	protected int forbiddenDirection = -1;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different types of variables that 
@@ -82,14 +83,22 @@ public class Character extends GameObject {
 		
 		this.speed=speed;
 	}
+	
 	/** 
 	 * This method kills the character and updates the private variables accordingly. 
 	 */
+	
 	public void die() {
 		
 		this.alive=false;
 		this.numOfLives--;
 	}
-
+	public boolean getIsAlive(){return this.alive;}
+	public void setIAlive(boolean setLive){this.alive = setLive;}
+	
+	public void setLastDirection(int direction){this.lastDirection = direction;}
+    public int getLastDirection(){return this.lastDirection;}
+    public void setForbiddenDirection(int direction){this.forbiddenDirection = direction;}
+    public int getForbiddenDirection(){return this.forbiddenDirection;}
 
 }

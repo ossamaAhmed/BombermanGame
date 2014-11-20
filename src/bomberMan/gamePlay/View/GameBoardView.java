@@ -9,6 +9,8 @@ package bomberMan.gamePlay.View;
 
 import bomberMan.Login.View.PauseMenuView;
 import bomberMan.gamePlay.Controller.CharacterController;
+import bomberMan.gamePlay.Controller.BomberManController;
+import bomberMan.gamePlay.Controller.GameBoardController;
 import bomberMan.gamePlay.Model.*;
 
 import javax.swing.*;
@@ -23,10 +25,13 @@ import java.awt.event.KeyEvent;
 public class GameBoardView extends JPanel implements KeyListener {
 	
 	/*Instance Variables*/
+	
 	private GameBoard myBoard;
 	private Graphics2D myCanvas;
-	private CharacterController controller;
+	
 	private JFrame myFrame;
+	private BomberManController controller;
+	private GameBoardController gmController;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
@@ -35,21 +40,27 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  public GameBoardView(JFrame myFrame)
 	  {
 		  super();
-		  this.myFrame=myFrame;
+		  this.myFrame=myFrame ;
 		  myBoard=new GameBoard(12);
-		  controller=new CharacterController(myBoard);
+		  gmController = new GameBoardController(myBoard);
+		  gmController.start();
+		  controller=new BomberManController(myBoard);
 		  this.addKeyListener(this);
-		  this.repaint();		  
+		  this.repaint();	
+		 
 	  }
+	  
 	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
 	  {
 		  super();
 		  this.myFrame=myFrame;
 		  this.myBoard=myBoard;
-		  controller=new CharacterController(myBoard);
+		  controller=new BomberManController(myBoard);
 		  this.addKeyListener(this);
 		  this.repaint();		  
 	  }
+	  
+	  
 	  /** 
 	   * This method takes care of the key listening and calls the different methods of the controller
 	   * according to the key pressed or the event happening
@@ -58,10 +69,12 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 if (keyE.getKeyCode() == KeyEvent.VK_RIGHT || keyE.getKeyCode() == KeyEvent.VK_LEFT || keyE.getKeyCode() == KeyEvent.VK_DOWN || keyE.getKeyCode() == KeyEvent.VK_UP)
 		 {
 			 controller.move(keyE);
-			 this.updateGameBoardView(10);
+			 this.updateGameBoardView();
 		 }
+		 if(keyE.getKeyCode()== KeyEvent.VK_Q){controller.dropBomb();}
 		 if(keyE.getKeyCode()==KeyEvent.VK_SPACE)
 		 {
+			 this.controller.pause();
 			 myFrame.remove(this);
 				PauseMenuView x=new PauseMenuView(myFrame,this.myBoard);
 				myFrame.setFocusable(true);
@@ -74,6 +87,16 @@ public class GameBoardView extends JPanel implements KeyListener {
 			        x.requestFocusInWindow();
 			        myFrame.setVisible(true);
 		 }
+		 if(keyE.getKeyCode()==KeyEvent.VK_A)
+		 {
+			 gmController.dropBombDetonator();
+		 }
+		 if(keyE.getKeyCode()==KeyEvent.VK_D)
+		 { 
+			
+			 gmController.detonateOldestBomb();
+			 gmController.detonateOldestBomb();
+		 }
 	 }
 	  /** 
 	   * These methods are required by the interface implemented. Not used yet. 
@@ -84,7 +107,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  /** 
 	   * This function refreshes the screen. should be called if any changes happened to the gameBoard.
 	   */
-	 public void updateGameBoardView(int num)
+	 public void updateGameBoardView()
 	 {
 		 this.repaint();
 	 }
@@ -97,8 +120,12 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 super.paintComponent(g);
 		 this.myCanvas = (Graphics2D) g;
-		 myCanvas.drawImage(myBoard.getEnemy().getImage(), myBoard.getEnemy().getPositionX(),myBoard.getEnemy().getPositionY(), null);
-		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
+		 for(int i=0;i<myBoard.getEnemies().size();i++)
+		 {
+			 myCanvas.drawImage(myBoard.getEnemies().get(i).getImage(), myBoard.getEnemies().get(i).getPositionX(),myBoard.getEnemies().get(i).getPositionY(), null);
+		 }
+		 
+		 //myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
 		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		 {
 			 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
@@ -108,6 +135,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 }
 		 }
 		 this.repaint();
+		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
+	 }
+	 public void unpause()
+	 {
+		 this.controller.unpause();
 	 }
 	 
 	

@@ -10,13 +10,15 @@ public class PowerUp extends GameObject {
 		type=null;
 	}
 	
-	public PowerUp(PowerUpType type){
-		this.type=type;
+	public PowerUp(int xPos, int yPos, String locationImage, PowerUpType namePowerUp, String typeObject){
+		super(xPos, yPos,locationImage,typeObject ); // type object is supposed to be equal to PowerUp
+		this.type = namePowerUp;
+		
 	}
 	
 	//getters and setters
 	public void setPowerUp(PowerUpType type){
-		this.type=type;
+		this.type = type;
 	}
 	
 	public PowerUpType getPowerUpType()

@@ -5,13 +5,15 @@
  * BomberMan. It should eventually be able to perform any function of a bomb. 
  */
 package bomberMan.gamePlay.Model;
-
+import java.util.*;
 public class Bomb extends GameObject {
 	
 	/*Instance Variables*/
-	private double timer; 
+	private Calendar timer; 
+	private long  timeToExplode;
 	private int explosionRange;
 	private boolean detonatorActivated;
+	public long detonationTime;
 	
 	/** 
 	 * Constructor
@@ -19,8 +21,8 @@ public class Bomb extends GameObject {
 	 * the Bomb private variables.
 	 */
 	public Bomb() {
-		
-		this.timer=CONSTANTS.BOMB_TIMER;
+		this.timeToExplode = CONSTANTS.BOMB_TIMER;
+		this.timer=Calendar.getInstance();
 		this.explosionRange=CONSTANTS.DEFAULT_BOMB_RANGE;
 		this.detonatorActivated=false;
 	}
@@ -33,11 +35,28 @@ public class Bomb extends GameObject {
 	 * detonatorActivated is a boolean that indicated if bomberMan is the one who controls the bomb or 
 	 * should the bomb explodes with the timer counting down to 0.
 	 */
-	public Bomb(double timer, int explosionRange,boolean detonatorActivated) {
-		
-		this.timer=timer;
+	public Bomb(int xPos, int yPos, long timerTime, int explosionRange,boolean detonatorActivated, String typeBomb) {
+		super(xPos,yPos,CONSTANTS.Bomb_IMAGE,typeBomb);
+		this.timeToExplode=timerTime;
+		long creationTime = 0;
+		this.timer=Calendar.getInstance();
+		if(detonatorActivated == false){
+		 creationTime = timer.getTimeInMillis();
+		this.detonationTime = creationTime+timerTime;}
+		if(detonatorActivated == true){
+		    creationTime = timer.getTimeInMillis();
+			this.detonationTime = creationTime + timerTime;}
 		this.explosionRange=explosionRange;
 		this.detonatorActivated=detonatorActivated;
+		System.out.println("CreationTime: "+creationTime);
+		System.out.println("TimerTime: "+timerTime);
+		System.out.println("detonationTime: "+detonationTime);
+		if(detonatorActivated == false){
+		this.setType("Bomb");}
+		if(detonatorActivated == true){
+			this.setType("Bomb");}
+			
+		
 	}
 	/** 
 	 * This method return a boolean if the detonator is activated which indicates that bomberMan should 
@@ -46,5 +65,20 @@ public class Bomb extends GameObject {
 	public boolean isDetonatorActivated() {
 		return detonatorActivated;
 	}
+	public void activateDetonator() {
+		this.detonatorActivated = true;
+	}
+	public void desactivateDetonator() {
+		this.detonatorActivated = false;
+	}
+    public void setTimeToExplode(long time){this.timeToExplode = time;}
+    public long getTimeToExplode(){return this.timeToExplode;}
+    public void setDetonationTime(long time){this.detonationTime = time;}
+    public long getDetonationTime(){return this.detonationTime;}
+    public long getBombTimer(){return Calendar.getInstance().getTimeInMillis();}
+    public int getBombRange(){return this.explosionRange;}
+    public void setBombRange(int range){this.explosionRange = range;}
+    
+    
 
 }

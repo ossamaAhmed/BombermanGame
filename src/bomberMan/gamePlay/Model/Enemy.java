@@ -11,10 +11,10 @@ public class Enemy extends Character{
 	private boolean wallPass;
 	private int movmentDirection;
 	
-	public Enemy(int xPos,int yPos)
+	public Enemy(int xPos,int yPos,int movmentDirection)
 	{
 		super(xPos,yPos,CONSTANTS.BALLOON_IMAGE,"Balloon");
-		this.movmentDirection=3;
+		this.movmentDirection=movmentDirection;
 		this.wallPass=false;
 	}
 	

@@ -11,15 +11,18 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.util.Calendar;
 
 import bomberMan.gamePlay.Model.*;
 import bomberMan.gamePlay.Model.Character;
 
 
-public class CharacterController{
+public class CharacterController extends Thread{
 	
 	/*Instance Variables*/
 	GameBoard myGameBoard;
+	Calendar timer;
+	EnemyController enemyController;
 	
 	/** 
 	 * Constructor
@@ -30,8 +33,9 @@ public class CharacterController{
 	{
 		
 	this.myGameBoard=board;
-	EnemyController enemyController=new EnemyController(this);
+	enemyController=new EnemyController(this);
 	enemyController.start();
+	timer =Calendar.getInstance();
 
 	}
 	/** 
@@ -117,27 +121,27 @@ public class CharacterController{
 			 myGameBoard.getBomberMan().moveUp(myGameBoard.getBomberMan().getSpeed());
 		 }
 	 }
-	 public void moveEnemy() 
+	 public void moveEnemy(int enemy) 
 	 {
-		 if(myGameBoard.getEnemy().getMovmentDirection()==2 && !(checkCollision(myGameBoard.getEnemy(), 2)) )
+		 if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==2 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 2)) )
 		 {
-			 myGameBoard.getEnemy().moveRight(myGameBoard.getEnemy().getSpeed());
+			 myGameBoard.getEnemies().get(enemy).moveRight(myGameBoard.getEnemies().get(enemy).getSpeed());
 		 }
-		 else if(myGameBoard.getEnemy().getMovmentDirection()==1 && !(checkCollision(myGameBoard.getEnemy(), 1)))
+		 else if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==1 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 1)))
 		 {
-			 myGameBoard.getEnemy().moveLeft(myGameBoard.getEnemy().getSpeed());
+			 myGameBoard.getEnemies().get(enemy).moveLeft(myGameBoard.getEnemies().get(enemy).getSpeed());
 		 }
-		 else if(myGameBoard.getEnemy().getMovmentDirection()==4 && !(checkCollision(myGameBoard.getEnemy(), 4)))
+		 else if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==4 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 4)))
 		 {
-			 myGameBoard.getEnemy().moveDown(myGameBoard.getEnemy().getSpeed());
+			 myGameBoard.getEnemies().get(enemy).moveDown(myGameBoard.getEnemies().get(enemy).getSpeed());
 		 }
-		 else  if(myGameBoard.getEnemy().getMovmentDirection()==3 && !(checkCollision(myGameBoard.getEnemy(), 3)))
+		 else  if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==3 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 3)))
 		 {
-			 myGameBoard.getEnemy().moveUp(myGameBoard.getEnemy().getSpeed());
+			 myGameBoard.getEnemies().get(enemy).moveUp(myGameBoard.getEnemies().get(enemy).getSpeed());
 		 }
 		 else
 		 {
-			 myGameBoard.getEnemy().changeDirection();
+			 myGameBoard.getEnemies().get(enemy).changeDirection();
 		 }
 	 }
 	 public GameBoard getGameBoard()
@@ -145,4 +149,13 @@ public class CharacterController{
 		 return this.myGameBoard;
 	 }
 
+	public Calendar getTimer(){return this.timer;}
+	public void pause()
+	{
+		enemyController.suspend();
+	}
+	public void unpause()
+	{
+		enemyController.resume();
+	}
 }

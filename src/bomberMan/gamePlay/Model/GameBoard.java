@@ -6,16 +6,15 @@
  */
 package bomberMan.gamePlay.Model;
 
+import java.util.ArrayList;
+import java.util.Random;
 
-public class GameBoard{
+public class GameBoard {
 	
-	/**
-	 * 
-	 */
 	/*Instance Variables*/
 	Cell board[][];
 	BomberMan myBomberMan;
-	Enemy myEnemy;
+	private ArrayList<Enemy> myEnemies;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
@@ -28,14 +27,16 @@ public class GameBoard{
 		{
 			for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 			{
-				board[i][j]=new Cell();
+				board[i][j]=new Cell(i*CONSTANTS.TILE_SIDE_SIZE, j*CONSTANTS.TILE_SIDE_SIZE, myBomberMan);
 			}
 		}
 		/*The Starting position shouldn't be hard coded. 
 		**The starting position will be added to constants
 		*/
-		myEnemy=new Enemy(200,40);
+		myEnemies=new ArrayList<Enemy>();
+		initializeEnemiesPosition(20);
 		myBomberMan=new BomberMan(40,40);
+		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
 	}
@@ -45,6 +46,30 @@ public class GameBoard{
 	public Cell getCell(int x, int y)
 	{
 		return board[x][y];
+	}
+	public void setCell(int x, int y, GameObject gameObject)
+	{
+		this.board[x][y].insert(gameObject);
+	}
+	public void initializeEnemiesPosition(int numberOfEnemies)
+	{
+		Random randomGenerator = new Random();
+		for(int i=0;i<numberOfEnemies;i++)
+		{
+			int xCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES);
+			while(!isRowClear(xCell))
+			{
+				xCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES);
+			}
+			int yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
+			while(!isColumnClear(yCell))
+			{
+				yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
+			}
+			int direction=randomGenerator.nextInt(4)+1;
+			System.out.println(xCell+"     "+yCell);
+			myEnemies.add(new Enemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction));
+		}
 	}
 	/** 
 	 * This is a helper method to build the surrounding walls.Some numbers here are hard coded
@@ -56,11 +81,11 @@ public class GameBoard{
 		{
 			board[0][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,0,WallType.CONCRETE));
 		}
-		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
+		for(int i=1;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		{
 			board[i][0].insert(new Wall(0,i*CONSTANTS.TILE_SIDE_SIZE,WallType.CONCRETE));
 		}
-		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
+		for(int i=1;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		{
 			board[i][30].insert(new Wall(CONSTANTS.WINDOW_WIDTH-CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.CONCRETE));
 		}
@@ -84,6 +109,29 @@ public class GameBoard{
 			 }
 		 }
 	}
+	
+	public boolean isRowClear(int x)
+	{
+		if(x==0 || x==CONSTANTS.NUMBER_OF_VERTICAL_TILES-1)
+			return false;
+		for(int i=2;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES-1;i+=2)
+		{
+			if(x==i)
+				return false;
+		}
+		return true;
+	}
+	public boolean isColumnClear(int y)
+	{
+		if(y==0 || y==CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1)
+			return false;
+		for(int j=2;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1;j+=2)
+		{
+			if(y==j)
+				return false;
+		}
+		return true;
+	}
 	/** 
 	 * This returns the BomberMan for any purpose. We just have one bomberMan in the gameBoard.
 	 */
@@ -91,9 +139,17 @@ public class GameBoard{
 	{
 		return this.myBomberMan;
 	}
-	public Enemy getEnemy()
+	public ArrayList<Enemy> getEnemies()
 	{
-		return this.myEnemy;
+		return this.myEnemies;
 	}
+	public void addBomb(int xCellPos, int yCellPos, Bomb objectBomb)
+	{
+		
+		this.board[yCellPos][xCellPos].insert(objectBomb);
+		this.myBomberMan.addBomb(objectBomb);
+	}
+	
+	
 	
 }

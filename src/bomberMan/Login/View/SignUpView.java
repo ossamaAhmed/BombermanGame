@@ -154,7 +154,7 @@ public class SignUpView extends JPanel
 		 System.out.println(userNameInput.getText()+"hi");
 	        System.out.println(userPasswordInput.getText());
 	        SignUpController myController=new SignUpController(DB);
-	        int errorNum=myController.signUp(userFirstNameInput.getText(), userLastNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
+	        int errorNum=myController.signUp(userFirstNameInput.getText()+" "+ userLastNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
 	        if(errorNum==3)
 	        {
 	        	error.setText("please fill out all the information above");

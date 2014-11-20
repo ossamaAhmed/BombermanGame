@@ -16,6 +16,7 @@ public class Wall extends GameObject{
 	 */
 	public Wall() {
 		this.myWallType= WallType.CONCRETE; 
+		
 		super.setImageLocation(CONSTANTS.CONCRETE_WALL_IMAGE);
 	}
 	/** 
@@ -25,8 +26,16 @@ public class Wall extends GameObject{
 	public Wall(int x,int y,WallType myWallType) 
 	{
 		this.myWallType=myWallType;
+		if(this.myWallType == WallType.CONCRETE){this.setType("Concrete");
 		super.setPosition(x, y);
 		super.setImageLocation(CONSTANTS.CONCRETE_WALL_IMAGE);
+		}
+		if(this.myWallType == WallType.BRICK){
+			this.setType("Brick");
+			super.setPosition(x, y);
+			super.setImageLocation(CONSTANTS.BRICK_WALL_IMAGE);	
+		}
+		
 	}
 
 	/** 

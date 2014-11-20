@@ -12,8 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bomberMan.gamePlay.Controller.EnemyController;
 import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
+import bomberMan.gamePlay.View.GamePlayView;
 
 public class PauseMenuView extends JPanel
 {
@@ -73,7 +75,8 @@ public class PauseMenuView extends JPanel
 	private void resumeGameButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView(myframe,myBoard);
+		GameBoardView x= new GameBoardView(myframe,myBoard);
+		x.unpause();
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);
@@ -230,7 +233,7 @@ public class PauseMenuView extends JPanel
 	{
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
-		myCanvas.drawImage(backgroundImage, 0,0,this);
+		//myCanvas.drawImage(backgroundImage, 0,0,this);
 		myCanvas.drawImage(mainMenuImage, (CONSTANTS.WINDOW_WIDTH/2)-(mainMenuImage.getWidth(null)/2),(CONSTANTS.WINDOW_HEIGHT/2)-(mainMenuImage.getHeight(null)/2),this);
 	}
 

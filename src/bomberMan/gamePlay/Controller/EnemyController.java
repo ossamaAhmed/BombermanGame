@@ -11,13 +11,17 @@ public class EnemyController extends Thread
     {
     	while(true)
     	{
-    		myController.moveEnemy();
+    		for(int i=0;i<myController.getGameBoard().getEnemies().size();i++)
+    		{
+    			 myController.moveEnemy(i);
+    		}
     		try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    	
     	}
     }
 

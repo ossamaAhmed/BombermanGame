@@ -7,12 +7,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import bomberMan.gamePlay.View.GameBoardView;
+import bomberMan.gamePlay.View.GamePlayView;
 
 public class MainMenuView extends JPanel
 {
@@ -73,16 +75,22 @@ public class MainMenuView extends JPanel
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView(myframe);
-		myframe.setFocusable(true);
-		myframe.addKeyListener(x);
-		x.setBackground(Color.black);
-		x.setVisible(true);
-		myframe.add(x);
-	        myframe.validate();
-	        myframe.repaint();
-	        x.requestFocusInWindow();
-		myframe.setVisible(true);
+		Thread.currentThread();
+		//myframe.dispatchEvent(new WindowEvent(myframe, WindowEvent.WINDOW_CLOSING));
+		Thread.interrupted();
+		String[] args = {};
+		GamePlayView.main(args);
+//		
+//		GameBoardView x=GameBoardView.getInstance(myframe);
+//		myframe.setFocusable(true);
+//		myframe.addKeyListener(x);
+//		x.setBackground(Color.black);
+//		x.setVisible(true);
+//		myframe.add(x);
+//	        myframe.validate();
+//	        myframe.repaint();
+//	        x.requestFocusInWindow();
+//		myframe.setVisible(true);
         
     }
 	public void setLoadGameButton()

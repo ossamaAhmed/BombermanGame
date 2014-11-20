@@ -12,6 +12,7 @@ public class GameObject implements Position {
 	/*Instance Variables*/
 	private int xPosition;
 	private int yPosition;
+	private boolean allowCollisions = false;
 	private String imageLocation;
 	private String objectType;
 	
@@ -35,6 +36,7 @@ public class GameObject implements Position {
 		this.yPosition=yPos;
 		this.imageLocation=location;
 		this.objectType=objectType;
+		this.allowCollisions = false;
 	}
 	
 	/** 
@@ -58,7 +60,9 @@ public class GameObject implements Position {
 	public void setImageLocation(String location) {
 		this.imageLocation=location;
 	}
-	
+	public boolean getAllowCollisions(){
+		return this.allowCollisions;
+	}
 	public void setPosition(int xPos,int yPos) {
 		this.xPosition=xPos;
 		this.yPosition=yPos;
@@ -67,8 +71,13 @@ public class GameObject implements Position {
 	public void setPositionX(int xPos) {
 		this.xPosition=xPos;
 	}
-	
+	public void setAllowCollisions(boolean collisionsAllowed){
+		this.allowCollisions=collisionsAllowed;
+	}
 	public void setPositionY(int yPos) {
 		this.yPosition=yPos;
+	}
+	public void setType(String type) {
+		this.objectType = type;
 	}
 }

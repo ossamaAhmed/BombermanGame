@@ -17,6 +17,13 @@ public class BomberMan extends Character {
 	/*Instance Variables*/
 	private ArrayList<PowerUp> myPowerUps;
 	private ArrayList<Bomb> myBombs;
+	boolean canBrickPass = false;
+	boolean canFlamePass = false;
+	int currentBombRange = CONSTANTS.BOMB_RANGE1;
+	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
+	boolean hasDetonator = false ;
+	boolean canBombPass = false;
+	
 	
 	/** 
 	 * Constructor
@@ -60,5 +67,39 @@ public class BomberMan extends Character {
 
 		return image;
 	}
+	public void addBomb(Bomb objectBomb){this.myBombs.add(objectBomb);}
+	public int getICell(){
+		return (int)(this.getPositionY()/ CONSTANTS.TILE_SIDE_SIZE);
+	}
+	public int getJCell(){
+		return (int)(this.getPositionX()/ CONSTANTS.TILE_SIDE_SIZE);
+	}
+	public int getICellBottomBomberman(){
+		return (int)((this.getPositionY()+ CONSTANTS.BOMBERMAN_HEIGHT)/ CONSTANTS.TILE_SIDE_SIZE);
+	}
+	public int getJCellRightMostBomberman(){
+		return (int)((this.getPositionX()+ CONSTANTS.BOMBERMAN_WIDTH)/ CONSTANTS.TILE_SIDE_SIZE);
+	}
+	public void removeOldestBomb(){
+		if(this.myBombs.size() > 0){
+		this.myBombs.remove(0);}
+	}
+	// returns the oldest detonator bomb dropped
+	public Bomb getOldestBomb(){
+		
+		if(this.myBombs.size() > 0){
+			return this.myBombs.get(0);
+		}
+		return new Bomb();
+	}
+	public void die(){
+		super.die();
+		this.setImageLocation(CONSTANTS.BMB_dead);
+		
+	}	
+	public boolean getHasDetonator(){return this.hasDetonator;}
+	public void addPowerUp(PowerUp powerUp){this.myPowerUps.add(powerUp);}
+	public void setHasDetonator(boolean set){this.hasDetonator = set;}
+	public int getBombRange(){return this.currentBombRange;}
 	
 }
