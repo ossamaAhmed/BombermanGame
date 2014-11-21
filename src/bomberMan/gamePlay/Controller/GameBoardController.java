@@ -151,7 +151,7 @@ public void detonateRegularBombs(){
 					}
 					 this.gameBoard.getBombs().remove(k);
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
-					this.gameBoard.getCell(i, j).deleteElement("Bomb");
+					
 					this.killBomberman1(i, j);
 					
 						int counter2 = 1;
@@ -407,10 +407,8 @@ public void killBomberman1(int i, int j){
 		System.out.println("jCELL " + jCell);
 		int iCell = yPos/CONSTANTS.TILE_SIDE_SIZE;
 		System.out.println("ICELL " + iCell);
-		this.gameBoard.getCell(iCell, jCell).setHasADetonatorBomb(false);
-		this.gameBoard.getBomberMan().removeOldestBomb();
-		this.gameBoard.getCell(iCell, jCell).setHasABomb(false);
-		 this.gameBoard.getBomberMan().setQteOfBombsDropped(-1);
+		this.destroyBombsAround(iCell, jCell);
+		
 		 }
 		
 	}
@@ -501,10 +499,13 @@ public void killBomberman1(int i, int j){
 	   if(this.gameBoard.getCell(i, j).getHasADetonateBomb()){
 		   int x =  this.gameBoard.getCell(i, j).searchBomb().getPositionX();
 		   int y = this.gameBoard.getCell(i, j).searchBomb().getPositionY();
+		   
 		   this.gameBoard.getCell(i, j).setHasADetonatorBomb(false);
-		   this.gameBoard.getCell(i, j).setHasABomb(false);
+		  	 
+			this.gameBoard.getCell(i, j).searchBomb().setExplodeFast(true);
+			
 		   this.gameBoard.getBomberMan().removeBomb(x, y);
-		   this.gameBoard.getBomberMan().setQteOfBombsDropped(-1);
+		
 		   // to complete..
 		   }
 	  
