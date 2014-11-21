@@ -86,6 +86,13 @@ public class BomberMan extends Character {
 		if(this.myBombs.size() > 0){
 		this.myBombs.remove(0);}
 	}
+	public void removeBomb(int x, int y){
+		int counter = 0;
+		if(this.myBombs.size() > 0){
+		for(counter = 0; counter < this.myBombs.size(); counter++){
+		if(this.myBombs.get(counter).getPositionX() == x && this.myBombs.get(counter).getPositionY() == y ){
+		this.myBombs.remove(counter);}}}
+	}
 	// returns the oldest detonator bomb dropped
 	public Bomb getOldestBomb(){
 		

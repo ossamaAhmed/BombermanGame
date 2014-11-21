@@ -182,7 +182,13 @@ public class GameBoard {
 		
 	}
 	public ArrayList <Bomb> getBombs(){return this.myBombs;}
-	public void removeBomb(){this.myBombs.remove(0);}
+	//removes bomb with the specific x and y position
+	public void removeBomb(int x, int y){
+		int counter = 0;
+		if(this.myBombs.size() > 0){
+		for(counter = 0; counter < this.myBombs.size(); counter++){
+		if(this.myBombs.get(counter).getPositionX() == x && this.myBombs.get(counter).getPositionY() == y ){
+		this.myBombs.remove(counter);}}}}
 	public PowerUp getPowerUpBoard(){return this.myPowerUp;}
 	public void addPowerUp(PowerUp powerup){this.myPowerUp = powerup;}
 	public void deletePowerUp(int i, int j){this.board[i][j].removePowerUp();}

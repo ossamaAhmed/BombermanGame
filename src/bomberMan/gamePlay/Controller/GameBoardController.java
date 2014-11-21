@@ -48,7 +48,7 @@ public void detonateRegularBombs(){
 			 if(this.gameBoard.getCell(i, j).getHasABomb()){
 				
 				 
-				 if(this.gameBoard.getCell(i, j).searchBomb().getDetonationTime() <= this.gameBoard.getCell(i, j).searchBomb().getBombTimer()){
+				 if(this.gameBoard.getCell(i, j).searchBomb().getExplodeFast() == true ||this.gameBoard.getCell(i, j).searchBomb().getDetonationTime() <= this.gameBoard.getCell(i, j).searchBomb().getBombTimer()){
 					 System.out.println("TimeExplosionA: "+this.gameBoard.getCell(i, j).searchBomb().getDetonationTime());
 					 System.out.println("TimeExplosionB: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
 					 System.out.println("TimeExplosionC: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
@@ -63,7 +63,7 @@ public void detonateRegularBombs(){
 					boolean up = true;
 					this.destroyBricks(i, j);
 					while(counter1 <= CONSTANTS.BOMB_RANGE1){
-						if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
+					
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
 								if(this.gameBoard.getCell(i, j+counter1).isEmptyBombException()== false){
 									
@@ -71,12 +71,17 @@ public void detonateRegularBombs(){
 									right = false;
 								}
 								if(this.gameBoard.getCell(i, j+counter1).isEmptyBrickException()== false){right = false;}
-							}}
+							}
 							if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).isEmptyBrickException()){
 						this.gameBoard.getCell(i, j+counter1).setFlameImages();
 						}
 						
 						if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+							if(this.gameBoard.getCell(i, j+counter1+1).isEmptyBombException()== false){
+								
+							    this.destroyBombsAround(i, j+counter1+1);
+								right = false;
+							}
 							if(this.gameBoard.getCell(i, j+counter1+1).isEmptyBrickException()== false){right = false;}}
 							
 						
@@ -93,6 +98,11 @@ public void detonateRegularBombs(){
 							}
 						    
 							if(j -counter1 - 1 >=0 && left == true){
+								if(this.gameBoard.getCell(i, j-counter1-1).isEmptyBombException()== false){
+	                            	   this.destroyBombsAround(i, j -counter1-1);
+										
+										left = false;
+									}
 								if(this.gameBoard.getCell(i, j-counter1-1).isEmptyBrickException()== false){left = false;}
 						
 							}
@@ -109,6 +119,11 @@ public void detonateRegularBombs(){
 								}
 							    
 								if(i -counter1 - 1 >=0 && left == true){
+                                       if(this.gameBoard.getCell(i-counter1-1, j).isEmptyBombException()== false){
+										
+										this.destroyBombsAround(i-counter1-1, j);
+										up = false;
+									}
 									if(this.gameBoard.getCell(i-counter1-1, j).isEmptyBrickException()== false){up = false;}
 							
 								}
@@ -125,6 +140,11 @@ public void detonateRegularBombs(){
 								this.gameBoard.getCell(i+counter1, j).setFlameImages();}
 								
 								if(i+counter1 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+									if(this.gameBoard.getCell(i+counter1+1, j).isEmptyBombException()== false){
+										
+										this.destroyBombsAround(i+counter1+1, j);
+										down = false;
+									}
 									if(this.gameBoard.getCell(i+counter1 +1, j).isEmptyBrickException()== false){down = false;}}
 									
 						counter1++;
@@ -389,8 +409,7 @@ public void killBomberman1(int i, int j){
 		System.out.println("ICELL " + iCell);
 		this.gameBoard.getCell(iCell, jCell).setHasADetonatorBomb(false);
 		this.gameBoard.getBomberMan().removeOldestBomb();
-		this.gameBoard.getCell(iCell, jCell).setHasADetonatorBomb(false);
-		this.gameBoard.getBomberMan().removeOldestBomb();
+		this.gameBoard.getCell(iCell, jCell).setHasABomb(false);
 		 this.gameBoard.getBomberMan().setQteOfBombsDropped(-1);
 		 }
 		
@@ -475,8 +494,19 @@ public void killBomberman1(int i, int j){
 				 
    
    public void destroyBombsAround(int i, int j){
-	   if( this.gameBoard.getCell(i,j).searchBomb().isDetonatorActivated() == false){this.gameBoard.getCell(i,j).searchBomb().activateDetonator();}
-	   this.gameBoard.getCell(i,j).searchBomb().setDetonationTime( this.gameBoard.getCell(i,j).searchBomb().getDetonationTime());
-	   this.gameBoard.getCell(i, j).setHasADetonatorBomb(false);
+	   if(this.gameBoard.getCell(i, j).getHasADetonateBomb() == false){
+	       this.gameBoard.getCell(i, j).searchBomb().setExplodeFast(true);
+	   // to complete with power ups and limited numebr of bombs placed..
+	   }
+	   if(this.gameBoard.getCell(i, j).getHasADetonateBomb()){
+		   int x =  this.gameBoard.getCell(i, j).searchBomb().getPositionX();
+		   int y = this.gameBoard.getCell(i, j).searchBomb().getPositionY();
+		   this.gameBoard.getCell(i, j).setHasADetonatorBomb(false);
+		   this.gameBoard.getCell(i, j).setHasABomb(false);
+		   this.gameBoard.getBomberMan().removeBomb(x, y);
+		   this.gameBoard.getBomberMan().setQteOfBombsDropped(-1);
+		   // to complete..
+		   }
+	  
    }
 }
