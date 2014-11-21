@@ -121,7 +121,7 @@ public class Cell {
 	 */
 	public boolean isEmptyBrickException()
 	{
-		if(this.getHasABomb() == true){return false;}
+		
 		if(this.searcHasABrickWall() == true){return true;}
 		return this.myObjects.isEmpty();
 		
@@ -138,6 +138,11 @@ public class Cell {
 		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false && this.searcHasAConcreteWall()== false){
 		return true;}
 		return this.myObjects.isEmpty();
+	}
+	public boolean isEmptyBombException(){
+		
+		if(this.getHasABomb() == true){return false;}
+		return true;
 	}
 	
 	//sets the boolean hasABomb of the cell

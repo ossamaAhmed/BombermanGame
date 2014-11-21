@@ -26,12 +26,7 @@ public void run(){
 	
 	bombDestroyer.run();
 	
-	//while(gameBoard.getBomberMan().getIsAlive()){
-		//this.detonateRegularBombs();
-		
-		//}
-		
-		
+	
 	
 }
 /*
@@ -39,8 +34,10 @@ public void run(){
  * **/
  
 public void detonateRegularBombs(){
+	int iCell = this.gameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
+	int jCell = this.gameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
 	
-	
+	this.pickPowerUp(iCell, jCell);
 	for(int k=0;k<gameBoard.getBombs().size();k++)
 	 {
 		     System.out.println("TRYONG TO DETONATE BOMBS");
@@ -68,6 +65,11 @@ public void detonateRegularBombs(){
 					while(counter1 <= CONSTANTS.BOMB_RANGE1){
 						if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+								if(this.gameBoard.getCell(i, j+counter1).isEmptyBombException()== false){
+									
+								    this.destroyBombsAround(i, j+counter1);
+									right = false;
+								}
 								if(this.gameBoard.getCell(i, j+counter1).isEmptyBrickException()== false){right = false;}
 							}}
 							if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).isEmptyBrickException()){
@@ -80,6 +82,11 @@ public void detonateRegularBombs(){
 						
 						if(j -counter1 >=0 && left == true ){
 							if(j -counter1  >=0 && left== true){
+                               if(this.gameBoard.getCell(i, j-counter1).isEmptyBombException()== false){
+                            	   this.destroyBombsAround(i, j -counter1);
+									
+									left = false;
+								}
 								if(this.gameBoard.getCell(i, j-counter1).isEmptyBrickException()== false){left = false;}}
 							if(left == true && j -counter1 >= 0 && this.gameBoard.getCell(i, j-counter1).isEmptyBrickException()){
 							this.gameBoard.getCell(i, j-counter1).setFlameImages();}
@@ -91,6 +98,11 @@ public void detonateRegularBombs(){
 							}
 					   if(i -counter1 >=0 && up == true ){
 								if(i -counter1  >=0 && up== true){
+									if(this.gameBoard.getCell(i-counter1, j).isEmptyBombException()== false){
+										
+										this.destroyBombsAround(i-counter1, j);
+										up = false;
+									}
 									if(this.gameBoard.getCell(i-counter1, j).isEmptyBrickException()== false){up = false;}}
 								if(up == true && i -counter1 >= 0 && this.gameBoard.getCell(i-counter1, j).isEmptyBrickException()){
 								this.gameBoard.getCell(i-counter1, j).setFlameImages();}
@@ -102,6 +114,11 @@ public void detonateRegularBombs(){
 								}
 					 if(i +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && down == true ){
 									if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down== true){
+										if(this.gameBoard.getCell(i+counter1, j).isEmptyBombException()== false){
+											
+											this.destroyBombsAround(i+counter1, j);
+											down = false;
+										}
 										if(this.gameBoard.getCell(i+counter1, j).isEmptyBrickException()== false){down = false;}
 									}}
 									if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).isEmptyBrickException()){
@@ -114,7 +131,7 @@ public void detonateRegularBombs(){
 					}
 					 this.gameBoard.getBombs().remove(k);
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
-				   
+					this.gameBoard.getCell(i, j).deleteElement("Bomb");
 					this.killBomberman1(i, j);
 					
 						int counter2 = 1;
@@ -205,6 +222,9 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
 			}}
 			if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
+			    if(this.gameBoard.getCell(i, j + counter1).getHasABomb()){
+			    
+			    }
 				if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
 					System.out.println("KILLING BOMBERMAN");
 					this.gameBoard.getBomberMan().die();}
@@ -403,63 +423,59 @@ public void killBomberman1(int i, int j){
    public void pickPowerUp(int i, int j){
 	
 			 
-			 if(this.gameBoard.getCell(i, j).searcHasAPowerUp() == true){
-				 
-				 if(this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j){
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
-					 System.out.println("Getting speed powerUp");
-					 this.gameBoard.getBomberMan().updateSpeed(this.gameBoard.getBomberMan().getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
-				 }
-				 if(this.gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
-					 System.out.println("Getting speed powerUp");
-					 this.gameBoard.getBomberMan().setHasDetonator(true);
+			 
+					
 			 if(gameBoard.getCell(i, j).searcHasAPowerUp() == true){
 				 System.out.println("DOING THE RIGHT THING");
 				 if(gameBoard.getBomberMan().getICell() == i && gameBoard.getBomberMan().getJCell() == j){
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
 					 System.out.println("Getting speed powerUp");
 					 gameBoard.getBomberMan().updateSpeed(gameBoard.getBomberMan().getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
-					 gameBoard.getCell(i,j).removePowerUp();
+					 gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
 					 System.out.println("Getting detonator powerUp");
 					gameBoard.getBomberMan().setHasDetonator(true);
-					 gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
 					 System.out.println("Getting bombpass powerUp");
 					gameBoard.getBomberMan().setBombPass(true);
-					gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
 					 System.out.println("Getting flamepass powerUp");
 					gameBoard.getBomberMan().setFlamePass(true);
-					gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
 					 System.out.println("Getting brickpass powerUp");
 					gameBoard.getBomberMan().setBrickPass(true);
-					 gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
 					 System.out.println("Getting bombs powerUp");
 					gameBoard.getBomberMan().setNumBombsToDrop(1);
-					gameBoard.getCell(i,j).removePowerUp();
+					gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }
 				 
 				 }}}
  
-}
-				 }
+
+				 
+   
+   public void destroyBombsAround(int i, int j){
+	   
+	   this.gameBoard.getCell(i,j).searchBomb().setDetonationTime( this.gameBoard.getCell(i,j).searchBomb().getDetonationTime());
    }
 }

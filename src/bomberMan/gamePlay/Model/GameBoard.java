@@ -17,6 +17,9 @@ public class GameBoard {
 	BomberMan myBomberMan;
 	private ArrayList<Enemy> myEnemies;
 	private ArrayList<Bomb> myBombs;
+	private PowerUp myPowerUp;
+	int iCellPowerUp;
+	int jCellPowerUp;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
@@ -180,5 +183,8 @@ public class GameBoard {
 	}
 	public ArrayList <Bomb> getBombs(){return this.myBombs;}
 	public void removeBomb(){this.myBombs.remove(0);}
+	public PowerUp getPowerUpBoard(){return this.myPowerUp;}
+	public void addPowerUp(PowerUp powerup){this.myPowerUp = powerup;}
+	public void deletePowerUp(int i, int j){this.board[i][j].removePowerUp();}
 	
 }
