@@ -475,7 +475,8 @@ public void killBomberman1(int i, int j){
 				 
    
    public void destroyBombsAround(int i, int j){
-	   
+	   if( this.gameBoard.getCell(i,j).searchBomb().isDetonatorActivated() == false){this.gameBoard.getCell(i,j).searchBomb().activateDetonator();}
 	   this.gameBoard.getCell(i,j).searchBomb().setDetonationTime( this.gameBoard.getCell(i,j).searchBomb().getDetonationTime());
+	   this.gameBoard.getCell(i, j).setHasADetonatorBomb(false);
    }
 }
