@@ -46,7 +46,7 @@ public class GameBoard {
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap();
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS);
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -161,9 +161,9 @@ public class GameBoard {
 	 * 
 	 * This function builds a random map
 	 */
-	public void buildRandomMap(){
+	public void buildRandomMap(int numberOfBricks, PowerUpType powerUp){
 		
-		int maxBricks = CONSTANTS.maximumBrickMAP;
+		int maxBricks = numberOfBricks;
 		Random objectRandom = new Random();
 		int brickNumber = 0;
 		int counter = 0;
