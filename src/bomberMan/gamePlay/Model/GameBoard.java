@@ -36,12 +36,12 @@ public class GameBoard {
 		**The starting position will be added to constants
 		*/
 		myEnemies=new ArrayList<Enemy>();
-		initializeEnemiesPosition(20);
 		myBomberMan=new BomberMan(40,40);
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
 		buildRandomMap();
+		initializeEnemiesPosition(4);
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -60,19 +60,17 @@ public class GameBoard {
 		for(int i=0;i<numberOfEnemies;i++)
 		{
 			int xCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES);
-			while(!isRowClear(xCell))
+			int yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
+			while (!board[xCell][yCell].isEmpty()||!isRowClear(xCell)||!isColumnClear(yCell))
 			{
 				xCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES);
-			}
-			int yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
-			while(!isColumnClear(yCell))
-			{
 				yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
 			}
-			int direction=randomGenerator.nextInt(4)+1;
-			System.out.println(xCell+"     "+yCell);
-			myEnemies.add(new Enemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction));
+				int direction=randomGenerator.nextInt(4)+1;
+				System.out.println(xCell+"     "+yCell);
+				myEnemies.add(new Enemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,true));
 		}
+		myEnemies.get(numberOfEnemies-1).setWallPass(false);
 	}
 	/** 
 	 * This is a helper method to build the surrounding walls.Some numbers here are hard coded

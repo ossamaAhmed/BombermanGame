@@ -10,16 +10,23 @@ package bomberMan.gamePlay.View;
 import bomberMan.Login.View.PauseMenuView;
 import bomberMan.gamePlay.Controller.CharacterController;
 import bomberMan.gamePlay.Controller.BomberManController;
+import bomberMan.gamePlay.Controller.EnemyController;
 import bomberMan.gamePlay.Controller.GameBoardController;
 import bomberMan.gamePlay.Model.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class GameBoardView extends JPanel implements KeyListener {
@@ -28,9 +35,13 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private GameBoard myBoard;
 
 	private Graphics2D myCanvas;
+	BufferedImage image; //
 	Calendar timer = Calendar.getInstance();
+	Timer timer2;
 	private JFrame myFrame;
 	private BomberManController controller;
+	private CharacterController characterC;
+	private EnemyController enemyC;
 	public GameBoardController gmController;
 	/** 
 	 * Constructor
@@ -40,14 +51,32 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  public GameBoardView(JFrame myFrame)
 	  {
 		  super();
+		  image = null;
+			try {
+				image = ImageIO.read(new File("BombFlames.png"));
+			    }
+			catch (IOException e) 
+			{
+				System.out.println("Not found");
+			}
+
 		  this.myFrame=myFrame ;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
+		  characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
-		  this.repaint();	
-		 
+		enemyC=new EnemyController(characterC);
+			timer2 = new Timer(150, new ActionListener() {
+			    @Override
+			    public void actionPerformed(ActionEvent evt) {
+
+			    	updateGameBoardView();
+					enemyC.run();
+			    }
+			});
+			timer2.start();
 	  }
 	  
 	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
@@ -81,7 +110,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 if(keyE.getKeyCode()== KeyEvent.VK_Q){controller.dropBomb();}
 		 if(keyE.getKeyCode()==KeyEvent.VK_SPACE)
 		 {
-			 this.controller.pause();
+			// this.controller.pause();
 			 myFrame.remove(this);
 				PauseMenuView x=new PauseMenuView(myFrame,this.myBoard);
 				myFrame.setFocusable(true);
@@ -127,11 +156,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 super.paintComponent(g);
 		 this.myCanvas = (Graphics2D) g;
-		 for(int i=0;i<myBoard.getEnemies().size();i++)
-		 {
-			 myCanvas.drawImage(myBoard.getEnemies().get(i).getImage(), myBoard.getEnemies().get(i).getPositionX(),myBoard.getEnemies().get(i).getPositionY(), null);
-		 }
-		 
+
 		 //myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
 		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		 {
@@ -141,13 +166,18 @@ public class GameBoardView extends JPanel implements KeyListener {
 					 myCanvas.drawImage(myBoard.getCell(i, j).getImage(),myBoard.getCell(i, j).getObjects().get(0).getPositionX(),myBoard.getCell(i, j).getObjects().get(0).getPositionY(), null);
 			 }
 		 }
-		 this.repaint();
+		 for(int i=0;i<myBoard.getEnemies().size();i++)
+		 {
+			 myCanvas.drawImage(myBoard.getEnemies().get(i).getImage(), myBoard.getEnemies().get(i).getPositionX(),myBoard.getEnemies().get(i).getPositionY(), null);
+		 }
+		 
 		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
-		 this.repaint();
+		
+		 //this.repaint();
 	 }
 	 public void unpause()
 	 {
-		 this.controller.unpause();
+		 //this.controller.unpause();
 	 }
 	 
 	public void startController(){  this.gmController.run();}

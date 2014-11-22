@@ -1,6 +1,6 @@
 package bomberMan.gamePlay.Controller;
 
-public class EnemyController extends Thread
+public class EnemyController 
 {
 	CharacterController myController;
 	public EnemyController(CharacterController myController)
@@ -9,20 +9,10 @@ public class EnemyController extends Thread
 	}
     public void run()
     {
-    	while(true)
-    	{
-    		for(int i=0;i<myController.getGameBoard().getEnemies().size();i++)
+    	for(int i=0;i<myController.getGameBoard().getEnemies().size();i++)
     		{
-    			 myController.moveEnemy(i);
+    			 myController.moveEnemy(myController.getGameBoard().getEnemies().get(i),myController.getGameBoard().getEnemies().get(i).hasWallPass());
     		}
-    		try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	
-    	}
     }
 
 }

@@ -12,6 +12,9 @@ import bomberMan.gamePlay.Model.*;
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+
+import javax.swing.Timer;
 
 public class GamePlayView {
 	/*Instance Variables*/
@@ -38,7 +41,6 @@ public class GamePlayView {
 			board.setVisible(true);
 			gameView.add(board);
 			gameView.setVisible(true);
-	    	
 	      }
 	    });
 //		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +52,7 @@ public class GamePlayView {
 //		
 //		gameView.add(board);
 //		gameView.setVisible(true);
-//		while(gameView.isVisible()){board.updateGameBoardView();}
+//		}
 	}
 
 }

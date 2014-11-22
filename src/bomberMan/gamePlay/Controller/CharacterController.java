@@ -17,7 +17,7 @@ import bomberMan.gamePlay.Model.*;
 import bomberMan.gamePlay.Model.Character;
 
 
-public class CharacterController extends Thread{
+public class CharacterController{
 	
 	/*Instance Variables*/
 	GameBoard myGameBoard;
@@ -33,8 +33,6 @@ public class CharacterController extends Thread{
 	{
 		
 	this.myGameBoard=board;
-	enemyController=new EnemyController(this);
-	enemyController.start();
 	timer =Calendar.getInstance();
 
 	}
@@ -43,7 +41,7 @@ public class CharacterController extends Thread{
 	 * We should create an enum for movement instead of numbers. To be implemented. The width and 
 	 * height of the image are hard coded here. We should change that. 
 	 */
-	private boolean checkCollision(Character myCharacter, int direction)
+	private boolean checkCollision(Character myCharacter, int direction,String collidingObject)
 	{
 		//apply the new changes on a temporary integers
 		int tempX=-1;
@@ -71,23 +69,23 @@ public class CharacterController extends Thread{
 		}
 		//check for each edge if it collides with anything
 		//top left check
-		if(myGameBoard.getCell(tempY/CONSTANTS.TILE_SIDE_SIZE,tempX/CONSTANTS.TILE_SIDE_SIZE).isEmpty())
+		if(!myGameBoard.getCell(tempY/CONSTANTS.TILE_SIDE_SIZE,tempX/CONSTANTS.TILE_SIDE_SIZE).searchTheCell(collidingObject))
 		{
 			counter++;
 		}
 		//top right check
-		if(myGameBoard.getCell((tempY+19)/CONSTANTS.TILE_SIDE_SIZE,tempX/CONSTANTS.TILE_SIDE_SIZE).isEmpty())
+		if(!myGameBoard.getCell((tempY+20)/CONSTANTS.TILE_SIDE_SIZE,tempX/CONSTANTS.TILE_SIDE_SIZE).searchTheCell(collidingObject))
 		{
 			counter++;
 
 		}
 		//bottom left check
-		if(myGameBoard.getCell(tempY/CONSTANTS.TILE_SIDE_SIZE,(tempX+20)/CONSTANTS.TILE_SIDE_SIZE).isEmpty())
+		if(!myGameBoard.getCell(tempY/CONSTANTS.TILE_SIDE_SIZE,(tempX+20)/CONSTANTS.TILE_SIDE_SIZE).searchTheCell(collidingObject))
 		{
 			counter++;
 		}
 		//bottom right check
-		if(myGameBoard.getCell((tempY+19)/CONSTANTS.TILE_SIDE_SIZE,(tempX+20)/CONSTANTS.TILE_SIDE_SIZE).isEmpty())
+		if(!myGameBoard.getCell((tempY+20)/CONSTANTS.TILE_SIDE_SIZE,(tempX+20)/CONSTANTS.TILE_SIDE_SIZE).searchTheCell(collidingObject))
 		{
 			counter++;
 		}
@@ -104,45 +102,78 @@ public class CharacterController extends Thread{
 	 */
 	 public void move(KeyEvent keyE) 
 	 {
-		 if(keyE.getKeyCode() == KeyEvent.VK_RIGHT && !(checkCollision(myGameBoard.getBomberMan(), 2)) )
+		 if(keyE.getKeyCode() == KeyEvent.VK_RIGHT && !(checkCollision(myGameBoard.getBomberMan(), 2,"CONCRETE")) )
 		 {
 			 myGameBoard.getBomberMan().moveRight(myGameBoard.getBomberMan().getSpeed());
 		 }
-		 else if(keyE.getKeyCode() == KeyEvent.VK_LEFT && !(checkCollision(myGameBoard.getBomberMan(), 1)))
+		 else if(keyE.getKeyCode() == KeyEvent.VK_LEFT && !(checkCollision(myGameBoard.getBomberMan(), 1,"CONCRETE")))
 		 {
 			 myGameBoard.getBomberMan().moveLeft(myGameBoard.getBomberMan().getSpeed());
 		 }
-		 else if(keyE.getKeyCode() == KeyEvent.VK_DOWN && !(checkCollision(myGameBoard.getBomberMan(), 4)))
+		 else if(keyE.getKeyCode() == KeyEvent.VK_DOWN && !(checkCollision(myGameBoard.getBomberMan(), 4,"CONCRETE")))
 		 {
 			 myGameBoard.getBomberMan().moveDown(myGameBoard.getBomberMan().getSpeed());
 		 }
-		 else  if(keyE.getKeyCode() == KeyEvent.VK_UP && !(checkCollision(myGameBoard.getBomberMan(), 3)))
+		 else  if(keyE.getKeyCode() == KeyEvent.VK_UP && !(checkCollision(myGameBoard.getBomberMan(), 3,"CONCRETE")))
 		 {
 			 myGameBoard.getBomberMan().moveUp(myGameBoard.getBomberMan().getSpeed());
 		 }
 	 }
-	 public void moveEnemy(int enemy) 
+	 public void moveEnemy(Enemy enemy, boolean wallPass) 
 	 {
-		 if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==2 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 2)) )
-		 {
-			 myGameBoard.getEnemies().get(enemy).moveRight(myGameBoard.getEnemies().get(enemy).getSpeed());
-		 }
-		 else if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==1 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 1)))
-		 {
-			 myGameBoard.getEnemies().get(enemy).moveLeft(myGameBoard.getEnemies().get(enemy).getSpeed());
-		 }
-		 else if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==4 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 4)))
-		 {
-			 myGameBoard.getEnemies().get(enemy).moveDown(myGameBoard.getEnemies().get(enemy).getSpeed());
-		 }
-		 else  if(myGameBoard.getEnemies().get(enemy).getMovmentDirection()==3 && !(checkCollision(myGameBoard.getEnemies().get(enemy), 3)))
-		 {
-			 myGameBoard.getEnemies().get(enemy).moveUp(myGameBoard.getEnemies().get(enemy).getSpeed());
-		 }
-		 else
-		 {
-			 myGameBoard.getEnemies().get(enemy).changeDirection();
-		 }
+		 
+		 String collidingObject1="CONCRETE";
+		 String collidingObject3="BRICK";
+	     String collidingObject2="BOMB";
+			 if(enemy.getMovmentDirection()==2 && !(checkCollision(enemy, 2,collidingObject1))&& !(checkCollision(enemy, 2,collidingObject2)) )
+			 {
+				 if(wallPass)
+					 enemy.moveRight(enemy.getSpeed());
+				 else if(!(checkCollision(enemy, 2,collidingObject3)))
+				    enemy.moveRight(enemy.getSpeed());
+				 else
+				 {
+					 enemy.changeDirection();
+				 }
+			 }
+			 else if(enemy.getMovmentDirection()==1 && !(checkCollision(enemy, 1,collidingObject1))&&!(checkCollision(enemy, 1,collidingObject2)) )
+			 {
+				 if(wallPass)
+					 enemy.moveLeft(enemy.getSpeed());
+				 else if(!(checkCollision(enemy, 1,collidingObject3)))
+					 enemy.moveLeft(enemy.getSpeed());
+				 else
+				 {
+					 enemy.changeDirection();
+				 }
+			
+			 }
+			 else if(enemy.getMovmentDirection()==4 && !(checkCollision(enemy, 4,collidingObject1))&&!(checkCollision(enemy, 4,collidingObject2)))
+			 {
+				 if(wallPass)
+					 enemy.moveDown(enemy.getSpeed());
+				 else if(!(checkCollision(enemy, 4,collidingObject3)))
+					 enemy.moveDown(enemy.getSpeed());
+				 else
+				 {
+					 enemy.changeDirection();
+				 }
+			 }
+			 else  if(enemy.getMovmentDirection()==3 && !(checkCollision(enemy, 3,collidingObject1))&&!(checkCollision(enemy, 3,collidingObject2)))
+			 {
+				 if(wallPass)
+					 enemy.moveUp(enemy.getSpeed());
+				 else if(!(checkCollision(enemy, 3,collidingObject3)))
+					 enemy.moveUp(enemy.getSpeed());
+				 else
+				 {
+					 enemy.changeDirection();
+				 }
+			 }
+			 else
+			 {
+				 enemy.changeDirection();
+			 }
 	 }
 	 public GameBoard getGameBoard()
 	 {
@@ -150,12 +181,12 @@ public class CharacterController extends Thread{
 	 }
 
 	public Calendar getTimer(){return this.timer;}
-	public void pause()
-	{
-		enemyController.suspend();
-	}
-	public void unpause()
-	{
-		enemyController.resume();
-	}
+//	public void pause()
+//	{
+//		enemyController.suspend();
+//	}
+//	public void unpause()
+//	{
+//		enemyController.resume();
+//	}
 }

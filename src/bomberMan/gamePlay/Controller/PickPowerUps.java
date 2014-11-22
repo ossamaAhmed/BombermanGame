@@ -13,10 +13,6 @@ public class PickPowerUps implements Runnable {
 	public void run() {
 		while(gameBoard.getBomberMan().getIsAlive()){
 			this.controller.pickPowerUp();}
-		
-
-	
-
 	}
 
 }

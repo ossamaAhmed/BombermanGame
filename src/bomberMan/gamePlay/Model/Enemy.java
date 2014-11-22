@@ -11,11 +11,13 @@ public class Enemy extends Character{
 	private boolean wallPass;
 	private int movmentDirection;
 	
-	public Enemy(int xPos,int yPos,int movmentDirection)
+	
+	public Enemy(int xPos,int yPos,int movmentDirection, boolean wallPass)
 	{
 		super(xPos,yPos,CONSTANTS.BALLOON_IMAGE,"Balloon");
 		this.movmentDirection=movmentDirection;
-		this.wallPass=false;
+		this.wallPass=wallPass;
+		this.updateSpeed(CONSTANTS.DEFAULT_SPEEDENEMY);
 	}
 	
 	public BufferedImage getImage()
@@ -30,6 +32,14 @@ public class Enemy extends Character{
 		}
 
 		return image;
+	}
+	public boolean hasWallPass()
+	{
+		return this.wallPass;
+	}
+	public void setWallPass(boolean wallPass)
+	{
+		this.wallPass=wallPass;
 	}
 	public int getMovmentDirection()
 	{

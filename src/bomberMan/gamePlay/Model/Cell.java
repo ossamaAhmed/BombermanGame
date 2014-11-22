@@ -221,8 +221,22 @@ public class Cell {
 		
 		
 	}
+	public boolean searchTheCell(String search)
+	{
+		if(search.equals("CONCRETE")&&searcHasAConcreteWall())
+			return true;
+		if(search.equals("BRICK")&&searcHasABrickWall())
+			return true;
+		if(search.equals("POWERUP")&&searcHasAPowerUp())
+			return true;
+		if(search.equals("BOMB")&&getHasABomb())
+			return true;
+		
+		return false;
+	}
 	//search for a concrete wall in the cell
-	public boolean searcHasAConcreteWall(){
+	public boolean searcHasAConcreteWall()
+	{
 		int i = 0;
 		if(this.myObjects.size() >0){
 		for(i =0; i< this.myObjects.size(); i++){
@@ -234,7 +248,8 @@ public class Cell {
 		return false;
 	}
 	//search for a brick wall in the cell
-		public boolean searcHasABrickWall(){
+		public boolean searcHasABrickWall()
+		{
 			int i = 0;
 			if(this.myObjects.size() >0){
 			for(i =0; i< this.myObjects.size(); i++){
@@ -246,7 +261,8 @@ public class Cell {
 			return false;
 		}
 		//search for a powerup in the cell
-				public boolean searcHasAPowerUp(){
+				public boolean searcHasAPowerUp()
+				{
 					int i = 0;
 					if(this.myObjects.size() >0){
 					for(i =0; i< this.myObjects.size(); i++){
