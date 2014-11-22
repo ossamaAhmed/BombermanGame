@@ -17,9 +17,9 @@ public class CONSTANTS {
 	public final static int BOMBERMAN_HEIGHT = 20;
 	public static int BOMB_TIMER=8000;//in milliseconds
 	public static int BOMB_TIMER2=1000;//in milliseconds
-	public final static int BOMB_EXPLOSION_SHOWING_TIME = 300000; // in milliseconds
-	public final static int BOMB_EXPLOSION_SHOWING_TIME2 = 300000;
-	public final static int BOMB_FLAME_SHOWING_TIME = 50000; // in milliseconds
+	public final static int BOMB_EXPLOSION_SHOWING_TIME = 100000; // in milliseconds
+	public final static int BOMB_EXPLOSION_SHOWING_TIME2 = 100000;
+	public final static int BOMB_FLAME_SHOWING_TIME = 20000; // in milliseconds
 	public static int BOMB_RANGE1 =3;
 	public static int DEFAULT_SPEED=5;
 	public static int DEFAULT_SPEEDBOMBERMAN=5;

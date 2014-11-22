@@ -62,7 +62,7 @@ public void detonateRegularBombs(){
 					boolean down = true;
 					boolean up = true;
 					this.destroyBricks(i, j);
-					while(counter1 <= CONSTANTS.BOMB_RANGE1){
+					while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 					
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
 								if(this.gameBoard.getCell(i, j+counter1).isEmptyBombException()== false){
@@ -159,7 +159,7 @@ public void detonateRegularBombs(){
 						boolean left2 = true;
 						boolean down2 = true;
 						boolean up2 = true;
-						while(counter2 <= CONSTANTS.BOMB_RANGE1){
+						while(counter2 <=gameBoard.getBomberMan().getBombRange()){
 							if(j +counter2 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true ){
 								if(j +counter2  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true){
 									if(this.gameBoard.getCell(i, j+counter2).hasAFlame()== false){right2 = false;}
@@ -235,7 +235,7 @@ public void killBomberman1(int i, int j){
 	}
 	
 	int counter1 = 1;
-	while(counter1 <= CONSTANTS.BOMB_RANGE1){
+	while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 		// checking the right range of the bomb; if bomberman is present and there is no concrete walls at bomb range
 		if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
 			if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -327,7 +327,7 @@ public void killBomberman1(int i, int j){
 		
 		
 		int counter1 = 1;
-		while(counter1 <= CONSTANTS.BOMB_RANGE1){
+		while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 			// checking the right range of the bomb; if a brick is present and there is no concrete walls at bomb range
 			if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
 				if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -482,6 +482,12 @@ public void killBomberman1(int i, int j){
 				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
 					 System.out.println("Getting bombs powerUp");
 					gameBoard.getBomberMan().setNumBombsToDrop(1);
+					gameBoard.deletePowerUp(i, j);
+					 System.out.println("DELETING POWER UP");
+				 }
+				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMES){
+					 System.out.println("Getting bombs powerUp");
+					gameBoard.getBomberMan().setBombRange(1);
 					gameBoard.deletePowerUp(i, j);
 					 System.out.println("DELETING POWER UP");
 				 }

@@ -113,7 +113,7 @@ public class BomberMan extends Character {
 	public void setHasDetonator(boolean set){this.hasDetonator = set;}
 	//changes
 	public int getBombRange(){return this.currentBombRange;}
-	public void setBombRange(int range){this.currentBombRange = range;}
+	public void setBombRange(int range){this.currentBombRange += range;}
 	public int getNumBombsToDrop(){return this.numBombsAllowToDrop;}
 	public void setNumBombsToDrop(int num){this.numBombsAllowToDrop += num;}
 	public void setBrickPass(boolean set){this.canBrickPass = set;}
