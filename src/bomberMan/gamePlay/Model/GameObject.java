@@ -7,6 +7,12 @@
 
 package bomberMan.gamePlay.Model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class GameObject implements Position {
 	
 	/*Instance Variables*/
@@ -15,16 +21,18 @@ public class GameObject implements Position {
 	private boolean allowCollisions = false;
 	private String imageLocation;
 	private String objectType;
+	private BufferedImage image;
 	
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the private variables
 	 */
-	public GameObject() {
+	public GameObject(String objectType) {
 		this.xPosition=-1;
 		this.yPosition=-1;
 		this.imageLocation=null;
 		this.objectType=null;
+		this.image=null;
 	}
 	/** 
 	 * Constructor
@@ -66,6 +74,35 @@ public class GameObject implements Position {
 	public void setPosition(int xPos,int yPos) {
 		this.xPosition=xPos;
 		this.yPosition=yPos;
+	}
+	
+	public BufferedImage getImage()
+	{
+		
+		if(image==null)
+		{
+		try {
+			image = ImageIO.read(new File(this.getImageLocation()));
+		    }
+		catch (IOException e) 
+		{
+			System.out.println("Not found");
+		}
+		}
+		return image;
+	}
+	public void setImage(String image)
+	{
+		this.setImageLocation(image);
+		
+		try {
+			this.image = ImageIO.read(new File(this.getImageLocation()));
+		    }
+		catch (IOException e) 
+		{
+			System.out.println("Not found");
+		}
+		
 	}
 	
 	public void setPositionX(int xPos) {

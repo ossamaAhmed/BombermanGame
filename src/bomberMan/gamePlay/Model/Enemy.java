@@ -1,5 +1,8 @@
 package bomberMan.gamePlay.Model;
 
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,27 +13,42 @@ import javax.imageio.ImageIO;
 public class Enemy extends Character{
 	private boolean wallPass;
 	private int movmentDirection;
+	BufferedImage image;
 	
 	
-	public Enemy(int xPos,int yPos,int movmentDirection, boolean wallPass)
+	public Enemy(int xPos,int yPos,int movmentDirection, boolean wallPass,String enemyName)
 	{
-		super(xPos,yPos,CONSTANTS.BALLOON_IMAGE,"Balloon");
+		super(xPos,yPos,enemyName+".png",enemyName);
 		this.movmentDirection=movmentDirection;
 		this.wallPass=wallPass;
-		this.updateSpeed(CONSTANTS.DEFAULT_SPEEDENEMY);
+		if(enemyName.equals("Kondoria"))
+			{this.updateSpeed(2);
+			this.wallPass=true;
+			}
+		else if (enemyName.equals("Balloon"))
+			{this.updateSpeed(3);
+			this.wallPass=false;
+			}
+		else if(enemyName.equals("Pass"))
+		{
+			this.updateSpeed(3);
+			this.wallPass=false;
+		}
+		image = null;
 	}
 	
 	public BufferedImage getImage()
 	{
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(getImageLocation()));
-		    }
-		catch (IOException e) 
+		if(image==null)
 		{
-			System.out.println("Not found");
+			try {
+				image = ImageIO.read(new File(getImageLocation()));
+			    }
+			catch (IOException e) 
+			{
+				System.out.println("Not found");
+			}
 		}
-
 		return image;
 	}
 	public boolean hasWallPass()

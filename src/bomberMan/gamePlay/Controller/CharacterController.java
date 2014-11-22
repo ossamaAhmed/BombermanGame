@@ -128,52 +128,97 @@ public class CharacterController{
 			 if(enemy.getMovmentDirection()==2 && !(checkCollision(enemy, 2,collidingObject1))&& !(checkCollision(enemy, 2,collidingObject2)) )
 			 {
 				 if(wallPass)
+				 { 
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveRight(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else if(!(checkCollision(enemy, 2,collidingObject3)))
-				    enemy.moveRight(enemy.getSpeed());
+				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
+					 enemy.moveRight(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else
 				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.changeDirection();
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
 				 }
 			 }
 			 else if(enemy.getMovmentDirection()==1 && !(checkCollision(enemy, 1,collidingObject1))&&!(checkCollision(enemy, 1,collidingObject2)) )
 			 {
 				 if(wallPass)
+				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveLeft(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else if(!(checkCollision(enemy, 1,collidingObject3)))
+				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveLeft(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else
 				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.changeDirection();
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
 				 }
 			
 			 }
 			 else if(enemy.getMovmentDirection()==4 && !(checkCollision(enemy, 4,collidingObject1))&&!(checkCollision(enemy, 4,collidingObject2)))
 			 {
 				 if(wallPass)
+				 {
+					 
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveDown(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else if(!(checkCollision(enemy, 4,collidingObject3)))
+				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveDown(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else
 				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.changeDirection();
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
 				 }
 			 }
 			 else  if(enemy.getMovmentDirection()==3 && !(checkCollision(enemy, 3,collidingObject1))&&!(checkCollision(enemy, 3,collidingObject2)))
 			 {
 				 if(wallPass)
+				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveUp(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else if(!(checkCollision(enemy, 3,collidingObject3)))
+				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.moveUp(enemy.getSpeed());
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
+				 }
 				 else
 				 {
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 					 enemy.changeDirection();
+					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
 				 }
 			 }
 			 else
 			 {
+				 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
 				 enemy.changeDirection();
+				 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
 			 }
+			 if((enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE)==(this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE) &&(enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE)==(this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE))
+				 this.myGameBoard.getBomberMan().die();
 	 }
 	 public GameBoard getGameBoard()
 	 {

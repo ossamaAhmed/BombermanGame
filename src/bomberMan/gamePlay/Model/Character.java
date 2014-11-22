@@ -21,7 +21,7 @@ public class Character extends GameObject {
 	 * and the speed of movements(in pixels). This Constructor is not used yet
 	 */
 	public Character() {
-		super();
+		super("Character");
 		this.alive=true;
 		this.speed=CONSTANTS.DEFAULT_SPEED;
 		this.numOfLives=0;

@@ -13,6 +13,7 @@ public class Bomb extends GameObject {
 	private long  timeToExplode;
 	private int explosionRange;
 	private boolean detonatorActivated;
+	private boolean explodeFast;
 	public long detonationTime;
 	
 	/** 
@@ -20,7 +21,9 @@ public class Bomb extends GameObject {
 	 * This method takes care of any initialization needed for 
 	 * the Bomb private variables.
 	 */
-	public Bomb() {
+	public Bomb() 
+	{
+		super("Bomb");
 		this.timeToExplode = CONSTANTS.BOMB_TIMER;
 		this.timer=Calendar.getInstance();
 		this.explosionRange=CONSTANTS.DEFAULT_BOMB_RANGE;
@@ -37,6 +40,7 @@ public class Bomb extends GameObject {
 	 */
 	public Bomb(int xPos, int yPos, long timerTime, int explosionRange,boolean detonatorActivated, String typeBomb) {
 		super(xPos,yPos,CONSTANTS.Bomb_IMAGE,typeBomb);
+		this.explodeFast = false;
 		this.timeToExplode=timerTime;
 		long creationTime = 0;
 		this.timer=Calendar.getInstance();
@@ -45,7 +49,7 @@ public class Bomb extends GameObject {
 		this.detonationTime = creationTime+timerTime;}
 		if(detonatorActivated == true){
 		    creationTime = timer.getTimeInMillis();
-			this.detonationTime = creationTime + timerTime;}
+			this.detonationTime = creationTime;}
 		this.explosionRange=explosionRange;
 		this.detonatorActivated=detonatorActivated;
 		System.out.println("CreationTime: "+creationTime);
@@ -76,9 +80,11 @@ public class Bomb extends GameObject {
     public void setDetonationTime(long time){this.detonationTime = time;}
     public long getDetonationTime(){return this.detonationTime;}
     public long getBombTimer(){return Calendar.getInstance().getTimeInMillis();}
+    
     public int getBombRange(){return this.explosionRange;}
     public void setBombRange(int range){this.explosionRange = range;}
-    
+    public boolean getExplodeFast(){return this.explodeFast;}
+    public void setExplodeFast(boolean set){this.explodeFast = set;}
     
 
 }

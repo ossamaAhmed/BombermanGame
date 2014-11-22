@@ -1,13 +1,9 @@
-/* 
- * File: GamePlayView.java
- * -----------------------
- * This Class takes care of the initialization of the frame and adding the gameboard panel in it. 
- * Run the game from here for now. 
- */
 package bomberMan.gamePlay.View;
+
 
 import bomberMan.gamePlay.Controller.GameBoardController;
 import bomberMan.gamePlay.Model.*;
+import bomberMan.gamePlay.View.GameBoardView;
 
 import javax.swing.*;
 
@@ -34,7 +30,7 @@ public class GamePlayView {
 	      public void run()  
 	      {  	
 	  		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			gameView.setSize(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT); 
+			gameView.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT); 
 			//gameView.setResizable(false); //Resizing Not working should look into it
 			gameView.addKeyListener(board);		
 			board.setBackground(Color.black);

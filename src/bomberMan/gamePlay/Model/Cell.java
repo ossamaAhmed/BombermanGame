@@ -28,6 +28,7 @@ public class Cell {
 	boolean hasADetonateBomb = false;
 	boolean hasAPowerUp = false;
 	boolean hasADestructibleBrick = false;
+	BufferedImage image;
 	Calendar timer;
 	BomberMan myBomberMan;
 	private ArrayList<GameObject> myObjects;
@@ -41,10 +42,11 @@ public class Cell {
 	{   this.myBomberMan = myBomberman;
 		this.xPos = xPos;
 	    this.yPos = yPos;
-	   
+	   image=null;
 		this.myObjects=new ArrayList<GameObject>();
 		this.isEmpty = true;
 		timer = Calendar.getInstance();
+
 	}
 	/** 
 	 * Constructor
@@ -57,6 +59,7 @@ public class Cell {
 		timer = Calendar.getInstance();
 		this.myObjects=new ArrayList<GameObject>();
 		this.myObjects.add(myObject);
+		image=null;
 		this.isEmpty = true;
 	}
 	
@@ -92,15 +95,7 @@ public class Cell {
 	 */
 	public BufferedImage getImage()
 	{
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(this.myObjects.get(0).getImageLocation()));
-		    }
-		catch (IOException e) 
-		{
-			System.out.println("Not found");
-		}
-
+		image = this.myObjects.get(0).getImage();
 		return image;
 	}
 	/** 
@@ -121,9 +116,30 @@ public class Cell {
 	 */
 	public boolean isEmptyBrickException()
 	{
+		
 		if(this.searcHasABrickWall() == true){return true;}
 		return this.myObjects.isEmpty();
 		
+	}
+	public boolean isThereAnEnemy()
+	{
+		for(int i=0;i<myObjects.size();i++)
+		{
+			if(myObjects.get(i) instanceof Enemy)
+				return true;
+		}
+		return false;
+	}
+	public void deleteEnemies()
+	{
+		for(int i=0;i<myObjects.size();i++)
+		{
+			if(myObjects.get(i) instanceof Enemy)
+				{
+					((Enemy) myObjects.get(i)).die();
+					myObjects.remove(i);
+				}
+		}
 	}
 	/** 
 	 * This method returns a boolean depending if the cell is totally empty and there 
@@ -138,6 +154,12 @@ public class Cell {
 		return true;}
 		return this.myObjects.isEmpty();
 	}
+	public boolean isEmptyBombException(){
+		
+		if(this.getHasABomb() == true){return false;}
+		return true;
+	}
+	
 	//sets the boolean hasABomb of the cell
 	public void setHasABomb(boolean set){this.hasABomb = set;}
 	

@@ -56,19 +56,6 @@ public class BomberMan extends Character {
 	 * corresponding to each move he does. This function throws an exception that should be collected 
 	 * in a log file.
 	 */
-	public BufferedImage getImage()
-	{
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new File(getImageLocation()));
-		    }
-		catch (IOException e) 
-		{
-			System.out.println("Not found");
-		}
-
-		return image;
-	}
 	public void addBomb(Bomb objectBomb){this.myBombs.add(objectBomb);}
 	public int getICell(){
 		return (int)(this.getPositionY()/ CONSTANTS.TILE_SIDE_SIZE);
@@ -86,6 +73,13 @@ public class BomberMan extends Character {
 		if(this.myBombs.size() > 0){
 		this.myBombs.remove(0);}
 	}
+	public void removeBomb(int x, int y){
+		int counter = 0;
+		if(this.myBombs.size() > 0){
+		for(counter = 0; counter < this.myBombs.size(); counter++){
+		if(this.myBombs.get(counter).getPositionX() == x && this.myBombs.get(counter).getPositionY() == y ){
+		this.myBombs.remove(counter);}}}
+	}
 	// returns the oldest detonator bomb dropped
 	public Bomb getOldestBomb(){
 		
@@ -96,7 +90,7 @@ public class BomberMan extends Character {
 	}
 	public void die(){
 		super.die();
-		this.setImageLocation(CONSTANTS.BMB_dead);
+		this.setImage(CONSTANTS.BMB_dead);
 		
 	}	
 	

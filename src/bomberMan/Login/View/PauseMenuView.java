@@ -76,7 +76,6 @@ public class PauseMenuView extends JPanel
 	{
 		myframe.remove(this);
 		GameBoardView x= new GameBoardView(myframe,myBoard);
-		x.unpause();
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);
@@ -86,6 +85,7 @@ public class PauseMenuView extends JPanel
 	        myframe.repaint();
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
+		x.unpause();
         
     }
 	public void setStartNewGameButtonButton()

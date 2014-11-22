@@ -5,17 +5,27 @@
  */
 package bomberMan.gamePlay.Model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Wall extends GameObject{
 	
 	/*Instance Variables*/
 	private WallType myWallType;
+	BufferedImage image;
 	
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the wall type. Not used till now
 	 */
-	public Wall() {
+	public Wall() 
+	{
+		super("Wall");
 		this.myWallType= WallType.CONCRETE; 
+		image=null;
 		
 		super.setImageLocation(CONSTANTS.CONCRETE_WALL_IMAGE);
 	}
@@ -25,6 +35,7 @@ public class Wall extends GameObject{
 	 */
 	public Wall(int x,int y,WallType myWallType) 
 	{
+		super("Wall");
 		this.myWallType=myWallType;
 		if(this.myWallType == WallType.CONCRETE){this.setType("Concrete");
 		super.setPosition(x, y);
@@ -50,6 +61,21 @@ public class Wall extends GameObject{
 			return true;
 		else
 			return false;
+	}
+	public BufferedImage getImage()
+	{
+		
+		if(image==null)
+		{
+		try {
+			image = ImageIO.read(new File(this.getImageLocation()));
+		    }
+		catch (IOException e) 
+		{
+			System.out.println("Not found");
+		}
+		}
+		return image;
 	}
 	public boolean isConcrete() {
 		if(myWallType==WallType.CONCRETE)

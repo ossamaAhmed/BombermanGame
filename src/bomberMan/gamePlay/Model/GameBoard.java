@@ -16,13 +16,18 @@ public class GameBoard {
 	Cell board[][];
 	BomberMan myBomberMan;
 	private ArrayList<Enemy> myEnemies;
+	private ArrayList<Bomb> myBombs;
+	private PowerUp myPowerUp;
+	int iCellPowerUp;
+	int jCellPowerUp;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
 	public GameBoard(int numberOfWall)
-	{
+	
+	{   myBombs  = new ArrayList <Bomb>();
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		board=new Cell[CONSTANTS.NUMBER_OF_VERTICAL_TILES][CONSTANTS.NUMBER_OF_HORIZONTAL_TILES];
 		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
@@ -40,8 +45,11 @@ public class GameBoard {
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap();
-		initializeEnemiesPosition(4);
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS);
+		initializeEnemiesPosition(2,"Balloon");
+		initializeEnemiesPosition(2,"Kondoria");
+		initializeEnemiesPosition(2,"Pass");
+		
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -54,7 +62,7 @@ public class GameBoard {
 	{
 		this.board[x][y].insert(gameObject);
 	}
-	public void initializeEnemiesPosition(int numberOfEnemies)
+	public void initializeEnemiesPosition(int numberOfEnemies, String enemyName)
 	{
 		Random randomGenerator = new Random();
 		for(int i=0;i<numberOfEnemies;i++)
@@ -68,9 +76,10 @@ public class GameBoard {
 			}
 				int direction=randomGenerator.nextInt(4)+1;
 				System.out.println(xCell+"     "+yCell);
-				myEnemies.add(new Enemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,true));
+				Enemy myEnemy=new Enemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,true,enemyName);
+				myEnemies.add(myEnemy);
+				this.board[xCell][yCell].insert(myEnemy);
 		}
-		myEnemies.get(numberOfEnemies-1).setWallPass(false);
 	}
 	/** 
 	 * This is a helper method to build the surrounding walls.Some numbers here are hard coded
@@ -148,17 +157,20 @@ public class GameBoard {
 	{
 		
 		this.board[yCellPos][xCellPos].insert(objectBomb);
-		this.myBomberMan.addBomb(objectBomb);
+		this.myBombs.add(objectBomb);
 	}
 	/*
 	 * 
 	 * This function builds a random map
 	 */
-	public void buildRandomMap(){
+	public void buildRandomMap(int numberOfBricks, PowerUpType powerUp){
 		
-		int maxBricks = CONSTANTS.maximumBrickMAP;
+		int maxBricks = numberOfBricks;
 		Random objectRandom = new Random();
 		int brickNumber = 0;
+		int exitNumberChosen = objectRandom.nextInt(numberOfBricks-1);
+		System.out.println("NUMBER CHOSEN FOR EXIT" + exitNumberChosen);
+		boolean exitAlreadyPlaced = false;
 		int counter = 0;
 		int numberChosen;
 		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES-1;i+=1)
@@ -167,12 +179,30 @@ public class GameBoard {
 			 {
 				 numberChosen = objectRandom.nextInt(9);
 				 if(board[i][j].isEmpty()&& numberChosen == brickNumber && counter < maxBricks&& (i > 2 || j >  2) ){
+				
 				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
+					 board[i][j].insert(new GameObject(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
+				     exitAlreadyPlaced = true;
+				     System.out.println("NUMBER CHOSEN FOR EXIT i j " + i + ", "+j);
+				 }
 				 counter++;
 				 }
+				
 				 }
 		 }
 		
 	}
+	public ArrayList <Bomb> getBombs(){return this.myBombs;}
+	//removes bomb with the specific x and y position
+	public void removeBomb(int x, int y){
+		int counter = 0;
+		if(this.myBombs.size() > 0){
+		for(counter = 0; counter < this.myBombs.size(); counter++){
+		if(this.myBombs.get(counter).getPositionX() == x && this.myBombs.get(counter).getPositionY() == y ){
+		this.myBombs.remove(counter);}}}}
+	public PowerUp getPowerUpBoard(){return this.myPowerUp;}
+	public void addPowerUp(PowerUp powerup){this.myPowerUp = powerup;}
+	public void deletePowerUp(int i, int j){this.board[i][j].removePowerUp();}
 	
 }

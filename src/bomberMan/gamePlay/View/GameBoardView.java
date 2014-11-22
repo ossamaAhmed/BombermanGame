@@ -42,6 +42,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private BomberManController controller;
 	private CharacterController characterC;
 	private EnemyController enemyC;
+	private int scrollRealtive;
 	public GameBoardController gmController;
 	/** 
 	 * Constructor
@@ -61,6 +62,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			}
 
 		  this.myFrame=myFrame ;
+		  scrollRealtive=0;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
@@ -68,7 +70,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
 		enemyC=new EnemyController(characterC);
-			timer2 = new Timer(150, new ActionListener() {
+			timer2 = new Timer(50, new ActionListener() {
 			    @Override
 			    public void actionPerformed(ActionEvent evt) {
 
@@ -87,8 +89,18 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
+		  characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
-		  this.repaint();		  
+		enemyC=new EnemyController(characterC);
+			timer2 = new Timer(50, new ActionListener() {
+			    @Override
+			    public void actionPerformed(ActionEvent evt) {
+
+			    	updateGameBoardView();
+					enemyC.run();
+			    }
+			});
+			timer2.start();		  
 	  }
 	  
 	  
@@ -111,6 +123,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 if(keyE.getKeyCode()==KeyEvent.VK_SPACE)
 		 {
 			// this.controller.pause();
+			 pause();
 			 myFrame.remove(this);
 				PauseMenuView x=new PauseMenuView(myFrame,this.myBoard);
 				myFrame.setFocusable(true);
@@ -131,7 +144,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 { 
 			
 			 gmController.detonateOldestBomb();
-			 gmController.detonateOldestBomb();
+			// gmController.detonateOldestBomb();
 		 }
 	 }
 	  /** 
@@ -157,27 +170,51 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 super.paintComponent(g);
 		 this.myCanvas = (Graphics2D) g;
 
+		 int bombermanCellX=this.myBoard.getBomberMan().getPositionX();
+		 int bombermanX=this.myBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
 		 //myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
-		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
+		if(bombermanCellX>(CONSTANTS.SCREEN_WIDTH/2)&&bombermanX<23)
+		{
+			scrollRealtive=bombermanCellX-(CONSTANTS.SCREEN_WIDTH/2);
+			 
+		}
+		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
 		 {
 			 for(int j=0;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES;j++)
 			 {
-				 if(!this.myBoard.getCell(i, j).isEmpty())
-					 myCanvas.drawImage(myBoard.getCell(i, j).getImage(),myBoard.getCell(i, j).getObjects().get(0).getPositionX(),myBoard.getCell(i, j).getObjects().get(0).getPositionY(), null);
-			 }
+				 if(j>-1&&j<31)
+				 {
+					 if(!this.myBoard.getCell(i, j).isEmpty())
+						 myCanvas.drawImage(myBoard.getCell(i, j).getImage(),myBoard.getCell(i, j).getObjects().get(0).getPositionX()-this.scrollRealtive,myBoard.getCell(i, j).getObjects().get(0).getPositionY(), null);
+				 }
+				 }
 		 }
+		myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX()-this.scrollRealtive,myBoard.getBomberMan().getPositionY(), null);
 		 for(int i=0;i<myBoard.getEnemies().size();i++)
 		 {
-			 myCanvas.drawImage(myBoard.getEnemies().get(i).getImage(), myBoard.getEnemies().get(i).getPositionX(),myBoard.getEnemies().get(i).getPositionY(), null);
+			 myCanvas.drawImage(myBoard.getEnemies().get(i).getImage(), myBoard.getEnemies().get(i).getPositionX()-this.scrollRealtive,myBoard.getEnemies().get(i).getPositionY(), null);
 		 }
-		 
-		 myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX(),myBoard.getBomberMan().getPositionY(), null);
-		
+		// myCanvas.drawImage(myBoard.getBomberMan().getImage(), myBoard.getBomberMan().getPositionX()-this.scrollRealtive,myBoard.getBomberMan().getPositionY(), null);
 		 //this.repaint();
+	 }
+	 public void pause()
+	 {
+		 //this.controller.unpause();
+		 timer2.stop();
 	 }
 	 public void unpause()
 	 {
 		 //this.controller.unpause();
+//		 enemyC=new EnemyController(characterC);
+//		 timer2 = new Timer(150, new ActionListener() {
+//			    @Override
+//			    public void actionPerformed(ActionEvent evt) {
+//
+//			    	updateGameBoardView();
+//					enemyC.run();
+//			    }
+//			});
+		 timer2.start();
 	 }
 	 
 	public void startController(){  this.gmController.run();}
