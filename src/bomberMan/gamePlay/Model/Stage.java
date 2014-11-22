@@ -77,11 +77,13 @@ public class Stage {
 		for(int i = 0; i < 9; i++){
 			stage[i] = allStages[x-1][i];
 		}
+		return stage;
 	}
 	public int[] getBonus(int x){
 		int stage[] = new int[9];
 		for(int i = 0; i < 9; i++){
 			stage[i] = bonusStage[x-1][i];
 		}
+		return stage;
 	}
 }
