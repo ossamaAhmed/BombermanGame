@@ -29,6 +29,7 @@ public class CONSTANTS {
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
 	public final static int TILE_SIDE_SIZE=40; //in pixels
 	public final static int SCORE_SCREEN_HEIGHT=30; //in pixels
+	public final static String EXIT_IMAGE = "ExitDoorImage.png";
 	public final static String CONCRETE_WALL_IMAGE="concrete.png";
 	public final static String BRICK_WALL_IMAGE="Brick.png";
 	public final static String BomberMan_IMAGE="Bomberman.png";
