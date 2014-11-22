@@ -46,7 +46,7 @@ public class GameBoard {
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS);
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -161,7 +161,7 @@ public class GameBoard {
 	 * 
 	 * This function builds a random map
 	 */
-	public void buildRandomMap(int numberOfBricks, PowerUpType powerUp){
+	public void buildRandomMap(int numberOfBricks, PowerUpType powerUp, String powerUpImageLocation){
 		
 		int maxBricks = numberOfBricks;
 		Random objectRandom = new Random();
@@ -184,14 +184,14 @@ public class GameBoard {
 				 numberChosen = objectRandom.nextInt(9);
 				 if(board[i][j].isEmpty()&& numberChosen == brickNumber && counter < maxBricks&& (i > 2 || j >  2) ){
 				
-				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				 //board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
 					 board[i][j].insert(new GameObject(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
 				     exitAlreadyPlaced = true;
 				     System.out.println("NUMBER CHOSEN FOR EXIT i j " + i + ", "+j);
 				 }
 				 if(powerUpAlreadyPlaced == false && counter == powerUpNumberChosen){
-					 board[i][j].insert(new PowerUp(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.FLAME_POWERUP, PowerUpType.FLAMES,"PowerUp"));
+					 board[i][j].insert(new PowerUp(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,powerUpImageLocation, powerUp,"PowerUp"));
 				     powerUpAlreadyPlaced = true;
 				     System.out.println("NUMBER CHOSEN FOR power up i j " + i + ", "+j);
 				 }
