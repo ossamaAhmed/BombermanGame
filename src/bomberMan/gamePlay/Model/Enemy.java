@@ -13,27 +13,16 @@ import javax.imageio.ImageIO;
 public class Enemy extends Character{
 	private boolean wallPass;
 	private int movmentDirection;
-	BufferedImage image;
+	private int expectedNextMovmentDirection;
+	private BufferedImage image;
+	private int score;
 	
 	
-	public Enemy(int xPos,int yPos,int movmentDirection, boolean wallPass,String enemyName)
+	public Enemy(int xPos,int yPos,int movmentDirection,String enemyName)
 	{
 		super(xPos,yPos,enemyName+".png",enemyName);
 		this.movmentDirection=movmentDirection;
-		this.wallPass=wallPass;
-		if(enemyName.equals("Kondoria"))
-			{this.updateSpeed(2);
-			this.wallPass=true;
-			}
-		else if (enemyName.equals("Balloon"))
-			{this.updateSpeed(3);
-			this.wallPass=false;
-			}
-		else if(enemyName.equals("Pass"))
-		{
-			this.updateSpeed(3);
-			this.wallPass=false;
-		}
+		this.expectedNextMovmentDirection=movmentDirection;
 		image = null;
 	}
 	
@@ -55,6 +44,14 @@ public class Enemy extends Character{
 	{
 		return this.wallPass;
 	}
+	public int getExpectedMovmentDirection()
+	{
+		return this.expectedNextMovmentDirection;
+	}
+	public void setExpectedMovmentDirection(int direction)
+	{
+		this.expectedNextMovmentDirection=direction;
+	}
 	public void setWallPass(boolean wallPass)
 	{
 		this.wallPass=wallPass;
@@ -63,23 +60,35 @@ public class Enemy extends Character{
 	{
 		return this.movmentDirection;
 	}
+	public void setScore(int score)
+	{
+		this.score=score;
+	}
+	public int getScore()
+	{
+		return this.score;
+	}
 	public void changeDirection()
 	{
-		if(this.movmentDirection==2)
+		if(this.getExpectedMovmentDirection()==2)
 		{
 			this.movmentDirection=1;
+			this.expectedNextMovmentDirection=1;
 		}
-		else if(movmentDirection==1)
+		else if(this.getExpectedMovmentDirection()==1)
 		{
 			this.movmentDirection=2;
+			this.expectedNextMovmentDirection=2;
 		}
-		else if(movmentDirection==3)
+		else if(this.getExpectedMovmentDirection()==3)
 		{
 			this.movmentDirection=4;
+			this.expectedNextMovmentDirection=4;
 		}
-		else if(movmentDirection==4)
+		else if(this.getExpectedMovmentDirection()==4)
 		{
 			this.movmentDirection=3;
+			this.expectedNextMovmentDirection=3;
 		}
 	}
 	

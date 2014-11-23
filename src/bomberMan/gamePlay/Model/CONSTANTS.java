@@ -20,15 +20,22 @@ public class CONSTANTS {
 	public final static int BOMB_EXPLOSION_SHOWING_TIME = 100000; // in milliseconds
 	public final static int BOMB_EXPLOSION_SHOWING_TIME2 = 100000;
 	public final static int BOMB_FLAME_SHOWING_TIME = 20000; // in milliseconds
+	public final static int LEFT = 1; // in milliseconds
+	public final static int RIGHT = 2; // in milliseconds
+	public final static int UP = 3; // in milliseconds
+	public final static int DOWN = 4; // in milliseconds
 	public static int BOMB_RANGE1 =3;
 	public static int DEFAULT_SPEED=6;
 	public static int DEFAULT_SPEEDBOMBERMAN=6;
-	public static int DEFAULT_SPEEDENEMY=8;
-	public static int DEFAULT_POWERUPSPEED_INCREASE=3;
+	public static int SPEEDENEMY_SLOWEST=1;
+	public static int SPEEDENEMY_SLOW=2;
+	public static int SPEEDENEMY_NORMAL=3;
+	public static int SPEEDENEMY_FAST=4;
+	public static int DEFAULT_POWERUPSPEED_INCREASE;
+	public static long delayINVISIBILITY = 1000000;
 	public final static int NUMBER_OF_HORIZONTAL_TILES=31;
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
 	public final static int TILE_SIDE_SIZE=40; //in pixels
-	public final static int SCORE_SCREEN_HEIGHT=30; //in pixels
 	public final static String EXIT_IMAGE = "ExitDoorImage.png";
 	public final static String CONCRETE_WALL_IMAGE="concrete.png";
 	public final static String BRICK_WALL_IMAGE="Brick.png";
@@ -49,6 +56,7 @@ public class CONSTANTS {
 	public final static int WINDOW_WIDTH=NUMBER_OF_HORIZONTAL_TILES*TILE_SIDE_SIZE;
 	public final static int SCREEN_WIDTH=15*TILE_SIDE_SIZE;
 	public final static int WINDOW_HEIGHT=(NUMBER_OF_VERTICAL_TILES*TILE_SIDE_SIZE);
+	public final static int SCORE_SCREEN_START_HEIGHT=WINDOW_HEIGHT+10; //in pixels
     public void setBombRange(int range){CONSTANTS.BOMB_RANGE1 = range;}
     public void setSpeedBomberman(int speed){ CONSTANTS.DEFAULT_SPEEDBOMBERMAN = speed;}
     public void setBombTime(int timer){ CONSTANTS.BOMB_TIMER = timer;}

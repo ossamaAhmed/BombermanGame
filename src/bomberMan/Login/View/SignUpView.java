@@ -265,7 +265,7 @@ public class SignUpView extends JPanel
 	{
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
-		//myCanvas.drawImage(backgroundImage, 0,0,this);
+		myCanvas.drawImage(backgroundImage, 0,0,this);
 		myCanvas.drawImage(loginImage, (CONSTANTS.WINDOW_WIDTH/2)-(loginImage.getWidth(null)/2),(CONSTANTS.WINDOW_HEIGHT/2)-(loginImage.getHeight(null)/2),this);
 	}
 

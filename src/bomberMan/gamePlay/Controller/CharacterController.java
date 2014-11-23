@@ -22,8 +22,6 @@ public class CharacterController{
 	/*Instance Variables*/
 	GameBoard myGameBoard;
 	Calendar timer;
-	EnemyController enemyController;
-	
 	/** 
 	 * Constructor
 	 * This method takes care of the passing of the game board to the controller to have
@@ -41,7 +39,7 @@ public class CharacterController{
 	 * We should create an enum for movement instead of numbers. To be implemented. The width and 
 	 * height of the image are hard coded here. We should change that. 
 	 */
-	private boolean checkCollision(Character myCharacter, int direction,String collidingObject)
+	public boolean checkCollision(Character myCharacter, int direction,String collidingObject)
 	{
 		//apply the new changes on a temporary integers
 		int tempX=-1;
@@ -118,107 +116,6 @@ public class CharacterController{
 		 {
 			 myGameBoard.getBomberMan().moveUp(myGameBoard.getBomberMan().getSpeed());
 		 }
-	 }
-	 public void moveEnemy(Enemy enemy, boolean wallPass) 
-	 {
-		 
-		 String collidingObject1="CONCRETE";
-		 String collidingObject3="BRICK";
-	     String collidingObject2="BOMB";
-			 if(enemy.getMovmentDirection()==2 && !(checkCollision(enemy, 2,collidingObject1))&& !(checkCollision(enemy, 2,collidingObject2)) )
-			 {
-				 if(wallPass)
-				 { 
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveRight(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else if(!(checkCollision(enemy, 2,collidingObject3)))
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveRight(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.changeDirection();
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-			 }
-			 else if(enemy.getMovmentDirection()==1 && !(checkCollision(enemy, 1,collidingObject1))&&!(checkCollision(enemy, 1,collidingObject2)) )
-			 {
-				 if(wallPass)
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveLeft(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else if(!(checkCollision(enemy, 1,collidingObject3)))
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveLeft(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.changeDirection();
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-			
-			 }
-			 else if(enemy.getMovmentDirection()==4 && !(checkCollision(enemy, 4,collidingObject1))&&!(checkCollision(enemy, 4,collidingObject2)))
-			 {
-				 if(wallPass)
-				 {
-					 
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveDown(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else if(!(checkCollision(enemy, 4,collidingObject3)))
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveDown(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.changeDirection();
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-			 }
-			 else  if(enemy.getMovmentDirection()==3 && !(checkCollision(enemy, 3,collidingObject1))&&!(checkCollision(enemy, 3,collidingObject2)))
-			 {
-				 if(wallPass)
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveUp(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else if(!(checkCollision(enemy, 3,collidingObject3)))
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.moveUp(enemy.getSpeed());
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-				 else
-				 {
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-					 enemy.changeDirection();
-					 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-				 }
-			 }
-			 else
-			 {
-				 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().remove(enemy);
-				 enemy.changeDirection();
-				 this.myGameBoard.getCell(enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).getObjects().add(enemy);
-			 }
-			 if((enemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE)==(this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE) &&(enemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE)==(this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE))
-				 this.myGameBoard.getBomberMan().die();
 	 }
 	 public GameBoard getGameBoard()
 	 {

@@ -38,6 +38,7 @@ public class PauseMenuView extends JPanel
 	{
 		super();
 		myframe=x;
+		this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
 		this.myBoard=myBoard;
 	    this.setOpaque(true);
 	    setBackgroundImage();
@@ -233,7 +234,7 @@ public class PauseMenuView extends JPanel
 	{
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
-		//myCanvas.drawImage(backgroundImage, 0,0,this);
+		myCanvas.drawImage(backgroundImage, 0,0,this);
 		myCanvas.drawImage(mainMenuImage, (CONSTANTS.WINDOW_WIDTH/2)-(mainMenuImage.getWidth(null)/2),(CONSTANTS.WINDOW_HEIGHT/2)-(mainMenuImage.getHeight(null)/2),this);
 	}
 

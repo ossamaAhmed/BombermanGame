@@ -30,7 +30,7 @@ public class GamePlayView {
 	      public void run()  
 	      {  	
 	  		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			gameView.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT); 
+			gameView.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+200); 
 			//gameView.setResizable(false); //Resizing Not working should look into it
 			gameView.addKeyListener(board);		
 			board.setBackground(Color.black);

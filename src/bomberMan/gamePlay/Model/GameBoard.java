@@ -20,6 +20,7 @@ public class GameBoard {
 	private PowerUp myPowerUp;
 	int iCellPowerUp;
 	int jCellPowerUp;
+	private Score myScore;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
@@ -46,9 +47,10 @@ public class GameBoard {
 		buildSurroundingWall();
 		buildConcreteWalls();
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
-		initializeEnemiesPosition(2,"Balloon");
-		initializeEnemiesPosition(2,"Kondoria");
-		initializeEnemiesPosition(2,"Pass");
+		myScore=new Score();
+		initializeEnemiesPosition(5,"Balloom","Low");
+		initializeEnemiesPosition(5,"Kondoria","High");
+		initializeEnemiesPosition(7,"Pass","High");
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -61,23 +63,43 @@ public class GameBoard {
 	{
 		this.board[x][y].insert(gameObject);
 	}
-	public void initializeEnemiesPosition(int numberOfEnemies, String enemyName)
+	public Score getScore()
+	{
+		return this.myScore;
+	}
+	
+	public void initializeEnemiesPosition(int numberOfEnemies, String enemyName,String smartnessType)
 	{
 		Random randomGenerator = new Random();
 		for(int i=0;i<numberOfEnemies;i++)
 		{
 			int xCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES);
 			int yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
-			while (!board[xCell][yCell].isEmpty()||!isRowClear(xCell)||!isColumnClear(yCell))
+			while (!board[xCell][yCell].isEmpty()||!isRowClear(xCell)||!isColumnClear(yCell)||((xCell==1)&&(yCell==1)))
 			{
 				xCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES);
 				yCell=randomGenerator.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES);
 			}
 				int direction=randomGenerator.nextInt(4)+1;
 				System.out.println(xCell+"     "+yCell);
-				Enemy myEnemy=new Enemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,true,enemyName);
-				myEnemies.add(myEnemy);
-				this.board[xCell][yCell].insert(myEnemy);
+				if(smartnessType.equals("Low"))
+				{
+					LowIntelligenceEnemy myEnemy=new LowIntelligenceEnemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,enemyName);
+					myEnemies.add(myEnemy);
+					this.board[xCell][yCell].insert(myEnemy);
+				}
+				else if(smartnessType.equals("Medium"))
+				{
+					MediumIntelligenceEnemy myEnemy=new MediumIntelligenceEnemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,enemyName);
+					myEnemies.add(myEnemy);
+					this.board[xCell][yCell].insert(myEnemy);
+				}
+				else 
+				{
+					HighIntellegenceEnemy myEnemy=new HighIntellegenceEnemy(yCell*CONSTANTS.TILE_SIDE_SIZE,xCell*CONSTANTS.TILE_SIDE_SIZE,direction,enemyName);
+					myEnemies.add(myEnemy);
+					this.board[xCell][yCell].insert(myEnemy);
+				}
 		}
 	}
 	/** 
@@ -185,7 +207,7 @@ public class GameBoard {
 				 numberChosen = objectRandom.nextInt(9);
 				 if(board[i][j].isEmpty()&& numberChosen == brickNumber && counter < maxBricks&& (i > 2 || j >  2) ){
 				
-				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				// board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
 					 board[i][j].insert(new GameObject(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
 				     exitAlreadyPlaced = true;

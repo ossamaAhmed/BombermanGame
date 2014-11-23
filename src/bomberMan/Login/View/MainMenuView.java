@@ -75,22 +75,16 @@ public class MainMenuView extends JPanel
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		Thread.currentThread();
-		//myframe.dispatchEvent(new WindowEvent(myframe, WindowEvent.WINDOW_CLOSING));
-		Thread.interrupted();
-		String[] args = {};
-		GamePlayView.main(args);
-//		
-//		GameBoardView x=GameBoardView.getInstance(myframe);
-//		myframe.setFocusable(true);
-//		myframe.addKeyListener(x);
-//		x.setBackground(Color.black);
-//		x.setVisible(true);
-//		myframe.add(x);
-//	        myframe.validate();
-//	        myframe.repaint();
-//	        x.requestFocusInWindow();
-//		myframe.setVisible(true);
+		GameBoardView x=new GameBoardView(myframe);
+		myframe.setFocusable(true);
+		myframe.addKeyListener(x);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
         
     }
 	public void setLoadGameButton()
@@ -226,7 +220,7 @@ public class MainMenuView extends JPanel
 	{
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
-		//myCanvas.drawImage(backgroundImage, 0,0,this);
+		myCanvas.drawImage(backgroundImage, 0,0,this);
 		myCanvas.drawImage(mainMenuImage, (CONSTANTS.WINDOW_WIDTH/2)-(mainMenuImage.getWidth(null)/2),(CONSTANTS.WINDOW_HEIGHT/2)-(mainMenuImage.getHeight(null)/2),this);
 	}
 

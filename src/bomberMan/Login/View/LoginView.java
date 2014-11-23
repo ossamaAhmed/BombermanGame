@@ -205,7 +205,7 @@ public class LoginView extends JPanel
 	{
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
-		//myCanvas.drawImage(backgroundImage, 0,0,this);
+		myCanvas.drawImage(backgroundImage, 0,0,this);
 		myCanvas.drawImage(loginImage, (backgroundImage.getWidth(null)/2)-(loginImage.getWidth(null)/2),(backgroundImage.getHeight(null)/2)-(loginImage.getHeight(null)/2),this);
 	}
 

@@ -95,8 +95,9 @@ public class Cell {
 	 */
 	public BufferedImage getImage()
 	{
-		image = this.myObjects.get(0).getImage();
-		return image;
+			image = this.myObjects.get(0).getImage();
+			return image;
+			
 	}
 	/** 
 	 * This method returns a boolean depending if the cell is totally empty and there 
@@ -106,7 +107,7 @@ public class Cell {
 	
 	public boolean isEmpty()
 	{
-		//if(this.searcHasABrickWall() == true){return true;}
+		
 		return this.myObjects.isEmpty();
 	}
 	/** 
@@ -118,7 +119,8 @@ public class Cell {
 	{
 		
 		if(this.searcHasABrickWall() == true){return true;}
-		return this.myObjects.isEmpty();
+		if(this.searcHasAConcreteWall() == true){return false;}
+		return true;
 		
 	}
 	public boolean isThereAnEnemy()
@@ -138,8 +140,22 @@ public class Cell {
 				{
 					((Enemy) myObjects.get(i)).die();
 					myObjects.remove(i);
+					if(i>-1)
+						i--;
 				}
 		}
+	}
+	public ArrayList<Enemy> getEnemies()
+	{
+		ArrayList<Enemy> myEnemies=new ArrayList<Enemy>();
+		for(int i=0;i<myObjects.size();i++)
+		{
+			if(myObjects.get(i) instanceof Enemy)
+				{
+					myEnemies.add((Enemy) myObjects.get(i));
+				}
+		}
+		return myEnemies;
 	}
 	/** 
 	 * This method returns a boolean depending if the cell is totally empty and there 
@@ -148,7 +164,8 @@ public class Cell {
 	 */
 	public boolean isEmptyPowerUpException()
 	{
-		boolean result=true;
+		boolean result =true;
+		//System.out.println(this.myBomberMan.getBrickPass()+"!");
 		if(this.getHasABomb() == true &&  this.myBomberMan.getBombPass() == false )
 		{
 			result=false;
@@ -157,7 +174,7 @@ public class Cell {
 		{
 			result=false;
 		}
-		if(this.searcHasAConcreteWall()== true)
+		if(this.searcHasAConcreteWall()== true )
 		{
 			result=false;
 		}
@@ -166,7 +183,7 @@ public class Cell {
 	public boolean isEmptyBombException(){
 		
 		if(this.getHasABomb() == true){return false;}
-		return true;
+		return this.isEmpty();
 	}
 	
 	//sets the boolean hasABomb of the cell
@@ -193,13 +210,15 @@ public class Cell {
 	//deletes the element corresponding to the type String.
 	public void deleteElement(String type){
 		int i = 0;
+		if(this.myObjects.size() >0){
 		for(i =0; i< this.myObjects.size(); i++){
 			
 			if(this.myObjects.get(i).getType().equals(type)){
+				if(this.myObjects.size() > 0){
 				if(this.myObjects.get(i).getType().equals("Bomb")){
 				    long start = timer.getTimeInMillis();
 				    long finish = start + CONSTANTS.BOMB_EXPLOSION_SHOWING_TIME;
-				    this.myObjects.get(i).setImageLocation(CONSTANTS.Bomb_EXPLOSION);
+				    this.myObjects.get(i).setImage(CONSTANTS.Bomb_EXPLOSION);
 				   System.out.println("Start showing bomb explosion "+ start);
 				   System.out.println("Finish showing bomb explosion "+ finish);
 				    while(start <= finish){
@@ -211,23 +230,23 @@ public class Cell {
 				    				
 				    this.hasABomb = false;
 					this.myObjects.remove(i);
-				}
+				}}
 				
-				
+				if(this.myObjects.size() >0){
 				if(this.myObjects.get(i).getType().equals("Brick")){
 					   this.hasADestructibleBrick = false;
 					   this.myObjects.remove(i);
 					  }
 			
 				System.out.println("Deleting " + type);
-				
+				}
 				
 			
 		
 			
 		
 				}
-						}
+						}}
 		
 	}
 	//add a flame GameObject to the cell
@@ -337,5 +356,6 @@ public class Cell {
 				 this.myObjects.remove(i);}}}
 	
 	}
+	public BomberMan getBomberMan(){return this.myBomberMan;}
 	
 }

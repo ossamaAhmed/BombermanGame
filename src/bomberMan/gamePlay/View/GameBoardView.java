@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private CharacterController characterC;
 	private EnemyController enemyC;
 	private int scrollRealtive;
+	private JLabel scoreLabel;
 	public GameBoardController gmController;
 	/** 
 	 * Constructor
@@ -61,49 +63,72 @@ public class GameBoardView extends JPanel implements KeyListener {
 				System.out.println("Not found");
 			}
 
-		  this.myFrame=myFrame ;
+		  this.myFrame=myFrame;
+		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
+		  this.setLayout(null);
 		  scrollRealtive=0;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
-		  characterC = new CharacterController(myBoard);
+		  //characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
-		enemyC=new EnemyController(characterC);
+		enemyC=new EnemyController(this.myBoard);
 			timer2 = new Timer(50, new ActionListener() {
 			    @Override
 			    public void actionPerformed(ActionEvent evt) {
 
 			    	updateGameBoardView();
-					enemyC.run();
+					//enemyC.run();
+					updateScore();
+					//gmController.detonateRegularBombs();
 			    }
 			});
 			timer2.start();
+			setScoreLabel();
 	  }
 	  
 	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
 	  {
 		  super();
 		  this.myFrame=myFrame;
+		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
 		  this.myBoard=myBoard;
+		    this.setLayout(null);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
 		  characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
-		enemyC=new EnemyController(characterC);
+		enemyC=new EnemyController(this.myBoard);
 			timer2 = new Timer(50, new ActionListener() {
 			    @Override
 			    public void actionPerformed(ActionEvent evt) {
 
 			    	updateGameBoardView();
-					enemyC.run();
+					//enemyC.run();
+					updateScore();
 			    }
 			});
-			timer2.start();		  
+			timer2.start();	
+			setScoreLabel();
 	  }
 	  
-	  
+	  public void setScoreLabel()
+	  {
+			 scoreLabel= new JLabel("Score :"+this.myBoard.getScore().getMyScore());
+			 scoreLabel.setSize(200, 50);
+			 scoreLabel.setOpaque(true);
+			 scoreLabel.setForeground(Color.red);
+			 scoreLabel.setBackground(new Color(0, 0, 0, 0));
+			 scoreLabel.setLocation(10, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+			 scoreLabel.setFont(new Font(scoreLabel.getName(), Font.PLAIN, 20));
+			 this.add(scoreLabel);
+	  }
+	  public void updateScore()
+	  {
+		  scoreLabel.setText("Score :"+this.myBoard.getScore().getMyScore());
+	  }
 	  /** 
 	   * This method takes care of the key listening and calls the different methods of the controller
 	   * according to the key pressed or the event happening
@@ -138,13 +163,19 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 }
 		 if(keyE.getKeyCode()==KeyEvent.VK_A)
 		 {
+			 
 			 gmController.dropBombDetonator();
+		 }
+		 if(keyE.getKeyCode()==KeyEvent.VK_U)
+		 {
+			 
+			 enemyC.run();
 		 }
 		 if(keyE.getKeyCode()==KeyEvent.VK_D)
 		 { 
 			
 			 gmController.detonateOldestBomb();
-			// gmController.detonateOldestBomb();
+			 gmController.detonateOldestBomb();
 		 }
 	 }
 	  /** 

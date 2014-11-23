@@ -1,9 +1,10 @@
 package bomberMan.gamePlay.Controller;
 import java.util.*;
 import java.lang.Runnable;
+
 import bomberMan.gamePlay.Model.*;
 
-public class DestroyBomb implements Runnable {
+public class DestroyBomb extends Thread {
     GameBoard gameBoard;
     GameBoardController controller;
 	public DestroyBomb(GameBoard board, GameBoardController controller){
@@ -12,9 +13,17 @@ public class DestroyBomb implements Runnable {
 	}
 	@Override
 	public void run() {
-		while(gameBoard.getBomberMan().getIsAlive()){
+		while(gameBoard.getBomberMan().getIsAlive())
+		{
 				
-			this.controller.detonateRegularBombs();}
+			this.controller.detonateRegularBombs();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 
 	}
