@@ -149,7 +149,7 @@ public class Cell {
 	 */
 	public boolean isEmptyPowerUpException()
 	{
-		
+		System.out.println(this.myBomberMan.getBrickPass()+"!");
 		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false )
 		{
 			return true;
@@ -158,7 +158,7 @@ public class Cell {
 		{
 			return true;
 		}
-		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == false)
+		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == true)
 		{
 			return true;
 		}
@@ -341,5 +341,6 @@ public class Cell {
 				 this.myObjects.remove(i);}}}
 	
 	}
+	public BomberMan getBomberMan(){return this.myBomberMan;}
 	
 }

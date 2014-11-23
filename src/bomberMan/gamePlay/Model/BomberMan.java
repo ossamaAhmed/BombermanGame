@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-
+import java.util.Calendar;
 public class BomberMan extends Character {
 	
 	/*Instance Variables*/
@@ -19,15 +19,16 @@ public class BomberMan extends Character {
 	private ArrayList<PowerUp> myPowerUps;
 	boolean canBrickPass = false;
 	boolean canFlamePass = false;
-	boolean invisibilityPowerUp=true;
+	boolean invisibilityPowerUp=false;
 	int currentBombRange = CONSTANTS.BOMB_RANGE1;
 	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
-	boolean hasDetonator = true ;
+	boolean hasDetonator = false;
 	boolean canBombPass = false;
-	int numBombsAllowToDrop = 10;
+	int numBombsAllowToDrop = 0;
 	int bombsDropped = 0;
-	
-	
+	Calendar timer;
+	long creationInvisibilityPowerup = 0;
+	long eliminationInvisibilityPowerup =0;
 	/** 
 	 * Constructor
 	 * This method takes care of any initialization needed for 
@@ -40,6 +41,7 @@ public class BomberMan extends Character {
 		super(xPos,yPos,CONSTANTS.BomberMan_IMAGE,"BomberMan");
 		this.myPowerUps=new ArrayList<PowerUp>();
 		this.myBombs=new ArrayList<Bomb>();
+		this.timer = Calendar.getInstance();
 	}
 	/** 
 	 * This method prints out the position of bomberMan for debugging purposes.
@@ -118,7 +120,16 @@ public class BomberMan extends Character {
 	public int getQteOfBombsDropped(){return this.bombsDropped;}
 	public void setQteOfBombsDropped(int num){ this.bombsDropped += num;}
 	public boolean getInvisibilibityPowerUp(){return this.invisibilityPowerUp;}
-	public void setInvisibilityPowerUp(boolean set){this.invisibilityPowerUp = set;}
+	public void setInvisibilityPowerUp(boolean set){
+		this.invisibilityPowerUp = set;}
+	public long getCreationInvisibilityPowerUp(){return this.creationInvisibilityPowerup;}
+	public void setCreationInvisibilityPowerUp(){
+		this.creationInvisibilityPowerup = timer.getTimeInMillis();
+		this.eliminationInvisibilityPowerup = CONSTANTS.delayINVISIBILITY + this.creationInvisibilityPowerup;
+		
+	}
+	public void addTimeCreationInvisibilitPowerUp(int time){this.creationInvisibilityPowerup+=time;}
+	public long  getEliminationInvisibilityPowerUp(){return this.eliminationInvisibilityPowerup;}
 	
 	
 }

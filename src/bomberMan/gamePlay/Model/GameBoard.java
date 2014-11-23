@@ -46,6 +46,7 @@ public class GameBoard {
 		buildSurroundingWall();
 		buildConcreteWalls();
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
+		
 		initializeEnemiesPosition(2,"Balloon");
 		initializeEnemiesPosition(2,"Kondoria");
 		initializeEnemiesPosition(2,"Pass");

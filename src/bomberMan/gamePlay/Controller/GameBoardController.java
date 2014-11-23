@@ -34,6 +34,8 @@ public void run(){
  * **/
  
 public void detonateRegularBombs(){
+	//System.out.println(this.gameBoard.getBomberMan().getHasDetonator() + "$" );
+	this.deleteInvisibilityPowerUp();
 	int iCell = this.gameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
 	int jCell = this.gameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
 	if(gameBoard.getBombs().size()>0){
@@ -684,10 +686,20 @@ public void killBomberman1(int i, int j){
 			
 			counter1++;
 		}
-   
-   
+		
    
    }
-	   
+   public void deleteInvisibilityPowerUp(){
+		if( this.gameBoard.getBomberMan().getCreationInvisibilityPowerUp() <= this.gameBoard.getBomberMan().getEliminationInvisibilityPowerUp() ){
+			this.gameBoard.getBomberMan().addTimeCreationInvisibilitPowerUp(1);
+			//System.out.println("IM ADDING TIME TO INVISIBILITY"); 
+		}
+		else if(this.gameBoard.getBomberMan().getCreationInvisibilityPowerUp() > this.gameBoard.getBomberMan().getEliminationInvisibilityPowerUp()){
+	       this.gameBoard.getBomberMan().setInvisibilityPowerUp(false);
+	       //System.out.println("IM DELETING INVISIBILITY");   
+		}
+   }
+
+
    
 }
