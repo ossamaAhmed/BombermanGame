@@ -45,7 +45,7 @@ public class GameBoard {
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.INVISIBILITY, CONSTANTS.MYSTERY_POWERUP);
 		
 		initializeEnemiesPosition(2,"Balloon");
 		initializeEnemiesPosition(2,"Kondoria");
@@ -186,7 +186,7 @@ public class GameBoard {
 				 numberChosen = objectRandom.nextInt(9);
 				 if(board[i][j].isEmpty()&& numberChosen == brickNumber && counter < maxBricks&& (i > 2 || j >  2) ){
 				
-				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				// board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
 					 board[i][j].insert(new GameObject(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
 				     exitAlreadyPlaced = true;
