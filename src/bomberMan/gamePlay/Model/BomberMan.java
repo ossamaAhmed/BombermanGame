@@ -19,10 +19,10 @@ public class BomberMan extends Character {
 	private ArrayList<PowerUp> myPowerUps;
 	boolean canBrickPass = false;
 	boolean canFlamePass = false;
-	boolean invicibilityPowerUp=true;
+	boolean invisibilityPowerUp=true;
 	int currentBombRange = CONSTANTS.BOMB_RANGE1;
 	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
-	boolean hasDetonator = false ;
+	boolean hasDetonator = true ;
 	boolean canBombPass = false;
 	int numBombsAllowToDrop = 10;
 	int bombsDropped = 0;
@@ -92,7 +92,7 @@ public class BomberMan extends Character {
 	public void die()
 	{
 		//if bomberm
-		if(!this.invicibilityPowerUp)
+		if(!this.invisibilityPowerUp)
 		{
 		super.die();
 		this.setImage(CONSTANTS.BMB_dead);
@@ -117,6 +117,8 @@ public class BomberMan extends Character {
 	public boolean getFlamePass(){return this.canFlamePass;}
 	public int getQteOfBombsDropped(){return this.bombsDropped;}
 	public void setQteOfBombsDropped(int num){ this.bombsDropped += num;}
+	public boolean getInvisibilibityPowerUp(){return this.invisibilityPowerUp;}
+	public void setInvisibilityPowerUp(boolean set){this.invisibilityPowerUp = set;}
 	
 	
 }

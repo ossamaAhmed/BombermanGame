@@ -517,6 +517,12 @@ public void pickPowerUp(int i, int j){
 			 myGameBoard.deletePowerUp(i, j);
 			 System.out.println("DELETING POWER UP");
 		 }
+		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.INVISIBILITY){
+			 System.out.println("Getting bombs powerUp");
+			 myGameBoard.getBomberMan().setInvisibilityPowerUp(true);
+			 myGameBoard.deletePowerUp(i, j);
+			 System.out.println("DELETING POWER UP");
+		 }
 		 
 		 }}}
 

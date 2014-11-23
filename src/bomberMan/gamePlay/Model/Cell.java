@@ -209,7 +209,7 @@ public class Cell {
 				    while(start <= finish){
 				    
 				    System.out.println("Showing explosion " + type);
-					start = start + 5;
+					start = start + 10;
 					System.out.println("Time showing bomb explosion "+ start);
 				    }
 				    				

@@ -62,7 +62,7 @@ public void detonateRegularBombs(){
 					boolean up = true;
 					this.destroyBricks(i, j);
 					this.gameBoard.getCell(i,j).setFlameImages();
-					this.gameBoard.getBombs().get(k).setImageLocation(CONSTANTS.Bomb_EXPLOSION);
+					
 					while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 						
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -543,7 +543,8 @@ public void killBomberman1(int i, int j){
 		System.out.println("jCELL " + jCell);
 		int iCell = yPos/CONSTANTS.TILE_SIDE_SIZE;
 		System.out.println("ICELL " + iCell);
-		this.destroyBombsAround(iCell, jCell);
+		this.gameBoard.getCell(iCell, jCell).setHasADetonatorBomb(false);
+		this.gameBoard.getBomberMan().removeBomb(jCell*CONSTANTS.TILE_SIDE_SIZE, iCell*CONSTANTS.TILE_SIDE_SIZE);
 		
 		 }
 		
@@ -597,7 +598,14 @@ public void killBomberman1(int i, int j){
 						       this.gameBoard.getCell(i, j+counter1).searchBomb().setExplodeFast(true);
 						   // to complete with power ups and limited numebr of bombs placed..
 						   }
-						}			
+						
+						}
+					 if(this.gameBoard.getCell(i, j +counter1).getHasADetonateBomb() == true){
+					       this.gameBoard.getCell(i, j+counter1).searchBomb().setExplodeFast(true);
+					       this.gameBoard.getCell(i, j + counter1).setHasADetonatorBomb(false);
+							this.gameBoard.getBomberMan().removeBomb((j+counter1)*CONSTANTS.TILE_SIDE_SIZE, (i)*CONSTANTS.TILE_SIDE_SIZE);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }
 					
 		         	}
 			
@@ -613,6 +621,13 @@ public void killBomberman1(int i, int j){
 					       this.gameBoard.getCell(i, j-counter1).searchBomb().setExplodeFast(true);
 					   // to complete with power ups and limited numebr of bombs placed..
 					   }
+					 if(this.gameBoard.getCell(i, j -counter1).getHasADetonateBomb() == true){
+					       this.gameBoard.getCell(i, j-counter1).searchBomb().setExplodeFast(true);
+					       this.gameBoard.getCell(i, j +-counter1).setHasADetonatorBomb(false);
+							this.gameBoard.getBomberMan().removeBomb((j-counter1)*CONSTANTS.TILE_SIDE_SIZE, (i)*CONSTANTS.TILE_SIDE_SIZE);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }
+					
 									
 			}
 			
@@ -628,6 +643,13 @@ public void killBomberman1(int i, int j){
 					       this.gameBoard.getCell(i+counter1, j).searchBomb().setExplodeFast(true);
 					   // to complete with power ups and limited numebr of bombs placed..
 					   }
+					 if(this.gameBoard.getCell(i+counter1, j).getHasADetonateBomb() == true){
+					       this.gameBoard.getCell(i+counter1, j).searchBomb().setExplodeFast(true);
+					       this.gameBoard.getCell(i+counter1, j).setHasADetonatorBomb(false);
+							this.gameBoard.getBomberMan().removeBomb(j*CONSTANTS.TILE_SIDE_SIZE, (i+counter1)*CONSTANTS.TILE_SIDE_SIZE);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }
+					
 					
 					
 			}
@@ -645,7 +667,14 @@ public void killBomberman1(int i, int j){
 					 if(this.gameBoard.getCell(i-counter1, j).getHasADetonateBomb() == false){
 					       this.gameBoard.getCell(i-counter1, j).searchBomb().setExplodeFast(true);
 					   // to complete with power ups and limited numebr of bombs placed..
-					   }					
+					   }
+					 if(this.gameBoard.getCell(i-counter1, j).getHasADetonateBomb() == true){
+					       this.gameBoard.getCell(i-counter1, j).searchBomb().setExplodeFast(true);
+					       this.gameBoard.getCell(i-counter1, j).setHasADetonatorBomb(false);
+							this.gameBoard.getBomberMan().removeBomb(j*CONSTANTS.TILE_SIDE_SIZE, (i-counter1)*CONSTANTS.TILE_SIDE_SIZE);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }
+					
 			}
 			
 			if(i -counter1 - 1 >= 0 && up == true){
