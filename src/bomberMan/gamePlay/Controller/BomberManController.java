@@ -433,17 +433,14 @@ public void dropBomb(){
 	 int posYBomb = this.myGameBoard.getBomberMan().getPositionY();
 	 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
-	 if(this.myGameBoard.getCell(celY,celX).isEmpty()){
-	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, myGameBoard.getBomberMan().getBombRange(), false, "Bomb"));
-	
-	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
+	 
 	 if(this.myGameBoard.getCell(celY,celX).isEmpty() && this.myGameBoard.getBomberMan().getNumBombsToDrop() >= this.myGameBoard.getBomberMan().getQteOfBombsDropped() ){
 	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, myGameBoard.getBomberMan().getBombRange(), false, "Bomb"));
 	 
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
 	 this.myGameBoard.getBomberMan().setQteOfBombsDropped(1);
 	 }
-}
+
 }
 
 /*

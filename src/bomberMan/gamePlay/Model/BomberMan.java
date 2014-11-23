@@ -24,7 +24,7 @@ public class BomberMan extends Character {
 	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
 	boolean hasDetonator = false ;
 	boolean canBombPass = false;
-	int numBombsAllowToDrop = 0;
+	int numBombsAllowToDrop = 10;
 	int bombsDropped = 0;
 	
 	

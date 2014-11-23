@@ -36,7 +36,7 @@ public void run(){
 public void detonateRegularBombs(){
 	int iCell = this.gameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
 	int jCell = this.gameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
-	
+	if(gameBoard.getBombs().size()>0){
 	for(int k=0;k<gameBoard.getBombs().size();k++)
 	 {
 		     System.out.println("TRYONG TO DETONATE BOMBS");
@@ -53,105 +53,80 @@ public void detonateRegularBombs(){
 					 System.out.println("TimeExplosionD: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
 					 System.out.println("EXPLODE");
 					System.out.println(i+ " " +j);
-					this.gameBoard.getCell(i, j).setFlameImages();
+					
+					
 					int counter1 = 1;
 					boolean right = true;
 					boolean left = true;
 					boolean down = true;
 					boolean up = true;
 					this.destroyBricks(i, j);
-					this.destroyEnemies(i, j);
-					while(counter1 <= CONSTANTS.BOMB_RANGE1){
+					this.gameBoard.getCell(i,j).setFlameImages();
+					this.gameBoard.getBombs().get(k).setImageLocation(CONSTANTS.Bomb_EXPLOSION);
 					while(counter1 <= gameBoard.getBomberMan().getBombRange()){
-					
+						
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
-								if(this.gameBoard.getCell(i, j+counter1).isEmptyBombException()== false){
-									
-								    this.destroyBombsAround(i, j+counter1);
-									right = false;
-								}
+								
 								if(this.gameBoard.getCell(i, j+counter1).isEmptyBrickException()== false){right = false;}
 							}
 							if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).isEmptyBrickException()){
 						this.gameBoard.getCell(i, j+counter1).setFlameImages();
+						if(this.gameBoard.getCell(i, j+counter1).getHasABomb()){this.gameBoard.getCell(i, j+counter1).searchBomb().setImage(CONSTANTS.Bomb_EXPLOSION);}
 						}
 						
 						if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
-							if(this.gameBoard.getCell(i, j+counter1+1).isEmptyBombException()== false){
-								
-							    this.destroyBombsAround(i, j+counter1+1);
-								right = false;
-							}
+							
 							if(this.gameBoard.getCell(i, j+counter1+1).isEmptyBrickException()== false){right = false;}}
 							
 						
 						if(j -counter1 >=0 && left == true ){
 							if(j -counter1  >=0 && left== true){
-                               if(this.gameBoard.getCell(i, j-counter1).isEmptyBombException()== false){
-                            	   this.destroyBombsAround(i, j -counter1);
-									
-									left = false;
-								}
+                               
 								if(this.gameBoard.getCell(i, j-counter1).isEmptyBrickException()== false){left = false;}}
 							if(left == true && j -counter1 >= 0 && this.gameBoard.getCell(i, j-counter1).isEmptyBrickException()){
-							this.gameBoard.getCell(i, j-counter1).setFlameImages();}
+							this.gameBoard.getCell(i, j-counter1).setFlameImages();
+							if(this.gameBoard.getCell(i, j-counter1).getHasABomb()){this.gameBoard.getCell(i, j-counter1).searchBomb().setImage(CONSTANTS.Bomb_EXPLOSION);}}
 							}
 						    
 							if(j -counter1 - 1 >=0 && left == true){
-								if(this.gameBoard.getCell(i, j-counter1-1).isEmptyBombException()== false){
-	                            	   this.destroyBombsAround(i, j -counter1-1);
-										
-										left = false;
-									}
+								
 								if(this.gameBoard.getCell(i, j-counter1-1).isEmptyBrickException()== false){left = false;}
 						
 							}
 					   if(i -counter1 >=0 && up == true ){
 								if(i -counter1  >=0 && up== true){
-									if(this.gameBoard.getCell(i-counter1, j).isEmptyBombException()== false){
-										
-										this.destroyBombsAround(i-counter1, j);
-										up = false;
-									}
+									
 									if(this.gameBoard.getCell(i-counter1, j).isEmptyBrickException()== false){up = false;}}
 								if(up == true && i -counter1 >= 0 && this.gameBoard.getCell(i-counter1, j).isEmptyBrickException()){
-								this.gameBoard.getCell(i-counter1, j).setFlameImages();}
+								this.gameBoard.getCell(i-counter1, j).setFlameImages();
+								if(this.gameBoard.getCell(i-counter1, j).getHasABomb()){this.gameBoard.getCell(i-counter1, j).searchBomb().setImage(CONSTANTS.Bomb_EXPLOSION);}}
 								}
 							    
 								if(i -counter1 - 1 >=0 && left == true){
-                                       if(this.gameBoard.getCell(i-counter1-1, j).isEmptyBombException()== false){
-										
-										this.destroyBombsAround(i-counter1-1, j);
-										up = false;
-									}
+                                       
 									if(this.gameBoard.getCell(i-counter1-1, j).isEmptyBrickException()== false){up = false;}
 							
 								}
 					 if(i +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && down == true ){
 									if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down== true){
-										if(this.gameBoard.getCell(i+counter1, j).isEmptyBombException()== false){
-											
-											this.destroyBombsAround(i+counter1, j);
-											down = false;
-										}
+										
 										if(this.gameBoard.getCell(i+counter1, j).isEmptyBrickException()== false){down = false;}
 									}}
 									if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).isEmptyBrickException()){
-								this.gameBoard.getCell(i+counter1, j).setFlameImages();}
-								
+								this.gameBoard.getCell(i+counter1, j).setFlameImages();
+									if(this.gameBoard.getCell(i+counter1, j).getHasABomb()){this.gameBoard.getCell(i+counter1, j).searchBomb().setImage(CONSTANTS.Bomb_EXPLOSION);}}
 								if(i+counter1 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
-									if(this.gameBoard.getCell(i+counter1+1, j).isEmptyBombException()== false){
-										
-										this.destroyBombsAround(i+counter1+1, j);
-										down = false;
-									}
+									
 									if(this.gameBoard.getCell(i+counter1 +1, j).isEmptyBrickException()== false){down = false;}}
 									
 						counter1++;
 					}
+					
 					 this.gameBoard.getBombs().remove(k);
+						
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
-					this.killBomberman1(i, j);
+					
+					
 					
 						int counter2 = 1;
 						boolean right2 = true;
@@ -211,13 +186,17 @@ public void detonateRegularBombs(){
 						this.gameBoard.getCell(i, j).removeFlames();}
 					 
 					  this.gameBoard.getBomberMan().setQteOfBombsDropped(-1);
+						
+						this.killBomberman1(i, j);
+						this.destroyEnemies(i, j);
+					    this.destroyBombsAround(i, j);
 						 
 					
 					 
-				 }
+				 
 		 }
 	 }
-}}}
+}}}}
 /*This functions kills the bomberman if for (i,j) in the gameboard, the Bomberman is in the bombs range given by the cells at (i+BombRange, j), (i-Bombrange, j)
  * (i, j+BombRange), (i, j-Bombrange)
  * 
@@ -597,22 +576,89 @@ public void killBomberman1(int i, int j){
 	 * */
    
    public void destroyBombsAround(int i, int j){
-	   if(this.gameBoard.getCell(i, j).getHasADetonateBomb() == false){
-	       this.gameBoard.getCell(i, j).searchBomb().setExplodeFast(true);
-	   // to complete with power ups and limited numebr of bombs placed..
-	   }
-	   if(this.gameBoard.getCell(i, j).getHasADetonateBomb()){
-		   int x =  this.gameBoard.getCell(i, j).searchBomb().getPositionX();
-		   int y = this.gameBoard.getCell(i, j).searchBomb().getPositionY();
-		   
-		   this.gameBoard.getCell(i, j).setHasADetonatorBomb(false);
-		  	 
-			this.gameBoard.getCell(i, j).searchBomb().setExplodeFast(true);
-			
-		   this.gameBoard.getBomberMan().removeBomb(x, y);
-		
-		   // to complete..
-		   }
 	  
+	   boolean up = true;
+		boolean down = true;
+		boolean right = true;
+		boolean left = true;
+		
+		
+		int counter1 = 1;
+		while(counter1 <= gameBoard.getBomberMan().getBombRange()){
+			// checking the right range of the bomb; if a brick is present and there is no concrete walls at bomb range
+			if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
+				if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+					if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
+				}}
+				if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getCell(i, j+ counter1).getHasABomb() == true){
+						System.out.println("DESTROYING BOMB AROUNd");
+						 if(this.gameBoard.getCell(i, j +counter1).getHasADetonateBomb() == false){
+						       this.gameBoard.getCell(i, j+counter1).searchBomb().setExplodeFast(true);
+						   // to complete with power ups and limited numebr of bombs placed..
+						   }
+						}			
+					
+		         	}
+			
+			if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+				if(this.gameBoard.getCell(i, j+counter1+1).searcHasAConcreteWall()== true){right = false;}}
+			// checking the left range of the bomb; if a brick is present and there is no concrete walls at bomb range
+			if(j -counter1 >=0 && left == true ){
+				if(j -counter1  >=0 && left == true){
+					if(this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall()== true){left = false;}
+				}}
+				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
+					 if(this.gameBoard.getCell(i, j-counter1).getHasADetonateBomb() == false){
+					       this.gameBoard.getCell(i, j-counter1).searchBomb().setExplodeFast(true);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }
+									
+			}
+			
+			if(j -counter1 - 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && left == true){
+				if(this.gameBoard.getCell(i, j-counter1-1).searcHasAConcreteWall()== true){left = false;}}
+			// checking the south range of the bomb;if a brick is present and there is no concrete walls at range
+			if(i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true ){
+				if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+					if(this.gameBoard.getCell(i + counter1, j).searcHasAConcreteWall()== true){down = false;}
+				}}
+				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
+					 if(this.gameBoard.getCell(i+counter1, j).getHasADetonateBomb() == false){
+					       this.gameBoard.getCell(i+counter1, j).searchBomb().setExplodeFast(true);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }
+					
+					
+			}
+			
+			if(i +counter1 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+				if(this.gameBoard.getCell(i + counter1 + 1, j).searcHasAConcreteWall()== true){down = false;}}
+			
+			// checking the north range of the bomb;if a brick is present and there is no concrete walls at range
+			
+			if(i -counter1 >= 0 && up == true ){
+				if(i - counter1  >= 0 && up == true){
+					if(this.gameBoard.getCell(i - counter1, j).searcHasAConcreteWall()== true){up = false;}
+				}}
+				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
+					 if(this.gameBoard.getCell(i-counter1, j).getHasADetonateBomb() == false){
+					       this.gameBoard.getCell(i-counter1, j).searchBomb().setExplodeFast(true);
+					   // to complete with power ups and limited numebr of bombs placed..
+					   }					
+			}
+			
+			if(i -counter1 - 1 >= 0 && up == true){
+				if(this.gameBoard.getCell(i - counter1 - 1, j).searcHasAConcreteWall()== true){up = false;}}
+			
+				
+			
+			counter1++;
+		}
+   
+   
+   
    }
+	   
+   
 }
