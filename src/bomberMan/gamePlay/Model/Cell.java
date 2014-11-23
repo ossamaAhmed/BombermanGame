@@ -148,11 +148,20 @@ public class Cell {
 	 */
 	public boolean isEmptyPowerUpException()
 	{
-		if(this.getHasABomb() == true &&  this.myBomberMan.getBombPass() == true ){return true;}
-		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == true){return true;}
-		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false && this.searcHasAConcreteWall()== false){
-		return true;}
-		return this.myObjects.isEmpty();
+		boolean result=true;
+		if(this.getHasABomb() == true &&  this.myBomberMan.getBombPass() == false )
+		{
+			result=false;
+		}
+		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == false)
+		{
+			result=false;
+		}
+		if(this.searcHasAConcreteWall()== true)
+		{
+			result=false;
+		}
+		return result;
 	}
 	public boolean isEmptyBombException(){
 		

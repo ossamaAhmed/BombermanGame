@@ -15,10 +15,11 @@ import javax.imageio.ImageIO;
 public class BomberMan extends Character {
 	
 	/*Instance Variables*/
-	private ArrayList<PowerUp> myPowerUps;
 	private ArrayList<Bomb> myBombs;
+	private ArrayList<PowerUp> myPowerUps;
 	boolean canBrickPass = false;
 	boolean canFlamePass = false;
+	boolean invicibilityPowerUp=true;
 	int currentBombRange = CONSTANTS.BOMB_RANGE1;
 	int currentSpeed = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
 	boolean hasDetonator = false ;
@@ -88,9 +89,14 @@ public class BomberMan extends Character {
 		}
 		return new Bomb();
 	}
-	public void die(){
+	public void die()
+	{
+		//if bomberm
+		if(!this.invicibilityPowerUp)
+		{
 		super.die();
 		this.setImage(CONSTANTS.BMB_dead);
+		}
 		
 	}	
 	
@@ -100,7 +106,7 @@ public class BomberMan extends Character {
 	public void setHasDetonator(boolean set){this.hasDetonator = set;}
 	//changes
 	public int getBombRange(){return this.currentBombRange;}
-	public void setBombRange(int range){this.currentBombRange = range;}
+	public void setBombRange(int range){this.currentBombRange += range;}
 	public int getNumBombsToDrop(){return this.numBombsAllowToDrop;}
 	public void setNumBombsToDrop(int num){this.numBombsAllowToDrop += num;}
 	public void setBrickPass(boolean set){this.canBrickPass = set;}

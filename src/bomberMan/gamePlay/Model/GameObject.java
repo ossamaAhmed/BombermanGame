@@ -31,7 +31,7 @@ public class GameObject implements Position {
 		this.xPosition=-1;
 		this.yPosition=-1;
 		this.imageLocation=null;
-		this.objectType=null;
+		this.objectType=objectType;
 		this.image=null;
 	}
 	/** 

@@ -37,7 +37,6 @@ public void detonateRegularBombs(){
 	int iCell = this.gameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
 	int jCell = this.gameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
 	
-	this.pickPowerUp(iCell, jCell);
 	for(int k=0;k<gameBoard.getBombs().size();k++)
 	 {
 		     System.out.println("TRYONG TO DETONATE BOMBS");
@@ -63,6 +62,7 @@ public void detonateRegularBombs(){
 					this.destroyBricks(i, j);
 					this.destroyEnemies(i, j);
 					while(counter1 <= CONSTANTS.BOMB_RANGE1){
+					while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 					
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
 								if(this.gameBoard.getCell(i, j+counter1).isEmptyBombException()== false){
@@ -158,7 +158,7 @@ public void detonateRegularBombs(){
 						boolean left2 = true;
 						boolean down2 = true;
 						boolean up2 = true;
-						while(counter2 <= CONSTANTS.BOMB_RANGE1){
+						while(counter2 <=gameBoard.getBomberMan().getBombRange()){
 							if(j +counter2 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true ){
 								if(j +counter2  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right2 == true){
 									if(this.gameBoard.getCell(i, j+counter2).hasAFlame()== false){right2 = false;}
@@ -217,7 +217,7 @@ public void detonateRegularBombs(){
 				 }
 		 }
 	 }
-}}
+}}}
 /*This functions kills the bomberman if for (i,j) in the gameboard, the Bomberman is in the bombs range given by the cells at (i+BombRange, j), (i-Bombrange, j)
  * (i, j+BombRange), (i, j-Bombrange)
  * 
@@ -233,7 +233,7 @@ public void killBomberman1(int i, int j){
 	}
 	
 	int counter1 = 1;
-	while(counter1 <= CONSTANTS.BOMB_RANGE1){
+	while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 		// checking the right range of the bomb; if bomberman is present and there is no concrete walls at bomb range
 		if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
 			if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -325,7 +325,7 @@ public void killBomberman1(int i, int j){
 		
 		
 		int counter1 = 1;
-		while(counter1 <= CONSTANTS.BOMB_RANGE1){
+		while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 			// checking the right range of the bomb; if a brick is present and there is no concrete walls at bomb range
 			if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
 				if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -392,6 +392,92 @@ public void killBomberman1(int i, int j){
 			counter1++;
 		}
 }
+	public void destroyEnemies1(int i, int j){
+		boolean up = true;
+		boolean down = true;
+		boolean right = true;
+		boolean left = true;
+		int counter1 = 1;
+		while(counter1 <= gameBoard.getBomberMan().getBombRange()){
+			// checking the right range of the bomb; if bomberman is present and there is no concrete walls at bomb range
+			if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
+				if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+					if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
+				}}
+				if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
+				    if(this.gameBoard.getCell(i, j + counter1).getHasABomb()){
+				    
+				    }
+					if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
+						System.out.println("KILLING BOMBERMAN");
+						this.gameBoard.getBomberMan().die();}
+					if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICellBottomBomberman() == i && this.gameBoard.getBomberMan().getJCell() == j+ counter1){
+						System.out.println("KILLING BOMBERMAN");
+						this.gameBoard.getBomberMan().die();}
+					
+			}
+			
+			if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
+				if(this.gameBoard.getCell(i, j+counter1+1).searcHasAConcreteWall()== true){right = false;}}
+			// checking the left range of the bomb; if bomberman is present and there is no concrete walls at bomb range
+			if(j -counter1 >=0 && left == true ){
+				if(j -counter1  >=0 && left == true){
+					if(this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall()== true){left = false;}
+				}}
+				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j- counter1){
+						System.out.println("KILLING BOMBERMAN");
+						this.gameBoard.getBomberMan().die();}
+					if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICellBottomBomberman() == i && this.gameBoard.getBomberMan().getJCell() == j- counter1){
+						System.out.println("KILLING BOMBERMAN");
+						this.gameBoard.getBomberMan().die();}
+					
+			}
+			
+			if(j -counter1 - 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && left == true){
+				if(this.gameBoard.getCell(i, j-counter1-1).searcHasAConcreteWall()== true){left = false;}}
+			// checking the south range of the bomb;if bomberman is present and there is no concrete walls at range
+			if(i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true ){
+				if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+					if(this.gameBoard.getCell(i + counter1, j).searcHasAConcreteWall()== true){down = false;}
+				}}
+				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i +counter1 && this.gameBoard.getBomberMan().getJCell() == j){
+						System.out.println("DESTROYING Enemy");
+						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();}
+					if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i +counter1 && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+						System.out.println("DESTROYING Enemy");
+						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();}
+					
+			}
+			
+			if(i +counter1 + 1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
+				if(this.gameBoard.getCell(i + counter1 + 1, j).searcHasAConcreteWall()== true){down = false;}}
+			
+			// checking the north range of the bomb;if bomberman is present and there is no concrete walls at range
+			
+			if(i -counter1 >= 0 && up == true ){
+				if(i - counter1  >= 0 && up == true){
+					if(this.gameBoard.getCell(i - counter1, j).searcHasAConcreteWall()== true){up = false;}
+				}}
+				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
+					if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i-counter1 && this.gameBoard.getBomberMan().getJCell() == j){
+						System.out.println("DESTROYING Enemy");
+						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();;}
+					if(this.gameBoard.getBomberMan().getFlamePass() == false &&this.gameBoard.getBomberMan().getICell() == i -counter1 && this.gameBoard.getBomberMan().getJCellRightMostBomberman() == j){
+						System.out.println("DESTROYING Enemy");
+						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();}
+					
+			}
+			
+			if(i -counter1 - 1 >= 0 && up == true){
+				if(this.gameBoard.getCell(i - counter1 - 1, j).searcHasAConcreteWall()== true){up = false;}}
+			
+				
+			
+			counter1++;
+		}
+	}
 	public void destroyEnemies(int i, int j){
 		boolean up = true;
 		boolean down = true;
@@ -403,9 +489,8 @@ public void killBomberman1(int i, int j){
 		while(counter1 <= CONSTANTS.BOMB_RANGE1){
 			// checking the right range of the bomb; if a brick is present and there is no concrete walls at bomb range
 			if(j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true ){
-				if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
 					if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
-				}}
+				}
 				if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i, j+ counter1).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
@@ -418,13 +503,12 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i, j+counter1+1).searcHasAConcreteWall()== true){right = false;}}
 			// checking the left range of the bomb; if a brick is present and there is no concrete walls at bomb range
 			if(j -counter1 >=0 && left == true ){
-				if(j -counter1  >=0 && left == true){
 					if(this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall()== true){left = false;}
-				}}
+				}
 				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i, j- counter1).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
-						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();}
+						this.gameBoard.getCell(i,  j- counter1).deleteEnemies();}
 									
 			}
 			
@@ -432,13 +516,12 @@ public void killBomberman1(int i, int j){
 				if(this.gameBoard.getCell(i, j-counter1-1).searcHasAConcreteWall()== true){left = false;}}
 			// checking the south range of the bomb;if a brick is present and there is no concrete walls at range
 			if(i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true ){
-				if(i +counter1  < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true){
 					if(this.gameBoard.getCell(i + counter1, j).searcHasAConcreteWall()== true){down = false;}
-				}}
+				}
 				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i +counter1,j).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
-						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();;}
+						this.gameBoard.getCell(i+counter1, j).deleteEnemies();}
 					
 					
 			}
@@ -455,7 +538,7 @@ public void killBomberman1(int i, int j){
 				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i-counter1,j).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
-						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();}
+						this.gameBoard.getCell(i-counter1, j).deleteEnemies();}
 					
 					
 			}
@@ -508,62 +591,10 @@ public void killBomberman1(int i, int j){
 		 }
 	}
 	
+	
 	/*Function that gives if bomberman is in a power up, if true, the bomberman picks up the powerup
 	 * 
 	 * */
-   public void pickPowerUp(int i, int j){
-	
-			 
-			 
-					
-			 if(gameBoard.getCell(i, j).searcHasAPowerUp() == true){
-				 System.out.println("DOING THE RIGHT THING");
-				 if(gameBoard.getBomberMan().getICell() == i && gameBoard.getBomberMan().getJCell() == j){
-				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
-					 System.out.println("Getting speed powerUp");
-					 gameBoard.getBomberMan().updateSpeed(gameBoard.getBomberMan().getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
-					 gameBoard.deletePowerUp(i, j);
-					 System.out.println("DELETING POWER UP");
-				 }
-				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
-					 System.out.println("Getting detonator powerUp");
-					gameBoard.getBomberMan().setHasDetonator(true);
-					gameBoard.deletePowerUp(i, j);
-					 System.out.println("DELETING POWER UP");
-				 }
-				 
-				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
-					 System.out.println("Getting bombpass powerUp");
-					gameBoard.getBomberMan().setBombPass(true);
-					gameBoard.deletePowerUp(i, j);
-					 System.out.println("DELETING POWER UP");
-				 }
-				 
-				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
-					 System.out.println("Getting flamepass powerUp");
-					gameBoard.getBomberMan().setFlamePass(true);
-					gameBoard.deletePowerUp(i, j);
-					 System.out.println("DELETING POWER UP");
-				 }
-				 
-				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
-					 System.out.println("Getting brickpass powerUp");
-					gameBoard.getBomberMan().setBrickPass(true);
-					gameBoard.deletePowerUp(i, j);
-					 System.out.println("DELETING POWER UP");
-				 }
-				 
-				 if(gameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
-					 System.out.println("Getting bombs powerUp");
-					gameBoard.getBomberMan().setNumBombsToDrop(1);
-					gameBoard.deletePowerUp(i, j);
-					 System.out.println("DELETING POWER UP");
-				 }
-				 
-				 }}}
- 
-
-				 
    
    public void destroyBombsAround(int i, int j){
 	   if(this.gameBoard.getCell(i, j).getHasADetonateBomb() == false){

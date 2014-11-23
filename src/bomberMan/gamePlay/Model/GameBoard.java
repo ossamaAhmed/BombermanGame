@@ -45,11 +45,10 @@ public class GameBoard {
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS);
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
 		initializeEnemiesPosition(2,"Balloon");
 		initializeEnemiesPosition(2,"Kondoria");
 		initializeEnemiesPosition(2,"Pass");
-		
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -103,7 +102,7 @@ public class GameBoard {
 		{
 			board[12][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.WINDOW_HEIGHT-CONSTANTS.TILE_SIDE_SIZE,WallType.CONCRETE));
 		}
-		board[2][1].insert(new PowerUp(CONSTANTS.TILE_SIDE_SIZE, 2*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.IMMUNITY_POWERUP , PowerUpType.FLAMEPASS, "PowerUp"));
+		
 	}
 	/** 
 	 * This is a helper method to build the concrete walls.Some numbers here are hard coded
@@ -163,34 +162,47 @@ public class GameBoard {
 	 * 
 	 * This function builds a random map
 	 */
-	public void buildRandomMap(int numberOfBricks, PowerUpType powerUp){
+	public void buildRandomMap(int numberOfBricks, PowerUpType powerUp, String powerUpImageLocation){
 		
 		int maxBricks = numberOfBricks;
 		Random objectRandom = new Random();
 		int brickNumber = 0;
 		int exitNumberChosen = objectRandom.nextInt(numberOfBricks-1);
+		int powerUpNumberChosen = objectRandom.nextInt(numberOfBricks-1);
+		while(powerUpNumberChosen == exitNumberChosen){
+			powerUpNumberChosen = objectRandom.nextInt(numberOfBricks-1); 
+		}
 		System.out.println("NUMBER CHOSEN FOR EXIT" + exitNumberChosen);
+		System.out.println("NUMBER CHOSEN FOR powerup" + powerUpNumberChosen);
 		boolean exitAlreadyPlaced = false;
+		boolean powerUpAlreadyPlaced = false;
 		int counter = 0;
 		int numberChosen;
-		 for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES-1;i+=1)
-		 {
-			 for(int j=1;j<CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1;j+=1)
-			 {
+		int i = objectRandom.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES-1);
+		int j = objectRandom.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1);
+		 
+	   while(counter < numberOfBricks){
 				 numberChosen = objectRandom.nextInt(9);
 				 if(board[i][j].isEmpty()&& numberChosen == brickNumber && counter < maxBricks&& (i > 2 || j >  2) ){
 				
-				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
+				 //board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
 					 board[i][j].insert(new GameObject(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
 				     exitAlreadyPlaced = true;
 				     System.out.println("NUMBER CHOSEN FOR EXIT i j " + i + ", "+j);
 				 }
+				 if(powerUpAlreadyPlaced == false && counter == powerUpNumberChosen){
+					 board[i][j].insert(new PowerUp(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,powerUpImageLocation, powerUp,"PowerUp"));
+				     powerUpAlreadyPlaced = true;
+				     System.out.println("NUMBER CHOSEN FOR power up i j " + i + ", "+j);
+				 }
 				 counter++;
 				 }
+				 i = objectRandom.nextInt(CONSTANTS.NUMBER_OF_VERTICAL_TILES-1);
+				 j = objectRandom.nextInt(CONSTANTS.NUMBER_OF_HORIZONTAL_TILES-1);
 				
-				 }
-		 }
+	   }
+		 
 		
 	}
 	public ArrayList <Bomb> getBombs(){return this.myBombs;}
