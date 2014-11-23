@@ -693,6 +693,8 @@ public void killBomberman1(int i, int j){
 	 if(this.gameBoard.getBomberMan().getInvisibilibityPowerUp()){
 		if( this.gameBoard.getBomberMan().getCreationInvisibilityPowerUp() <= this.gameBoard.getBomberMan().getEliminationInvisibilityPowerUp() ){
 			this.gameBoard.getBomberMan().addTimeCreationInvisibilitPowerUp();
+			System.out.println("TIME ELIMINATION " +  this.gameBoard.getBomberMan().getCreationInvisibilityPowerUp() );
+			System.out.println("TIME CREATION " +  this.gameBoard.getBomberMan().getEliminationInvisibilityPowerUp() );
 			
 		}
 		else if(this.gameBoard.getBomberMan().getCreationInvisibilityPowerUp() > this.gameBoard.getBomberMan().getEliminationInvisibilityPowerUp()){
