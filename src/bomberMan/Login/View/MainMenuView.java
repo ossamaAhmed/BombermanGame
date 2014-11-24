@@ -75,7 +75,7 @@ public class MainMenuView extends JPanel
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView(myframe);
+		GameBoardView x=new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN);
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);

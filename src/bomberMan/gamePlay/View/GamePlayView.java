@@ -23,7 +23,7 @@ public class GamePlayView {
 		gameView = new JFrame("BomberMan");
 		
 		
-		board= new GameBoardView(gameView);
+		board= new GameBoardView(gameView, CONSTANTS.LIVESBOMBERMAN);
 		SwingUtilities.invokeLater(new Runnable() 
 	    {
 	      @Override

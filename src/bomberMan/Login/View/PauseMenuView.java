@@ -76,7 +76,7 @@ public class PauseMenuView extends JPanel
 	private void resumeGameButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x= new GameBoardView(myframe,myBoard);
+		GameBoardView x= new GameBoardView(myframe,myBoard, CONSTANTS.LIVESBOMBERMAN);
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);
@@ -109,7 +109,7 @@ public class PauseMenuView extends JPanel
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView(myframe);
+		GameBoardView x=new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN);
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);

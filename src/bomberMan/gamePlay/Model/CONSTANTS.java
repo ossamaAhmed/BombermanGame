@@ -9,6 +9,7 @@
 package bomberMan.gamePlay.Model;
 
 public class CONSTANTS {
+	public final static int ENDINGGAMEPLAYTIME = 120000; // ending game time
 	public final static int maximumBrickMAP = 30; //max of bricks per map
 	public  static int DEFAULT_BOMB_RANGE=2; // in number Of blocks
 	public final static int INITIAL_BOMBERMAN_X_POS = 50;
@@ -26,6 +27,7 @@ public class CONSTANTS {
 	public final static int DOWN = 4; // in milliseconds
 	public static int BOMB_RANGE1 =3;
 	public static int DEFAULT_SPEED=6;
+	public final static int LIVESBOMBERMAN = 3;
 	public static int DEFAULT_SPEEDBOMBERMAN=6;
 	public static int SPEEDENEMY_SLOWEST=1;
 	public static int SPEEDENEMY_SLOW=2;
@@ -45,11 +47,11 @@ public class CONSTANTS {
 	public final static String Bomb_EXPLOSION ="BombMainExplosionV1.png";
 	public final static String Bomb_EXPLOSION2 ="BombMainExplosionV2.png";
 	public final static String MYSTERY_POWERUP ="mysteryPowerup.png";
-	public final static String IMMUNITY_POWERUP ="ImmunityPowerUp.png";
+	public final static String IMMUNITY_FLAME_POWERUP ="ImmunityPowerUp.png";
 	public final static String FLAME_POWERUP ="FlamePowerUp.png";
-	public final static String BOMB_RANGE_POWERUP ="BombRangePowerUp.png";
-	public final static String BOMB_POWERUP ="BombPowerUp.png";
-	public final static String BOMB_IMMUNITY_POWERUP ="BombImmunity.png";
+	public final static String BOMB_PASS_POWERUP ="BombPassPowerUp.png";
+	public final static String BOMBS_POWERUP ="BombPowerUp.png";
+	public final static String BOMB_DETONATOR_POWERUP ="BombDetonator.png";
 	public final static String SPEED_POWERUP ="SpeedPowerUp.png";
 	public final static String WALLPASS_POWERUP ="WallPassPowerUp.png";
 	public final static String BMB_dead = "SkullBMB.png";

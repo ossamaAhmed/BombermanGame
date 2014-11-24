@@ -100,5 +100,6 @@ public class Character extends GameObject {
     public int getLastDirection(){return this.lastDirection;}
     public void setForbiddenDirection(int direction){this.forbiddenDirection = direction;}
     public int getForbiddenDirection(){return this.forbiddenDirection;}
-
+    public int getNumOfLives(){return this.numOfLives;}
+    public void setNumOfLives(int numLives){this.numOfLives += numLives;}
 }
