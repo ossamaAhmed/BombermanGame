@@ -87,6 +87,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			timer2.start();
 			setScoreLabel();
 	  }
+	 
 	  
 	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
 	  {
@@ -189,6 +190,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	   */
 	 public void updateGameBoardView()
 	 {
+		 
 		 this.repaint();
 	 }
 	 

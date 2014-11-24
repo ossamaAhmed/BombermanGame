@@ -164,21 +164,25 @@ public class Cell {
 	 */
 	public boolean isEmptyPowerUpException()
 	{
-		boolean result =true;
-		//System.out.println(this.myBomberMan.getBrickPass()+"!");
-		if(this.getHasABomb() == true &&  this.myBomberMan.getBombPass() == false )
+		System.out.println(this.myBomberMan.getBrickPass()+"!");
+		if(this.isThereAnEnemy() == true && this.myBomberMan.getInvisibilibityPowerUp()== true )
 		{
-			result=false;
+			return true;
 		}
-		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == false)
+		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false )
 		{
-			result=false;
+			return true;
 		}
-		if(this.searcHasAConcreteWall()== true )
+		if(this.getHasABomb() == true &&  this.myBomberMan.getBombPass() == true )
 		{
-			result=false;
+			return true;
 		}
-		return result;
+		if(this.searcHasABrickWall()== true && this.myBomberMan.getBrickPass() == true)
+		{
+			return true;
+		}
+		
+		return this.isEmpty();
 	}
 	public boolean isEmptyBombException(){
 		

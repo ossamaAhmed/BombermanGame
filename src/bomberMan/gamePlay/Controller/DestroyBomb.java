@@ -13,20 +13,17 @@ public class DestroyBomb extends Thread {
 	}
 	@Override
 	public void run() {
-		while(gameBoard.getBomberMan().getIsAlive())
-		{
-				
-			this.controller.detonateRegularBombs();
-			this.controller.deleteInvisibilityPowerUp();
+		while(true){
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+			this.controller.deleteInvisibilityPowerUp();
+			this.controller.detonateRegularBombs();}
+			}
 		
 
 	}
 
-}
