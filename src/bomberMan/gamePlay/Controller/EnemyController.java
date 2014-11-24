@@ -322,13 +322,13 @@ public class EnemyController extends CharacterController
 			int dY = currentCell.getY() - parent.getY();
 			//System.out.println(dX + ", " + dY +" "+ counter);
 			if (dX == 1)
-				temp.push(2);
+				temp.push(CONSTANTS.RIGHT);
 			if (dX == -1)
-				temp.push(1);
+				temp.push(CONSTANTS.LEFT);
 			if (dY == 1)
-				temp.push(4);
+				temp.push(CONSTANTS.DOWN);
 			if (dY == -1)
-				temp.push(3);
+				temp.push(CONSTANTS.UP);
 
 			currentCell = parent;
 			parent = currentCell.getParent();

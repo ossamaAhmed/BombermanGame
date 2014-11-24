@@ -50,6 +50,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private GameBoardController gmController;
 	private int numLivesBomberman;
 	private long currentTime;
+	private Stage stage;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
@@ -72,7 +73,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
 		  this.setLayout(null);
 		  scrollRealtive=0;
-		  myBoard=new GameBoard(12);
+		  myBoard=new GameBoard(1);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
