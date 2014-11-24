@@ -76,10 +76,12 @@ public class GameBoardView extends JPanel implements KeyListener {
 
 			    	updateGameBoardView();
 					enemyC.run();
+					
 			    }
 			});
 			timer2.start();
 	  }
+	 
 	  
 	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
 	  {
@@ -158,6 +160,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	   */
 	 public void updateGameBoardView()
 	 {
+		 
 		 this.repaint();
 	 }
 	 
