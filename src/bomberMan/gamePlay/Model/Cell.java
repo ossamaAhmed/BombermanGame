@@ -32,6 +32,9 @@ public class Cell {
 	Calendar timer;
 	BomberMan myBomberMan;
 	private ArrayList<GameObject> myObjects;
+	private Cell parent = null;
+	private int gscore;
+	private int fscore;
 	
 	/** 
 	 * Constructor
@@ -361,5 +364,35 @@ public class Cell {
 	
 	}
 	public BomberMan getBomberMan(){return this.myBomberMan;}
+	
+	//get set parent cell for astar search
+	public void setParent(Cell cell){
+		this.parent = cell;
+	}
+	//get parent to help return the path
+	public Cell getParent(){
+		return this.parent;
+	}
+	//set steps score
+	public void setGscore(int i) {
+		this.gscore = i;
+	}
+	public int getGScore() {
+		return this.gscore;
+	}
+	//set f score, to determine astar pathfinding
+	public void setFscore(int manhattan) {
+		this.fscore = this.gscore + manhattan;
+	}
+	public int getFscore() {
+		return this.fscore;
+	}
+	// get X, Y coordinates
+	public int getX(){
+		return xPos;
+	}
+	public int getY(){
+		return yPos;
+	}
 	
 }
