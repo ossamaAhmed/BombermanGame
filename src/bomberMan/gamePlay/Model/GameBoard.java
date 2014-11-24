@@ -55,6 +55,11 @@ public class GameBoard {
 	/** 
 	 * This method returns the cell at the x and y position.
 	 */
+	public void worstPenality()
+	{
+		initializeEnemiesPosition(13,"Balloom","Low");
+		initializeEnemiesPosition(10,"Kondoria","High");
+	}
 	public Cell getCell(int x, int y)
 	{
 		return board[x][y];

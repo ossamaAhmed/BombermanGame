@@ -128,7 +128,7 @@ public class BomberMan extends Character {
 		this.eliminationInvisibilityPowerup = CONSTANTS.delayINVISIBILITY + this.creationInvisibilityPowerup;
 		
 	}
-	public void addTimeCreationInvisibilitPowerUp(){this.creationInvisibilityPowerup=timer.getTimeInMillis();}
+	public void addTimeCreationInvisibilitPowerUp(){this.creationInvisibilityPowerup=Calendar.getInstance().getTimeInMillis();}
 	public long  getEliminationInvisibilityPowerUp(){return this.eliminationInvisibilityPowerup;}
 	
 	

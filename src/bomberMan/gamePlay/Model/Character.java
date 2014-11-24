@@ -88,8 +88,8 @@ public class Character extends GameObject {
 	 * This method kills the character and updates the private variables accordingly. 
 	 */
 	
-	public void die() {
-		
+	public void die() 
+	{
 		this.alive=false;
 		this.numOfLives--;
 	}
