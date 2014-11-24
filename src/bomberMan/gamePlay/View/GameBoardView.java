@@ -73,7 +73,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
 		  this.setLayout(null);
 		  scrollRealtive=0;
-		  myBoard=new GameBoard(1);
+		  myBoard=new GameBoard(Stage.getStage(3));
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);

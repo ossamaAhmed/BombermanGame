@@ -16,7 +16,7 @@ public class Stage {
 			{0,0,0,0,0,0,0,1},
 	};
 	
-	private int allStages[][] = {
+	private static int allStages[][] = {
 			{6,0,0,0,0,0,0,0,1},
 			{3,3,0,0,0,0,0,0,1},
 			{2,2,2,0,0,0,0,0,1},
@@ -72,7 +72,7 @@ public class Stage {
 			{0,0,0,0,1,2,5,2,1}
 	};
 			
-	public int[] getStage(int x){
+	public static int[] getStage(int x){
 		int stage[] = new int[9];
 		for(int i = 0; i < 9; i++){
 			stage[i] = allStages[x-1][i];

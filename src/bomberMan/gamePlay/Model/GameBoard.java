@@ -64,7 +64,7 @@ public class GameBoard {
 	public void worstPenality(int[] stage)
 	{
 		int highestEnemy = 0;
-		for(int i = 0; i < stage.length; i++){
+		for(int i = 0; i < stage.length - 1; i++){
 			if(stage[i]!= 0);
 				highestEnemy = i;
 		}
