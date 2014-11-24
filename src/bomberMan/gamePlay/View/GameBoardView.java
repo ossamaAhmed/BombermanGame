@@ -36,15 +36,17 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private GameBoard myBoard;
 
 	private Graphics2D myCanvas;
-	BufferedImage image; //
-	Calendar timer = Calendar.getInstance();
-	Timer timer2;
+	private BufferedImage image; //
+	private Calendar timer1;
+	private Timer timer2;
+	private long creationTime;
 	private JFrame myFrame;
 	private BomberManController controller;
 	private CharacterController characterC;
 	private EnemyController enemyC;
 	private int scrollRealtive;
 	private JLabel scoreLabel;
+	private JLabel timerLabel;
 	public GameBoardController gmController;
 	/** 
 	 * Constructor
@@ -64,6 +66,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			}
 
 		  this.myFrame=myFrame;
+		  
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
 		  this.setLayout(null);
 		  scrollRealtive=0;
@@ -84,8 +87,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 					//gmController.detonateRegularBombs();
 			    }
 			});
+			
 			timer2.start();
+			
 			setScoreLabel();
+			setTimerLabel();
 	  }
 	 
 	  
@@ -109,10 +115,14 @@ public class GameBoardView extends JPanel implements KeyListener {
 			    	updateGameBoardView();
 					enemyC.run();
 					updateScore();
+					
 			    }
 			});
+			
 			timer2.start();	
+			
 			setScoreLabel();
+			setTimerLabel();
 	  }
 	  
 	  public void setScoreLabel()
@@ -126,20 +136,35 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 scoreLabel.setFont(new Font(scoreLabel.getName(), Font.PLAIN, 20));
 			 this.add(scoreLabel);
 	  }
+	  public void setTimerLabel(){
+		     timer1 =  Calendar.getInstance();
+		     creationTime = timer1.getTimeInMillis(); 
+		     timerLabel= new JLabel("Time : "+0 + " s");
+			 timerLabel.setSize(200, 50);
+			 timerLabel.setOpaque(true);
+			 timerLabel.setForeground(Color.red);
+			 timerLabel.setBackground(new Color(0, 0, 0, 0));
+			 timerLabel.setLocation(250, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+			 timerLabel.setFont(new Font(timerLabel.getName(), Font.PLAIN, 20));
+			 this.add(timerLabel);
+		  
+	  }
 	  public void updateScore()
-	  {
+	  {   
+	      
 		  scoreLabel.setText("Score :"+this.myBoard.getScore().getMyScore());
+	  }
+	  public void updateTimer()
+	  {
+		  long seconds = Calendar.getInstance().getTimeInMillis()-this.creationTime;
+		  timerLabel.setText("Time : "+ seconds/1000 + " s");
 	  }
 	  /** 
 	   * This method takes care of the key listening and calls the different methods of the controller
 	   * according to the key pressed or the event happening
 	   */
 	 public void keyPressed(KeyEvent keyE){
-		 long timeA = timer.getTimeInMillis();
-		 long timeB = timeA + 1000;
-		/* while(timeA <= timeB){
-			 timeA +=10;
-		 }*/
+		 
 		 if (keyE.getKeyCode() == KeyEvent.VK_RIGHT || keyE.getKeyCode() == KeyEvent.VK_LEFT || keyE.getKeyCode() == KeyEvent.VK_DOWN || keyE.getKeyCode() == KeyEvent.VK_UP)
 		 {
 			 controller.move(keyE);
@@ -192,6 +217,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 
 		 this.repaint();
+		 this.updateTimer();
 	 }
 	 
 	 /** 
