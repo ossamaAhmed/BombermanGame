@@ -35,7 +35,7 @@ public void run(){
  
 public void detonateRegularBombs(){
 	
-	System.out.println(this.gameBoard.getBomberMan().getInvisibilibityPowerUp()+"$");
+
 	int iCell = this.gameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
 	int jCell = this.gameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
 	if(gameBoard.getBombs().size()>0){
@@ -556,7 +556,7 @@ public void killBomberman1(int i, int j){
 	 * Drops a  bomb that is  going to be detonated
 	 */
 	public void dropBombDetonator(){
-		 if(this.gameBoard.getBomberMan().getHasDetonator()&& this.gameBoard.getBomberMan().getNumBombsToDrop() >= this.gameBoard.getBomberMan().getQteOfBombsDropped()){
+		 if(this.gameBoard.getBomberMan().getIsAlive() && this.gameBoard.getBomberMan().getHasDetonator()&& this.gameBoard.getBomberMan().getNumBombsToDrop() >= this.gameBoard.getBomberMan().getQteOfBombsDropped()){
 		 int posXBomb = this.gameBoard.getBomberMan().getPositionX();
 		 int posYBomb = this.gameBoard.getBomberMan().getPositionY();
 		 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;

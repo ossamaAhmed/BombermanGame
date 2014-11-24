@@ -438,7 +438,7 @@ public void dropBomb(){
 	 int celX = posXBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 int celY = posYBomb / CONSTANTS.TILE_SIDE_SIZE ;
 	 
-	 if(this.myGameBoard.getCell(celY,celX).isEmpty() && this.myGameBoard.getBomberMan().getNumBombsToDrop() >= this.myGameBoard.getBomberMan().getQteOfBombsDropped() ){
+	 if(this.myGameBoard.getBomberMan().getIsAlive() && this.myGameBoard.getCell(celY,celX).isEmpty() && this.myGameBoard.getBomberMan().getNumBombsToDrop() >= this.myGameBoard.getBomberMan().getQteOfBombsDropped() ){
 	 this.myGameBoard.addBomb(celX, celY, new Bomb(celX*CONSTANTS.TILE_SIDE_SIZE , celY*CONSTANTS.TILE_SIDE_SIZE, CONSTANTS.BOMB_TIMER, myGameBoard.getBomberMan().getBombRange(), false, "Bomb"));
 	 
 	 this.myGameBoard.getCell(celY, celX).setHasABomb(true);
@@ -524,6 +524,7 @@ public void pickPowerUp(int i, int j){
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.INVISIBILITY){
 			 System.out.println("Getting INVISIBILITY powerUp");
 			 myGameBoard.getBomberMan().setInvisibilityPowerUp(true);
+			 myGameBoard.getCell(i,j).getBomberMan().setInvisibilityPowerUp(true);
 			 myGameBoard.getBomberMan().setCreationInvisibilityPowerUp();
 			 myGameBoard.deletePowerUp(i, j);
 			 System.out.println("DELETING POWER UP");

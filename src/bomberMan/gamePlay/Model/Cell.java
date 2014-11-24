@@ -150,6 +150,10 @@ public class Cell {
 	public boolean isEmptyPowerUpException()
 	{
 		System.out.println(this.myBomberMan.getBrickPass()+"!");
+		if(this.isThereAnEnemy() == true && this.myBomberMan.getInvisibilibityPowerUp()== true )
+		{
+			return true;
+		}
 		if(this.searcHasAPowerUp() == true && this.searcHasABrickWall()== false )
 		{
 			return true;
