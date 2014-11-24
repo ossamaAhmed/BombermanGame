@@ -105,7 +105,17 @@ public class MainMenuView extends JPanel
 	}
 	private void loadGameButtonActionPerformed(ActionEvent evt) 
 	{
-        
+		myframe.remove(this);
+		LoadGameView x=new LoadGameView(myframe);
+		myframe.setFocusable(true);
+		//myframe.addKeyListener(x);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
     }
 	public void setLeaderBoardButton()
 	{
