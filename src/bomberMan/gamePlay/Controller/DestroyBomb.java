@@ -17,6 +17,7 @@ public class DestroyBomb extends Thread {
 		{
 				
 			this.controller.detonateRegularBombs();
+			this.controller.deleteInvisibilityPowerUp();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

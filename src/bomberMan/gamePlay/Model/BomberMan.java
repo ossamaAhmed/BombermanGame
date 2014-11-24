@@ -28,7 +28,7 @@ public class BomberMan extends Character {
 	int bombsDropped = 0;
 	Calendar timer;
 	long creationInvisibilityPowerup = 0;
-	long eliminationInvisibilityPowerup =0;
+	long eliminationInvisibilityPowerup =10;
 	/** 
 	 * Constructor
 	 * This method takes care of any initialization needed for 
@@ -128,7 +128,7 @@ public class BomberMan extends Character {
 		this.eliminationInvisibilityPowerup = CONSTANTS.delayINVISIBILITY + this.creationInvisibilityPowerup;
 		
 	}
-	public void addTimeCreationInvisibilitPowerUp(int time){this.creationInvisibilityPowerup+=time;}
+	public void addTimeCreationInvisibilitPowerUp(){this.creationInvisibilityPowerup=timer.getTimeInMillis();}
 	public long  getEliminationInvisibilityPowerUp(){return this.eliminationInvisibilityPowerup;}
 	
 	

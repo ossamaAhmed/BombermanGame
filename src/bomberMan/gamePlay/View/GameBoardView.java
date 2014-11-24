@@ -79,7 +79,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			    public void actionPerformed(ActionEvent evt) {
 
 			    	updateGameBoardView();
-					//enemyC.run();
+					enemyC.run();
 					updateScore();
 					//gmController.detonateRegularBombs();
 			    }
@@ -106,7 +106,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			    public void actionPerformed(ActionEvent evt) {
 
 			    	updateGameBoardView();
-					//enemyC.run();
+					enemyC.run();
 					updateScore();
 			    }
 			});
@@ -166,11 +166,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 
 			 gmController.dropBombDetonator();
 		 }
-		 if(keyE.getKeyCode()==KeyEvent.VK_U)
-		 {
-			 
-			 enemyC.run();
-		 }
+//		 if(keyE.getKeyCode()==KeyEvent.VK_U)
+//		 {
+//			 
+//			 enemyC.run();
+//		 }
 		 if(keyE.getKeyCode()==KeyEvent.VK_D)
 		 { 
 			

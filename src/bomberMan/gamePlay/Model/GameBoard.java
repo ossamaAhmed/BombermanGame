@@ -46,7 +46,7 @@ public class GameBoard {
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.INVISIBILITY, CONSTANTS.MYSTERY_POWERUP);
 		myScore=new Score();
 		initializeEnemiesPosition(5,"Balloom","Low");
 		initializeEnemiesPosition(5,"Kondoria","High");

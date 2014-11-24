@@ -353,7 +353,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 					 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 				 }
 			 }
-			 myGameBoard.getBomberMan().moveRight(displacement);
+			 if(right && rightA){
+			 myGameBoard.getBomberMan().moveRight(displacement);}
 			  }
 	 }
 	 if(directionMove == 1 ){
@@ -375,7 +376,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 					 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 				 }
 			 }
-			 myGameBoard.getBomberMan().moveLeft(displacement);
+			 if(left && leftA){
+			 myGameBoard.getBomberMan().moveLeft(displacement);}
 			  }
 		 
 	 }
@@ -397,7 +399,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 				 if(offset < 0){
 					 myGameBoard.getBomberMan().moveRight(-offset -(CONSTANTS.BOMBERMAN_WIDTH/2));
 				 }} 
-			   myGameBoard.getBomberMan().moveDown(displacement);
+			   if(downA && down){
+			   myGameBoard.getBomberMan().moveDown(displacement);}
 				  }
 	 }
 	 if(directionMove == 3 ){
@@ -419,7 +422,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 						 myGameBoard.getBomberMan().moveLeft(offset +(CONSTANTS.BOMBERMAN_WIDTH/2));
 					 }
 				} 
-			   myGameBoard.getBomberMan().moveUp(displacement);
+			   if(upA && up){
+			   myGameBoard.getBomberMan().moveUp(displacement);}
 				  }
 	 }
 		

@@ -140,7 +140,7 @@ public class EnemyController extends CharacterController
 			boolean enemyAtEdgeOfCell=(myEnemy.getPositionX())==((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE)*CONSTANTS.TILE_SIDE_SIZE)
 					&&(myEnemy.getPositionY())==((myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE)*CONSTANTS.TILE_SIDE_SIZE);
 
-			if (bomberManInRangeMedAI(myEnemy) == true && this.myGameBoard.getBomberMan().getIsAlive()&&enemyAtEdgeOfCell) 
+			if (bomberManInRangeMedAI(myEnemy) == true && this.myGameBoard.getBomberMan().getIsAlive()&&enemyAtEdgeOfCell&&!this.myGameBoard.getBomberMan().getInvisibilibityPowerUp()) 
 			{
 				myEnemy.setExpectedMovmentDirection(medAIchase(myEnemy)); ;
 			} else if (((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE) % 2 == 1 )&& ((myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE) % 2 == 1)&&enemyAtEdgeOfCell) 
