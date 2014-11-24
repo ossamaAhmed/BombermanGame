@@ -23,14 +23,14 @@ public class GamePlayView {
 		gameView = new JFrame("BomberMan");
 		
 		
-		board= new GameBoardView(gameView);
+		board= new GameBoardView(gameView, CONSTANTS.LIVESBOMBERMAN);
 		SwingUtilities.invokeLater(new Runnable() 
 	    {
 	      @Override
 	      public void run()  
 	      {  	
 	  		gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			gameView.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+200); 
+			gameView.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100); 
 			//gameView.setResizable(false); //Resizing Not working should look into it
 			gameView.addKeyListener(board);		
 			board.setBackground(Color.black);

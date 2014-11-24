@@ -36,22 +36,26 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private GameBoard myBoard;
 
 	private Graphics2D myCanvas;
-	BufferedImage image; //
-	Calendar timer = Calendar.getInstance();
-	Timer timer2;
+	private BufferedImage image; //
+	private Calendar timer1;
+	private Timer timer2;
+	private long creationTime;
 	private JFrame myFrame;
 	private BomberManController controller;
 	private CharacterController characterC;
 	private EnemyController enemyC;
 	private int scrollRealtive;
 	private JLabel scoreLabel;
-	public GameBoardController gmController;
+	private JLabel timerLabel;
+	private GameBoardController gmController;
+	private int numLivesBomberman;
+	private long currentTime;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
 	 * and adding a key listener to the canvas and painting the init board.
 	 */
-	  public GameBoardView(JFrame myFrame)
+	  public GameBoardView(JFrame myFrame, int numLivesRemainingBomberMan)
 	  {
 		  super();
 		  image = null;
@@ -64,12 +68,13 @@ public class GameBoardView extends JPanel implements KeyListener {
 			}
 
 		  this.myFrame=myFrame;
-		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
+		  this.numLivesBomberman = numLivesRemainingBomberMan;
+		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.setLayout(null);
 		  scrollRealtive=0;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
-		  gmController.start();
+		  gmController.run();
 		  controller=new BomberManController(myBoard);
 		  //characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
@@ -84,16 +89,20 @@ public class GameBoardView extends JPanel implements KeyListener {
 					//gmController.detonateRegularBombs();
 			    }
 			});
+			
 			timer2.start();
+			
 			setScoreLabel();
+			setTimerLabel();
 	  }
 	 
 	  
-	  public GameBoardView(JFrame myFrame, GameBoard myBoard)
+	  public GameBoardView(JFrame myFrame, GameBoard myBoard, int numLivesRemainingBomberMan)
 	  {
 		  super();
 		  this.myFrame=myFrame;
-		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT);
+		  this.numLivesBomberman = numLivesRemainingBomberMan;
+		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.myBoard=myBoard;
 		    this.setLayout(null);
 		  gmController = new GameBoardController(myBoard);
@@ -109,10 +118,14 @@ public class GameBoardView extends JPanel implements KeyListener {
 			    	updateGameBoardView();
 					enemyC.run();
 					updateScore();
+				
 			    }
 			});
+			
 			timer2.start();	
+			
 			setScoreLabel();
+			setTimerLabel();
 	  }
 	  
 	  public void setScoreLabel()
@@ -126,20 +139,36 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 scoreLabel.setFont(new Font(scoreLabel.getName(), Font.PLAIN, 20));
 			 this.add(scoreLabel);
 	  }
+	  public void setTimerLabel(){
+		     timer1 =  Calendar.getInstance();
+		     creationTime = timer1.getTimeInMillis(); 
+		     timerLabel= new JLabel("Time : "+0 + " s");
+			 timerLabel.setSize(200, 50);
+			 timerLabel.setOpaque(true);
+			 timerLabel.setForeground(Color.red);
+			 timerLabel.setBackground(new Color(0, 0, 0, 0));
+			 timerLabel.setLocation(250, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+			 timerLabel.setFont(new Font(timerLabel.getName(), Font.PLAIN, 20));
+			 this.add(timerLabel);
+		  
+	  }
+	  
 	  public void updateScore()
-	  {
+	  {   
+	      
 		  scoreLabel.setText("Score :"+this.myBoard.getScore().getMyScore());
+	  }
+	  public void updateTimer()
+	  {
+		  currentTime = Calendar.getInstance().getTimeInMillis()-this.creationTime;
+		  timerLabel.setText("Time : "+ currentTime/1000 + " s");
 	  }
 	  /** 
 	   * This method takes care of the key listening and calls the different methods of the controller
 	   * according to the key pressed or the event happening
 	   */
 	 public void keyPressed(KeyEvent keyE){
-		 long timeA = timer.getTimeInMillis();
-		 long timeB = timeA + 1000;
-		/* while(timeA <= timeB){
-			 timeA +=10;
-		 }*/
+		 
 		 if (keyE.getKeyCode() == KeyEvent.VK_RIGHT || keyE.getKeyCode() == KeyEvent.VK_LEFT || keyE.getKeyCode() == KeyEvent.VK_DOWN || keyE.getKeyCode() == KeyEvent.VK_UP)
 		 {
 			 controller.move(keyE);
@@ -192,7 +221,16 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 
 		 this.repaint();
-	 }
+		 this.updateTimer();
+		   // if(this.currentTime >= CONSTANTS.ENDINGGAMEPLAYTIME){ //this.gmController.getBoard().worstPenalty()}
+			if( gmController.getBoard().getBomberMan().getIsAlive() == false && this.numLivesBomberman > 1){
+				this.startAgain();
+				System.out.println("STARTING AGAIN");
+			}
+			else if( this.gmController.getBoard().getBomberMan().getIsAlive() == false && this.numLivesBomberman == 1){
+			  //start  LeaderBoard..?
+			}
+			}
 	 
 	 /** 
 	   * This function Draws the gameBoard on the screen. Renders the data only. Any changes 
@@ -251,4 +289,18 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 }
 	 
 	public void startController(){  this.gmController.run();}
+	public void startAgain(){
+		timer2.stop();
+		 myFrame.remove(this);
+			GameBoardView x=new GameBoardView(myFrame, this.numLivesBomberman-1);
+			myFrame.setFocusable(true);
+			//myframe.addKeyListener(x);
+			x.setBackground(Color.black);
+			x.setVisible(true);
+			myFrame.add(x);
+			myFrame.validate();
+			myFrame.repaint();
+		        x.requestFocusInWindow();
+		        myFrame.setVisible(true);
+	}
 }

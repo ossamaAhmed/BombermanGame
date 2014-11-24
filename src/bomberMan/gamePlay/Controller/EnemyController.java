@@ -20,7 +20,7 @@ public class EnemyController extends CharacterController
     {
     	for(int i=0;i<this.myGameBoard.getEnemies().size();i++)
 		{
-			if(!((Enemy) this.myGameBoard.getEnemies().get(i)).getIsAlive())
+			if(!(this.myGameBoard.getEnemies().get(i)).getIsAlive())
 				this.myGameBoard.getEnemies().remove(i);
 		}
     	for(int i=0;i<this.myGameBoard.getEnemies().size();i++)

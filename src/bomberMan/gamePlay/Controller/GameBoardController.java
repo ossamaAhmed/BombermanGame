@@ -1,6 +1,7 @@
 package bomberMan.gamePlay.Controller;
 import java.util.*;
 import java.lang.Runnable;
+
 import bomberMan.gamePlay.Model.*;
 
 
@@ -19,7 +20,9 @@ public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
  * This function executes the GameBoardController thread, which detonates bombs without detonator 
  * each time a bomb explosion delay expires.
  */
+
 public void run(){
+	
 	
 	timer = Calendar.getInstance();
 	bombDestroyer = new DestroyBomb(this.gameBoard, this);
@@ -632,6 +635,6 @@ public void killBomberman1(int i, int j){
    
    
 
-
+public GameBoard getBoard(){return this.gameBoard;}
    
 }

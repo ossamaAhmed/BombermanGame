@@ -42,6 +42,7 @@ public class BomberMan extends Character {
 		this.myPowerUps=new ArrayList<PowerUp>();
 		this.myBombs=new ArrayList<Bomb>();
 		this.timer = Calendar.getInstance();
+		this.setNumOfLives(CONSTANTS.LIVESBOMBERMAN);
 	}
 	/** 
 	 * This method prints out the position of bomberMan for debugging purposes.
@@ -98,6 +99,7 @@ public class BomberMan extends Character {
 		{
 		super.die();
 		this.setImage(CONSTANTS.BMB_dead);
+		this.setNumOfLives(-1);
 		}
 		
 	}	

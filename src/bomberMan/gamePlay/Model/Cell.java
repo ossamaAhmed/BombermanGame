@@ -95,8 +95,9 @@ public class Cell {
 	 */
 	public BufferedImage getImage()
 	{
-			image = this.myObjects.get(0).getImage();
-			return image;
+			if(!isEmpty())
+				return this.myObjects.get(0).getImage();
+			return null;
 			
 	}
 	/** 
@@ -134,16 +135,18 @@ public class Cell {
 	}
 	public void deleteEnemies()
 	{
-		for(int i=0;i<myObjects.size();i++)
+		while(this.isThereAnEnemy())
 		{
-			if(myObjects.get(i) instanceof Enemy)
-				{
-					((Enemy) myObjects.get(i)).die();
-					myObjects.remove(i);
-					if(i>-1)
-						i--;
-				}
+			for(int i=0;i<myObjects.size();i++)
+			{
+				if(myObjects.get(i) instanceof Enemy)
+					{
+						((Enemy) myObjects.get(i)).die();
+						myObjects.remove(i);
+					}
+			}
 		}
+
 	}
 	public ArrayList<Enemy> getEnemies()
 	{
@@ -165,7 +168,7 @@ public class Cell {
 	public boolean isEmptyPowerUpException()
 	{
 		System.out.println(this.myBomberMan.getBrickPass()+"!");
-		if(this.isThereAnEnemy() == true && this.myBomberMan.getInvisibilibityPowerUp()== true )
+		if(this.isThereAnEnemy() == true)
 		{
 			return true;
 		}

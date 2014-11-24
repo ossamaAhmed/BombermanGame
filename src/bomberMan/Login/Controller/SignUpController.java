@@ -17,7 +17,7 @@ public class SignUpController {
 			return 3;
 		}
 		// username taken or wrong format
-		else if (checkUsernameNotTaken(username) == false) {
+		else if (DB.userExists(username) == true) {
 			return 1;
 		}
 		// checks if password matches
