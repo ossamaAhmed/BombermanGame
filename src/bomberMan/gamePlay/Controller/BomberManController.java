@@ -342,6 +342,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
 		 boolean leftA = this.myGameBoard.getCell((( yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
 		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
+		 boolean rightB = this.myGameBoard.getCell(((yPos)/width),1+(xPos-widthBMB)/width).isEmptyPowerUpException();
+		 boolean rightC = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos-widthBMB)/width).isEmptyPowerUpException();
 		 boolean sidesFree = (!left &&! right) || (!leftA && !rightA);
 		 if(this.myGameBoard.getCell( (yPos)/width,(xPos+widthBMB)/width).isEmptyPowerUpException()|| !sidesFree){
 			 if(!centeredYAxis){
@@ -353,7 +355,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 					 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 				 }
 			 }
-			 if(right && rightA){
+			 if(right && rightA || rightB && rightC){
 			 myGameBoard.getBomberMan().moveRight(displacement);}
 			  }
 	 }
@@ -364,8 +366,10 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 		 boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
 		 boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
 		 boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
+		 boolean leftB = this.myGameBoard.getCell(((yPos)/width),-1+(xPos+widthBMB)/width).isEmptyPowerUpException();
+		 boolean leftC = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos+widthBMB)/width).isEmptyPowerUpException();
 		 boolean sidesFree = (!left &&! right) || (!leftA && !rightA);
-		  	
+		 	
 		 if(this.myGameBoard.getCell( (yPos)/width,(xPos)/width).isEmptyPowerUpException()|| !sidesFree){
 			 if(!centeredYAxis){
 				 int offset = computeOffsetFromCenterYaxis(myGameBoard.getBomberMan());
@@ -376,7 +380,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 					 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 				 }
 			 }
-			 if(left && leftA){
+			 if(left && leftA || leftB && leftC){
 			 myGameBoard.getBomberMan().moveLeft(displacement);}
 			  }
 		 
@@ -389,6 +393,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 			boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmptyPowerUpException();
 			boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 			boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
+			boolean downB= this.myGameBoard.getCell((1+(yPos-widthBMB)/width),( ((xPos)/width))).isEmptyPowerUpException();
+			boolean downC = this.myGameBoard.getCell((1+(yPos-widthBMB)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 			boolean sidesFree = (!up &&! down) || (!upA && !downA);
 			  	
 		   if(this.myGameBoard.getCell( (yPos+widthBMB)/width,(xPos)/width).isEmptyPowerUpException()|| !sidesFree){
@@ -399,7 +405,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 				 if(offset < 0){
 					 myGameBoard.getBomberMan().moveRight(-offset -(CONSTANTS.BOMBERMAN_WIDTH/2));
 				 }} 
-			   if(downA && down){
+			   if(downA && down || downB && downC){
 			   myGameBoard.getBomberMan().moveDown(displacement);}
 				  }
 	 }
@@ -411,7 +417,8 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 			boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 			boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 			boolean sidesFree = (!up &&! down) || (!upA && !downA);
-			  	
+			boolean upC = this.myGameBoard.getCell((-1+(yPos+heightBMB)/width),(((xPos)/width))).isEmptyPowerUpException() ;
+			boolean upD = this.myGameBoard.getCell((-1+(yPos +heightBMB)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
 		   if(this.myGameBoard.getCell( (yPos)/width,(xPos)/width).isEmptyPowerUpException()|| !sidesFree){
 			   if(!centeredXAxis){
 					 int offset = computeOffsetFromCenterXaxis(myGameBoard.getBomberMan());
@@ -422,7 +429,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 						 myGameBoard.getBomberMan().moveLeft(offset +(CONSTANTS.BOMBERMAN_WIDTH/2));
 					 }
 				} 
-			   if(upA && up){
+			   if(upA && up || upC && upD){
 			   myGameBoard.getBomberMan().moveUp(displacement);}
 				  }
 	 }
