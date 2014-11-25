@@ -429,7 +429,7 @@ public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden
 						 myGameBoard.getBomberMan().moveLeft(offset +(CONSTANTS.BOMBERMAN_WIDTH/2));
 					 }
 				} 
-			   if(upA && up || upC && upD){
+			   if((upA && up) || (upC && upD)){
 			   myGameBoard.getBomberMan().moveUp(displacement);}
 				  }
 	 }

@@ -33,7 +33,7 @@ public class CONSTANTS {
 	public static int SPEEDENEMY_SLOW=2;
 	public static int SPEEDENEMY_NORMAL=3;
 	public static int SPEEDENEMY_FAST=4;
-	public static int DEFAULT_POWERUPSPEED_INCREASE;
+	public static int DEFAULT_POWERUPSPEED_INCREASE = 5;
 	public static long delayINVISIBILITY = 40000;
 	public final static int NUMBER_OF_HORIZONTAL_TILES=31;
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
