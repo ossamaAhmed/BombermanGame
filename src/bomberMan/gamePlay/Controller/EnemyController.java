@@ -334,6 +334,9 @@ public class EnemyController extends CharacterController
 				temp.push(CONSTANTS.UP);
 			if (dY == -1)
 				temp.push(CONSTANTS.DOWN);
+				temp.push(CONSTANTS.DOWN);
+			if (dY == -1)
+				temp.push(CONSTANTS.UP);
 
 			currentCell = parent;
 			parent = currentCell.getParent();

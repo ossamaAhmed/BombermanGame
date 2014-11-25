@@ -26,7 +26,7 @@ public class GameBoard {
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
-	public GameBoard(int numberOfWall)
+	public GameBoard(int[] stage)
 	
 	{   myBombs  = new ArrayList <Bomb>();
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
@@ -48,19 +48,41 @@ public class GameBoard {
 		buildConcreteWalls();
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
-//		initializeEnemiesPosition(5,"Balloom","Low");
-//		initializeEnemiesPosition(5,"Kondoria","High");
-		initializeEnemiesPosition(5,"Pass","High");
-//		initializeEnemiesPosition(5,"Doll","Low");
-//		initializeEnemiesPosition(5,"Minvo","Medium");
+		initializeEnemiesPosition(stage[0],"Balloom","Low");
+		initializeEnemiesPosition(stage[1],"Doll","Low");
+		initializeEnemiesPosition(stage[2],"Minvo","Medium");
+		initializeEnemiesPosition(stage[3],"Oneal","Medium");
+		initializeEnemiesPosition(stage[4],"Ovapi","Medium");
+		initializeEnemiesPosition(stage[5],"Kondoria","High");
+		initializeEnemiesPosition(stage[6],"Pontan","High");
+		initializeEnemiesPosition(stage[7],"Pass","High");
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
 	 */
-	public void worstPenality()
+	public void worstPenality(int[] stage)
 	{
-		initializeEnemiesPosition(13,"Balloom","Low");
-		initializeEnemiesPosition(10,"Kondoria","High");
+		int highestEnemy = 0;
+		for(int i = 0; i < stage.length - 1; i++){
+			if(stage[i]!= 0);
+				highestEnemy = i;
+		}
+		myEnemies.clear();
+
+		if(highestEnemy == 0)
+			initializeEnemiesPosition(8,"Doll","Low");
+		if(highestEnemy == 1)
+			initializeEnemiesPosition(8,"Minvo","Medium");
+		if(highestEnemy == 2)
+			initializeEnemiesPosition(8,"Oneal","Medium");
+		if(highestEnemy == 3)
+			initializeEnemiesPosition(8,"Ovapi","Medium");
+		if(highestEnemy == 4)
+			initializeEnemiesPosition(8,"Kondoria","High");
+		if(highestEnemy == 5)
+			initializeEnemiesPosition(8,"Pontan","High");
+		if(highestEnemy == 6)
+			initializeEnemiesPosition(8,"Pass","High");
 	}
 	public Cell getCell(int x, int y)
 	{
