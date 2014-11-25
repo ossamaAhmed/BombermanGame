@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import java.util.Calendar;
-public class BomberMan extends Character {
+public class BomberMan extends Character implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	private ArrayList<Bomb> myBombs;

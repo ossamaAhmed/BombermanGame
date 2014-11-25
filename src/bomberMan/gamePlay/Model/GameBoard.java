@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameBoard {
+public class GameBoard implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	Cell board[][];

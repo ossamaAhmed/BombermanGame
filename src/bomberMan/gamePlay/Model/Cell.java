@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Cell {
+public class Cell implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	boolean hasABomb = false;
@@ -28,7 +28,7 @@ public class Cell {
 	boolean hasADetonateBomb = false;
 	boolean hasAPowerUp = false;
 	boolean hasADestructibleBrick = false;
-	BufferedImage image;
+	transient BufferedImage  image;
 	Calendar timer;
 	BomberMan myBomberMan;
 	private ArrayList<GameObject> myObjects;

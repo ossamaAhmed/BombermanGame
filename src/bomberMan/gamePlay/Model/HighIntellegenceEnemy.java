@@ -1,6 +1,6 @@
 package bomberMan.gamePlay.Model;
 
-public class HighIntellegenceEnemy extends Enemy
+public class HighIntellegenceEnemy extends Enemy implements java.io.Serializable
 {
 	
 	public HighIntellegenceEnemy(int xPos,int yPos,int movmentDirection,String enemyName)

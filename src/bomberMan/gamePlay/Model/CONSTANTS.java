@@ -8,7 +8,7 @@
 
 package bomberMan.gamePlay.Model;
 
-public class CONSTANTS {
+public class CONSTANTS implements java.io.Serializable{
 	public final static int ENDINGGAMEPLAYTIME = 120000; // ending game time
 	public final static int maximumBrickMAP = 30; //max of bricks per map
 	public  static int DEFAULT_BOMB_RANGE=2; // in number Of blocks

@@ -13,8 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
 import bomberMan.gamePlay.View.GamePlayView;
+
+import java.io.*;
 
 public class MainMenuView extends JPanel
 {
@@ -117,6 +120,7 @@ public class MainMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
+	
 	public void setLeaderBoardButton()
 	{
 		leaderBoardButton= new JButton("VIEW LEADER BOARD");

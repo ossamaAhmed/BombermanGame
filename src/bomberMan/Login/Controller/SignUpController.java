@@ -33,7 +33,7 @@ public class SignUpController {
 		// if any text fields are missing
 
 		else {
-			String[] temp = { realName, password1, username };
+			String[] temp = { realName, password1, username, "0", "1"};
 			DB.createUser(temp);
 			return 0;
 		}

@@ -111,7 +111,7 @@ public class LoadGameView extends JPanel
 		{
 			setLoginButton();
 			setExitButton();
-			setSignupButton();
+			//setSignupButton();
 
 		}
 //		public void setLoginButton()

@@ -6,7 +6,7 @@
  */
 package bomberMan.gamePlay.Model;
 
-public class Character extends GameObject {
+public class Character extends GameObject implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	private boolean alive;

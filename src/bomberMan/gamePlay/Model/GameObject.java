@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class GameObject implements Position {
+public class GameObject implements Position, java.io.Serializable {
 	
 	/*Instance Variables*/
 	private int xPosition;
@@ -21,7 +21,7 @@ public class GameObject implements Position {
 	private boolean allowCollisions = false;
 	private String imageLocation;
 	private String objectType;
-	private BufferedImage image;
+	private transient BufferedImage image;
 	
 	/** 
 	 * Constructor
@@ -32,7 +32,7 @@ public class GameObject implements Position {
 		this.yPosition=-1;
 		this.imageLocation=null;
 		this.objectType=objectType;
-		this.image=null;
+		//this.image=null;
 	}
 	/** 
 	 * Constructor

@@ -27,7 +27,7 @@ public class LoginView extends JPanel
 	private Image backgroundImage;
 	private Image loginImage;
 	private JFrame myframe;
-	private UserDatabase DB;
+	public static UserDatabase DB;
 
 	
 	public LoginView(JFrame x)

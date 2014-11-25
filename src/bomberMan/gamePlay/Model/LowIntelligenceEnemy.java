@@ -1,6 +1,6 @@
 package bomberMan.gamePlay.Model;
 
-public class LowIntelligenceEnemy extends Enemy
+public class LowIntelligenceEnemy extends Enemy implements java.io.Serializable
 {
 	public LowIntelligenceEnemy(int xPos,int yPos,int movmentDirection,String enemyName)
 	{
