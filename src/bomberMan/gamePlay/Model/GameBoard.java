@@ -26,7 +26,7 @@ public class GameBoard implements java.io.Serializable {
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
-	public GameBoard(int[] stage)
+	public GameBoard(int[] stage, int [] powerUpsKeptAfterDeath)
 	
 	{   myBombs  = new ArrayList <Bomb>();
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
@@ -44,9 +44,12 @@ public class GameBoard implements java.io.Serializable {
 		myEnemies=new ArrayList<Enemy>();
 		myBomberMan=new BomberMan(40,40);
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
+		myBomberMan.setNumBombsToDrop1(powerUpsKeptAfterDeath[0]);
+		myBomberMan.setBombRange1(powerUpsKeptAfterDeath[1]);
+		myBomberMan.updateSpeed(powerUpsKeptAfterDeath[2]);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS, CONSTANTS.FLAME_POWERUP);
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.SPEED, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
 		initializeEnemiesPosition(stage[0],"Balloom","Low");
 		initializeEnemiesPosition(stage[1],"Doll","Low");

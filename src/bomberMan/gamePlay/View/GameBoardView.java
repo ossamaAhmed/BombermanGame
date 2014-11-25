@@ -28,6 +28,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class GameBoardView extends JPanel implements KeyListener {
@@ -57,7 +58,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 * This method takes care of the initialization of the different instance variable 
 	 * and adding a key listener to the canvas and painting the init board.
 	 */
-	  public GameBoardView(JFrame myFrame, int numLivesRemainingBomberMan)
+	  public GameBoardView(JFrame myFrame, int numLivesRemainingBomberMan, int powerUpsAcquired[])
 	  {
 		  super();
 		  image = null;
@@ -74,7 +75,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.setLayout(null);
 		  scrollRealtive=0;
-		  myBoard=new GameBoard(Stage.getStage(3));
+		  myBoard=new GameBoard(Stage.getStage(3), powerUpsAcquired);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
@@ -101,7 +102,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  }
 	 
 	  
-	  public GameBoardView(JFrame myFrame,  final GameBoard myBoard, int numLivesRemainingBomberMan)
+	  public GameBoardView(JFrame myFrame,  final GameBoard myBoard, int numLivesRemainingBomberMan, int [] powerUpsAcquired)
 	  {
 		  super();
 		  this.myFrame=myFrame;
@@ -310,7 +311,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	public void startAgain(){
 		timer2.stop();
 		 myFrame.remove(this);
-			GameBoardView x=new GameBoardView(myFrame, this.numLivesBomberman-1);
+			GameBoardView x=new GameBoardView(myFrame, this.numLivesBomberman-1, this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath());
 			myFrame.setFocusable(true);
 			//myframe.addKeyListener(x);
 			x.setBackground(Color.black);
