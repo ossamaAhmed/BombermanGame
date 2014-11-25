@@ -48,14 +48,14 @@ public class GameBoard implements java.io.Serializable {
 		buildConcreteWalls();
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
-		//initializeEnemiesPosition(stage[0],"Balloom","Low");
-		//initializeEnemiesPosition(stage[1],"Doll","Low");
-		//initializeEnemiesPosition(stage[2],"Minvo","Medium");
-		//initializeEnemiesPosition(stage[3],"Oneal","Medium");
-		//initializeEnemiesPosition(stage[4],"Ovapi","Medium");
-		//initializeEnemiesPosition(stage[5],"Kondoria","High");
-		//initializeEnemiesPosition(stage[6],"Pontan","High");
-		initializeEnemiesPosition(8,"Pass","High");
+		initializeEnemiesPosition(stage[0],"Balloom","Low");
+		initializeEnemiesPosition(stage[1],"Doll","Low");
+		initializeEnemiesPosition(stage[2],"Minvo","Medium");
+		initializeEnemiesPosition(stage[3],"Oneal","Medium");
+		initializeEnemiesPosition(stage[4],"Ovapi","Medium");
+		initializeEnemiesPosition(stage[5],"Kondoria","High");
+		initializeEnemiesPosition(stage[6],"Pontan","High");
+		initializeEnemiesPosition(stage[7],"Pass","High");
 		
 	}
 	/** 
