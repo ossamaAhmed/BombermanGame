@@ -47,6 +47,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private int scrollRealtive;
 	private JLabel scoreLabel;
 	private JLabel timerLabel;
+	private JLabel livesLabel;
 	private GameBoardController gmController;
 	private int numLivesBomberman;
 	private long currentTime;
@@ -96,6 +97,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			
 			setScoreLabel();
 			setTimerLabel();
+			setLivesLabel();
 	  }
 	 
 	  
@@ -129,6 +131,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			
 			setScoreLabel();
 			setTimerLabel();
+			setLivesLabel();
 	  }
 	  
 	  public void setScoreLabel()
@@ -150,12 +153,22 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 timerLabel.setOpaque(true);
 			 timerLabel.setForeground(Color.red);
 			 timerLabel.setBackground(new Color(0, 0, 0, 0));
-			 timerLabel.setLocation(250, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+			 timerLabel.setLocation(120, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
 			 timerLabel.setFont(new Font(timerLabel.getName(), Font.PLAIN, 20));
 			 this.add(timerLabel);
 		  
 	  }
-	  
+	  public void setLivesLabel(){
+		  livesLabel = new JLabel("Lives : "+ this.numLivesBomberman);
+		  livesLabel.setSize(200,50);
+		  livesLabel.setOpaque(true);
+		  livesLabel.setForeground(Color.red);
+		  livesLabel.setBackground(new Color(0, 0, 0, 0));
+		  livesLabel.setLocation(250, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+		  livesLabel.setFont(new Font(livesLabel.getName(), Font.PLAIN, 20));
+		  this.add(livesLabel);  
+	  }
+	  public void updateLives(int lives){livesLabel.setText("Lives : "+ lives);}
 	  public void updateScore()
 	  {   
 	      
@@ -163,7 +176,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  }
 	  public void updateTimer()
 	  {
-		  currentTime = Calendar.getInstance().getTimeInMillis()-this.creationTime;
+		  currentTime = CONSTANTS.ENDINGGAMEPLAYTIME-(Calendar.getInstance().getTimeInMillis()-this.creationTime);
+		  if(currentTime < 0){currentTime = 0;}
 		  timerLabel.setText("Time : "+ currentTime/1000 + " s");
 	  }
 	  /** 
@@ -231,7 +245,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 				System.out.println("STARTING AGAIN");
 			}
 			else if( this.gmController.getBoard().getBomberMan().getIsAlive() == false && this.numLivesBomberman == 1){
-			  //start  LeaderBoard..?
+				   this.updateLives(0);
+				//start  LeaderBoard..?
 			}
 			}
 	 
