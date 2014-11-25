@@ -48,14 +48,15 @@ public class GameBoard implements java.io.Serializable {
 		buildConcreteWalls();
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
-		initializeEnemiesPosition(stage[0],"Balloom","Low");
-		initializeEnemiesPosition(stage[1],"Doll","Low");
-		initializeEnemiesPosition(stage[2],"Minvo","Medium");
-		initializeEnemiesPosition(stage[3],"Oneal","Medium");
-		initializeEnemiesPosition(stage[4],"Ovapi","Medium");
-		initializeEnemiesPosition(stage[5],"Kondoria","High");
-		initializeEnemiesPosition(stage[6],"Pontan","High");
-		initializeEnemiesPosition(stage[7],"Pass","High");
+		//initializeEnemiesPosition(stage[0],"Balloom","Low");
+		//initializeEnemiesPosition(stage[1],"Doll","Low");
+		//initializeEnemiesPosition(stage[2],"Minvo","Medium");
+		//initializeEnemiesPosition(stage[3],"Oneal","Medium");
+		//initializeEnemiesPosition(stage[4],"Ovapi","Medium");
+		//initializeEnemiesPosition(stage[5],"Kondoria","High");
+		//initializeEnemiesPosition(stage[6],"Pontan","High");
+		initializeEnemiesPosition(8,"Pass","High");
+		
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -63,12 +64,16 @@ public class GameBoard implements java.io.Serializable {
 	public void worstPenality(int[] stage)
 	{
 		int highestEnemy = 0;
+		int size = myEnemies.size();
+
 		for(int i = 0; i < stage.length - 1; i++){
 			if(stage[i]!= 0);
 				highestEnemy = i;
 		}
-		myEnemies.clear();
-
+		for(int i = 0; i< size; i++){
+			myEnemies.get(i).die();
+		}
+		
 		if(highestEnemy == 0)
 			initializeEnemiesPosition(8,"Doll","Low");
 		if(highestEnemy == 1)

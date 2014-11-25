@@ -32,7 +32,7 @@ public class Cell implements java.io.Serializable {
 	Calendar timer;
 	BomberMan myBomberMan;
 	private ArrayList<GameObject> myObjects;
-	private Cell parent = null;
+	private Cell parent;
 	private int gscore;
 	private int fscore;
 	
@@ -45,10 +45,11 @@ public class Cell implements java.io.Serializable {
 	{   this.myBomberMan = myBomberman;
 		this.xPos = xPos;
 	    this.yPos = yPos;
-	   image=null;
+	    image=null;
 		this.myObjects=new ArrayList<GameObject>();
 		this.isEmpty = true;
 		timer = Calendar.getInstance();
+		this.parent = null;
 
 	}
 	/** 
@@ -397,5 +398,6 @@ public class Cell implements java.io.Serializable {
 	public int getY(){
 		return xPos/CONSTANTS.TILE_SIDE_SIZE;
 	}
+
 	
 }
