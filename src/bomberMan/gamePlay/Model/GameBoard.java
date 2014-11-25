@@ -48,9 +48,11 @@ public class GameBoard {
 		buildConcreteWalls();
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
-		initializeEnemiesPosition(5,"Balloom","Low");
-		initializeEnemiesPosition(5,"Kondoria","High");
-		initializeEnemiesPosition(7,"Pass","High");
+//		initializeEnemiesPosition(5,"Balloom","Low");
+//		initializeEnemiesPosition(5,"Kondoria","High");
+		initializeEnemiesPosition(5,"Pass","High");
+//		initializeEnemiesPosition(5,"Doll","Low");
+//		initializeEnemiesPosition(5,"Minvo","Medium");
 	}
 	/** 
 	 * This method returns the cell at the x and y position.

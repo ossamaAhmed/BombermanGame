@@ -1,3 +1,4 @@
+
 package bomberMan.gamePlay.Controller;
 import java.util.*;
 import java.lang.Runnable;
@@ -20,8 +21,10 @@ public class DestroyBomb extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+		
 				this.controller.deleteInvisibilityPowerUp();
-				this.controller.detonateRegularBombs();}
+				this.controller.detonateRegularBombs();
+				}
 				}
 			
 		

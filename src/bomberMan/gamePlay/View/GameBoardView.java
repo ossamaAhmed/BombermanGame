@@ -74,7 +74,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  scrollRealtive=0;
 		  myBoard=new GameBoard(12);
 		  gmController = new GameBoardController(myBoard);
-		  gmController.run();
+		  gmController.start();
 		  controller=new BomberManController(myBoard);
 		  //characterC = new CharacterController(myBoard);
 		  this.addKeyListener(this);
@@ -86,6 +86,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			    	updateGameBoardView();
 					enemyC.run();
 					updateScore();
+
 					//gmController.detonateRegularBombs();
 			    }
 			});
@@ -97,7 +98,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  }
 	 
 	  
-	  public GameBoardView(JFrame myFrame, GameBoard myBoard, int numLivesRemainingBomberMan)
+	  public GameBoardView(JFrame myFrame,  final GameBoard myBoard, int numLivesRemainingBomberMan)
 	  {
 		  super();
 		  this.myFrame=myFrame;
@@ -114,10 +115,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 			timer2 = new Timer(50, new ActionListener() {
 			    @Override
 			    public void actionPerformed(ActionEvent evt) {
-
+			    	
 			    	updateGameBoardView();
-					enemyC.run();
-					updateScore();
+						enemyC.run();
+						updateScore();
+			
 				
 			    }
 			});

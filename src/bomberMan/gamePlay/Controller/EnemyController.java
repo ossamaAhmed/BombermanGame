@@ -1,10 +1,14 @@
 package bomberMan.gamePlay.Controller;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 import bomberMan.gamePlay.Model.CONSTANTS;
+import bomberMan.gamePlay.Model.Cell;
 import bomberMan.gamePlay.Model.Enemy;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.Model.HighIntellegenceEnemy;
 import bomberMan.gamePlay.Model.MediumIntelligenceEnemy;
 
@@ -32,7 +36,7 @@ public class EnemyController extends CharacterController
 	 {
 		 if(enemy instanceof HighIntellegenceEnemy)
 		 {
-			 medAI(enemy);
+			 highAI(enemy);
 		 }
 		 
 		 String collidingObject1="CONCRETE";
@@ -159,7 +163,7 @@ public class EnemyController extends CharacterController
 			}
 		}
 	 
-		public int medAIchase(Enemy myEnemy) 
+		private int medAIchase(Enemy myEnemy) 
 		{
 			int dY = (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE)- (myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE);
 			int dX = (this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE)- (myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE);
@@ -185,5 +189,190 @@ public class EnemyController extends CharacterController
 			}
 			return false;
 		}
+		
+		private void highAI(Enemy myEnemy) {
+			 
+	        int ran = myEnemy.getMovmentDirection();
+	        Random random = new Random();
+	        
+	        boolean enemyAtEdgeOfCell=(myEnemy.getPositionX())==((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE)*CONSTANTS.TILE_SIDE_SIZE)
+					&&(myEnemy.getPositionY())==((myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE)*CONSTANTS.TILE_SIDE_SIZE);
+	 
+	        if (bomberManInRangeHighAI(myEnemy) == true && this.myGameBoard.getBomberMan().getIsAlive()&&enemyAtEdgeOfCell&&!this.myGameBoard.getBomberMan().getInvisibilibityPowerUp()) {
+	            System.out.println("entering astar");
+	        	int moves[] = aStar( myEnemy);
+	        	System.out.println("exiting astar");
+	            myEnemy.setExpectedMovmentDirection(moves[0]);
+	            
+	        } else if ((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE) % 2 == 1 && (myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE) % 2 == 1&&enemyAtEdgeOfCell) {
+	            if (random.nextInt(10) >= 0) {
+	            	myEnemy.setExpectedMovmentDirection(myEnemy.getExpectedMovmentDirection());
+	            }
+	            else{
+	            while (ran == myEnemy.getExpectedMovmentDirection()) {
+	                ran = random.nextInt(4) + 1;
+	            }
+	            myEnemy.setExpectedMovmentDirection(ran);
+	            }
+	        } else {
+	        	myEnemy.setExpectedMovmentDirection(myEnemy.getExpectedMovmentDirection());
+	        }
+	    }
+	 
+	    public boolean bomberManInRangeHighAI(Enemy myEnemy) 
+	    {
+	 
+	    	int dX = Math.abs((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE) - (this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE));
+			int dY = Math.abs((myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE) - (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE));
+	        if ((dX + dY) <= 2) 
+	        {
+	            return true;
+	        } 
+	        return false;
+	    }
+
+	public int[] aStar( Enemy myEnemy) {
+		ArrayList<Cell> openSet = new ArrayList<Cell>();
+		ArrayList<Cell> closedSet = new ArrayList<Cell>();
+		ArrayList<Cell> obstacles = new ArrayList<Cell>();
+		Cell myCell = null;
+		Cell successor = null;
+		this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).setGscore(0);
+		this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).setFscore(manhattan(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE));
+
+		openSet.add(this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE));
+		while (openSet.size() != 0)
+		{
+			System.out.println("b");
+			myCell = getMinCell(openSet);
+			System.out.println(myCell.getX() + ", " + myCell.getY());
+			openSet.remove(myCell);
+			closedSet.add(myCell);
+
+			for (int i = 0; i < 4; i++) {
+				successor = null;
+				if (i == 0) {
+					if (myCell.getX() + 1 <= 30) {
+						successor = this.myGameBoard.getCell(myCell.getY(),
+								myCell.getX()+1);
+						successor.setGscore(myCell.getGScore() + 1);
+						successor.setFscore(manhattan(myCell.getX() + 1,
+								myCell.getY()));
+					}
+
+				}
+				if (i == 1) {
+					if (myCell.getX() - 1 >= 0) {
+						successor = this.myGameBoard.getCell(myCell.getY(),
+								myCell.getX()-1);
+						successor.setGscore(myCell.getGScore() + 1);
+						successor.setFscore(manhattan(myCell.getX() - 1,
+								myCell.getY()));
+					}
+				}
+				if (i == 2) {
+					if (myCell.getY() + 1 <= 30) {
+						successor = this.myGameBoard.getCell(myCell.getY()+1,
+								myCell.getX());
+						successor.setGscore(myCell.getGScore() + 1);
+						successor.setFscore(manhattan(myCell.getX(),
+								myCell.getY() + 1));
+					}
+
+				}
+				if (i == 3) {
+					if (myCell.getY() - 1 >= 0) {
+						successor = this.myGameBoard.getCell(myCell.getY()-1,
+								myCell.getX());
+						successor.setGscore(myCell.getGScore() + 1);
+						successor.setFscore(manhattan(myCell.getX(),
+								myCell.getY() - 1));
+					}
+				}
+
+				if (successor != null) {
+					if (getObstacle(successor, myEnemy) == true
+							&& obstacles.contains(successor) == false) {
+						obstacles.add(successor);
+					}
+
+					if (obstacles.contains(successor) == false
+							&& openSet.contains(successor) == false
+							&& closedSet.contains(successor) == false
+							&& successor != null) {
+						successor.setParent(myCell);
+						//System.out.println(successor.getX()+" "+successor.getY());
+						openSet.add(successor);
+					}
+					if (successor.getX() == (this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE) && successor.getY() == (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE)) {
+						//System.out.println(successor.getX() + ", "+ successor.getY());
+						return returnRoute(successor);
+					}
+				}
+
+			}
+
+		}
+		return null;
+	}
+
+	private  int[] returnRoute(Cell cell) {
+		Cell currentCell = cell;
+		Cell parent = currentCell.getParent();
+		Stack<Integer> temp = new Stack<Integer>();
+		int counter = 0;
+		while (parent != null && counter < 10000) {
+			counter++;
+			int dX = currentCell.getX() - parent.getX();
+			int dY = currentCell.getY() - parent.getY();
+			//System.out.println(dX + ", " + dY +" "+ counter);
+			if (dX == 1)
+				temp.push(CONSTANTS.RIGHT);
+			if (dX == -1)
+				temp.push(CONSTANTS.LEFT);
+			if (dY == 1)
+				temp.push(CONSTANTS.UP);
+			if (dY == -1)
+				temp.push(CONSTANTS.DOWN);
+
+			currentCell = parent;
+			parent = currentCell.getParent();
+		}
+		int route[] = new int[temp.size()];
+		for (int i = 0; i < route.length; i++) {
+
+			route[i] = (int) temp.pop();
+		}
+		return route;
+	}
+
+	private  Cell getMinCell(ArrayList<Cell> openSet) {
+		Cell smallest = openSet.get(0);
+		for (int i = 1; i < openSet.size(); i++) {
+			if (openSet.get(i).getFscore() < smallest.getFscore())
+				smallest = openSet.get(i);
+		}
+
+		return smallest;
+
+	}
+
+	private  boolean getObstacle(Cell cell, Enemy myEnemy) {
+		// 1,2,3 are bricks, concrete, bombs. wallpass 0 is no wall pass
+		ArrayList<GameObject> object = cell.getObjects();
+		if (myEnemy.hasWallPass() == false && (cell.searcHasAConcreteWall() || cell.searcHasABrickWall() || cell.getHasABomb())) {
+			return true;
+		} else if (myEnemy.hasWallPass() && ( cell.searcHasAConcreteWall() || cell.getHasABomb())) {
+			return true;
+		}
+		return false;
+	}
+
+	private  int manhattan(int cellPosX, int cellPosY) {
+		int dX = Math.abs(cellPosX -(this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE) );
+		int dY = Math.abs(cellPosY - (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE));
+		return (dY + dX);
+	}
+
 
 }

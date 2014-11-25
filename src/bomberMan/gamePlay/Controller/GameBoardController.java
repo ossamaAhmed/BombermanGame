@@ -23,7 +23,6 @@ public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
 
 public void run(){
 	
-	
 	timer = Calendar.getInstance();
 	bombDestroyer = new DestroyBomb(this.gameBoard, this);
 	
