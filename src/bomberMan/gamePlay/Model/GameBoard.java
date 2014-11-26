@@ -21,15 +21,17 @@ public class GameBoard implements java.io.Serializable {
 	int iCellPowerUp;
 	int jCellPowerUp;
 	private Score myScore;
+	private int numLives;
+	private ExitDoor1 myExit = new ExitDoor1(0*CONSTANTS.TILE_SIDE_SIZE,0*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor");
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
-	public GameBoard(int[] stage, int [] powerUpsKeptAfterDeath)
+	public GameBoard(int[] stage, int [] powerUpsKeptAfterDeath, int nLives)
 	
 	{   myBombs  = new ArrayList <Bomb>();
-	   
+	    numLives = nLives;
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		board=new Cell[CONSTANTS.NUMBER_OF_VERTICAL_TILES][CONSTANTS.NUMBER_OF_HORIZONTAL_TILES];
 		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
@@ -50,17 +52,17 @@ public class GameBoard implements java.io.Serializable {
 		myBomberMan.updateSpeed(powerUpsKeptAfterDeath[2]);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		//	buildRandomMap(CONSTANTS.maximumBrickMAP, this.getPowerUpType(stage[8]) , this.getPowerUpImage(stage[8]));
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
+	    buildRandomMap(CONSTANTS.maximumBrickMAP, this.getPowerUpType(stage[8]) , this.getPowerUpImage(stage[8]));
+		//buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
 		initializeEnemiesPosition(stage[0],"Balloom","Low");
-		initializeEnemiesPosition(stage[1],"Doll","Low");
-		initializeEnemiesPosition(stage[2],"Minvo","Medium");
-		initializeEnemiesPosition(stage[3],"Oneal","Medium");
-		initializeEnemiesPosition(stage[4],"Ovapi","Medium");
-		initializeEnemiesPosition(stage[5],"Kondoria","High");
-		initializeEnemiesPosition(stage[6],"Pontan","High");
-		initializeEnemiesPosition(stage[7],"Pass","High");
+		initializeEnemiesPosition(stage[1],"Oneal","Medium");
+		initializeEnemiesPosition(stage[2],"Doll","Low");
+		initializeEnemiesPosition(stage[3],"Minvo","Medium");
+		initializeEnemiesPosition(stage[4],"Kondoria","High");
+		initializeEnemiesPosition(stage[5],"Ovapi","Medium");
+		initializeEnemiesPosition(stage[6],"Pass","High");
+		initializeEnemiesPosition(stage[7],"Pontan","High");
 		
 	}
 	/** 
@@ -248,7 +250,8 @@ public class GameBoard implements java.io.Serializable {
 				
 				 board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
-					 board[i][j].insert(new ExitDoor1(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
+					 myExit = new ExitDoor1(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor");
+					 board[i][j].insert(myExit);
 				     exitAlreadyPlaced = true;
 				     System.out.println("NUMBER CHOSEN FOR EXIT i j " + i + ", "+j);
 				 }
@@ -305,4 +308,7 @@ public class GameBoard implements java.io.Serializable {
 		 return powerUpType;
 		
 	}
+	public ExitDoor1 getExit(){return this.myExit;}
+	public int getNumEnemies(){return this.myEnemies.size();}
+	public int getLives(){return this.numLives;}
 }
