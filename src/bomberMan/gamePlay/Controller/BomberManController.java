@@ -528,7 +528,7 @@ public void pickPowerUp(int i, int j){
 			 myGameBoard.deletePowerUp(i, j);
 			 System.out.println("DELETING POWER UP");
 		 }
-		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.INVISIBILITY){
+		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.MYSTERY){
 			 System.out.println("Getting INVISIBILITY powerUp");
 			 myGameBoard.getBomberMan().setInvisibilityPowerUp(true);
 			 myGameBoard.getCell(i,j).getBomberMan().setInvisibilityPowerUp(true);

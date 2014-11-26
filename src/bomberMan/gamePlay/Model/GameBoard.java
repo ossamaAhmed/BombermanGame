@@ -29,6 +29,7 @@ public class GameBoard implements java.io.Serializable {
 	public GameBoard(int[] stage, int [] powerUpsKeptAfterDeath)
 	
 	{   myBombs  = new ArrayList <Bomb>();
+	   
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		board=new Cell[CONSTANTS.NUMBER_OF_VERTICAL_TILES][CONSTANTS.NUMBER_OF_HORIZONTAL_TILES];
 		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
@@ -49,7 +50,8 @@ public class GameBoard implements java.io.Serializable {
 		myBomberMan.updateSpeed(powerUpsKeptAfterDeath[2]);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.SPEED, CONSTANTS.FLAME_POWERUP);
+		//	buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType, this.getPowerUpImage(stage[..][8]));
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
 		initializeEnemiesPosition(stage[0],"Balloom","Low");
 		initializeEnemiesPosition(stage[1],"Doll","Low");
@@ -275,5 +277,18 @@ public class GameBoard implements java.io.Serializable {
 	public PowerUp getPowerUpBoard(){return this.myPowerUp;}
 	public void addPowerUp(PowerUp powerup){this.myPowerUp = powerup;}
 	public void deletePowerUp(int i, int j){this.board[i][j].removePowerUp();}
-	
+	public String getPowerUpImage(int number){
+		 String powerUpImage = "";
+		 if(number == 1){powerUpImage = CONSTANTS.BOMBS_POWERUP;}
+		 if(number == 2){powerUpImage = CONSTANTS.FLAME_POWERUP;}
+		 if(number == 3){powerUpImage = CONSTANTS.SPEED_POWERUP;}
+		 if(number == 4){powerUpImage = CONSTANTS.WALLPASS_POWERUP;}
+		 if(number == 5){powerUpImage = CONSTANTS.BOMB_DETONATOR_POWERUP;}
+		 if(number == 6){powerUpImage = CONSTANTS.BOMB_PASS_POWERUP;}
+		 if(number == 7){powerUpImage = CONSTANTS.IMMUNITY_FLAME_POWERUP;}
+		 if(number == 8){powerUpImage = CONSTANTS.MYSTERY_POWERUP;}
+		 //BOMBS,FLAMES,SPEED,WALLPASS,DETONATOR,BOMBPASS,FLAMEPASS, INVISIBILITY
+		 return powerUpImage;
+		
+	}
 }
