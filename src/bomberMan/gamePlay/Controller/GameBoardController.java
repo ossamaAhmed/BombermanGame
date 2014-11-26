@@ -387,16 +387,19 @@ public void killBomberman1(int i, int j){
 					if(this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall()== true){right = false;}
 				}
 				if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
-					if(this.gameBoard.getCell(i, j+ counter1).isThereAnEnemy() == true){
-						System.out.println("DESTROYING Enemy");
-						for(int first=0;first<this.gameBoard.getCell(i, j+ counter1).getEnemies().size();first++)
-						{
-							killedEnemies.add(this.gameBoard.getCell(i, j+ counter1).getEnemies().get(first));
-						}
-						this.gameBoard.getCell(i, j+ counter1).deleteEnemies();
-						}			
-					
-		         	}
+					synchronized(this.gameBoard.getCell(i, j+ counter1))
+					{
+						if(this.gameBoard.getCell(i, j+ counter1).isThereAnEnemy() == true){
+							System.out.println("DESTROYING Enemy");
+							for(int first=0;first<this.gameBoard.getCell(i, j+ counter1).getEnemies().size();first++)
+							{
+								killedEnemies.add(this.gameBoard.getCell(i, j+ counter1).getEnemies().get(first));
+							}
+							this.gameBoard.getCell(i, j+ counter1).deleteEnemies();
+							}			
+						
+			         	}
+					}
 			
 			if(j +counter1 + 1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
 				if(this.gameBoard.getCell(i, j+counter1+1).searcHasAConcreteWall()== true){right = false;}}
@@ -404,14 +407,17 @@ public void killBomberman1(int i, int j){
 			if(j -counter1 >=0 && left == true ){
 					if(this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall()== true){left = false;}
 				}
-				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
-					if(this.gameBoard.getCell(i, j- counter1).isThereAnEnemy() == true){
+				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false)
+				{
+					synchronized(this.gameBoard.getCell(i, j- counter1))
+					{if(this.gameBoard.getCell(i, j- counter1).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
 						for(int first=0;first<this.gameBoard.getCell(i, j- counter1).getEnemies().size();first++)
 						{
 							killedEnemies.add(this.gameBoard.getCell(i, j- counter1).getEnemies().get(first));
 						}
 						this.gameBoard.getCell(i,  j- counter1).deleteEnemies();}
+					}
 									
 			}
 			
@@ -421,7 +427,10 @@ public void killBomberman1(int i, int j){
 			if(i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES && down == true ){
 					if(this.gameBoard.getCell(i + counter1, j).searcHasAConcreteWall()== true){down = false;}
 				}
-				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
+				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false)
+				{
+					synchronized(this.gameBoard.getCell(i +counter1,j))
+					{
 					if(this.gameBoard.getCell(i +counter1,j).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
 						for(int first=0;first<this.gameBoard.getCell(i+counter1, j).getEnemies().size();first++)
@@ -429,6 +438,7 @@ public void killBomberman1(int i, int j){
 							killedEnemies.add(this.gameBoard.getCell(i+counter1, j).getEnemies().get(first));
 						}
 						this.gameBoard.getCell(i+counter1, j).deleteEnemies();}
+					}
 					
 					
 			}
@@ -442,7 +452,10 @@ public void killBomberman1(int i, int j){
 				if(i - counter1  >= 0 && up == true){
 					if(this.gameBoard.getCell(i - counter1, j).searcHasAConcreteWall()== true){up = false;}
 				}}
-				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
+				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false)
+				{
+					synchronized(this.gameBoard.getCell(i-counter1,j))
+					{
 					if(this.gameBoard.getCell(i-counter1,j).isThereAnEnemy() == true){
 						System.out.println("DESTROYING Enemy");
 						for(int first=0;first<this.gameBoard.getCell(i-counter1,j).getEnemies().size();first++)
@@ -450,6 +463,7 @@ public void killBomberman1(int i, int j){
 							killedEnemies.add(this.gameBoard.getCell(i-counter1, j).getEnemies().get(first));
 						}
 						this.gameBoard.getCell(i-counter1, j).deleteEnemies();}
+					}
 					
 					
 			}

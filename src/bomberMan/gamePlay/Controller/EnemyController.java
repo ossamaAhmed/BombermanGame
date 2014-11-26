@@ -29,14 +29,17 @@ public class EnemyController extends CharacterController
 		}
     	for(int i=0;i<this.myGameBoard.getEnemies().size();i++)
     		{
-    				moveEnemy(this.myGameBoard.getEnemies().get(i),this.myGameBoard.getEnemies().get(i).hasWallPass());		
+    				synchronized(this.myGameBoard.getCell(this.myGameBoard.getEnemies().get(i).getPositionY()/CONSTANTS.TILE_SIDE_SIZE, this.myGameBoard.getEnemies().get(i).getPositionX()/CONSTANTS.TILE_SIDE_SIZE))
+    				{
+    					moveEnemy(this.myGameBoard.getEnemies().get(i),this.myGameBoard.getEnemies().get(i).hasWallPass());		
+    				}
     		}
     }
 	 public void moveEnemy(Enemy enemy, boolean wallPass) 
 	 {
 		 if(enemy instanceof HighIntellegenceEnemy)
 		 {
-			 highAI(enemy);
+			 medAI(enemy);
 		 }
 		 
 		 String collidingObject1="CONCRETE";
@@ -271,7 +274,7 @@ public class EnemyController extends CharacterController
 					}
 				}
 				if (i == 2) {
-					if (myCell.getY() + 1 <= 30) {
+					if (myCell.getY() + 1 <= 12) {
 						successor = this.myGameBoard.getCell(myCell.getY()+1,
 								myCell.getX());
 						successor.setGscore(myCell.getGScore() + 1);
@@ -300,12 +303,21 @@ public class EnemyController extends CharacterController
 							&& openSet.contains(successor) == false
 							&& closedSet.contains(successor) == false
 							&& successor != null) {
+						System.out.println("seeting parent of "+successor.getX()+ " Y:"+successor.getY());
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						successor.setParent(myCell);
 						//System.out.println(successor.getX()+" "+successor.getY());
+						
 						openSet.add(successor);
 					}
 					if (successor.getX() == (this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE) && successor.getY() == (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE)) {
 						//System.out.println(successor.getX() + ", "+ successor.getY());
+						System.out.println("going to return route");
 						return returnRoute(successor);
 					}
 				}
@@ -321,8 +333,15 @@ public class EnemyController extends CharacterController
 		Cell parent = currentCell.getParent();
 		Stack<Integer> temp = new Stack<Integer>();
 		int counter = 0;
-		while (parent != null && counter < 10000) {
-			counter++;
+		while (parent != null) 
+		{
+			System.out.println("adding parent to stack"+currentCell.getParent().getX()+"y: "+currentCell.getParent().getY());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			int dX = currentCell.getX() - parent.getX();
 			int dY = currentCell.getY() - parent.getY();
 			//System.out.println(dX + ", " + dY +" "+ counter);
