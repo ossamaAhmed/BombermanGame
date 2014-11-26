@@ -172,6 +172,7 @@ public class Cell implements java.io.Serializable {
 	public boolean isEmptyPowerUpException()
 	{
 		System.out.println(this.myBomberMan.getBrickPass()+"!");
+		if(this.searcHasAExit() == true && this.searcHasABrickWall()== false){return true;}
 		if(this.isThereAnEnemy() == true)
 		{
 			return true;
@@ -398,6 +399,17 @@ public class Cell implements java.io.Serializable {
 	public int getY(){
 		return xPos/CONSTANTS.TILE_SIDE_SIZE;
 	}
-
+	public boolean searcHasAExit()
+	{
+		int i = 0;
+		if(this.myObjects.size() >0){
+		for(i =0; i< this.myObjects.size(); i++){
+			
+			if(this.myObjects.get(i).getType().equals("ExitDoor")){
+				System.out.println("ExitDoor");
+				
+				return true;}}}
+		return false;
+	}
 	
 }
