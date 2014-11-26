@@ -50,7 +50,7 @@ public class GameBoard implements java.io.Serializable {
 		myBomberMan.updateSpeed(powerUpsKeptAfterDeath[2]);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		//	buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType, this.getPowerUpImage(stage[..][8]));
+		//	buildRandomMap(CONSTANTS.maximumBrickMAP, this.getPowerUpType(stage[8]) , this.getPowerUpImage(stage[8]));
 		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
 		initializeEnemiesPosition(stage[0],"Balloom","Low");
@@ -289,6 +289,20 @@ public class GameBoard implements java.io.Serializable {
 		 if(number == 8){powerUpImage = CONSTANTS.MYSTERY_POWERUP;}
 		 //BOMBS,FLAMES,SPEED,WALLPASS,DETONATOR,BOMBPASS,FLAMEPASS, INVISIBILITY
 		 return powerUpImage;
+		
+	}
+	public PowerUpType getPowerUpType(int number){
+		 PowerUpType powerUpType = PowerUpType.BOMBS;
+		 if(number == 1){powerUpType = PowerUpType.BOMBS;}
+		 if(number == 2){powerUpType = powerUpType.FLAMES;}
+		 if(number == 3){powerUpType = powerUpType.SPEED;}
+		 if(number == 4){powerUpType = powerUpType.WALLPASS;}
+		 if(number == 5){powerUpType = powerUpType.DETONATOR;}
+		 if(number == 6){powerUpType = powerUpType.BOMBPASS;}
+		 if(number == 7){powerUpType = powerUpType.FLAMEPASS;}
+		 if(number == 8){powerUpType = powerUpType.MYSTERY;}
+		 //BOMBS,FLAMES,SPEED,WALLPASS,DETONATOR,BOMBPASS,FLAMEPASS, INVISIBILITY
+		 return powerUpType;
 		
 	}
 }
