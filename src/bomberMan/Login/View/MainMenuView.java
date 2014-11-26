@@ -13,11 +13,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bomberMan.Login.Model.User;
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
 import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
 import bomberMan.gamePlay.View.GamePlayView;
 
 import java.io.*;
+import java.util.List;
 
 public class MainMenuView extends JPanel
 {
@@ -33,6 +37,9 @@ public class MainMenuView extends JPanel
 	private Image mainMenuImage;
 	private JFrame myframe;
 	private int startFrame=110;
+	
+	public static final int GAMENAME_IND = 0;
+	public static final int DT_IND=1;
 
 	
 	public MainMenuView(JFrame x)
@@ -90,6 +97,49 @@ public class MainMenuView extends JPanel
 		myframe.setVisible(true);
         
     }
+	
+	
+	/*
+	 * Check if a given username already exists in the database
+	 */
+	public String gameExists(String user,String loadGameName) {
+		
+		String fileName = "CSVfiles" + File.separator + user + File.separator + "savedGames.txt";
+		
+		try {
+	        CSVReader reader = new CSVReader(new FileReader(fileName));
+	        List<String[]> allRecords = reader.readAll();
+        	reader.close();
+        	
+	        	
+	        allRecords.remove(0); // Remove the header
+	        
+	        // Go through each game in the database
+	        for (String[] record : allRecords) {
+	            if (record[GAMENAME_IND].equals(loadGameName)) {
+	            	return (record[GAMENAME_IND]+"_"+record[DT_IND]);
+	            }
+	        }
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());	
+		}
+		return " ";
+
+	}
+	
+	/*
+	 * Load a saved game from the user's saved game list
+	 */
+	public String loadSavedGame(String user,String loadGameName) {
+		
+		String AppendedGameName = gameExists(LoginView.DB.getCurrentUser().getUserName(),loadGameName);
+		System.out.println("Got game:");
+		System.out.println("CSVfiles" + File.separator + user + File.separator + AppendedGameName + ".ser");
+		   return ("CSVfiles" + File.separator + user + File.separator + AppendedGameName + ".ser");
+		   		
+	}
+	
 	public void setLoadGameButton()
 	{
 		loadGameButton= new JButton("LOAD GAME");
@@ -108,17 +158,47 @@ public class MainMenuView extends JPanel
 	}
 	private void loadGameButtonActionPerformed(ActionEvent evt) 
 	{
-		myframe.remove(this);
-		LoadGameView x=new LoadGameView(myframe);
-		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
-		x.setBackground(Color.black);
-		x.setVisible(true);
-		myframe.add(x);
-	        myframe.validate();
-	        myframe.repaint();
-	        x.requestFocusInWindow();
-		myframe.setVisible(true);
+		String loadGameName = ""; // Populate this with input from the user
+		
+		
+		/*
+		loadGameName is the input the user typed into the Dialogue Box to save
+		*/
+		String fileLocation = loadSavedGame(LoginView.DB.getCurrentUser().getUserName(),loadGameName);
+		
+		GameBoard objectLoad = null;
+	    try
+	    {
+	    	
+	    	
+	       FileInputStream fileIn = new FileInputStream(fileLocation);
+	       ObjectInputStream in = new ObjectInputStream(fileIn);
+	       objectLoad = (GameBoard) in.readObject();
+	       in.close();
+	       fileIn.close();
+	       System.out.println("Serialized data loaded!");
+	       GameBoardView x= new GameBoardView(myframe,objectLoad,CONSTANTS.LIVESBOMBERMAN);
+			myframe.remove(this);
+			myframe.setFocusable(true);
+			myframe.addKeyListener(x);
+			x.setBackground(Color.black);
+			x.setVisible(true);
+			myframe.add(x);
+		        myframe.validate();
+		        myframe.repaint();
+		        x.requestFocusInWindow();
+			myframe.setVisible(true);
+	    }catch(IOException i)
+	    {
+	       i.printStackTrace();
+	       return;
+	    }catch(ClassNotFoundException c)
+	    {
+	       System.out.println("GameBoard class not found");
+	       c.printStackTrace();
+	       return;
+	    }
+
     }
 	
 	public void setLeaderBoardButton()

@@ -62,8 +62,7 @@ public class LeaderBoard {
 	  public static void main (String[] args) {
 		  
 		  ArrayList<Record> allRecords;
-			//int trial = recordClass.getScore();
-			//System.out.println("Get Score: "+trial);
+
 		  allRecords = getTopTenUsers();
 		  for (int i=0; i<allRecords.size(); i++) {
 			  System.out.println("Position " + (i+1) + " User: " + allRecords.get(i).getUser() + " Score: " +
