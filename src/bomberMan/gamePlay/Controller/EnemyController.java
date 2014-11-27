@@ -41,6 +41,10 @@ public class EnemyController extends CharacterController
 		 {
 			 highAI(enemy);
 		 }
+		 if(enemy instanceof MediumIntelligenceEnemy)
+		 {
+			 medAI(enemy);
+		 }
 		 
 		 String collidingObject1="CONCRETE";
 		 String collidingObject3="BRICK";

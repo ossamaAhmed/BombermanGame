@@ -98,7 +98,7 @@ public class GameBoard implements java.io.Serializable {
 			initializeEnemiesPosition(8,"Kondoria","High");
 		if(highestEnemy == 5)
 			initializeEnemiesPosition(8,"Pontan","High");
-		if(highestEnemy == 6)
+		if(highestEnemy >= 6)
 			initializeEnemiesPosition(8,"Pass","High");
 	}
 	public Cell getCell(int x, int y)

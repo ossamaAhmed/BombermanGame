@@ -25,7 +25,7 @@ public class SignUpView extends JPanel
 	private Graphics2D myCanvas;
 	private JTextField userNameInput;
 	private JTextField userFirstNameInput;
-	private JTextField userLastNameInput;
+	//private JTextField userLastNameInput;
 	private JPasswordField userPasswordInput;
 	private JPasswordField confirmUserPasswordInput;
 	private JLabel error;
@@ -56,7 +56,7 @@ public class SignUpView extends JPanel
 	public void setTextFields()
 	{
 		setUserFirstNameTextField();
-		setUserLastNameTextField();
+		//setUserLastNameTextField();
 		setUserNameTextField();
 		setPasswordTextField();
 		setConfirmPasswordTextField();
@@ -68,21 +68,21 @@ public class SignUpView extends JPanel
 		userFirstNameInput.setBackground(Color.BLACK);
 		userFirstNameInput.setCaretColor(Color.BLUE);
 		userFirstNameInput.setForeground(Color.WHITE);
-		userFirstNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,startFrame );
+		userFirstNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,startFrame+30 );
 		this.add(userFirstNameInput);
 		
 	}
-	public void setUserLastNameTextField()
-	{
-		userLastNameInput=new JTextField();
-		userLastNameInput.setSize(220, 25);
-		userLastNameInput.setBackground(Color.BLACK);
-		userLastNameInput.setCaretColor(Color.BLUE);
-		userLastNameInput.setForeground(Color.WHITE);
-		userLastNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,userFirstNameInput.getY()+userFirstNameInput.getHeight()+10 );
-		this.add(userLastNameInput);
-		
-	}
+//	public void setUserLastNameTextField()
+//	{
+//		userLastNameInput=new JTextField();
+//		userLastNameInput.setSize(220, 25);
+//		userLastNameInput.setBackground(Color.BLACK);
+//		userLastNameInput.setCaretColor(Color.BLUE);
+//		userLastNameInput.setForeground(Color.WHITE);
+//		userLastNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,userFirstNameInput.getY()+userFirstNameInput.getHeight()+10 );
+//		this.add(userLastNameInput);
+//		
+//	}
 	public void setUserNameTextField()
 	{
 		userNameInput=new JTextField();
@@ -90,7 +90,7 @@ public class SignUpView extends JPanel
 		userNameInput.setBackground(Color.BLACK);
 		userNameInput.setCaretColor(Color.BLUE);
 		userNameInput.setForeground(Color.WHITE);
-		userNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,userLastNameInput.getY()+userLastNameInput.getHeight()+10 );
+		userNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,userFirstNameInput.getY()+userFirstNameInput.getHeight()+10 );
 		this.add(userNameInput);	
 	}
 	public void setPasswordTextField()
@@ -154,7 +154,7 @@ public class SignUpView extends JPanel
 		 System.out.println(userNameInput.getText()+"hi");
 	        System.out.println(userPasswordInput.getText());
 	        SignUpController myController=new SignUpController(DB);
-	        int errorNum=myController.signUp(userFirstNameInput.getText()+ userLastNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
+	        int errorNum=myController.signUp(userFirstNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
 	        if(errorNum==3)
 	        {
 	        	error.setText("please fill out all the information above");

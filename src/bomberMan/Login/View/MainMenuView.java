@@ -20,7 +20,6 @@ import au.com.bytecode.opencsv.CSVWriter;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
-import bomberMan.gamePlay.View.GamePlayView;
 
 import java.io.*;
 import java.util.List;

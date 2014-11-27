@@ -21,7 +21,6 @@ import bomberMan.gamePlay.Controller.EnemyController;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
-import bomberMan.gamePlay.View.GamePlayView;
 
 import java.util.Date;
 import java.util.List;

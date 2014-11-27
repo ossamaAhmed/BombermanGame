@@ -60,6 +60,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private int curStage;
 	private long timeRemaining;
 	private long endingTime;
+	private boolean worstPenality;
 	
 	/** 
 	 * Constructor
@@ -85,6 +86,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.setLayout(null);
 		  scrollRealtive=0;
+		  this.worstPenality=false;
 		  myBoard=new GameBoard(this.curStage,Stage.getStage(currentStage), powerUpsAcquired, numLivesRemainingBomberMan,this.DB.getCurrentUser(), 0);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
@@ -122,6 +124,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.numLivesBomberman = numLivesRemainingBomberMan;
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.myBoard=myBoard;
+		  this.worstPenality=false;
 		  this.timeRemaining = myBoard.getRemainingTime();
 		    this.setLayout(null);
 		  gmController = new GameBoardController(myBoard);
@@ -206,6 +209,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  {
 		  currentTime = endingTime-(Calendar.getInstance().getTimeInMillis());
 		  if(currentTime < 0){currentTime = 0;}
+		  if(currentTime==0 && worstPenality==false)
+		  {
+			  worstPenality=true;
+			  this.myBoard.initializeEnemiesPosition(8, "Pass", "High");
+		  }
 		  timerLabel.setText("Time : "+ currentTime/1000 + " s");
 	  }
 	  /** 
@@ -236,7 +244,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			        x.requestFocusInWindow();
 			        myFrame.setVisible(true);
 		 }
-		 if(keyE.getKeyCode()==KeyEvent.VK_A)
+		 if(keyE.getKeyCode()==KeyEvent.VK_Z)
 		 {
 			if(myBoard.getBomberMan().getHasDetonator() == true){
 			 gmController.dropBombDetonator();}
@@ -247,7 +255,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 //			 
 //			 enemyC.run();
 //		 }
-		 if(keyE.getKeyCode()==KeyEvent.VK_B)
+		 if(keyE.getKeyCode()==KeyEvent.VK_X)
 		 { 
 			
 			 gmController.detonateOldestBomb();
