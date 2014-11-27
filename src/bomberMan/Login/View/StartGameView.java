@@ -188,7 +188,7 @@ public class StartGameView extends JPanel
 	public void setBackgroundImage()
 	{
 	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    loginImage=Toolkit.getDefaultToolkit().createImage("SaveGame.png");
+	    loginImage=Toolkit.getDefaultToolkit().createImage("StartGame.png");
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
 	

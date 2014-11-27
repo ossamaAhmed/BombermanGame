@@ -91,7 +91,7 @@ public class PauseMenuView extends JPanel
 	private void resumeGameButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x= new GameBoardView(myframe, this.myBoard.getLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB,this.myBoard.getStage());
+		GameBoardView x= new GameBoardView(myframe, this.myBoard, this.myBoard.getLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB,this.myBoard.getStage());
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);

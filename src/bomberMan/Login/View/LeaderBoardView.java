@@ -187,7 +187,7 @@ public class LeaderBoardView extends JPanel
 			public void setBackgroundImage()
 			{
 			    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-			    loadGameImage=Toolkit.getDefaultToolkit().createImage("LoadGame.png");
+			    loadGameImage=Toolkit.getDefaultToolkit().createImage("LeaderBoard.png");
 			    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 			}
 			

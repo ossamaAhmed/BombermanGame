@@ -291,7 +291,7 @@ public class Cell implements java.io.Serializable {
 			return true;
 		if(search.equals("POWERUP")&&searcHasAPowerUp())
 			return true;
-		if(search.equals("BOMB")&&getHasABomb())
+		if(search.equals("BOMB")&&(this.hasABomb||this.hasADetonateBomb))
 			return true;
 		
 		return false;

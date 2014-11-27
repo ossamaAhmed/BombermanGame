@@ -105,7 +105,7 @@ public class LoadGameView extends JPanel
 			    p.setOpaque(false);
 			    p.setBackground(new Color(0,0,0,65));
 			    scrollpane= new JScrollPane(p);
-				scrollpane.setSize(388, 200);
+				scrollpane.setSize(388, 300);
 				scrollpane.setOpaque(false);
 				scrollpane.getViewport().setOpaque(false);
 				scrollpane.setLocation(426,38+30);
@@ -157,7 +157,7 @@ public class LoadGameView extends JPanel
 			goBackButton.setOpaque(true);
 			goBackButton.setBackground(Color.BLACK);
 			goBackButton.setForeground(Color.white);
-			goBackButton.setLocation(window_width/2, window_height-250);
+			goBackButton.setLocation(window_width/2, window_height-100);
 				 this.add(goBackButton);
 				 //adding action listener and directing it to the appropiate function
 				 goBackButton.addActionListener(new ActionListener() {
@@ -187,7 +187,7 @@ public class LoadGameView extends JPanel
 				exitButton.setOpaque(true);
 				exitButton.setBackground(Color.BLACK);
 				exitButton.setForeground(Color.white);
-				exitButton.setLocation(goBackButton.getX()-exitButton.getWidth()-10, window_height-250);
+				exitButton.setLocation(goBackButton.getX()-exitButton.getWidth()-10, window_height-100);
 				 this.add(exitButton);
 				 //adding action listener and directing it to the appropiate function
 				 exitButton.addActionListener(new ActionListener() {
