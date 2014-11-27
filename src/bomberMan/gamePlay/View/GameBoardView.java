@@ -57,6 +57,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private UserDatabase DB;
 	private Stage stage;
 	private int curStage;
+	boolean continueTime = true;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
@@ -258,7 +259,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 
 		 this.repaint();
-		 this.updateTimer();
+		 if(continueTime){
+		 this.updateTimer();}
 		   // if(this.currentTime >= CONSTANTS.ENDINGGAMEPLAYTIME){ //this.gmController.getBoard().worstPenalty()}
 			if( gmController.getBoard().getBomberMan().getIsAlive() == false && this.numLivesBomberman > 1){
 				this.startAgain();
@@ -311,6 +313,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 //this.controller.unpause();
 		 timer2.stop();
+		 continueTime = false;
 	 }
 	 public void unpause()
 	 {
@@ -325,6 +328,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 //			    }
 //			});
 		 timer2.start();
+		 continueTime = true;
 	 }
 	 
 	public void startController(){  this.gmController.run();}
@@ -350,7 +354,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		
 		if(iExitCell== iBMBCell && jBMBCell == jExitCell){
 				System.out.println("YESSSS2");
-				if(this.myBoard.getNumEnemies() > 0){
+				if(this.myBoard.getNumEnemies() == 0){
 					timer2.stop();
 					 myFrame.remove(this);
 						GameBoardView x=new GameBoardView(myFrame, this.myBoard.getLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(), this.DB,curStage+1);
