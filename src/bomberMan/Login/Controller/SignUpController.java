@@ -70,7 +70,7 @@ public class SignUpController {
 	public boolean checkPassWordStrength(String password) {
 		boolean hasUppercase = false;
 		boolean hasLowercase = false;
-		boolean isAtLeast8 = password.length() >= 8;
+		boolean isAtLeast8 = password.length() >= 6;
 		boolean hasNumber = false;
 		boolean hasSymbol = false;
 

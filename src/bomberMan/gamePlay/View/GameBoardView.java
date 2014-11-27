@@ -8,6 +8,7 @@
 package bomberMan.gamePlay.View;
 
 import bomberMan.Login.Model.UserDatabase;
+import bomberMan.Login.View.LeaderBoardView;
 import bomberMan.Login.View.PauseMenuView;
 import bomberMan.gamePlay.Controller.CharacterController;
 import bomberMan.gamePlay.Controller.BomberManController;
@@ -272,8 +273,19 @@ public class GameBoardView extends JPanel implements KeyListener {
 				System.out.println("STARTING AGAIN");
 			}
 			else if( this.gmController.getBoard().getBomberMan().getIsAlive() == false && this.numLivesBomberman == 1){
-				   this.updateLives(0);
-				//start  LeaderBoard..?
+				   pause();
+					this.updateLives(0);
+					this.myFrame.remove(this);
+					LeaderBoardView x=new LeaderBoardView(myFrame, this.DB,"Main");
+					myFrame.setFocusable(true);
+					//myframe.addKeyListener(x);
+					x.setBackground(Color.black);
+					x.setVisible(true);
+					myFrame.add(x);
+					myFrame.validate();
+					myFrame.repaint();
+				        x.requestFocusInWindow();
+				        myFrame.setVisible(true);
 			}
 			this.runNextStage();
 	}

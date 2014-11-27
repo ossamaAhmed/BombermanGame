@@ -53,6 +53,7 @@ public class LeaderBoardView extends JPanel
 				super();
 				myframe=x;
 				this.DB=DB;
+				this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
 				this.previousView=previousView;
 			    this.setOpaque(true);
 			   // this.setBackground(Color.WHITE);
@@ -70,6 +71,7 @@ public class LeaderBoardView extends JPanel
 			{
 				super();
 				myframe=x;
+				this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
 				this.DB=DB;
 				this.myBoard=myboard;
 				this.previousView=previousView;
