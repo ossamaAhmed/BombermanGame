@@ -166,7 +166,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 timerLabel.setOpaque(true);
 			 timerLabel.setForeground(Color.red);
 			 timerLabel.setBackground(new Color(0, 0, 0, 0));
-			 timerLabel.setLocation(120, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+			 timerLabel.setLocation(200, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
 			 timerLabel.setFont(new Font(timerLabel.getName(), Font.PLAIN, 20));
 			 endingTime = CONSTANTS.ENDINGGAMEPLAYTIME + creationTime;
 			 this.add(timerLabel);
@@ -178,7 +178,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  livesLabel.setOpaque(true);
 		  livesLabel.setForeground(Color.red);
 		  livesLabel.setBackground(new Color(0, 0, 0, 0));
-		  livesLabel.setLocation(250, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+		  livesLabel.setLocation(330, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
 		  livesLabel.setFont(new Font(livesLabel.getName(), Font.PLAIN, 20));
 		  this.add(livesLabel);  
 	  }
@@ -188,14 +188,16 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  livesLabel.setOpaque(true);
 		  livesLabel.setForeground(Color.red);
 		  livesLabel.setBackground(new Color(0, 0, 0, 0));
-		  livesLabel.setLocation(350, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+		  livesLabel.setLocation(430, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
 		  livesLabel.setFont(new Font(livesLabel.getName(), Font.PLAIN, 20));
 		  this.add(livesLabel);  
 	  }
 	  public void updateLives(int lives){livesLabel.setText("Lives : "+ lives);}
 	  public void updateScore()
-	  {   
-	      
+	  {
+		  if(this.DB.getCurrentUser().getUnlockedLevel()<curStage)
+			  	this.DB.setUnlockedLevel(curStage);
+	      this.DB.updateScore(this.DB.getCurrentUser().getMyScore());
 		  scoreLabel.setText("Score :"+this.DB.getCurrentUser().getMyScore());
 	  }
 	  public void updateTimer()
@@ -274,7 +276,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 				//start  LeaderBoard..?
 			}
 			this.runNextStage();
-			}
+	}
 	 
 	 /** 
 	   * This function Draws the gameBoard on the screen. Renders the data only. Any changes 

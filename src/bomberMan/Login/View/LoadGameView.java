@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -70,18 +71,18 @@ public class LoadGameView extends JPanel
 		}
 		public void loadSavedGames()
 		{
-			    String SavedGameLabel[] = { "Game 1", "Game2", "Game12","TrialGame"};
+			   ArrayList<String>SavedGameLabel = this.DB.getCurrentUser().loadSavedGamesList(this.DB.getCurrentUser().getUserName());
 			 //adding action listener and directing it to the appropiate function
 			    JPanel p = new JPanel();
 			    p.setSize(400, 400);
-			    p.setLayout(new GridLayout(SavedGameLabel.length, 2, 10, 0));
-			    for (int row = 0; row < SavedGameLabel.length; row++) 
+			    p.setLayout(new GridLayout(SavedGameLabel.size()-1, 2, 10, 0));
+			    for (int row = 1; row < SavedGameLabel.size(); row++) 
 			    {
 			      for (int col = 0; col < 2; col++)
 			      {
 			        if (col == 0) 
 			        {
-			          p.add(new JLabel(SavedGameLabel[row]));
+			          p.add(new JLabel(SavedGameLabel.get(row)));
 			        } 
 			        else 
 			        {
@@ -92,7 +93,7 @@ public class LoadGameView extends JPanel
 			        	temp.setBackground(Color.BLACK);
 			        	temp.setForeground(Color.white);
 						 p.add(temp);
-						 final String temp2=SavedGameLabel[row];
+						 final String temp2=SavedGameLabel.get(row);
 						 //adding action listener and directing it to the appropiate function
 						 temp.addActionListener(new ActionListener() {
 					            public void actionPerformed(ActionEvent evt) {

@@ -28,6 +28,7 @@ public class StartGameView extends JPanel
 	private Graphics2D myCanvas;
 	private JTextField unlockedStageNumber;
 	private JLabel error;
+	private JLabel Message;
 	private JButton startButton;
 	private JButton backButton;
 	private JButton exitButton;
@@ -58,6 +59,7 @@ public class StartGameView extends JPanel
 	public void setTextFields()
 	{
 		setUnlockedStageNumberTextField();
+		setMessageText();
 	}
 	public void setButtons()
 	{
@@ -83,33 +85,50 @@ public class StartGameView extends JPanel
 	            }
 		 });
 	}
+	public void setMessageText()
+	{
+		Message= new JLabel("Please enter any Stage between 1 and "+this.DB.getCurrentUser().getUnlockedLevel());
+		Message.setSize(400, 40);
+		Message.setOpaque(true);
+		Message.setForeground(Color.BLACK);
+		Message.setBackground(new Color(0, 0, 0, 0));
+		Message.setLocation(window_width/2-100, window_height-375);
+		 this.add(Message);
+		 //adding action listener and directing it to the appropiate function
+	}
 	public void seterrorText()
 	{
-		 error= new JLabel("Invalid username and password");
-		 error.setSize(200, 40);
+		 error= new JLabel("Not allowed to access this stage");
+		 error.setSize(300, 40);
 		 error.setOpaque(true);
 		 error.setForeground(Color.red);
 		 error.setBackground(new Color(0, 0, 0, 0));
-		 error.setLocation(window_width/2, window_height-250);
-		 //adding action listener and directing it to the appropiate function
+		 error.setLocation(window_width/2-100, window_height-250);
 	}
 	private void startButtonActionPerformed(ActionEvent evt) 
 	{
-		myframe.remove(this);
-		int [] powerUps = new int[3];
-		powerUps[0]=0;
-		powerUps[1] = CONSTANTS.BOMB_RANGE1;
-		powerUps[2] = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
-		GameBoardView x= new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN,powerUps,this.DB,Integer.parseInt(unlockedStageNumber.getText()));
-		myframe.setFocusable(true);
-		myframe.addKeyListener(x);
-		x.setBackground(Color.black);
-		x.setVisible(true);
-		myframe.add(x);
-	        myframe.validate();
-	        myframe.repaint();
-	        x.requestFocusInWindow();
-		myframe.setVisible(true);
+		if(Integer.parseInt(unlockedStageNumber.getText())>this.DB.getCurrentUser().getUnlockedLevel())
+		{
+			this.add(error);
+		}
+		else
+		{
+			myframe.remove(this);
+			int [] powerUps = new int[3];
+			powerUps[0]=0;
+			powerUps[1] = CONSTANTS.BOMB_RANGE1;
+			powerUps[2] = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
+			GameBoardView x= new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN,powerUps,this.DB,Integer.parseInt(unlockedStageNumber.getText()));
+			myframe.setFocusable(true);
+			myframe.addKeyListener(x);
+			x.setBackground(Color.black);
+			x.setVisible(true);
+			myframe.add(x);
+		        myframe.validate();
+		        myframe.repaint();
+		        x.requestFocusInWindow();
+			myframe.setVisible(true);
+		}
         
     }
 	public void setExitButton()

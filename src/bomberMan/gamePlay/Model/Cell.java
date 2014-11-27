@@ -293,7 +293,6 @@ public class Cell implements java.io.Serializable {
 			return true;
 		if(search.equals("BOMB")&&(this.hasABomb||this.hasADetonateBomb))
 			return true;
-		
 		return false;
 	}
 	//search for a concrete wall in the cell

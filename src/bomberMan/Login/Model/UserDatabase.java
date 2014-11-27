@@ -245,9 +245,9 @@ public boolean modifyProfile(String[] userData) {
 	        	record = allRecords.get(i);
 	            if (record[USER_IND].equals(currentUser.getUserName())) {
 	            	// Add to the existing score
-	            	int newScore = Integer.parseInt(record[SCORE_IND]) + score;
-	            	record[SCORE_IND] = Integer.toString(newScore);
-	            	currentUser.setScore(newScore);
+	            //	int newScore = Integer.parseInt(record[SCORE_IND]) + score;
+	            	record[SCORE_IND] = Integer.toString(score);
+	            //	currentUser.setScore(newScore);
 	            	userFound = true;
 	            	break;
 	            }
