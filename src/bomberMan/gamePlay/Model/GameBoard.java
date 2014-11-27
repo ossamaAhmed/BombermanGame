@@ -23,7 +23,7 @@ public class GameBoard implements java.io.Serializable {
 	int jCellPowerUp;
 	private int numLives;
 	private int stageNumber;
-	private User myUser;
+	private transient User myUser;
 	private ExitDoor1 myExit = new ExitDoor1(0*CONSTANTS.TILE_SIDE_SIZE,0*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor");
 	/** 
 	 * Constructor
