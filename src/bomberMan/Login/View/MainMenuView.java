@@ -13,8 +13,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bomberMan.Login.Model.User;
+import bomberMan.Login.Model.UserDatabase;
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
+import bomberMan.gamePlay.Model.CONSTANTS;
+import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
 import bomberMan.gamePlay.View.GamePlayView;
+
+import java.io.*;
+import java.util.List;
 
 public class MainMenuView extends JPanel
 {
@@ -30,12 +39,14 @@ public class MainMenuView extends JPanel
 	private Image mainMenuImage;
 	private JFrame myframe;
 	private int startFrame=110;
+	private UserDatabase DB;
 
 	
-	public MainMenuView(JFrame x)
+	public MainMenuView(JFrame x,UserDatabase DB)
 	{
 		super();
 		myframe=x;
+		this.DB=DB;
 	    this.setOpaque(true);
 	    setBackgroundImage();
 	    this.setLayout(null);
@@ -74,10 +85,10 @@ public class MainMenuView extends JPanel
 	}
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
+		
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN);
+		StartGameView x= new StartGameView(myframe,this.DB,"Main");
 		myframe.setFocusable(true);
-		myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -85,8 +96,14 @@ public class MainMenuView extends JPanel
 	        myframe.repaint();
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
-        
     }
+	
+	
+	/*
+	 * Check if a given username already exists in the database
+	 */
+	
+	
 	public void setLoadGameButton()
 	{
 		loadGameButton= new JButton("LOAD GAME");
@@ -106,9 +123,8 @@ public class MainMenuView extends JPanel
 	private void loadGameButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		LoadGameView x=new LoadGameView(myframe);
+		LoadGameView x= new LoadGameView(myframe,this.DB);
 		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -117,6 +133,7 @@ public class MainMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
+	
 	public void setLeaderBoardButton()
 	{
 		leaderBoardButton= new JButton("VIEW LEADER BOARD");
@@ -136,6 +153,17 @@ public class MainMenuView extends JPanel
 	}
 	private void leaderBoardButtonActionPerformed(ActionEvent evt) 
 	{
+		myframe.remove(this);
+		LeaderBoardView x=new LeaderBoardView(myframe, this.DB,"Main");
+		myframe.setFocusable(true);
+		//myframe.addKeyListener(x);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
         
     }
 	public void setModifyProfileButton()
@@ -157,7 +185,7 @@ public class MainMenuView extends JPanel
 	}
 	private void modifyProfileButtonActionPerformed(ActionEvent evt) 
 	{
-        
+		
     }
 	public void setSignOutButton()
 	{

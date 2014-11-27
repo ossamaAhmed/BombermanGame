@@ -27,7 +27,7 @@ public class LoginView extends JPanel
 	private Image backgroundImage;
 	private Image loginImage;
 	private JFrame myframe;
-	private UserDatabase DB;
+	public  UserDatabase DB;
 
 	
 	public LoginView(JFrame x)
@@ -92,7 +92,7 @@ public class LoginView extends JPanel
         int errorCode=myController.login(userNameInput.getText(), userPasswordInput.getText());
         if(errorCode==0)
         {	myframe.remove(this);
-			MainMenuView x=new MainMenuView(myframe);
+			MainMenuView x=new MainMenuView(myframe,this.DB);
 			myframe.setFocusable(true);
 			//myframe.addKeyListener(x);
 			x.setBackground(Color.black);

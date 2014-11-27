@@ -33,7 +33,7 @@ public class SignUpController {
 		// if any text fields are missing
 
 		else {
-			String[] temp = { realName, password1, username };
+			String[] temp = { realName, password1, username, "0", "1" };
 			DB.createUser(temp);
 			return 0;
 		}
@@ -50,8 +50,6 @@ public class SignUpController {
 			userNameGreater6 = true;
 		}
 
-		
-		
 		if ((userNameGreater6 && userExists) == true) {
 			return true;
 		} else {
@@ -74,6 +72,7 @@ public class SignUpController {
 		boolean hasLowercase = false;
 		boolean isAtLeast8 = password.length() >= 8;
 		boolean hasNumber = false;
+		boolean hasSymbol = false;
 
 		for (int i = 0; i < password.length(); i++) {
 			if (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z'
@@ -85,9 +84,15 @@ public class SignUpController {
 			if (password.charAt(i) >= '0' && password.charAt(i) <= '9'
 					&& !hasNumber)
 				hasNumber = true;
+			if (((password.charAt(i) >= 33 && password.charAt(i) <= 47)
+					|| (password.charAt(i) >= 58 && password.charAt(i) <= 64)
+					|| (password.charAt(i) >= 91 && password.charAt(i) <= 96) || (password
+					.charAt(i) >= 123 && password.charAt(i) <= 126))
+					&& !hasSymbol) 
+				hasSymbol = true;
 		}
 
-		if ((hasUppercase && hasLowercase && isAtLeast8 && hasNumber) == true) {
+		if ((hasUppercase && hasLowercase && isAtLeast8 && hasNumber && hasSymbol) == true) {
 			return true;
 		} else {
 			return false;

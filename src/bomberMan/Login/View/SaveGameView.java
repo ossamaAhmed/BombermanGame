@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import bomberMan.Login.Controller.LoginController;
 import bomberMan.Login.Model.UserDatabase;
+import bomberMan.gamePlay.Model.GameBoard;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,24 +19,26 @@ public class SaveGameView extends JPanel
 	private int window_width=CONSTANTS.WINDOW_WIDTH;
 	private int window_height=CONSTANTS.WINDOW_HEIGHT;
 	private Graphics2D myCanvas;
-	private JPasswordField userPasswordInput;
+	private JTextField savedGameName;
 	private JLabel error;
-	private JButton loginButton;
-	private JButton signupButton;
+	private JButton saveButton;
+	private JButton backButton;
 	private JButton exitButton;
 	private Image backgroundImage;
 	private Image loginImage;
 	private JFrame myframe;
 	private UserDatabase DB;
+	private GameBoard myBoard;
 
 	
-	public SaveGameView(JFrame x)
+	public SaveGameView(JFrame x, GameBoard myBoard,UserDatabase DB)
 	{
 		super();
 		myframe=x;
-		DB=new UserDatabase("CSVfiles/trial.csv");
+//		DB=new UserDatabase("CSVfiles/trial.csv");
+		this.DB=DB;
 	    this.setOpaque(true);
-	   // this.setBackground(Color.WHITE);
+	    this.myBoard=myBoard;
 	    setBackgroundImage();
 	    this.setLayout(null);
 	    setTextFields();
@@ -46,30 +49,29 @@ public class SaveGameView extends JPanel
 	}
 	public void setTextFields()
 	{
-		setUserNameTextField();
-		setPasswordTextField();
+		setSavedGameNameTextField();
 	}
 	public void setButtons()
 	{
-		setLoginButton();
+		setSaveButton();
 		setExitButton();
-		setSignupButton();
+		setBackButton();
 
 	}
-	public void setLoginButton()
+	public void setSaveButton()
 	{
-		 loginButton= new JButton("LOGIN");
-		 loginButton.setSize(100, 40);
-		 loginButton.setBorderPainted(false);
-		 loginButton.setOpaque(true);
-		 loginButton.setBackground(Color.BLACK);
-		 loginButton.setForeground(Color.white);
-		 loginButton.setLocation(window_width/2+40, window_height-200);
-		 this.add(loginButton);
+		saveButton= new JButton("Save");
+		saveButton.setSize(100, 40);
+		saveButton.setBorderPainted(false);
+		saveButton.setOpaque(true);
+		saveButton.setBackground(Color.BLACK);
+		saveButton.setForeground(Color.white);
+		saveButton.setLocation(window_width/2+40, window_height-200);
+		 this.add(saveButton);
 		 //adding action listener and directing it to the appropiate function
-		 loginButton.addActionListener(new ActionListener() {
+		 saveButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
-	            	loginButtonActionPerformed(evt);
+	            	saveButtonActionPerformed(evt);
 	            }
 		 });
 	}
@@ -83,15 +85,16 @@ public class SaveGameView extends JPanel
 		 error.setLocation(window_width/2, window_height-250);
 		 //adding action listener and directing it to the appropiate function
 	}
-	private void loginButtonActionPerformed(ActionEvent evt) 
+	private void saveButtonActionPerformed(ActionEvent evt) 
 	{
         System.out.println();
         System.out.println();
-        LoginController myController=new LoginController(DB);
-        int errorCode=myController.login(userNameInput.getText(), userPasswordInput.getText());
-        if(errorCode==0)
-        {	myframe.remove(this);
-			MainMenuView x=new MainMenuView(myframe);
+        DB.getCurrentUser().saveGame(this.myBoard, savedGameName.getText());
+//        int errorCode=myController.login(savedGameName.getText(), savedGameName.getText());
+//        if(errorCode==0)
+//        {	
+        myframe.remove(this);
+			PauseMenuView x=new PauseMenuView(myframe,this.myBoard,this.DB);
 			myframe.setFocusable(true);
 			//myframe.addKeyListener(x);
 			x.setBackground(Color.black);
@@ -101,11 +104,11 @@ public class SaveGameView extends JPanel
 		        myframe.repaint();
 		        x.requestFocusInWindow();
 			myframe.setVisible(true);
-		}
-        else
-        {
-        	this.add(error);
-        }
+//		}
+//        else
+//        {
+//        	this.add(error);
+//        }
         
     }
 	public void setExitButton()
@@ -116,7 +119,7 @@ public class SaveGameView extends JPanel
 		exitButton.setOpaque(true);
 		exitButton.setBackground(Color.BLACK);
 		exitButton.setForeground(Color.white);
-		exitButton.setLocation(loginButton.getX()-exitButton.getWidth()-10, window_height-200);
+		exitButton.setLocation(saveButton.getX()-saveButton.getWidth()-10, window_height-200);
 		 this.add(exitButton);
 		 //adding action listener and directing it to the appropiate function
 		 exitButton.addActionListener(new ActionListener() {
@@ -131,26 +134,26 @@ public class SaveGameView extends JPanel
     }
 	
 
-	public void setSignupButton()
+	public void setBackButton()
 	{
-		signupButton= new JButton("SIGN UP");
-		signupButton.setSize(100, 40);
-		signupButton.setBorderPainted(false);
-		signupButton.setOpaque(true);
-		signupButton.setBackground(Color.BLACK);
-		signupButton.setForeground(Color.white);
-		signupButton.setLocation(exitButton.getX()-signupButton.getWidth()-10, window_height-200);
-		 this.add(signupButton);
-		 signupButton.addActionListener(new ActionListener() {
+		backButton= new JButton("GO BACK");
+		backButton.setSize(100, 40);
+		backButton.setBorderPainted(false);
+		backButton.setOpaque(true);
+		backButton.setBackground(Color.BLACK);
+		backButton.setForeground(Color.white);
+		backButton.setLocation(exitButton.getX()-backButton.getWidth()-10, window_height-200);
+		 this.add(backButton);
+		 backButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
-	            	signupButtonActionPerformed(evt);
+	            	backButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	private void signupButtonActionPerformed(ActionEvent evt)
+	private void backButtonActionPerformed(ActionEvent evt)
 	{
 		myframe.remove(this);
-		SignUpView x=new SignUpView(myframe);
+		PauseMenuView x=new PauseMenuView(myframe,this.myBoard,this.DB);
 		myframe.setFocusable(true);
 		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
@@ -161,37 +164,22 @@ public class SaveGameView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
 	}
-	public void setPasswordTextField()
+
+	public void setSavedGameNameTextField()
 	{
-		userPasswordInput=new JPasswordField();
-		userPasswordInput.setSize(220, 25);
-		userPasswordInput.setBackground(Color.BLACK);
-		userPasswordInput.setCaretColor(Color.BLUE);
-		userPasswordInput.setForeground(Color.WHITE);
-		userPasswordInput.setLocation(window_width/2,(window_height/3)+userNameInput.getHeight()+10 );
-		userPasswordInput.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent evt) {
-	            	loginButtonActionPerformed(evt);
-	            }
-		 });
-		this.add(userPasswordInput);
-		
-	}
-	public void setUserNameTextField()
-	{
-		userNameInput=new JTextField();
-		userNameInput.setSize(220, 25);
-		userNameInput.setBackground(Color.BLACK);
-		userNameInput.setCaretColor(Color.BLUE);
-		userNameInput.setForeground(Color.WHITE);
-		userNameInput.setLocation(window_width/2,window_height/3 );
-		this.add(userNameInput);	
+		savedGameName=new JTextField();
+		savedGameName.setSize(220, 25);
+		savedGameName.setBackground(Color.BLACK);
+		savedGameName.setCaretColor(Color.BLUE);
+		savedGameName.setForeground(Color.WHITE);
+		savedGameName.setLocation(window_width/2,window_height/3 );
+		this.add(savedGameName);	
 	}
 	//setting the background image, should change the size of the window to constants
 	public void setBackgroundImage()
 	{
 	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    loginImage=Toolkit.getDefaultToolkit().createImage("LoginMenu.png");
+	    loginImage=Toolkit.getDefaultToolkit().createImage("SaveGame.png");
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
 	

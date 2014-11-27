@@ -17,7 +17,7 @@ public class BomberManMain {
 		game = new JFrame("BomberMan");
 		MusicPlayer player=new MusicPlayer();
 		login= new LoginView(game);
-		 String audioFilePath = "bomb.wav";
+		String audioFilePath = "bomb.wav";
 		SwingUtilities.invokeLater(new Runnable() 
 	    {
 	      @Override

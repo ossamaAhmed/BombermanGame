@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import java.util.Calendar;
-public class BomberMan extends Character {
+public class BomberMan extends Character implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	private ArrayList<Bomb> myBombs;
@@ -111,8 +111,10 @@ public class BomberMan extends Character {
 	//changes
 	public int getBombRange(){return this.currentBombRange;}
 	public void setBombRange(int range){this.currentBombRange += range;}
+	public void setBombRange1(int range){this.currentBombRange = range;}
 	public int getNumBombsToDrop(){return this.numBombsAllowToDrop;}
 	public void setNumBombsToDrop(int num){this.numBombsAllowToDrop += num;}
+	public void setNumBombsToDrop1(int num){this.numBombsAllowToDrop = num;}
 	public void setBrickPass(boolean set){this.canBrickPass = set;}
 	public boolean getBrickPass(){return this.canBrickPass;}
 	public void setBombPass(boolean set){this.canBombPass = set;}
@@ -132,6 +134,13 @@ public class BomberMan extends Character {
 	}
 	public void addTimeCreationInvisibilitPowerUp(){this.creationInvisibilityPowerup=Calendar.getInstance().getTimeInMillis();}
 	public long  getEliminationInvisibilityPowerUp(){return this.eliminationInvisibilityPowerup;}
-	
+	public int[] getPowerUpsKeptAfterDeath(){
+		int [] powerUps = new int [3];
+		powerUps[0]= this.numBombsAllowToDrop;
+		powerUps[1]= this.currentBombRange;
+		powerUps[2] = this.getSpeed();
+		return powerUps;
+		
+	}
 	
 }

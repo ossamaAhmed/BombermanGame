@@ -6,7 +6,7 @@
  */
 package bomberMan.gamePlay.Model;
 import java.util.*;
-public class Bomb extends GameObject {
+public class Bomb extends GameObject implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	private Calendar timer; 

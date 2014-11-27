@@ -10,12 +10,25 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
+import bomberMan.Login.Model.User;
+import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Controller.EnemyController;
+import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
 import bomberMan.gamePlay.View.GameBoardView;
 import bomberMan.gamePlay.View.GamePlayView;
+
+import java.util.Date;
+import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.io.*;
 
 public class PauseMenuView extends JPanel
 {
@@ -32,15 +45,17 @@ public class PauseMenuView extends JPanel
 	private JFrame myframe;
 	private int startFrame=110;
 	private GameBoard myBoard;
+	private UserDatabase DB;
 
 	
-	public PauseMenuView(JFrame x, GameBoard myBoard)
+	public PauseMenuView(JFrame x, GameBoard myBoard,UserDatabase DB)
 	{
 		super();
 		myframe=x;
 		this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
 		this.myBoard=myBoard;
 	    this.setOpaque(true);
+	    this.DB=DB;
 	    setBackgroundImage();
 	    this.setLayout(null);
 	    setButtons();
@@ -76,7 +91,7 @@ public class PauseMenuView extends JPanel
 	private void resumeGameButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x= new GameBoardView(myframe,myBoard, CONSTANTS.LIVESBOMBERMAN);
+		GameBoardView x= new GameBoardView(myframe, this.myBoard.getBomberMan().getNumOfLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB);
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);
@@ -89,6 +104,10 @@ public class PauseMenuView extends JPanel
 		x.unpause();
         
     }
+	
+	/*
+	 * Create a proper database if existing one is empty or doesn't exist
+	 */
 	public void setStartNewGameButtonButton()
 	{
 		startNewGameButton= new JButton("START NEW GAME");
@@ -109,9 +128,8 @@ public class PauseMenuView extends JPanel
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		GameBoardView x=new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN);
+		StartGameView x= new StartGameView(myframe,this.DB,"Pause");
 		myframe.setFocusable(true);
-		myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -138,7 +156,20 @@ public class PauseMenuView extends JPanel
 		 });
 	}
 	private void saveGameButtonActionPerformed(ActionEvent evt) 
+	
 	{
+		myframe.remove(this);
+		SaveGameView x= new SaveGameView(myframe,myBoard,this.DB);
+		myframe.setFocusable(true);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
+		
+
         
     }
 	public void setLeaderBoardButton()
@@ -160,7 +191,17 @@ public class PauseMenuView extends JPanel
 	}
 	private void leaderBoardButtonActionPerformed(ActionEvent evt) 
 	{
-        
+		myframe.remove(this);
+		LeaderBoardView x=new LeaderBoardView(myframe,this.myBoard, this.DB,"Pause");
+		myframe.setFocusable(true);
+		//myframe.addKeyListener(x);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
     }
 
 	public void setReturnToMainMenuButton()
@@ -184,7 +225,7 @@ public class PauseMenuView extends JPanel
 	private void returnToMainMenuButtonActionPerformed(ActionEvent evt) 
 	{
 		myframe.remove(this);
-		MainMenuView x=new MainMenuView(myframe);
+		MainMenuView x=new MainMenuView(myframe,this.DB);
 		myframe.setFocusable(true);
 		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);

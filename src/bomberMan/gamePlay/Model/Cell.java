@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Cell {
+public class Cell implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	boolean hasABomb = false;
@@ -28,11 +28,11 @@ public class Cell {
 	boolean hasADetonateBomb = false;
 	boolean hasAPowerUp = false;
 	boolean hasADestructibleBrick = false;
-	BufferedImage image;
+	transient BufferedImage  image;
 	Calendar timer;
 	BomberMan myBomberMan;
 	private ArrayList<GameObject> myObjects;
-	private Cell parent = null;
+	private Cell parent;
 	private int gscore;
 	private int fscore;
 	
@@ -45,10 +45,11 @@ public class Cell {
 	{   this.myBomberMan = myBomberman;
 		this.xPos = xPos;
 	    this.yPos = yPos;
-	   image=null;
+	    image=null;
 		this.myObjects=new ArrayList<GameObject>();
 		this.isEmpty = true;
 		timer = Calendar.getInstance();
+		this.parent = null;
 
 	}
 	/** 
@@ -171,6 +172,7 @@ public class Cell {
 	public boolean isEmptyPowerUpException()
 	{
 		System.out.println(this.myBomberMan.getBrickPass()+"!");
+		if(this.searcHasAExit() == true && this.searcHasABrickWall()== false){return true;}
 		if(this.isThereAnEnemy() == true)
 		{
 			return true;
@@ -396,6 +398,18 @@ public class Cell {
 	}
 	public int getY(){
 		return xPos/CONSTANTS.TILE_SIDE_SIZE;
+	}
+	public boolean searcHasAExit()
+	{
+		int i = 0;
+		if(this.myObjects.size() >0){
+		for(i =0; i< this.myObjects.size(); i++){
+			
+			if(this.myObjects.get(i).getType().equals("ExitDoor")){
+				System.out.println("ExitDoor");
+				
+				return true;}}}
+		return false;
 	}
 	
 }

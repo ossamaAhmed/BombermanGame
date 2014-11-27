@@ -11,11 +11,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Wall extends GameObject{
+public class Wall extends GameObject implements java.io.Serializable{
 	
 	/*Instance Variables*/
 	private WallType myWallType;
-	BufferedImage image;
+	transient BufferedImage  image;
 	
 	/** 
 	 * Constructor

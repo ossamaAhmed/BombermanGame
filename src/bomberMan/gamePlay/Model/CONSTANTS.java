@@ -8,8 +8,8 @@
 
 package bomberMan.gamePlay.Model;
 
-public class CONSTANTS {
-	public final static int ENDINGGAMEPLAYTIME = 120000; // ending game time
+public class CONSTANTS implements java.io.Serializable{
+	public final static int ENDINGGAMEPLAYTIME = 200000; // ending game time
 	public final static int maximumBrickMAP = 30; //max of bricks per map
 	public  static int DEFAULT_BOMB_RANGE=2; // in number Of blocks
 	public final static int INITIAL_BOMBERMAN_X_POS = 50;
@@ -33,7 +33,7 @@ public class CONSTANTS {
 	public static int SPEEDENEMY_SLOW=2;
 	public static int SPEEDENEMY_NORMAL=3;
 	public static int SPEEDENEMY_FAST=4;
-	public static int DEFAULT_POWERUPSPEED_INCREASE;
+	public static int DEFAULT_POWERUPSPEED_INCREASE = 5;
 	public static long delayINVISIBILITY = 40000;
 	public final static int NUMBER_OF_HORIZONTAL_TILES=31;
 	public final static int NUMBER_OF_VERTICAL_TILES=13;

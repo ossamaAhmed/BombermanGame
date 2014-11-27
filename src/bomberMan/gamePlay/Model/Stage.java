@@ -1,7 +1,7 @@
 
 package bomberMan.gamePlay.Model;
 
-public class Stage {
+public class Stage implements java.io.Serializable{
 	private int bonusStage[][] = {
 			{1,0,0,0,0,0,0,0},
 			{0,1,0,0,0,0,0,0},

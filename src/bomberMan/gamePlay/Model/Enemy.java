@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Enemy extends Character{
+public class Enemy extends Character implements java.io.Serializable {
 	private boolean wallPass;
 	private int movmentDirection;
 	private int expectedNextMovmentDirection;
-	private BufferedImage image;
+	private transient BufferedImage image;
 	private int score;
 	
 	

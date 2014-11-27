@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameBoard {
+public class GameBoard implements java.io.Serializable {
 	
 	/*Instance Variables*/
 	Cell board[][];
@@ -26,9 +26,10 @@ public class GameBoard {
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
-	public GameBoard(int[] stage)
+	public GameBoard(int[] stage, int [] powerUpsKeptAfterDeath)
 	
 	{   myBombs  = new ArrayList <Bomb>();
+	   
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
 		board=new Cell[CONSTANTS.NUMBER_OF_VERTICAL_TILES][CONSTANTS.NUMBER_OF_HORIZONTAL_TILES];
 		for(int i=0;i<CONSTANTS.NUMBER_OF_VERTICAL_TILES;i++)
@@ -44,18 +45,23 @@ public class GameBoard {
 		myEnemies=new ArrayList<Enemy>();
 		myBomberMan=new BomberMan(40,40);
 		myBomberMan=new BomberMan(CONSTANTS.INITIAL_BOMBERMAN_X_POS,CONSTANTS.INITIAL_BOMBERMAN_Y_POS);
+		myBomberMan.setNumBombsToDrop1(powerUpsKeptAfterDeath[0]);
+		myBomberMan.setBombRange1(powerUpsKeptAfterDeath[1]);
+		myBomberMan.updateSpeed(powerUpsKeptAfterDeath[2]);
 		buildSurroundingWall();
 		buildConcreteWalls();
-		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMEPASS, CONSTANTS.FLAME_POWERUP);
+		//	buildRandomMap(CONSTANTS.maximumBrickMAP, this.getPowerUpType(stage[8]) , this.getPowerUpImage(stage[8]));
+		buildRandomMap(CONSTANTS.maximumBrickMAP, PowerUpType.FLAMES, CONSTANTS.FLAME_POWERUP);
 		myScore=new Score();
-		initializeEnemiesPosition(stage[0],"Balloom","Low");
-		initializeEnemiesPosition(stage[1],"Doll","Low");
-		initializeEnemiesPosition(stage[2],"Minvo","Medium");
-		initializeEnemiesPosition(stage[3],"Oneal","Medium");
-		initializeEnemiesPosition(stage[4],"Ovapi","Medium");
-		initializeEnemiesPosition(stage[5],"Kondoria","High");
-		initializeEnemiesPosition(stage[6],"Pontan","High");
-		initializeEnemiesPosition(stage[7],"Pass","High");
+//		initializeEnemiesPosition(stage[0],"Balloom","Low");
+//		initializeEnemiesPosition(stage[1],"Doll","Low");
+//		initializeEnemiesPosition(stage[2],"Minvo","Medium");
+//		initializeEnemiesPosition(stage[3],"Oneal","Medium");
+//		initializeEnemiesPosition(stage[4],"Ovapi","Medium");
+//		initializeEnemiesPosition(stage[5],"Kondoria","High");
+		initializeEnemiesPosition(6,"Pontan","High");
+		initializeEnemiesPosition(7,"Pass","High");
+		
 	}
 	/** 
 	 * This method returns the cell at the x and y position.
@@ -63,12 +69,16 @@ public class GameBoard {
 	public void worstPenality(int[] stage)
 	{
 		int highestEnemy = 0;
+		int size = myEnemies.size();
+
 		for(int i = 0; i < stage.length - 1; i++){
 			if(stage[i]!= 0);
 				highestEnemy = i;
 		}
-		myEnemies.clear();
-
+		for(int i = 0; i< size; i++){
+			myEnemies.get(i).die();
+		}
+		
 		if(highestEnemy == 0)
 			initializeEnemiesPosition(8,"Doll","Low");
 		if(highestEnemy == 1)
@@ -238,7 +248,7 @@ public class GameBoard {
 				
 				// board[i][j].insert(new Wall(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,WallType.BRICK));
 				 if(exitAlreadyPlaced == false && counter == exitNumberChosen){
-					 board[i][j].insert(new ExitDoor(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE));
+					 board[i][j].insert(new ExitDoor1(j*CONSTANTS.TILE_SIDE_SIZE,i*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor"));
 				     exitAlreadyPlaced = true;
 				     System.out.println("NUMBER CHOSEN FOR EXIT i j " + i + ", "+j);
 				 }
@@ -267,5 +277,32 @@ public class GameBoard {
 	public PowerUp getPowerUpBoard(){return this.myPowerUp;}
 	public void addPowerUp(PowerUp powerup){this.myPowerUp = powerup;}
 	public void deletePowerUp(int i, int j){this.board[i][j].removePowerUp();}
-	
+	public String getPowerUpImage(int number){
+		 String powerUpImage = "";
+		 if(number == 1){powerUpImage = CONSTANTS.BOMBS_POWERUP;}
+		 if(number == 2){powerUpImage = CONSTANTS.FLAME_POWERUP;}
+		 if(number == 3){powerUpImage = CONSTANTS.SPEED_POWERUP;}
+		 if(number == 4){powerUpImage = CONSTANTS.WALLPASS_POWERUP;}
+		 if(number == 5){powerUpImage = CONSTANTS.BOMB_DETONATOR_POWERUP;}
+		 if(number == 6){powerUpImage = CONSTANTS.BOMB_PASS_POWERUP;}
+		 if(number == 7){powerUpImage = CONSTANTS.IMMUNITY_FLAME_POWERUP;}
+		 if(number == 8){powerUpImage = CONSTANTS.MYSTERY_POWERUP;}
+		 //BOMBS,FLAMES,SPEED,WALLPASS,DETONATOR,BOMBPASS,FLAMEPASS, INVISIBILITY
+		 return powerUpImage;
+		
+	}
+	public PowerUpType getPowerUpType(int number){
+		 PowerUpType powerUpType = PowerUpType.BOMBS;
+		 if(number == 1){powerUpType = PowerUpType.BOMBS;}
+		 if(number == 2){powerUpType = powerUpType.FLAMES;}
+		 if(number == 3){powerUpType = powerUpType.SPEED;}
+		 if(number == 4){powerUpType = powerUpType.WALLPASS;}
+		 if(number == 5){powerUpType = powerUpType.DETONATOR;}
+		 if(number == 6){powerUpType = powerUpType.BOMBPASS;}
+		 if(number == 7){powerUpType = powerUpType.FLAMEPASS;}
+		 if(number == 8){powerUpType = powerUpType.MYSTERY;}
+		 //BOMBS,FLAMES,SPEED,WALLPASS,DETONATOR,BOMBPASS,FLAMEPASS, INVISIBILITY
+		 return powerUpType;
+		
+	}
 }

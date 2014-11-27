@@ -6,11 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class PowerUp extends GameObject {
+public class PowerUp extends GameObject implements java.io.Serializable {
 	
 	//Private variables
 	private PowerUpType type;
-	private BufferedImage image;
+	private transient BufferedImage image;
 	
 	//Constructor
 	public PowerUp()

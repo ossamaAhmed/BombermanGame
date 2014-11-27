@@ -11,6 +11,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -25,6 +28,9 @@ import javax.swing.JTextField;
 
 import bomberMan.Login.Controller.LoginController;
 import bomberMan.Login.Model.UserDatabase;
+import bomberMan.gamePlay.Model.CONSTANTS;
+import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.View.GameBoardView;
 
 public class LoadGameView extends JPanel   
 {
@@ -32,13 +38,9 @@ public class LoadGameView extends JPanel
 		private int window_width=CONSTANTS.WINDOW_WIDTH;
 		private int window_height=CONSTANTS.WINDOW_HEIGHT;
 		private Graphics2D myCanvas;
-		private JTextField userNameInput;
-		private JPasswordField userPasswordInput;
-		private JLabel error;
 		private JScrollPane scrollpane;
-		private JScrollPane loginButton;
-		private JButton signupButton;
 		private JButton exitButton;
+		private JButton goBackButton;
 		private Image backgroundImage;
 		private Image loadGameImage;
 		private JFrame myframe;
@@ -49,139 +51,150 @@ public class LoadGameView extends JPanel
 		private int scrollY;
 
 		
-		public LoadGameView(JFrame x)
+		public LoadGameView(JFrame x,UserDatabase DB)
 		{
 			super();
 			myframe=x;
-			DB=new UserDatabase("CSVfiles/trial.csv");
+			this.DB=DB;
 		    this.setOpaque(true);
 		   // this.setBackground(Color.WHITE);
 		    setBackgroundImage();
 		    this.setLayout(null);
-			setTextFields();
+			loadSavedGames();
+			goBackButton();
+			exitButton();
 		   // seterrorText();
-		    //setButtons();
+		    
 		    this.repaint();
 		    
 		}
-		public void setTextFields()
+		public void loadSavedGames()
 		{
-			 JRadioButton form[][] = new JRadioButton[12][5];
-			    String counts[] = { "", "0-1", "2-5", "6-10", "11-100", "101+" };
-			    String categories[] = { "Household", "Office", "Extended Family",
-			        "Company (US)", "Company (World)", "Team", "Will",
-			        "Birthday Card List", "High School", "Country", "Continent",
-			        "Planet" };
+			    String SavedGameLabel[] = { "Game 1", "Game2", "Game12"};
 			 //adding action listener and directing it to the appropiate function
 			    JPanel p = new JPanel();
-			    p.setSize(600, 400);
-			    p.setLayout(new GridLayout(13, 6, 10, 0));
-			    for (int row = 0; row < 13; row++) {
-			      ButtonGroup bg = new ButtonGroup();
-			      for (int col = 0; col < 6; col++) {
-			        if (row == 0) {
-			          p.add(new JLabel(counts[col]));
-			        } else {
-			          if (col == 0) {
-			            p.add(new JLabel(categories[row - 1]));
-			          } else {
-			            form[row - 1][col - 1] = new JRadioButton();
-			            //bg.add(form[row - 1][col - 1]);
-			            p.add(form[row - 1][col - 1]);
-			          }
-			        }
-			      }
+			    p.setSize(400, 400);
+			    p.setLayout(new GridLayout(SavedGameLabel.length, 2, 10, 0));
+			    for (int row = 0; row < SavedGameLabel.length; row++) 
+			    {
+			      for (int col = 0; col < 2; col++)
+			      {
+			        if (col == 0) 
+			        {
+			          p.add(new JLabel(SavedGameLabel[row]));
+			        } 
+			        else 
+			        {
+			        	JButton temp= new JButton("LOAD");
+			        	temp.setSize(100, 40);
+			        	temp.setBorderPainted(false);
+			        	temp.setOpaque(true);
+			        	temp.setBackground(Color.BLACK);
+			        	temp.setForeground(Color.white);
+						 p.add(temp);
+						 final String temp2=SavedGameLabel[row];
+						 //adding action listener and directing it to the appropiate function
+						 temp.addActionListener(new ActionListener() {
+					            public void actionPerformed(ActionEvent evt) {
+					            	loadGameButtonActionPerformed(evt,temp2);
+					            }
+						 });
+			        } 
+			       }
 			    }
 			    p.setOpaque(false);
 			    p.setBackground(new Color(0,0,0,65));
 			    scrollpane= new JScrollPane(p);
-				scrollpane.setSize(388, 445-30);
+				scrollpane.setSize(388, 200);
 				scrollpane.setOpaque(false);
 				scrollpane.getViewport().setOpaque(false);
 				scrollpane.setLocation(426,38+30);
 				scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				 this.add(scrollpane);
-//			    scrollpane = new JScrollPane(p);
-//			    scrollpane.setLocation(window_width/2+40, window_height-200);
-//			    scrollpane.setOpaque(true);
-//			    this.myframe.getContentPane().add(scrollpane);
-
 		}
-		public void setButtons()
+		private void loadGameButtonActionPerformed(ActionEvent evt,String loadGameName) 
 		{
-			setLoginButton();
-			setExitButton();
-			setSignupButton();
+			String fileLocation = this.DB.getCurrentUser().loadSavedGame(loadGameName);
+			GameBoard objectLoad = null;
+		    try
+		    {
+		    	
+		    	
+		       FileInputStream fileIn = new FileInputStream(fileLocation);
+		       ObjectInputStream in = new ObjectInputStream(fileIn);
+		       objectLoad = (GameBoard) in.readObject();
+		       in.close();
+		       fileIn.close();
+		       System.out.println("Serialized data loaded!");
+		       GameBoardView x= new GameBoardView(myframe,objectLoad,CONSTANTS.LIVESBOMBERMAN,objectLoad.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB);
+				myframe.remove(this);
+				myframe.setFocusable(true);
+				myframe.addKeyListener(x);
+				x.setBackground(Color.black);
+				x.setVisible(true);
+				myframe.add(x);
+			        myframe.validate();
+			        myframe.repaint();
+			        x.requestFocusInWindow();
+				myframe.setVisible(true);
+		    }catch(IOException i)
+		    {
+		       i.printStackTrace();
+		       return;
+		    }catch(ClassNotFoundException c)
+		    {
+		       System.out.println("GameBoard class not found");
+		       c.printStackTrace();
+		       return;
+		    }
 
-		}
-//		public void setLoginButton()
-//		{
-//			 loginButton= new JButton("LOGIN");
-//			 loginButton.setSize(100, 40);
-//			 loginButton.setBorderPainted(false);
-//			 loginButton.setOpaque(true);
-//			 loginButton.setBackground(Color.BLACK);
-//			 loginButton.setForeground(Color.white);
-//			 loginButton.setLocation(window_width/2+40, window_height-200);
-//			 this.add(loginButton);
-//			 //adding action listener and directing it to the appropiate function
-//			 loginButton.addActionListener(new ActionListener() {
-//		            public void actionPerformed(ActionEvent evt) {
-//		            	loginButtonActionPerformed(evt);
-//		            }
-//			 });
-//		}
-//		public void seterrorText()
-//		{
-//			 error= new JLabel("Invalid username and password");
-//			 error.setSize(200, 40);
-//			 error.setOpaque(true);
-//			 error.setForeground(Color.red);
-//			 error.setBackground(new Color(0, 0, 0, 0));
-//			 error.setLocation(window_width/2, window_height-250);
-//			 //adding action listener and directing it to the appropiate function
-//		}
-//		private void loginButtonActionPerformed(ActionEvent evt) 
-//		{
-//	        System.out.println();
-//	        System.out.println();
-//	        LoginController myController=new LoginController(DB);
-//	        int errorCode=myController.login(userNameInput.getText(), userPasswordInput.getText());
-//	        if(errorCode==0)
-//	        {	myframe.remove(this);
-//				MainMenuView x=new MainMenuView(myframe);
-//				myframe.setFocusable(true);
-//				//myframe.addKeyListener(x);
-//				x.setBackground(Color.black);
-//				x.setVisible(true);
-//				myframe.add(x);
-//			        myframe.validate();
-//			        myframe.repaint();
-//			        x.requestFocusInWindow();
-//				myframe.setVisible(true);
-//			}
-//	        else
-//	        {
-//	        	this.add(error);
-//	        }
-//	        
-//	    }
-		public void setExitButton()
+	    }
+		private void goBackButton()
 		{
-			exitButton= new JButton("EXIT");
-			exitButton.setSize(100, 40);
-			exitButton.setBorderPainted(false);
-			exitButton.setOpaque(true);
-			exitButton.setBackground(Color.BLACK);
-			exitButton.setForeground(Color.white);
-			exitButton.setLocation(loginButton.getX()-exitButton.getWidth()-10, window_height-200);
-			 this.add(exitButton);
-			 //adding action listener and directing it to the appropiate function
-			 exitButton.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent evt) {
-		            	exitButtonActionPerformed(evt);
-		            }
-			 });
+			goBackButton= new JButton("BACK");
+			goBackButton.setSize(100, 40);
+			goBackButton.setBorderPainted(false);
+			goBackButton.setOpaque(true);
+			goBackButton.setBackground(Color.BLACK);
+			goBackButton.setForeground(Color.white);
+			goBackButton.setLocation(window_width/2, window_height-250);
+				 this.add(goBackButton);
+				 //adding action listener and directing it to the appropiate function
+				 goBackButton.addActionListener(new ActionListener() {
+			            public void actionPerformed(ActionEvent evt) {
+			            	goBackButtonActionPerformed(evt);
+			            }
+				 });
+		}
+		private void goBackButtonActionPerformed(ActionEvent evt) 
+		{
+			myframe.remove(this);
+			MainMenuView x=new MainMenuView(myframe,this.DB);
+			myframe.setFocusable(true);
+			x.setBackground(Color.black);
+			x.setVisible(true);
+			myframe.add(x);
+		        myframe.validate();
+		        myframe.repaint();
+		        x.requestFocusInWindow();
+			myframe.setVisible(true);
+	    }
+		private void exitButton()
+		{
+	    		exitButton= new JButton("EXIT");
+				exitButton.setSize(100, 40);
+				exitButton.setBorderPainted(false);
+				exitButton.setOpaque(true);
+				exitButton.setBackground(Color.BLACK);
+				exitButton.setForeground(Color.white);
+				exitButton.setLocation(goBackButton.getX()-exitButton.getWidth()-10, window_height-250);
+				 this.add(exitButton);
+				 //adding action listener and directing it to the appropiate function
+				 exitButton.addActionListener(new ActionListener() {
+			            public void actionPerformed(ActionEvent evt) {
+			            	exitButtonActionPerformed(evt);
+			            }
+				 });
 		}
 		private void exitButtonActionPerformed(ActionEvent evt) 
 		{

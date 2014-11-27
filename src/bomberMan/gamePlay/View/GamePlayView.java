@@ -22,8 +22,11 @@ public class GamePlayView {
 	{
 		gameView = new JFrame("BomberMan");
 		
-		
-		board= new GameBoardView(gameView, CONSTANTS.LIVESBOMBERMAN);
+		int [] powerUps = new int[3];
+		powerUps[0]=0;
+		powerUps[1] = CONSTANTS.BOMB_RANGE1;
+		powerUps[2] = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
+		board= new GameBoardView(gameView, CONSTANTS.LIVESBOMBERMAN,powerUps);
 		SwingUtilities.invokeLater(new Runnable() 
 	    {
 	      @Override

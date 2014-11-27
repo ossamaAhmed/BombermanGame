@@ -39,7 +39,7 @@ public class EnemyController extends CharacterController
 	 {
 		 if(enemy instanceof HighIntellegenceEnemy)
 		 {
-			 medAI(enemy);
+			 highAI(enemy);
 		 }
 		 
 		 String collidingObject1="CONCRETE";
@@ -200,15 +200,16 @@ public class EnemyController extends CharacterController
 	        
 	        boolean enemyAtEdgeOfCell=(myEnemy.getPositionX())==((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE)*CONSTANTS.TILE_SIDE_SIZE)
 					&&(myEnemy.getPositionY())==((myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE)*CONSTANTS.TILE_SIDE_SIZE);
-	 
+	        
 	        if (bomberManInRangeHighAI(myEnemy) == true && this.myGameBoard.getBomberMan().getIsAlive()&&enemyAtEdgeOfCell&&!this.myGameBoard.getBomberMan().getInvisibilibityPowerUp()) {
 	            System.out.println("entering astar");
 	        	int moves[] = aStar( myEnemy);
 	        	System.out.println("exiting astar");
-	            myEnemy.setExpectedMovmentDirection(moves[0]);
+	        	if(moves != null)
+	        		myEnemy.setExpectedMovmentDirection(moves[0]);
 	            
 	        } else if ((myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE) % 2 == 1 && (myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE) % 2 == 1&&enemyAtEdgeOfCell) {
-	            if (random.nextInt(10) >= 0) {
+	            if (random.nextInt(10) >= 5) {
 	            	myEnemy.setExpectedMovmentDirection(myEnemy.getExpectedMovmentDirection());
 	            }
 	            else{
@@ -234,11 +235,13 @@ public class EnemyController extends CharacterController
 	        return false;
 	    }
 
-	public int[] aStar( Enemy myEnemy) {
+	public int[] aStar(Enemy myEnemy) {
 		ArrayList<Cell> openSet = new ArrayList<Cell>();
 		ArrayList<Cell> closedSet = new ArrayList<Cell>();
 		ArrayList<Cell> obstacles = new ArrayList<Cell>();
-		Cell myCell = null;
+		Cell myCell = this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE);
+		myCell.setParent(null);
+		openSet.add(myCell);
 		Cell successor = null;
 		this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).setGscore(0);
 		this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE).setFscore(manhattan(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE));
@@ -246,8 +249,8 @@ public class EnemyController extends CharacterController
 		openSet.add(this.myGameBoard.getCell(myEnemy.getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()/CONSTANTS.TILE_SIDE_SIZE));
 		while (openSet.size() != 0)
 		{
-			System.out.println("b");
 			myCell = getMinCell(openSet);
+			//myCell.setParent(null);
 			System.out.println(myCell.getX() + ", " + myCell.getY());
 			openSet.remove(myCell);
 			closedSet.add(myCell);
@@ -304,12 +307,6 @@ public class EnemyController extends CharacterController
 							&& closedSet.contains(successor) == false
 							&& successor != null) {
 						System.out.println("seeting parent of "+successor.getX()+ " Y:"+successor.getY());
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 						successor.setParent(myCell);
 						//System.out.println(successor.getX()+" "+successor.getY());
 						
@@ -317,7 +314,14 @@ public class EnemyController extends CharacterController
 					}
 					if (successor.getX() == (this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE) && successor.getY() == (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE)) {
 						//System.out.println(successor.getX() + ", "+ successor.getY());
-						System.out.println("going to return route");
+						System.out.println(successor.getX()+" "+successor.getY());
+						successor.setParent(myCell);
+						openSet.add(successor);
+					}
+					if (successor.getX() == (this.myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE) && successor.getY() == (this.myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE)) {
+						System.out.println("a"+successor.getX() + ", "+ successor.getY());
+						System.out.println("b" + successor.getParent().getX() +" "+successor.getParent().getY());
+						successor.setParent(myCell);
 						return returnRoute(successor);
 					}
 				}
@@ -333,26 +337,15 @@ public class EnemyController extends CharacterController
 		Cell parent = currentCell.getParent();
 		Stack<Integer> temp = new Stack<Integer>();
 		int counter = 0;
-		while (parent != null) 
-		{
-			System.out.println("adding parent to stack"+currentCell.getParent().getX()+"y: "+currentCell.getParent().getY());
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		while (parent != null) {
 			int dX = currentCell.getX() - parent.getX();
 			int dY = currentCell.getY() - parent.getY();
-			//System.out.println(dX + ", " + dY +" "+ counter);
+			System.out.println(currentCell.getX() + ", " + currentCell.getY() +": "+ dX +"," +dY);
 			if (dX == 1)
 				temp.push(CONSTANTS.RIGHT);
 			if (dX == -1)
 				temp.push(CONSTANTS.LEFT);
 			if (dY == 1)
-				temp.push(CONSTANTS.UP);
-			if (dY == -1)
-				temp.push(CONSTANTS.DOWN);
 				temp.push(CONSTANTS.DOWN);
 			if (dY == -1)
 				temp.push(CONSTANTS.UP);
@@ -362,9 +355,11 @@ public class EnemyController extends CharacterController
 		}
 		int route[] = new int[temp.size()];
 		for (int i = 0; i < route.length; i++) {
-
+			
 			route[i] = (int) temp.pop();
+			System.out.println(route[i]+" ");
 		}
+		System.out.println(route[0]);
 		return route;
 	}
 

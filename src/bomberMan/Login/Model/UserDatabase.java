@@ -2,14 +2,15 @@ package bomberMan.Login.Model;
 
 import java.util.List;
 import java.util.Arrays;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Console;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
-
 
 
 public class UserDatabase 
@@ -21,9 +22,11 @@ public class UserDatabase
 	private LeaderBoard currentLeaderBoard;
 	private String accountFile;
 
-	private final int NAME_IND = 0;
-	private final int PASS_IND = 1;
-	private final int USER_IND = 2;
+	public static final int NAME_IND  = 0;
+	public static final int PASS_IND  = 1;
+	public static final int USER_IND  = 2;
+	public static final int SCORE_IND = 3;
+	public static final int LEVEL_IND = 4;
 	
 	public UserDatabase(String fileName) 
 	{
@@ -36,12 +39,12 @@ public class UserDatabase
 	private boolean createDatabase(String accountFile) 
 	{
 		// Write header in the following format:
-		// Name,Password,Username
+		// Name,Password,Username,Score
 		
 		try {
 			// Open up the database file for writing
 	        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
-	        writer.writeNext(new String[]{"Name","Password","Username"});
+	        writer.writeNext(new String[]{"Name","Password","Username","Score", "Level Unlocked"});
 	        writer.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());			
@@ -89,6 +92,8 @@ public class UserDatabase
 		// * Name
 		// * Password
 		// * Username
+		// * Score
+		// * Level Unlocked
 		
 		// First try to read the database file and make sure it's not empty
 		try {
@@ -109,11 +114,21 @@ public class UserDatabase
 			// Open up the database file in write append
 	        CSVWriter writer = new CSVWriter(new FileWriter(accountFile, true));
 	        writer.writeNext(userData);
+	        currentUser = new User(userData[0], userData[1], userData[2], 
+	        						Integer.parseInt(userData[3]), Integer.parseInt(userData[4]));
 	        writer.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());			
 			return false;
 		}        
+
+		// Create a new directory for the user
+		File f = new File(accountFile);
+		String userDir = f.getParent() + File.separator + userData[2];
+	    if(!(new File(userDir).mkdir())) {
+	    	// Unable to create the directory
+	    	return false;
+	    }
 		return true;
 	}
 
@@ -210,14 +225,92 @@ public boolean modifyProfile(String[] userData) {
 		return false;		
 	}
 
-
-	
-	
-
 	public boolean updateDatabase() {
 		return true;
 	}
+	
+	public boolean updateScore(int score) {
+		boolean userFound = false;
+        String[] record;
+		
+		try {
+	        CSVReader reader = new CSVReader(new FileReader(accountFile));
+	        List<String[]> allRecords = reader.readAll();
 
+	        if (allRecords.size() == 0) {
+	        	// File is empty for some reason. A valid file should have header.
+	        	reader.close();
+	        	return false;
+	        }
+	        
+	        // Go through each user in the database
+	        for (int i=1; i<allRecords.size(); i++) {
+	        	record = allRecords.get(i);
+	            if (record[USER_IND].equals(currentUser.getUserName())) {
+	            	// Add to the existing score
+	            	int newScore = Integer.parseInt(record[SCORE_IND]) + score;
+	            	record[SCORE_IND] = Integer.toString(newScore);
+	            	currentUser.setScore(newScore);
+	            	userFound = true;
+	            	break;
+	            }
+	        }
+	        
+	        	    	
+	        if (userFound) {
+	        	// Write the update record list into the file
+		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
+		        writer.writeAll(allRecords);
+		        writer.close();
+		        return true;
+	        }
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return false;		
+	}
+
+	public boolean setUnlockedLevel(int unlockedLevel) {
+		boolean userFound = false;
+        String[] record;
+		
+		try {
+	        CSVReader reader = new CSVReader(new FileReader(accountFile));
+	        List<String[]> allRecords = reader.readAll();
+
+	        if (allRecords.size() == 0) {
+	        	// File is empty for some reason. A valid file should have header.
+	        	reader.close();
+	        	return false;
+	        }
+	        
+	        // Go through each user in the database
+	        for (int i=1; i<allRecords.size(); i++) {
+	        	record = allRecords.get(i);
+	            if (record[USER_IND].equals(currentUser.getUserName())) {
+	            	// Update the unlocked level
+	            	record[LEVEL_IND] = Integer.toString(unlockedLevel);
+	            	currentUser.setUnlockedLevel(unlockedLevel);
+	            	userFound = true;
+	            	break;
+	            }
+	        }
+	        
+	        	    	
+	        if (userFound) {
+	        	// Write the update record list into the file
+		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
+		        writer.writeAll(allRecords);
+		        writer.close();
+		        return true;
+	        }
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return false;		
+	}
 	
 	public User getCurrentUser() {
 		return currentUser;
@@ -244,6 +337,10 @@ public boolean modifyProfile(String[] userData) {
 	        // Go through each user in the database
 	        for (String[] record : allRecords) {
 	            if (record[USER_IND].equals(userName) && record[PASS_IND].equals(password)) {
+	            	System.out.println("Score: " + record[SCORE_IND] + "LeveL: " + record[LEVEL_IND]);
+	    	        currentUser = new User(record[NAME_IND], record[USER_IND], record[PASS_IND],
+	    	        		 				Integer.parseInt(record[SCORE_IND]), 
+	    	        		 				Integer.parseInt(record[LEVEL_IND]));
 	            	return true;
 	            }
 	        }
