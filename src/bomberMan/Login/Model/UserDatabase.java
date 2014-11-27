@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 
-
 public class UserDatabase 
 
 {
@@ -177,7 +176,6 @@ public class UserDatabase
 	}
 	
 
-
 public boolean modifyProfile(String[] userData) {
 		boolean userFound = false;
         String[] record;
@@ -209,8 +207,7 @@ public boolean modifyProfile(String[] userData) {
 	            	break;
 	            }
 	        }
-	        
-	        	    	
+	                	    	
 	        if (userFound) {
 	        	// Write the update record list into the file
 		        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
