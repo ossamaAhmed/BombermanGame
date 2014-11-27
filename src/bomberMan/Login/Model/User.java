@@ -38,6 +38,7 @@ public class User
 	private int unlockedLevel;
 	public static final int GAMENAME_IND = 0;
 	public static final int DT_IND=1;
+	public static final int GAME_IND  = 0;
 	
 	public User(String fullName, String userName, String password, int score, int unlockedLevel)
 	{
@@ -103,6 +104,7 @@ public class User
 		    }
 
 	}
+	
 	
 	/*
 	 * Add a saved game to the saved game list
@@ -176,6 +178,43 @@ public class User
 			   return ("CSVfiles" + File.separator + this.userName + File.separator + AppendedGameName + ".ser");
 			   		
 		}
+		
+		public ArrayList<String> loadSavedGamesList(String user){
+
+			ArrayList<String> savedGames = new ArrayList<String>();
+
+			String fileName = "CSVfiles" + File.separator + user + File.separator + "savedGames.txt";
+
+			// First try to read the database file and make sure it's not empty
+					try {
+						CSVReader reader = new CSVReader(new FileReader(fileName));
+			        
+				        // Go through each user in the database
+						List<String[]> allRecords = reader.readAll();
+
+				        
+				        for (String[] record : allRecords) {
+							savedGames.add(record[GAME_IND]);		        	
+				       
+						} 
+					}catch (FileNotFoundException e) {
+							// File was not found so create it
+							if(!createSaveGameDB(fileName)) {
+								// Database creation failed
+								System.out.println("No saved games exist");
+							}
+							return savedGames;
+						} catch (IOException e) {
+							System.out.println(e.getMessage());
+							return savedGames;
+						}
+
+
+		return savedGames;
+		}				
+
+
+		
 		
 	public String getFullName() {
 		return this.name;
