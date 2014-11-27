@@ -24,15 +24,17 @@ public class GameBoard implements java.io.Serializable {
 	private int numLives;
 	private int stageNumber;
 	private transient User myUser;
+	private long remainingTime = 0;
 	private ExitDoor1 myExit = new ExitDoor1(0*CONSTANTS.TILE_SIDE_SIZE,0*CONSTANTS.TILE_SIDE_SIZE,CONSTANTS.EXIT_IMAGE, "ExitDoor");
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
-	public GameBoard(int stageNumber, int[] stage, int [] powerUpsKeptAfterDeath, int nLives,User user)
+	public GameBoard(int stageNumber, int[] stage, int [] powerUpsKeptAfterDeath, int nLives,User user , long remTime)
 	
 	{   myBombs  = new ArrayList <Bomb>();
+	    this.remainingTime = remTime;
 	    numLives = nLives;
 	    this.stageNumber=stageNumber;
 	    this.myUser=user;
@@ -323,4 +325,6 @@ public class GameBoard implements java.io.Serializable {
 	public ExitDoor1 getExit(){return this.myExit;}
 	public int getNumEnemies(){return this.myEnemies.size();}
 	public int getLives(){return this.numLives;}
+	public void setRemainingTime(long setTime){this.remainingTime = setTime;}
+	public long getRemainingTime(){return this.remainingTime;}
 }
