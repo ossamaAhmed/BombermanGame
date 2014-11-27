@@ -100,7 +100,7 @@ public class StartGameView extends JPanel
 		powerUps[0]=0;
 		powerUps[1] = CONSTANTS.BOMB_RANGE1;
 		powerUps[2] = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
-		GameBoardView x= new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN,powerUps,this.DB);
+		GameBoardView x= new GameBoardView(myframe, CONSTANTS.LIVESBOMBERMAN,powerUps,this.DB,Integer.parseInt(unlockedStageNumber.getText()));
 		myframe.setFocusable(true);
 		myframe.addKeyListener(x);
 		x.setBackground(Color.black);

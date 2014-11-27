@@ -70,7 +70,7 @@ public class LoadGameView extends JPanel
 		}
 		public void loadSavedGames()
 		{
-			    String SavedGameLabel[] = { "Game 1", "Game2", "Game12"};
+			    String SavedGameLabel[] = { "Game 1", "Game2", "Game12","TrialGame"};
 			 //adding action listener and directing it to the appropiate function
 			    JPanel p = new JPanel();
 			    p.setSize(400, 400);
@@ -126,7 +126,7 @@ public class LoadGameView extends JPanel
 		       in.close();
 		       fileIn.close();
 		       System.out.println("Serialized data loaded!");
-		       GameBoardView x= new GameBoardView(myframe,objectLoad,CONSTANTS.LIVESBOMBERMAN,objectLoad.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB);
+		       GameBoardView x= new GameBoardView(myframe,objectLoad,objectLoad.getLives(),objectLoad.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB,objectLoad.getStage());
 				myframe.remove(this);
 				myframe.setFocusable(true);
 				myframe.addKeyListener(x);

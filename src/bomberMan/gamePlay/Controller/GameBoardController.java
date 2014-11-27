@@ -475,7 +475,8 @@ public void killBomberman1(int i, int j){
 			
 			counter1++;
 		}
-		this.gameBoard.getScore().calculateMyScore(killedEnemies);
+		if(killedEnemies.size()>0)
+			this.gameBoard.updateMyScore(killedEnemies);
 }
 	/*
 	 * Detonate a bomb which has a detonator

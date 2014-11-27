@@ -50,17 +50,19 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private JLabel scoreLabel;
 	private JLabel timerLabel;
 	private JLabel livesLabel;
+	private JLabel  stageLabel;
 	private GameBoardController gmController;
 	private int numLivesBomberman;
 	private long currentTime;
 	private UserDatabase DB;
 	private Stage stage;
+	private int curStage;
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
 	 * and adding a key listener to the canvas and painting the init board.
 	 */
-	  public GameBoardView(JFrame myFrame, int numLivesRemainingBomberMan, int powerUpsAcquired[], UserDatabase DB)
+	  public GameBoardView(JFrame myFrame, int numLivesRemainingBomberMan, int powerUpsAcquired[],  UserDatabase DB, int currentStage)
 	  {
 		  super();
 		  this.DB=DB;
@@ -74,11 +76,12 @@ public class GameBoardView extends JPanel implements KeyListener {
 			}
 
 		  this.myFrame=myFrame;
+		  this.curStage = currentStage;
 		  this.numLivesBomberman = numLivesRemainingBomberMan;
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.setLayout(null);
 		  scrollRealtive=0;
-		  myBoard=new GameBoard(Stage.getStage(3), powerUpsAcquired);
+		  myBoard=new GameBoard(this.curStage,Stage.getStage(currentStage), powerUpsAcquired, numLivesRemainingBomberMan,this.DB.getCurrentUser());
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
@@ -102,14 +105,16 @@ public class GameBoardView extends JPanel implements KeyListener {
 			setScoreLabel();
 			setTimerLabel();
 			setLivesLabel();
+			setStageLabel();
 	  }
 	 
 	  
-	  public GameBoardView(JFrame myFrame, GameBoard myBoard, int numLivesRemainingBomberMan, int [] powerUpsAcquired, UserDatabase DB)
+	  public GameBoardView(JFrame myFrame,  GameBoard myBoard, int numLivesRemainingBomberMan, int [] powerUpsAcquired,  UserDatabase DB ,int currentStage)
 	  {
 		  super();
 		  this.DB=DB;
 		  this.myFrame=myFrame;
+		  this.curStage = currentStage;
 		  this.numLivesBomberman = numLivesRemainingBomberMan;
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.myBoard=myBoard;
@@ -141,7 +146,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  
 	  public void setScoreLabel()
 	  {
-			 scoreLabel= new JLabel("Score :"+this.myBoard.getScore().getMyScore());
+			 scoreLabel= new JLabel("Score :"+this.DB.getCurrentUser().getMyScore());
 			 scoreLabel.setSize(200, 50);
 			 scoreLabel.setOpaque(true);
 			 scoreLabel.setForeground(Color.red);
@@ -173,11 +178,21 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  livesLabel.setFont(new Font(livesLabel.getName(), Font.PLAIN, 20));
 		  this.add(livesLabel);  
 	  }
+	  public void setStageLabel(){
+		  livesLabel = new JLabel("Stage : "+ this.curStage);
+		  livesLabel.setSize(200,50);
+		  livesLabel.setOpaque(true);
+		  livesLabel.setForeground(Color.red);
+		  livesLabel.setBackground(new Color(0, 0, 0, 0));
+		  livesLabel.setLocation(350, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
+		  livesLabel.setFont(new Font(livesLabel.getName(), Font.PLAIN, 20));
+		  this.add(livesLabel);  
+	  }
 	  public void updateLives(int lives){livesLabel.setText("Lives : "+ lives);}
 	  public void updateScore()
 	  {   
 	      
-		  scoreLabel.setText("Score :"+this.myBoard.getScore().getMyScore());
+		  scoreLabel.setText("Score :"+this.DB.getCurrentUser().getMyScore());
 	  }
 	  public void updateTimer()
 	  {
@@ -253,6 +268,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 				   this.updateLives(0);
 				//start  LeaderBoard..?
 			}
+			this.runNextStage();
 			}
 	 
 	 /** 
@@ -315,7 +331,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	public void startAgain(){
 		timer2.stop();
 		 myFrame.remove(this);
-			GameBoardView x=new GameBoardView(myFrame, this.numLivesBomberman-1, this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB);
+			GameBoardView x=new GameBoardView(myFrame, this.myBoard.getLives()-1, this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(), this.DB,curStage);
 			myFrame.setFocusable(true);
 			//myframe.addKeyListener(x);
 			x.setBackground(Color.black);
@@ -325,5 +341,31 @@ public class GameBoardView extends JPanel implements KeyListener {
 			myFrame.repaint();
 		        x.requestFocusInWindow();
 		        myFrame.setVisible(true);
+	}
+	public void runNextStage(){
+		int iExitCell = this.myBoard.getExit().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
+		int jExitCell = this.myBoard.getExit().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
+		int iBMBCell = this.myBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
+		int jBMBCell = this.myBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
+		
+		if(iExitCell== iBMBCell && jBMBCell == jExitCell){
+				System.out.println("YESSSS2");
+				if(this.myBoard.getNumEnemies() > 0){
+					timer2.stop();
+					 myFrame.remove(this);
+						GameBoardView x=new GameBoardView(myFrame, this.myBoard.getLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(), this.DB,curStage+1);
+						myFrame.setFocusable(true);
+						//myframe.addKeyListener(x);
+						x.setBackground(Color.black);
+						x.setVisible(true);
+						myFrame.add(x);
+						myFrame.validate();
+						myFrame.repaint();
+					        x.requestFocusInWindow();
+					        myFrame.setVisible(true);
+					
+			
+		}}
+		
 	}
 }

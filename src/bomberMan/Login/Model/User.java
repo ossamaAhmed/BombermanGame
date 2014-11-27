@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import bomberMan.Login.View.LoginView;
+import bomberMan.gamePlay.Model.Enemy;
 import bomberMan.gamePlay.Model.GameBoard;
 
 
@@ -202,10 +203,6 @@ public class User
 		this.password = password;
 	}
 	
-	public int getScore() {
-		return score;
-	}
-	
 	public void setScore(int score) {
 		this.score = score;
 	}
@@ -216,6 +213,20 @@ public class User
 	
 	public void setUnlockedLevel(int unlockedLevel) {
 		this.unlockedLevel = unlockedLevel;
+	}
+	public void calculateMyScore(ArrayList<Enemy> killedEnemies)
+	{
+
+		
+		for(int i=0;i<killedEnemies.size();i++){
+
+			this.score += (killedEnemies.get(i).getScore())*(i+1);
+		}
+		
+	}
+	public int getMyScore()
+	{
+		return this.score;
 	}
 	
 

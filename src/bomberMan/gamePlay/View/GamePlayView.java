@@ -26,7 +26,7 @@ public class GamePlayView {
 		powerUps[0]=0;
 		powerUps[1] = CONSTANTS.BOMB_RANGE1;
 		powerUps[2] = CONSTANTS.DEFAULT_SPEEDBOMBERMAN;
-		board= new GameBoardView(gameView, CONSTANTS.LIVESBOMBERMAN,powerUps);
+		board= new GameBoardView(gameView, CONSTANTS.LIVESBOMBERMAN,powerUps, 1);
 		SwingUtilities.invokeLater(new Runnable() 
 	    {
 	      @Override

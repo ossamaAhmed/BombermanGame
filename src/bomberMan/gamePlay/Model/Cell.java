@@ -99,7 +99,7 @@ public class Cell implements java.io.Serializable {
 	 */
 	public BufferedImage getImage()
 	{
-			if(!isEmpty())
+			if(!(this.myObjects.get(0) instanceof Enemy))
 				return this.myObjects.get(0).getImage();
 			return null;
 			
