@@ -89,7 +89,15 @@ public class SaveGameView extends JPanel
 	{
         System.out.println();
         System.out.println();
-        DB.getCurrentUser().saveGame(this.myBoard, savedGameName.getText());
+    
+        if(!DB.getCurrentUser().gameExists(savedGameName.getText()).equals(" ")) {
+        	// DIsplay a message box
+        	JOptionPane.showMessageDialog(null, "Game already exists!");
+        	return;
+        } else {
+            DB.getCurrentUser().saveGame(this.myBoard, savedGameName.getText());
+        }
+
 //        int errorCode=myController.login(savedGameName.getText(), savedGameName.getText());
 //        if(errorCode==0)
 //        {	
