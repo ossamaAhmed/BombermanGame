@@ -60,7 +60,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private int curStage;
 	private long timeRemaining;
 	private long endingTime;
-	boolean continueTime = true;
+	
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the different instance variable 
@@ -85,7 +85,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.setLayout(null);
 		  scrollRealtive=0;
-		  myBoard=new GameBoard(this.curStage,Stage.getStage(currentStage), powerUpsAcquired, numLivesRemainingBomberMan,this.DB.getCurrentUser());
+		  myBoard=new GameBoard(this.curStage,Stage.getStage(currentStage), powerUpsAcquired, numLivesRemainingBomberMan,this.DB.getCurrentUser(), 0);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
 		  controller=new BomberManController(myBoard);
@@ -122,6 +122,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  this.numLivesBomberman = numLivesRemainingBomberMan;
 		  this.myFrame.setSize(CONSTANTS.SCREEN_WIDTH, CONSTANTS.WINDOW_HEIGHT+100);
 		  this.myBoard=myBoard;
+		  this.timeRemaining = myBoard.getRemainingTime();
 		    this.setLayout(null);
 		  gmController = new GameBoardController(myBoard);
 		  gmController.start();
@@ -169,7 +170,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 timerLabel.setBackground(new Color(0, 0, 0, 0));
 			 timerLabel.setLocation(200, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
 			 timerLabel.setFont(new Font(timerLabel.getName(), Font.PLAIN, 20));
-			 endingTime = CONSTANTS.ENDINGGAMEPLAYTIME + creationTime;
+			 endingTime = CONSTANTS.ENDINGGAMEPLAYTIME + creationTime- this.timeRemaining;
 			 this.add(timerLabel);
 		  
 	  }
@@ -237,15 +238,16 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 }
 		 if(keyE.getKeyCode()==KeyEvent.VK_A)
 		 {
-			 
-			 gmController.dropBombDetonator();
+			if(myBoard.getBomberMan().getHasDetonator() == true){
+			 gmController.dropBombDetonator();}
+			if(myBoard.getBomberMan().getHasDetonator() == false){controller.dropBomb();}
 		 }
 //		 if(keyE.getKeyCode()==KeyEvent.VK_U)
 //		 {
 //			 
 //			 enemyC.run();
 //		 }
-		 if(keyE.getKeyCode()==KeyEvent.VK_D)
+		 if(keyE.getKeyCode()==KeyEvent.VK_B)
 		 { 
 			
 			 gmController.detonateOldestBomb();
@@ -265,8 +267,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 
 		 this.repaint();
-		 if(continueTime){
-		 this.updateTimer();}
+		
+		 this.updateTimer();
 		   // if(this.currentTime >= CONSTANTS.ENDINGGAMEPLAYTIME){ //this.gmController.getBoard().worstPenalty()}
 			if( gmController.getBoard().getBomberMan().getIsAlive() == false && this.numLivesBomberman > 1){
 				this.startAgain();
@@ -330,8 +332,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 	 {
 		 //this.controller.unpause();
 		 timer2.stop();
-		 continueTime = false;
 		 this.timeRemaining = this.currentTime;
+		 this.myBoard.setRemainingTime(this.timeRemaining);
 	 }
 	 public void unpause()
 	 {
@@ -348,7 +350,6 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 timer2.start();
 		 this.endingTime = this.timeRemaining+Calendar.getInstance().getTimeInMillis();
 		 
-		 continueTime = true;
 	 }
 	 
 	public void startController(){  this.gmController.run();}
