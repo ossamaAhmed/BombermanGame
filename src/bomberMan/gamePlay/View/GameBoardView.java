@@ -317,7 +317,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 //this.controller.unpause();
 		 timer2.stop();
 		 continueTime = false;
-		 this.timeRemaining = this.endingTime-(Calendar.getInstance().getTimeInMillis());
+		 this.timeRemaining = this.currentTime;
 	 }
 	 public void unpause()
 	 {
@@ -333,6 +333,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 //			});
 		 timer2.start();
 		 this.endingTime = this.timeRemaining+Calendar.getInstance().getTimeInMillis();
+		 
 		 continueTime = true;
 	 }
 	 
