@@ -57,6 +57,8 @@ public class GameBoardView extends JPanel implements KeyListener {
 	private UserDatabase DB;
 	private Stage stage;
 	private int curStage;
+	private long timeRemaining;
+	private long endingTime;
 	boolean continueTime = true;
 	/** 
 	 * Constructor
@@ -166,6 +168,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 			 timerLabel.setBackground(new Color(0, 0, 0, 0));
 			 timerLabel.setLocation(120, CONSTANTS.SCORE_SCREEN_START_HEIGHT);
 			 timerLabel.setFont(new Font(timerLabel.getName(), Font.PLAIN, 20));
+			 endingTime = CONSTANTS.ENDINGGAMEPLAYTIME + creationTime;
 			 this.add(timerLabel);
 		  
 	  }
@@ -197,7 +200,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 	  }
 	  public void updateTimer()
 	  {
-		  currentTime = CONSTANTS.ENDINGGAMEPLAYTIME-(Calendar.getInstance().getTimeInMillis()-this.creationTime);
+		  currentTime = endingTime-(Calendar.getInstance().getTimeInMillis());
 		  if(currentTime < 0){currentTime = 0;}
 		  timerLabel.setText("Time : "+ currentTime/1000 + " s");
 	  }
@@ -314,6 +317,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 //this.controller.unpause();
 		 timer2.stop();
 		 continueTime = false;
+		 this.timeRemaining = this.endingTime-(Calendar.getInstance().getTimeInMillis());
 	 }
 	 public void unpause()
 	 {
@@ -328,6 +332,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 //			    }
 //			});
 		 timer2.start();
+		 this.endingTime = this.timeRemaining+Calendar.getInstance().getTimeInMillis();
 		 continueTime = true;
 	 }
 	 
