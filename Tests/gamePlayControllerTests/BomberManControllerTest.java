@@ -2,9 +2,12 @@ package gamePlayControllerTests;
 
 import static org.junit.Assert.*;
 
+import java.awt.event.KeyEvent;
+
 import org.junit.*;
 
 import bomberMan.gamePlay.Model.*;
+import bomberMan.gamePlay.Model.Character;
 import bomberMan.gamePlay.Controller.*;
 public class BomberManControllerTest {
 	BomberManController bmCont;
@@ -60,5 +63,111 @@ public class BomberManControllerTest {
 		}
 	}
  @Test
- public void testMove(){}
+ public void testGetMyBoard(){
+	 assertSame(myGameBoard, bmCont.getmyGameBoard());
+ }
+ @Test
+ public void checkCollisionRight(){
+	 int xPos = bmb.getPositionX();
+	 int yPos = bmb.getPositionY();
+	 int speed = bmb.getSpeed();
+	 int width = CONSTANTS.TILE_SIDE_SIZE;
+	 if(!myGameBoard.getCell((yPos)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionRight(bmb,2));}
+	 if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionRight(bmb,2)); 
+	 }
+	 else{
+		 assertTrue(bmCont.checkCollisionRight(bmb,2)==false); 
+	 }
+	
+ }
+
+ @Test
+ public void checkCollisionLeft(){
+	 int xPos = bmb.getPositionX();
+	 int yPos = bmb.getPositionY();
+	 int speed = bmb.getSpeed();
+	 int width = CONSTANTS.TILE_SIDE_SIZE;
+	 if(!this.myGameBoard.getCell((yPos)/width,(xPos - speed)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionLeft(bmb,1));}
+	 if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos - speed)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionLeft(bmb,1)); 
+	 }
+	 else{
+		 assertTrue(bmCont.checkCollisionLeft(bmb,1)==false); 
+	 }
+	
+ }
+
+ @Test
+ public void checkCollisionUp(){
+	 int xPos = bmb.getPositionX();
+	 int yPos = bmb.getPositionY();
+	 int speed = bmb.getSpeed();
+	 int width = CONSTANTS.TILE_SIDE_SIZE;
+	 if(!this.myGameBoard.getCell((yPos - speed)/width,(xPos)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionUp(bmb,3));}
+	 if(!this.myGameBoard.getCell((yPos- speed)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionUp(bmb,3)); 
+	 }
+	 else{
+		 assertTrue(bmCont.checkCollisionUp(bmb,3)==false); 
+	 }
+	
+ }
+ /*if(direction == 4){
+	
+	if(!this.myGameBoard.getCell((yPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos)/width).isEmptyPowerUpException()){
+		collision = true;
+		System.out.println("COLLISION 1");
+		
+	}
+	if(!this.myGameBoard.getCell((yPos+ speed+ CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
+		collision = true;
+		System.out.println("COLLISION 2");	
+	}*/
+ @Test
+ public void checkCollisionDown(){
+	 int xPos = bmb.getPositionX();
+	 int yPos = bmb.getPositionY();
+	 int speed = bmb.getSpeed();
+	 int width = CONSTANTS.TILE_SIDE_SIZE;
+	 if(!this.myGameBoard.getCell((yPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionDown(bmb,4));}
+	 if(!this.myGameBoard.getCell((yPos+ speed+ CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
+	 assertTrue(bmCont.checkCollisionDown(bmb,4)); 
+	 }
+	 else{
+		 assertTrue(bmCont.checkCollisionDown(bmb,4)==false); 
+	 }
+	
+ }
+ @Test
+ public void checkLeftAndRightUpDownTilesCollision(){
+	 
+ }
+ /*public boolean checkLeftAndRightUpDownTilesCollision(Character character, int direction){
+int xPos = character.getPositionX();
+int yPos =character.getPositionY();
+boolean collision = false;
+int heightBMB = CONSTANTS.BOMBERMAN_HEIGHT;
+int widthBMB = CONSTANTS.BOMBERMAN_WIDTH;
+int width = CONSTANTS.TILE_SIDE_SIZE;
+if(direction == 1 || direction == 2){
+boolean right = this.myGameBoard.getCell(((yPos)/width),1+(xPos)/width).isEmptyPowerUpException();
+boolean left = this.myGameBoard.getCell(((yPos)/width),-1+(xPos)/width).isEmptyPowerUpException();
+boolean leftA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),-1+(xPos)/width).isEmptyPowerUpException();
+boolean rightA = this.myGameBoard.getCell(((yPos+heightBMB)/ width),1+(xPos)/width).isEmptyPowerUpException();
+if((!left &&! right) || (!leftA && !rightA)){collision = true;}
+}
+
+if(direction == 3 || direction == 4){
+	boolean down = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos)/width))).isEmptyPowerUpException();
+	boolean up = this.myGameBoard.getCell((-1+(yPos)/width),(((xPos)/width))).isEmptyPowerUpException();
+	boolean downA = this.myGameBoard.getCell((1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
+	boolean upA = this.myGameBoard.getCell((-1+(yPos)/width),( ((xPos+ widthBMB)/width))).isEmptyPowerUpException();
+if((!up && !down) || (!downA && !upA)){
+	collision = true;}}
+return collision;*/
 }
