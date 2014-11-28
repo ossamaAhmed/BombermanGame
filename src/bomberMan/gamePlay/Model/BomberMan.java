@@ -99,14 +99,14 @@ public class BomberMan extends Character implements java.io.Serializable {
 		{
 		super.die();
 		this.setImage(CONSTANTS.BMB_dead);
-		this.setNumOfLives(-1);
+		//this.setNumOfLives(-1);
 		}
 		
 	}	
 	
 	
 	public boolean getHasDetonator(){return this.hasDetonator;}
-	public void addPowerUp(PowerUp powerUp){this.myPowerUps.add(powerUp);}
+	//public void addPowerUp(PowerUp powerUp){this.myPowerUps.add(powerUp);}
 	public void setHasDetonator(boolean set){this.hasDetonator = set;}
 	//changes
 	public int getBombRange(){return this.currentBombRange;}
