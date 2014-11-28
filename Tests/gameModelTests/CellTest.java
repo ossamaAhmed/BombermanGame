@@ -2,9 +2,6 @@ package gameModelTests;
 
 import static org.junit.Assert.*;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import org.junit.*;
 
