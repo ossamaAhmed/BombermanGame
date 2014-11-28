@@ -31,6 +31,7 @@ public class GameBoard implements java.io.Serializable {
 	 * This method takes care of the initialization of the grid as well as the addition of the 
 	 * concrete walls. 
 	 */
+	
 	public GameBoard(int stageNumber, int[] stage, int [] powerUpsKeptAfterDeath, int nLives,User user , long remTime)
 	
 	{   myBombs  = new ArrayList <Bomb>();

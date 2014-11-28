@@ -28,7 +28,7 @@ super(myGameBoard);
  * 
  * 
  * */
-private boolean checkCollision(Character myCharacter, int direction)
+public boolean checkCollision(Character myCharacter, int direction)
 {
 	
 	if(direction == 1){
