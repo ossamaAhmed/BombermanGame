@@ -214,13 +214,34 @@ public void testIsCellSharedWithBOMB(){
 public void testMoveInsideABomb(){
 	myGameBoard.getCell(1, 1).insert(new Bomb(1,1,1,0, false, "Bomb"));
 	myGameBoard.getCell(1,1).setHasABomb(true);
-	bmCont.move(KeyEvent.VK_RIGHT);
+	bmCont.moveInsideBomb(KeyEvent.VK_RIGHT);
 	assertEquals(bmCont.getGameBoard().getBomberMan().getPositionX(),50);
-	bmCont.move(KeyEvent.VK_LEFT);
+	bmCont.moveInsideBomb(KeyEvent.VK_LEFT);
 	assertEquals(bmCont.getGameBoard().getBomberMan().getPositionX(),50); 
-	bmCont.move(KeyEvent.VK_UP);
+	bmCont.moveInsideBomb(KeyEvent.VK_UP);
 	assertEquals(bmCont.getGameBoard().getBomberMan().getPositionY(),50); 
-	bmCont.move(KeyEvent.VK_DOWN);
+	bmCont.moveInsideBomb(KeyEvent.VK_DOWN);
 	assertEquals(bmCont.getGameBoard().getBomberMan().getPositionY(),50); 
+}
+@Test
+public void testDropABomb(){
+	assertTrue(bmCont.getGameBoard().getCell(1,1).getHasABomb()== false);
+	bmCont.dropBomb();
+	assertTrue(bmCont.getGameBoard().getCell(1,1).getHasABomb());
+}
+@Test
+public void testGetDirection(){
+	assertEquals(2, bmCont.getDirection(KeyEvent.VK_RIGHT));
+	assertEquals(1, bmCont.getDirection(KeyEvent.VK_LEFT));
+	assertEquals(4, bmCont.getDirection(KeyEvent.VK_DOWN));
+	assertEquals(3, bmCont.getDirection(KeyEvent.VK_UP));
+}
+@Test
+public void testPickAPowerUp(){
+	bmCont.getGameBoard().getCell(1,1).insert(new PowerUp(40,40,CONSTANTS.BOMBS_POWERUP, PowerUpType.BOMBS, "PowerUp"));
+    
+	assertTrue(bmCont.getGameBoard().getCell(1,1).searcHasAPowerUp());
+	bmCont.pickPowerUp(1,1);
+	assertTrue(bmCont.getGameBoard().getCell(1,1).searcHasAPowerUp() == false);
 }
 }
