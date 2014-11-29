@@ -29,5 +29,7 @@ public class DestroyBomb extends Thread {
 			
 		
 
-	}
-
+	
+  public GameBoardController getGameBoardControlle(){return this.controller;}
+  public GameBoard getGameBoard(){return this.gameBoard;}
+}
