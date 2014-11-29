@@ -50,17 +50,17 @@ public boolean checkCollision(Character myCharacter, int direction)
  * This method takes care of movement of a character if UP, DOWN, RIGHT OR LEFT key was pressed
  * it used the collision function to detect if a move should take place
  */
- public void move(KeyEvent keyE) 	 
+ public void move(int keyE) 	 
  {
 	 this.pickPowerUp(myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE);
 	 if(this.myGameBoard.getBomberMan().getIsAlive()){
 	 if(this.isCellSharedWithBOMB(this.myGameBoard.getBomberMan())){
-		 this.moveInsideBomb(keyE, this.getDirection(keyE),this.getDirectionForbidden(keyE) );
+		 this.moveInsideBomb(this.getDirection(keyE));
 	 }
 	 else if(!this.isCellSharedWithBOMB(this.myGameBoard.getBomberMan())){
 	 boolean centeredXAxis = checkIfCharacterIsCenteredXAxis(myGameBoard.getBomberMan());
 	 boolean centeredYAxis = checkIfCharacterIsCenteredYAxis(myGameBoard.getBomberMan());
-	 if(keyE.getKeyCode() == KeyEvent.VK_RIGHT &&!(checkCollision(myGameBoard.getBomberMan(), 2)))
+	 if(keyE == KeyEvent.VK_RIGHT &&!(checkCollision(myGameBoard.getBomberMan(), 2)))
 	 {
 		
 		 if(!centeredYAxis){
@@ -72,11 +72,11 @@ public boolean checkCollision(Character myCharacter, int direction)
 				 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 			 }
 		 }
-		 	 
+		 System.out.println("MOVING RIGHT");
 		 myGameBoard.getBomberMan().moveRight(myGameBoard.getBomberMan().getSpeed());
 	
 	 }
-	 else if(keyE.getKeyCode() == KeyEvent.VK_LEFT && !(checkCollision(myGameBoard.getBomberMan(), 1)))
+	 else if(keyE == KeyEvent.VK_LEFT && !(checkCollision(myGameBoard.getBomberMan(), 1)))
 	 {
 		
 		 if(!centeredYAxis){
@@ -91,7 +91,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 		 myGameBoard.getBomberMan().moveLeft(myGameBoard.getBomberMan().getSpeed());
 		// this.myGameBoard.getBomberMan().setLastDirection(1);
 	 }
-	 else if(keyE.getKeyCode() == KeyEvent.VK_DOWN && !(checkCollision(myGameBoard.getBomberMan(), 4)))
+	 else if(keyE== KeyEvent.VK_DOWN && !(checkCollision(myGameBoard.getBomberMan(), 4)))
 	 {
 		
 		 if(!centeredXAxis){
@@ -105,7 +105,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 		 myGameBoard.getBomberMan().moveDown(myGameBoard.getBomberMan().getSpeed());
 		 //this.myGameBoard.getBomberMan().setLastDirection(4);
 	 }
-	 else  if(keyE.getKeyCode() == KeyEvent.VK_UP && !(checkCollision(myGameBoard.getBomberMan(), 3)))
+	 else  if(keyE == KeyEvent.VK_UP && !(checkCollision(myGameBoard.getBomberMan(), 3)))
 	 {
 		 
 		 if(!centeredXAxis){
@@ -323,11 +323,11 @@ return false;
  * the bomberman moves inside a cell where there is also a bomb recently dropped.
  * 
  */
-public void moveInsideBomb(KeyEvent e, int directionMove, int directionForbidden){
+public void moveInsideBomb(int directionMove){
 	 boolean centeredXAxis = checkIfCharacterIsCenteredXAxis(myGameBoard.getBomberMan());
 	 boolean centeredYAxis = checkIfCharacterIsCenteredYAxis(myGameBoard.getBomberMan());
 	System.out.println("MOVING INSIDE A BOMB");
-	 myGameBoard.getBomberMan().setForbiddenDirection(directionForbidden);
+	 
 	 int xPos =  myGameBoard.getBomberMan().getPositionX();
 	 int yPos =  myGameBoard.getBomberMan().getPositionY();
 	 int widthBMB =  CONSTANTS.BOMBERMAN_WIDTH;
@@ -454,24 +454,11 @@ public void dropBomb(){
 
 }
 
-/*
- * gets a forbidden direction for the bomberman
- */
-public int getDirectionForbidden(KeyEvent key){
-	if(KeyEvent.VK_LEFT == key.getKeyCode()){return 2;}
-	if(KeyEvent.VK_RIGHT == key.getKeyCode()){return 1;}
-	if(KeyEvent.VK_UP == key.getKeyCode()){return 4;}
-	if(KeyEvent.VK_DOWN == key.getKeyCode()){return 3;}
-	return -1;
-}
-/*
- * gets a direction from the KeyEvent Input
- */
-public int getDirection(KeyEvent key){
-	if(KeyEvent.VK_LEFT == key.getKeyCode()){return 1;}
-	if(KeyEvent.VK_RIGHT == key.getKeyCode()){return 2;}
-	if(KeyEvent.VK_UP == key.getKeyCode()){return 3;}
-	if(KeyEvent.VK_DOWN == key.getKeyCode()){return 4;}
+public int getDirection(int key){
+	if(KeyEvent.VK_LEFT == key){return 1;}
+	if(KeyEvent.VK_RIGHT == key){return 2;}
+	if(KeyEvent.VK_UP == key){return 3;}
+	if(KeyEvent.VK_DOWN == key){return 4;}
 	return -1;
 }
 public void pickPowerUp(int i, int j){

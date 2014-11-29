@@ -224,7 +224,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		 
 		 if (keyE.getKeyCode() == KeyEvent.VK_RIGHT || keyE.getKeyCode() == KeyEvent.VK_LEFT || keyE.getKeyCode() == KeyEvent.VK_DOWN || keyE.getKeyCode() == KeyEvent.VK_UP)
 		 {
-			 controller.move(keyE);
+			 controller.move(keyE.getKeyCode());
 			 this.updateGameBoardView();
 		 }
 		 if(keyE.getKeyCode()== KeyEvent.VK_Q){controller.dropBomb();}
