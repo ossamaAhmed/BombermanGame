@@ -347,7 +347,9 @@ public class Cell implements java.io.Serializable {
 					return new PowerUp();
 				}
 	//removes the flames from the cell
-	public void removeFlames(){if(this.myObjects.size() > 0){this.myObjects.remove(searchFlameObject());}}
+	public void removeFlames(){if(this.myObjects.size() > 0){
+		
+		this.myObjects.remove(searchFlameObject()); this.hasAFlame = false;}}
 
 	
 	//verifies if the cuttent cell has a flame

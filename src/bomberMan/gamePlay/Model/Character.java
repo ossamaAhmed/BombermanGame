@@ -65,7 +65,7 @@ public class Character extends GameObject implements java.io.Serializable {
 	 * This method moves the character right given the numberOfSteps in pixels 
 	 */
 	public void moveRight(int steps) {
-		
+		System.out.println("MOVING RIGHT11");
 		setPositionX(getPositionX()+steps);
 	}
 	/** 
