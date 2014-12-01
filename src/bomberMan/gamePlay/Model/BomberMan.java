@@ -279,7 +279,7 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method returns the power ups that are kepty by the bomberman after he dies, as long as
 	 * he has more than 0 lives remaining. 
-	 * @return
+	 * @return int[] an integer array containing the power ups kept by the bomberman after he dies.
 	 */
 	public int[] getPowerUpsKeptAfterDeath(){
 		int [] powerUps = new int [3];
