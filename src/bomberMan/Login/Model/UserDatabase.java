@@ -35,7 +35,7 @@ public class UserDatabase
 	/*
 	 * Create a proper database if existing one is empty or doesn't exist
 	 */
-	private boolean createDatabase(String accountFile) 
+	public boolean createDatabase(String accountFile) 
 	{
 		// Write header in the following format:
 		// Name,Password,Username,Score

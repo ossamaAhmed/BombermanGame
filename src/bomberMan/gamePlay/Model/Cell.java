@@ -369,31 +369,28 @@ public class Cell implements java.io.Serializable {
 				 this.myObjects.remove(i);}}}
 	
 	}
-	public BomberMan getBomberMan(){return this.myBomberMan;}
+	public BomberMan getBomberMan(){
+		return this.myBomberMan;
+	}
 	
-	//get set parent cell for astar search
 	public void setParent(Cell cell){
 		this.parent = cell;
 	}
-	//get parent to help return the path
 	public Cell getParent(){
 		return this.parent;
 	}
-	//set steps score
 	public void setGscore(int i) {
 		this.gscore = i;
 	}
 	public int getGScore() {
 		return this.gscore;
 	}
-	//set f score, to determine astar pathfinding
 	public void setFscore(int manhattan) {
 		this.fscore = this.gscore + manhattan;
 	}
 	public int getFscore() {
 		return this.fscore;
 	}
-	// get X, Y coordinates
 	public int getX(){
 		return yPos/CONSTANTS.TILE_SIDE_SIZE;
 	}
