@@ -54,8 +54,8 @@ public class Cell implements java.io.Serializable {
  * @param yPos integet position on the y axis of the game board.
  * @param myBomberman
  */
-	public Cell(int xPos, int yPos, BomberMan myBomberman)
-	{   this.myBomberMan = myBomberman;
+	public Cell(int xPos, int yPos, BomberMan myBomberman){ 
+		this.myBomberMan = myBomberman;
 		this.xPos = xPos;
 	    this.yPos = yPos;
 	    image=null;
@@ -71,8 +71,7 @@ public class Cell implements java.io.Serializable {
 	 * the cell
 	 * @param myObject , the GameObject that is going to be placed in the cell.
 	 */
-	public Cell(GameObject myObject)
-	{
+	public Cell(GameObject myObject)	{
 		timer = Calendar.getInstance();
 		this.myObjects=new ArrayList<GameObject>();
 		this.myObjects.add(myObject);
@@ -85,8 +84,7 @@ public class Cell implements java.io.Serializable {
 	 * @param myObject, the GameObject that is going to be inserted in the cell.
 	 * @return void
 	 */
-	public void insert(GameObject myObject)
-	{
+	public void insert(GameObject myObject)	{
 		this.myObjects.add(myObject);
 	}
 	
@@ -96,16 +94,14 @@ public class Cell implements java.io.Serializable {
 	 * @param myObject the GameObject that is going to be removed from the cell
 	 * @return void
 	 */
-	public void remove(GameObject myObject)
-	{
+	public void remove(GameObject myObject){
 		this.myObjects.remove(myObject);
 	}
 	/** 
 	 * This method returns an arraylist of all the objects present in this cell.
 	 * @return ArrayList<GameObject> representing all the GameObjects currently placed in the cell.
 	 */
-	public ArrayList<GameObject> getObjects()
-	{
+	public ArrayList<GameObject> getObjects(){
 		return this.myObjects;	
 	}
 	/** 
@@ -116,8 +112,7 @@ public class Cell implements java.io.Serializable {
 	 * This function throws an exception that should be collected  in a log file.
 	 * @return BufferedImage the image of the most visible gameObject in the cell.
 	 */
-	public BufferedImage getImage()
-	{
+	public BufferedImage getImage(){
 			if(!(this.myObjects.get(0) instanceof Enemy))
 				return this.myObjects.get(0).getImage();
 			return null;
@@ -130,8 +125,7 @@ public class Cell implements java.io.Serializable {
 	 * 
 	 */
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty(){
 		
 		return this.myObjects.isEmpty();
 	}
@@ -140,8 +134,7 @@ public class Cell implements java.io.Serializable {
 	 * a brick .
 	 * @return true if the cell a brick, false otherwise.
 	 */
-	public boolean isEmptyBrickException()
-	{
+	public boolean isEmptyBrickException(){
 		
 		if(this.searcHasABrickWall() == true){return true;}
 		if(this.searcHasAConcreteWall() == true){return false;}
@@ -153,8 +146,7 @@ public class Cell implements java.io.Serializable {
      * @return boolean true if the cell has an enemy, false otherwise.
      */
 	
-	public boolean isThereAnEnemy()
-	{
+	public boolean isThereAnEnemy(){
 		for(int i=0;i<myObjects.size();i++)
 		{
 			if(myObjects.get(i) instanceof Enemy)
@@ -166,8 +158,7 @@ public class Cell implements java.io.Serializable {
 	 * This method deletes the enemies present inside the cell.
 	 * @return void
 	 */
-	public void deleteEnemies()
-	{
+	public void deleteEnemies(){
 		while(this.isThereAnEnemy())
 		{
 			for(int i=0;i<myObjects.size();i++)
@@ -185,8 +176,7 @@ public class Cell implements java.io.Serializable {
 	 * This method returns an ArrayList containing the enemies present inside the cell.
 	 * @return ArrayList<Enemy> containing the enemies present inside the cell.
 	 */
-	public ArrayList<Enemy> getEnemies()
-	{
+	public ArrayList<Enemy> getEnemies(){
 		ArrayList<Enemy> myEnemies=new ArrayList<Enemy>();
 		for(int i=0;i<myObjects.size();i++)
 		{
@@ -202,9 +192,8 @@ public class Cell implements java.io.Serializable {
 	 * the bomberman has.
 	 * @return boolean true if the cell is set to be empty, false otherwise.
 	 */
-	public boolean isEmptyPowerUpException()
-	{
-		System.out.println(this.myBomberMan.getBrickPass()+"!");
+	public boolean isEmptyPowerUpException(){
+	
 		if(this.searcHasAExit() == true && this.searcHasABrickWall()== false){return true;}
 		if(this.isThereAnEnemy() == true)
 		{
@@ -354,8 +343,7 @@ public class Cell implements java.io.Serializable {
 	 * @param search the GameObject typed passed as  a String.
 	 * @return true if the GameObject is contained in the cell, false otherwise.
 	 */
-	public boolean searchTheCell(String search)
-	{
+	public boolean searchTheCell(String search){
 		if(search.equals("CONCRETE")&&searcHasAConcreteWall())
 			return true;
 		if(search.equals("BRICK")&&searcHasABrickWall())
@@ -371,8 +359,7 @@ public class Cell implements java.io.Serializable {
 	 * This method searches for a concrete wall inside the cell.
 	 * @return true if the cell has a concrete wall, false otherwise.
 	 */
-	public boolean searcHasAConcreteWall()
-	{
+	public boolean searcHasAConcreteWall(){
 		int i = 0;
 		if(this.myObjects.size() >0){
 		for(i =0; i< this.myObjects.size(); i++){
@@ -388,8 +375,7 @@ public class Cell implements java.io.Serializable {
 	 * This method searches for a brick wall inside the cell.
 	 * @return true if the cell has a brick wall, false otherwise.
 	 */
-	public boolean searcHasABrickWall()
-		{
+	public boolean searcHasABrickWall(){
 			int i = 0;
 			if(this.myObjects.size() >0){
 			for(i =0; i< this.myObjects.size(); i++){
@@ -404,8 +390,7 @@ public class Cell implements java.io.Serializable {
 	 * This method searches for a power up inside the cell.
 	 * @return true if the cell has a power up, false otherwise.
 	 */
-	    public boolean searcHasAPowerUp()
-				{
+	    public boolean searcHasAPowerUp(){
 					int i = 0;
 					if(this.myObjects.size() >0){
 					for(i =0; i< this.myObjects.size(); i++){

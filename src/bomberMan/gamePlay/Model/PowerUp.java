@@ -26,8 +26,7 @@ public class PowerUp extends GameObject implements java.io.Serializable {
 	 * Default constructor for the PowerUp object.
 	 * Calls the parent constructor of the PowerUp
 	 */
-	public PowerUp()
-	{
+	public PowerUp(){
 		super("PowerUp");
 		type=null;
 	}
