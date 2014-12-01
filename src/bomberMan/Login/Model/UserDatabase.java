@@ -32,13 +32,17 @@ public class UserDatabase
 		accountFile = fileName;		
 	}
 	
+	public void setCurrentUser(User user) {
+		currentUser = user;
+	}
+	
 	/*
 	 * Create a proper database if existing one is empty or doesn't exist
 	 */
-	private boolean createDatabase(String accountFile) 
+	public boolean createDatabase(String accountFile) 
 	{
 		// Write header in the following format:
-		// Name,Password,Username,Score
+		// Name,Password,Username,Score,Level Unlocked
 		
 		try {
 			// Open up the database file for writing
@@ -57,6 +61,7 @@ public class UserDatabase
 	 * Check if a given username already exists in the database
 	 */
 	public boolean userExists(String user) {
+		System.out.println("FILE: " + accountFile);
 		try {
 	        CSVReader reader = new CSVReader(new FileReader(accountFile));
 	        List<String[]> allRecords = reader.readAll();
@@ -233,10 +238,10 @@ public boolean modifyProfile(String[] userData) {
 		try {
 	        CSVReader reader = new CSVReader(new FileReader(accountFile));
 	        List<String[]> allRecords = reader.readAll();
-
+	        reader.close();
+	        
 	        if (allRecords.size() == 0) {
 	        	// File is empty for some reason. A valid file should have header.
-	        	reader.close();
 	        	return false;
 	        }
 	        
@@ -252,7 +257,6 @@ public boolean modifyProfile(String[] userData) {
 	            	break;
 	            }
 	        }
-	        
 	        	    	
 	        if (userFound) {
 	        	// Write the update record list into the file

@@ -4,7 +4,17 @@
  * This Class represents the control of the bomberman character on screen. Mainly for dropping and detonating bombs 
  * and catching power ups.
  */
-
+/**
+ * This class contains various methods for manipulating the bomberman movement and dropping normal bombs that are not going
+ * to be detonated as well as for allowing the bomberman to pick up power ups. 
+ * 
+ * The documentation for the methods contained in this class includes
+ * briefs descriptions of the implementations. Such descriptions
+ * should be regarded as implementation notes, rather than parts of specifications
+ * @author Andres Felipe Rincon Gamboa
+ * 
+ * 
+ */
 package bomberMan.gamePlay.Controller;
 import bomberMan.gamePlay.Model.*;
 
@@ -15,19 +25,26 @@ import bomberMan.gamePlay.Model.Character;
 public class BomberManController extends CharacterController {
 
 	Calendar timer;
-	/*
- * BombermanController constructor
- * */	
 	
 	
+/**
+ * Constructs a BomberManController objects given a Gameboar object which represents a given map for 
+ * the gameplay.	
+ * @param myGameBoard the gameboard or map that contains the static objects as well as the enemies that are going to be displayed during a game session
+ * @return N/A.
+ */
 public BomberManController(GameBoard myGameBoard){
 
 super(myGameBoard);
 }
-/*This functions checks if the bomberman next moves are going to cause a collision with other GameObjects.
+/**
+ * This functions checks if the bomberman next moves are going to cause a collision with other GameObjects.
  * 
  * 
- * */
+ * @param character the object character represents a character on the game, like an enemy or the bomberman.
+ * @param direction an integer that represents the direction that the character object is following
+ * @return a boolean, tru if the character has a collision for the given direction, false otherwise.
+ */
 public boolean checkCollision(Character myCharacter, int direction)
 {
 	
@@ -49,6 +66,9 @@ public boolean checkCollision(Character myCharacter, int direction)
 /** 
  * This method takes care of movement of a character if UP, DOWN, RIGHT OR LEFT key was pressed
  * it used the collision function to detect if a move should take place
+ *
+ *@param keyE an integer that represents the key typed by the user.
+ *@return void
  */
  public void move(int keyE) 	 
  {
@@ -72,7 +92,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 				 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 			 }
 		 }
-		 System.out.println("MOVING RIGHT");
+		 
 		 myGameBoard.getBomberMan().moveRight(myGameBoard.getBomberMan().getSpeed());
 	
 	 }
@@ -123,19 +143,24 @@ public boolean checkCollision(Character myCharacter, int direction)
 	 }
 	 
  }
- /*
-  * Returns the myGameBoard field of the BomberManController class
+ /**
+  * Returns the myGameBoard field variable of the BomberManController class
+  * 
+  * @return GameBoard the gameboard field variable of the BomberManController
   * */
  public GameBoard getmyGameBoard(){return this.myGameBoard;}
- /*
+ /**
   * Checks if the Bomberman move to the right is going to cause a collision with a GameObject
+  * 
+  * @param character the character object for which the movement is going to be checked for a possible collision given the direction passed as input.
+  * @param direction integer representing a direction that the character is going to follow
+  * @return boolean representing true if the movement of the character given the direction is going to cause a collision, false otherwise.
   * */
  
 public boolean checkCollisionRight(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
+
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -144,25 +169,27 @@ if(direction == 2){
 	
 	if(!this.myGameBoard.getCell((yPos)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
+		
 		
 	}
 	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+		
 	}
 	
 }
 return collision;	
 }
-/*
- * Checks if the Bomberman move to the Left is going to cause a collision with a GameObject
+/**
+ * Checks if the Bomberman move to the left  is going to cause a collision with a GameObject
+ * 
+ * @param character the character object for which the movement is going to be checked for a possible collision given the direction passed as input.
+ * @param direction integer representing a direction that the character is going to follow
+ * @return boolean representing true if the movement of the character given the direction is going to cause a collision, false otherwise.
  * */
 public boolean checkCollisionLeft(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -171,25 +198,26 @@ if(direction == 1){
 	
 	if(!this.myGameBoard.getCell((yPos)/width,(xPos - speed)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
 		
 	}
 	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos - speed)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+			
 	}
 	
 }
 return collision;	
 }
-/*
- * Checks if the Bomberman move to the North is going to cause a collision with a GameObject
+/**
+ * Checks if the Bomberman move to the north is going to cause a collision with a GameObject
+ * 
+ * @param character the character object for which the movement is going to be checked for a possible collision given the direction passed as input.
+ * @param direction integer representing a direction that the character is going to follow
+ * @return boolean representing true if the movement of the character given the direction is going to cause a collision, false otherwise.
  * */
 public boolean checkCollisionUp(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -198,25 +226,26 @@ if(direction == 3){
 	
 	if(!this.myGameBoard.getCell((yPos - speed)/width,(xPos)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
 		
 	}
 	if(!this.myGameBoard.getCell((yPos- speed)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+		
 	}
 	
 }
 return collision;	
 }
-/*
- * Checks if the Bomberman move to the South is going to cause a collision with a GameObject
+/**
+ * Checks if the Bomberman move to the south is going to cause a collision with a GameObject
+ * 
+ * @param character the character object for which the movement is going to be checked for a possible collision given the direction passed as input.
+ * @param direction integer representing a direction that the character is going to follow
+ * @return boolean representing true if the movement of the character given the direction is going to cause a collision, false otherwise.
  * */
 public boolean checkCollisionDown(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -225,21 +254,24 @@ if(direction == 4){
 	
 	if(!this.myGameBoard.getCell((yPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
+		
 		
 	}
 	if(!this.myGameBoard.getCell((yPos+ speed+ CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+		
 	}
 	
 }
 return collision;	
 }
-/*
+/**
  * Checks if the Bomberman is either between 2 GameObjects placed to its right and left if direction = 1 or direction = 2.
  * Checks if the Bomberman is either between 2 GameObjects placed to its north and south if direction = 3 or direction = 4.
  * 
+ * @param character a Character object for which a collision is going to be verified given the direction passed as input
+ * @param direction an integer representing the direction of the character
+ * @return boolean true if the character has a collision given the input direction, false otherwise.
  * */
 public boolean checkLeftAndRightUpDownTilesCollision(Character character, int direction){
 int xPos = character.getPositionX();
@@ -265,38 +297,48 @@ if((!up && !down) || (!downA && !upA)){
 	collision = true;}}
 return collision;
 }
-/*Checks if the character is centered with the X axis = 0;
- * 
+/**
+ * Checks if the character is centered with the X axis = 0;
+ * @param character the Character object that is going to be checked
+ * @return boolean true if the character is  centered on the X axis, false otherwise.
  */
 public boolean checkIfCharacterIsCenteredXAxis(Character character){
 
   boolean verify = character.getPositionX() % CONSTANTS.TILE_SIDE_SIZE == ((CONSTANTS.TILE_SIDE_SIZE/2)-(CONSTANTS.BOMBERMAN_WIDTH/2));
   return verify;	
 }
-/*Checks if the character is centered with the y axis = 0;
- * 
+/**
+ * Checks if the character is centered with the y axis = 0;
+ * @param character the Character object that is going to be checked
+ * @return boolean true if the character is centered on the y axis, false otherwise.
  */
 public boolean checkIfCharacterIsCenteredYAxis(Character character){
 
 boolean verify = character.getPositionY() % CONSTANTS.TILE_SIDE_SIZE == ((CONSTANTS.TILE_SIDE_SIZE/2)-(CONSTANTS.BOMBERMAN_HEIGHT/2));
 return verify;	
 }
-/*returns the offset of the bomberman from the x axis.
- * 
+/**
+ * returns the offset of the bomberman from the x axis.
+ * @param character the Character object
+ * @return integer representing the offset of the character from the x axis.
  */
 public int computeOffsetFromCenterXaxis(Character character){
 int offset = (character.getPositionX()%CONSTANTS.TILE_SIDE_SIZE)-(CONSTANTS.TILE_SIDE_SIZE/2);
 return offset;	
 }
-/*returns the offset of the bomberman from the y axis.
- * 
+/**
+ * returns the offset of the bomberman from the y axis.
+ * @param character the Character object
+ * @return integer representing the offset of the character from the y axis
  */
 public int computeOffsetFromCenterYaxis(Character character){
 int offset =(character.getPositionY()%CONSTANTS.TILE_SIDE_SIZE)-(CONSTANTS.TILE_SIDE_SIZE/2);
 return offset;	
 }
-/* verifies if the current bomberman cell is shared with a bomb.
- * 
+/**
+ * Verifies if the current bomberman cell is shared with a bomb.
+ * @param the character that is going to be checked. 
+ * @return boolean true if the character shares a cell or a tile with a bomb object. False otherwise.
  */
 public boolean isCellSharedWithBOMB(Character character){
 int xLeft =character.getPositionX();
@@ -305,28 +347,31 @@ int yLeft = character.getPositionY();
 int widthBMB = CONSTANTS.BOMBERMAN_WIDTH;
 int size = CONSTANTS.TILE_SIDE_SIZE;
 if(this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasABomb() || this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+	
 	return true;}
 if(this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasABomb() || this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+
 	return true;}
 if(this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasABomb()|| this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+	
 	return true;}
 if(this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasABomb() || this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+	
 	return true;}
-System.out.println("IS not SHARED WITH A BOMB AND HAS NO BOMB");
+
 return false;
 }
-/*  when the bomberman shares a cell with a bomb, it means that it recently dropped it, so this functions manages
+/**
+ *   When the bomberman, a Character object, shares a cell with a bomb, it means that it recently dropped it, so this functions manages
  * the bomberman moves inside a cell where there is also a bomb recently dropped.
  * 
+ * @param directionMove integer representing the direction of the bomberman movement inside a cell that also has a Bomb object.
+ * @return void
  */
 public void moveInsideBomb(int directionMove){
 	 boolean centeredXAxis = checkIfCharacterIsCenteredXAxis(myGameBoard.getBomberMan());
 	 boolean centeredYAxis = checkIfCharacterIsCenteredYAxis(myGameBoard.getBomberMan());
-	System.out.println("MOVING INSIDE A BOMB");
+	
 	 
 	 int xPos =  myGameBoard.getBomberMan().getPositionX();
 	 int yPos =  myGameBoard.getBomberMan().getPositionY();
@@ -435,8 +480,9 @@ public void moveInsideBomb(int directionMove){
 	 }
 		
 }
-/*
- * Drops a  bomb that is not going to be detonated
+/**
+ *  * Drops a  bomb that is not going to be detonated
+ *@return void
  */
 public void dropBomb(){
 	 
@@ -453,7 +499,11 @@ public void dropBomb(){
 	 }
 
 }
-
+/**
+ * Converts a direction represented as an integer into either one of these directions 1= Left, 2 = Right, 3 = Up 4 = Down
+ * @param key
+ * @return integer representing one of the fourth directions 1(Left), 2(Right), 3(Up) or 4(Down).
+ */
 public int getDirection(int key){
 	if(KeyEvent.VK_LEFT == key){return 1;}
 	if(KeyEvent.VK_RIGHT == key){return 2;}
@@ -461,68 +511,73 @@ public int getDirection(int key){
 	if(KeyEvent.VK_DOWN == key){return 4;}
 	return -1;
 }
+/**
+ * Checks for a given cell position (i, j) if the bomnberman is inside the cell represented by the (i, j) position.
+ * If the bomberman is in the cell position, the power up in the cell(i,j) is given to the bomberman
+ * @param i integer representing a row on the 13x31 tiles game board
+ * @param j integer representing a column on the 13x31 tiles game board.
+ */
 public void pickPowerUp(int i, int j){
 	
 	 
 	 
 	
 	 if(myGameBoard.getCell(i, j).searcHasAPowerUp() == true && myGameBoard.getCell(i, j).searcHasAConcreteWall() == false ){
-		 System.out.println("DOING THE RIGHT THING");
+		 
 		 if(myGameBoard.getBomberMan().getICell() == i && myGameBoard.getBomberMan().getJCell() == j){
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
-			 System.out.println("Getting speed powerUp");
+			
 			 myGameBoard.getBomberMan().updateSpeed(myGameBoard.getBomberMan().getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
 			 System.out.println("Getting detonator powerUp");
 			 myGameBoard.getBomberMan().setHasDetonator(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
-			 System.out.println("Getting bombpass powerUp");
+			
 			 myGameBoard.getCell(i,j).getBomberMan().setBombPass(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
-			 System.out.println("Getting flamepass powerUp");
+			 
 			 myGameBoard.getBomberMan().setFlamePass(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
-			 System.out.println("Getting brickpass powerUp");
+			
 			 myGameBoard.getCell(i,j).getBomberMan().setBrickPass(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
-			 System.out.println("Getting bombs powerUp");
+			
 			 myGameBoard.getBomberMan().setNumBombsToDrop(1);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMES){
-			 System.out.println("Getting bombs powerUp");
+			 
 			 myGameBoard.getBomberMan().setBombRange(1);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.MYSTERY){
-			 System.out.println("Getting INVISIBILITY powerUp");
+		
 			 myGameBoard.getBomberMan().setInvisibilityPowerUp(true);
 			 myGameBoard.getCell(i,j).getBomberMan().setInvisibilityPowerUp(true);
 			 myGameBoard.getBomberMan().setCreationInvisibilityPowerUp();
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
-		 }
+					 }
 		 
 		 }}}
 

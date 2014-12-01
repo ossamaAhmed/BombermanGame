@@ -1,4 +1,5 @@
 "Name","Password","Username","Score","Level Unlocked"
+<<<<<<< HEAD
 "Demo01 ","Dem@Us3R01","Demo01","13000","11"
 "Demo02","Dem@Us3R02","Demo02","10000","11"
 "Demo03","Dem@Us3R03","Demo03","13000","13"
@@ -14,3 +15,8 @@
 "Georges Assouad","LeNoiR-22","Georges","100","1"
 "sam","Monday8&","sam","300","1"
 "sam ahmed","Monday8&","samahmed","300","1"
+=======
+"Natalie Portman","Blackswan1@","natalieportman","400","1"
+"Keira Knightley","Beginagain2#","keiraknightley","1000","1"
+
+>>>>>>> 28e7bba2eabbc6301baff43a98c4864bc5da9fff

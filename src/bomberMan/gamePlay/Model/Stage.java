@@ -1,8 +1,16 @@
 
 package bomberMan.gamePlay.Model;
 
+/**
+ * This class contains all the normal and bonus stage information stored as a
+ * double integer array. The stages can be also be obtained through the get methods.
+ * 
+ * @author Tong Yi
+ *
+ */
 public class Stage implements java.io.Serializable{
-	private int bonusStage[][] = {
+	
+	private static int bonusStage[][] = {
 			{1,0,0,0,0,0,0,0},
 			{0,1,0,0,0,0,0,0},
 			{0,0,1,0,0,0,0,0},
@@ -77,7 +85,19 @@ public class Stage implements java.io.Serializable{
 			{0,0,0,0,1,2,6,1,7},
 			{0,0,0,0,1,2,5,2,8}
 	};
-			
+
+	/**
+	 * Method which given a stage number will return the appropriate stage
+	 * information stored in a integer array. The first eight positions
+	 * corresponds to an enemy type, while each integer within each position
+	 * corresponds to the number of enemies. In the ninth position is the power
+	 * up type, with different integer representing different power ups.
+	 * 
+	 * @param x
+	 *            an integer which corresponds to the stage
+	 * @return integer array with its appropriate enemies and power ups to that
+	 *         particular stage.
+	 */
 	public static int[] getStage(int x){
 		int stage[] = new int[9];
 		for(int i = 0; i < 9; i++){
@@ -85,7 +105,19 @@ public class Stage implements java.io.Serializable{
 		}
 		return stage;
 	}
-	public int[] getBonus(int x){
+
+	/**
+	 * Method which given a bonus stage number will return the appropriate bonus
+	 * stage in an integer array with each position representing an enemy, with
+	 * 1 in the appropriate slot to tell the game to spawn infinite many
+	 * enemies.
+	 * 
+	 * @param x
+	 *            an integer which corresponds to the bonus stage
+	 * @return integer array with zeroes in all other position except the one
+	 *         where infinite enemies are supposed to appear.
+	 */
+	public static int[] getBonus(int x){
 		int stage[] = new int[9];
 		for(int i = 0; i < 9; i++){
 			stage[i] = bonusStage[x-1][i];

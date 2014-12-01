@@ -12,7 +12,7 @@ public class ScoreTest {
 	@Test
 	public void testCalculateScoreForOneEnemy() {
 		ArrayList<Enemy> killed = new ArrayList<Enemy>();
-		killed.add(new LowIntelligenceEnemy(0, 0, 0, "Balloom"));
+		killed.add(new LowIntelligenceEnemy(0, 0, 0, "Balloon"));
 		int expected = 100;
 		score.calculateMyScore(killed);
 		int actual = score.getMyScore();
