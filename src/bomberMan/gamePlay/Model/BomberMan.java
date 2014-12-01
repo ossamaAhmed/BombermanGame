@@ -52,8 +52,7 @@ public class BomberMan extends Character implements java.io.Serializable {
 	 * @parm xPos the x position of the bomberman on the x axis of the game board.
 	 * @param yPos the y position of the bomberman on the x axis of the game board.
 	 */
-	public BomberMan(int xPos,int yPos)
-	{
+	public BomberMan(int xPos,int yPos)	{
 		super(xPos,yPos,CONSTANTS.BomberMan_IMAGE,"BomberMan");
 		this.myPowerUps=new ArrayList<PowerUp>();
 		this.myBombs=new ArrayList<Bomb>();
@@ -139,8 +138,7 @@ public class BomberMan extends Character implements java.io.Serializable {
 	 * This method makes the bomberman die.
 	 * @return void
 	 */
-	public void die()
-	{
+	public void die(){
 		//if bomberm
 		if(!this.invisibilityPowerUp)
 		{
@@ -281,7 +279,7 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method returns the power ups that are kepty by the bomberman after he dies, as long as
 	 * he has more than 0 lives remaining. 
-	 * @return
+	 * @return int[] an integer array containing the power ups kept by the bomberman after he dies.
 	 */
 	public int[] getPowerUpsKeptAfterDeath(){
 		int [] powerUps = new int [3];

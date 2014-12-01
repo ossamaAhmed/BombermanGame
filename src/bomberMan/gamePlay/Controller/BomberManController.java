@@ -45,8 +45,7 @@ super(myGameBoard);
  * @param direction an integer that represents the direction that the character object is following
  * @return a boolean, tru if the character has a collision for the given direction, false otherwise.
  */
-public boolean checkCollision(Character myCharacter, int direction)
-{
+public boolean checkCollision(Character myCharacter, int direction){
 	
 	if(direction == 1){
 		if(this.checkLeftAndRightUpDownTilesCollision(myCharacter, 1)){return true;}
@@ -70,8 +69,7 @@ public boolean checkCollision(Character myCharacter, int direction)
  *@param keyE an integer that represents the key typed by the user.
  *@return void
  */
- public void move(int keyE) 	 
- {
+ public void move(int keyE) {
 	 this.pickPowerUp(myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE);
 	 if(this.myGameBoard.getBomberMan().getIsAlive()){
 	 if(this.isCellSharedWithBOMB(this.myGameBoard.getBomberMan())){
@@ -109,7 +107,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 			 }
 		 }
 		 myGameBoard.getBomberMan().moveLeft(myGameBoard.getBomberMan().getSpeed());
-		// this.myGameBoard.getBomberMan().setLastDirection(1);
+		
 	 }
 	 else if(keyE== KeyEvent.VK_DOWN && !(checkCollision(myGameBoard.getBomberMan(), 4)))
 	 {
@@ -123,7 +121,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 		 }}
 		 
 		 myGameBoard.getBomberMan().moveDown(myGameBoard.getBomberMan().getSpeed());
-		 //this.myGameBoard.getBomberMan().setLastDirection(4);
+		 
 	 }
 	 else  if(keyE == KeyEvent.VK_UP && !(checkCollision(myGameBoard.getBomberMan(), 3)))
 	 {
@@ -519,7 +517,6 @@ public int getDirection(int key){
  */
 public void pickPowerUp(int i, int j){
 	
-	 
 	 
 	
 	 if(myGameBoard.getCell(i, j).searcHasAPowerUp() == true && myGameBoard.getCell(i, j).searcHasAConcreteWall() == false ){

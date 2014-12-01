@@ -64,8 +64,6 @@ public void run(){
  
 public void detonateRegularBombs(){
 	
-
-	
 	if(gameBoard.getBombs().size()>0){
 	for(int k=0;k<gameBoard.getBombs().size();k++)
 	 {
