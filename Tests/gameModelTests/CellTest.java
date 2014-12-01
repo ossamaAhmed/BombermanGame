@@ -369,7 +369,7 @@ public class CellTest {
 	public void testSearcHasAExit()
 	{
 		assertTrue(cell1.searcHasAExit() == false);
-		ExitDoor1 gmObject = new ExitDoor1(1,1, CONSTANTS.EXIT_IMAGE,"ExitDoor");
+		Exit gmObject = new Exit(1,1, CONSTANTS.EXIT_IMAGE,"ExitDoor");
 		cell1.insert(gmObject);
 		assertTrue(cell1.searcHasAExit());
 		cell1.remove(gmObject);

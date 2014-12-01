@@ -1,94 +1,101 @@
+/* 
+ * File: Enemy.java
+ * -----------------------
+ * This Class represents the enemy abstract class. Any enemy should extend this class
+ */
 package bomberMan.gamePlay.Model;
 
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 public class Enemy extends Character implements java.io.Serializable {
+	
+	/*Instance Variables*/
 	private boolean wallPass;
 	private int movmentDirection;
 	private int expectedNextMovmentDirection;
-	private transient BufferedImage image;
 	private int score;
 	
-	
-	public Enemy(int xPos,int yPos,int movmentDirection,String enemyName)
-	{
+	/** 
+	 * Constructor
+	 * This method takes care of the initialization of the enemy including position, initial
+	 * Movement direction and enemyName.
+	 * @param x is the x position of the wall on the screen 
+	 * @param y is the y position of the wall on the screen
+	 * @param movmentDirection is the initial movment direction of the enemy.
+	 * @param enemyName is the enemy name, it have to be one of the allowed ones
+	 */
+	public Enemy(int xPos,int yPos,int movmentDirection,String enemyName){
 		super(xPos,yPos,enemyName+".png",enemyName);
 		this.movmentDirection=movmentDirection;
 		this.expectedNextMovmentDirection=movmentDirection;
-		image = null;
 	}
-	
-	public BufferedImage getImage()
-	{
-		if(image==null)
-		{
-			try {
-				image = ImageIO.read(new File(getImageLocation()));
-			    }
-			catch (IOException e) 
-			{
-				System.out.println("Not found");
-			}
-		}
-		return image;
-	}
-	public boolean hasWallPass()
-	{
+	/** 
+	 * has wall pass
+	 * @return returns true if the enemy has a wall pass
+	 */
+	public boolean hasWallPass(){
 		return this.wallPass;
 	}
-	public int getExpectedMovmentDirection()
-	{
+	/** 
+	 * Gets the expected next direction of the enemy
+	 * @return returns the expected next direction of the enemy
+	 */
+	public int getExpectedMovmentDirection(){
 		return this.expectedNextMovmentDirection;
 	}
-	public void setExpectedMovmentDirection(int direction)
-	{
+	/** 
+	 * Sets the expected next direction of the enemy
+	 * @param direction is the expected next direction of the enemy
+	 */
+	public void setExpectedMovmentDirection(int direction){
 		this.expectedNextMovmentDirection=direction;
 	}
-	public void setWallPass(boolean wallPass)
-	{
+	/** 
+	 * Sets the wall pass of the enemy
+	 * @param wallPass is true if the enemy you want has a property if wall pass
+	 */
+	public void setWallPass(boolean wallPass){
 		this.wallPass=wallPass;
 	}
-	public int getMovmentDirection()
-	{
+	/** 
+	 * Gets the current movment direction of the enemy
+	 * @return returns the current direction of the enemy
+	 */
+	public int getMovmentDirection(){
 		return this.movmentDirection;
 	}
-	public void setScore(int score)
-	{
+	/** 
+	 * Sets the score or points associated with the enemy that the user will gain if killed
+	 * @param score is the score gained if the enemy dies
+	 */
+	public void setScore(int score){
 		this.score=score;
 	}
-	public int getScore()
-	{
+	/** 
+	 * Gets the score or points associated with the enemy that the user will gain if killed
+	 * @return the score gained if the enemy dies
+	 */
+	public int getScore(){
 		return this.score;
 	}
-	public void changeDirection()
-	{
-		if(this.getExpectedMovmentDirection()==2)
-		{
-			this.movmentDirection=1;
-			this.expectedNextMovmentDirection=1;
+	/** 
+	 * Reverses the direction of the enemy probably called when collision happens
+	 */
+	public void changeDirection(){
+		if(this.getExpectedMovmentDirection()==CONSTANTS.RIGHT){
+			this.movmentDirection=CONSTANTS.LEFT;
+			this.expectedNextMovmentDirection=CONSTANTS.LEFT;
 		}
-		else if(this.getExpectedMovmentDirection()==1)
-		{
-			this.movmentDirection=2;
-			this.expectedNextMovmentDirection=2;
+		else if(this.getExpectedMovmentDirection()==CONSTANTS.LEFT){
+			this.movmentDirection=CONSTANTS.RIGHT;
+			this.expectedNextMovmentDirection=CONSTANTS.RIGHT;
 		}
-		else if(this.getExpectedMovmentDirection()==3)
-		{
-			this.movmentDirection=4;
-			this.expectedNextMovmentDirection=4;
+		else if(this.getExpectedMovmentDirection()==CONSTANTS.UP){
+			this.movmentDirection=CONSTANTS.DOWN;
+			this.expectedNextMovmentDirection=CONSTANTS.DOWN;
 		}
-		else if(this.getExpectedMovmentDirection()==4)
-		{
-			this.movmentDirection=3;
-			this.expectedNextMovmentDirection=3;
+		else if(this.getExpectedMovmentDirection()==CONSTANTS.DOWN){
+			this.movmentDirection=CONSTANTS.UP;
+			this.expectedNextMovmentDirection=CONSTANTS.UP;
 		}
 	}
 	

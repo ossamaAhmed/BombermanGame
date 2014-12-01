@@ -212,7 +212,7 @@ public class GameBoardView extends JPanel implements KeyListener {
 		  if(currentTime==0 && worstPenality==false)
 		  {
 			  worstPenality=true;
-			  this.myBoard.initializeEnemiesPosition(8, "Pass", "High");
+			  this.myBoard.worstPenality(Stage.getStage(this.curStage));
 		  }
 		  timerLabel.setText("Time : "+ currentTime/1000 + " s");
 	  }
