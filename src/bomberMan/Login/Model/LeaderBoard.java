@@ -58,10 +58,13 @@ public class LeaderBoard {
 		return recordTopTenUsers;
 	}
 	
+	public static void setDBFile(String filePath) {
+		file = filePath;
+	}
 	
 	  public static void main (String[] args) {
 		  
-		  ArrayList<Record> allRecords;
+		  ArrayList<Record> allRecords = new ArrayList<Record>();
 
 		  allRecords = getTopTenUsers();
 		  for (int i=0; i<allRecords.size(); i++) {

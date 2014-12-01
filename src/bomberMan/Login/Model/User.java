@@ -36,6 +36,7 @@ public class User
 	private String password;
 	private int score;
 	private int unlockedLevel;
+	private String rootFolder;
 	public static final int GAMENAME_IND = 0;
 	public static final int DT_IND=1;
 	public static final int GAME_IND  = 0;
@@ -47,6 +48,7 @@ public class User
 		this.password=password;
 		this.score = score;
 		this.unlockedLevel = unlockedLevel;
+		this.rootFolder = "CSVFiles";
 	}
 	
 	private boolean createSaveGameDB(String fileName) 
@@ -68,7 +70,7 @@ public class User
 	}
 	
 	//save game function
-	public void saveGame(GameBoard myBoard, String saveGameName)
+	public String saveGame(GameBoard myBoard, String saveGameName)
 	{
 		try{
 			
@@ -83,13 +85,13 @@ public class User
 				
 			   // Display a dialog box asking user for the saved game name
 			   String saveGameTime = dateFormat.format(cal.getTime());
-			   String gameFileName = "CSVfiles" + File.separator + 
+			   String gameFileName = rootFolder + File.separator + 
 					   userName+ File.separator + saveGameName + 
 					   "_" + saveGameTime + ".ser";
 
 			   addSavedGame(saveGameName, saveGameTime);
 			   
-			   OutputStream fileOut = new FileOutputStream(gameFileName); //"./CSVfiles/TRIAL2.ser");
+			   OutputStream fileOut = new FileOutputStream(gameFileName);
 			   OutputStream buffer = new BufferedOutputStream(fileOut);
 			   ObjectOutputStream out = new ObjectOutputStream(buffer);
 		       out.writeObject(myBoard);
@@ -97,12 +99,13 @@ public class User
 		       out.close();
 		       fileOut.close();
 		       System.out.println("Serialized data is saved in " + gameFileName);
+		       return saveGameTime;
 			}
 		       catch(IOException i)
 		    {
 		        i.printStackTrace();
 		    }
-
+		return "";
 	}
 	
 	
@@ -112,8 +115,8 @@ public class User
 	 */
 	public boolean addSavedGame(String gameName, String dateTime) {
 		
-		
-		String fileName = "CSVfiles" + File.separator + userName + File.separator + "savedGames.txt";
+	
+		String fileName = rootFolder + File.separator + userName + File.separator + "savedGames.txt";
 
 			// First try to read the database file and make sure it's not empty
 			try {
@@ -144,7 +147,7 @@ public class User
 	}
 		public String gameExists(String loadGameName) {
 		
-		String fileName = "CSVfiles" + File.separator +this.userName + File.separator + "savedGames.txt";
+		String fileName = rootFolder + File.separator +this.userName + File.separator + "savedGames.txt";
 		
 		try {
 	        CSVReader reader = new CSVReader(new FileReader(fileName));
@@ -174,8 +177,8 @@ public class User
 			
 			String AppendedGameName = gameExists(loadGameName);
 			System.out.println("Got game:");
-			System.out.println("CSVfiles" + File.separator + this.userName + File.separator + AppendedGameName + ".ser");
-			   return ("CSVfiles" + File.separator + this.userName + File.separator + AppendedGameName + ".ser");
+			System.out.println(rootFolder + File.separator + this.userName + File.separator + AppendedGameName + ".ser");
+			   return (rootFolder + File.separator + this.userName + File.separator + AppendedGameName + ".ser");
 			   		
 		}
 		
@@ -183,7 +186,7 @@ public class User
 
 			ArrayList<String> savedGames = new ArrayList<String>();
 
-			String fileName = "CSVfiles" + File.separator + user + File.separator + "savedGames.txt";
+			String fileName = rootFolder + File.separator + user + File.separator + "savedGames.txt";
 
 			// First try to read the database file and make sure it's not empty
 					try {
@@ -212,9 +215,6 @@ public class User
 
 		return savedGames;
 		}				
-
-
-		
 		
 	public String getFullName() {
 		return this.name;
@@ -258,7 +258,6 @@ public class User
 
 		
 		for(int i=0;i<killedEnemies.size();i++){
-
 			this.score += (killedEnemies.get(i).getScore())*(i+1);
 		}
 		
@@ -268,5 +267,8 @@ public class User
 		return this.score;
 	}
 	
+	public void setRootFolder(String folderName) {
+		this.rootFolder = folderName;
+	}
 
 }
