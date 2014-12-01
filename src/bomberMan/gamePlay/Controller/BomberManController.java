@@ -92,7 +92,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 				 myGameBoard.getBomberMan().moveDown(-offset - (CONSTANTS.BOMBERMAN_HEIGHT/2));
 			 }
 		 }
-		 System.out.println("MOVING RIGHT");
+		 
 		 myGameBoard.getBomberMan().moveRight(myGameBoard.getBomberMan().getSpeed());
 	
 	 }
@@ -160,8 +160,7 @@ public boolean checkCollision(Character myCharacter, int direction)
 public boolean checkCollisionRight(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
+
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -170,12 +169,12 @@ if(direction == 2){
 	
 	if(!this.myGameBoard.getCell((yPos)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
+		
 		
 	}
 	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+		
 	}
 	
 }
@@ -191,8 +190,6 @@ return collision;
 public boolean checkCollisionLeft(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -201,12 +198,11 @@ if(direction == 1){
 	
 	if(!this.myGameBoard.getCell((yPos)/width,(xPos - speed)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
 		
 	}
 	if(!this.myGameBoard.getCell((yPos+ CONSTANTS.BOMBERMAN_HEIGHT)/width,(xPos - speed)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+			
 	}
 	
 }
@@ -222,8 +218,6 @@ return collision;
 public boolean checkCollisionUp(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -232,12 +226,11 @@ if(direction == 3){
 	
 	if(!this.myGameBoard.getCell((yPos - speed)/width,(xPos)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
 		
 	}
 	if(!this.myGameBoard.getCell((yPos- speed)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+		
 	}
 	
 }
@@ -253,8 +246,6 @@ return collision;
 public boolean checkCollisionDown(Character character, int direction){
 int xPos = character.getPositionX();
 int yPos =character.getPositionY();
-System.out.println("xPos: "+ xPos);
-System.out.println("yPos: "+ yPos);
 
 int speed =character.getSpeed();
 boolean collision = false;
@@ -263,12 +254,12 @@ if(direction == 4){
 	
 	if(!this.myGameBoard.getCell((yPos + speed + CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 1");
+		
 		
 	}
 	if(!this.myGameBoard.getCell((yPos+ speed+ CONSTANTS.BOMBERMAN_WIDTH)/width,(xPos+ CONSTANTS.BOMBERMAN_WIDTH)/width).isEmptyPowerUpException()){
 		collision = true;
-		System.out.println("COLLISION 2");	
+		
 	}
 	
 }
@@ -356,18 +347,18 @@ int yLeft = character.getPositionY();
 int widthBMB = CONSTANTS.BOMBERMAN_WIDTH;
 int size = CONSTANTS.TILE_SIDE_SIZE;
 if(this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasABomb() || this.myGameBoard.getCell(yLeft/size, xLeft/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+	
 	return true;}
 if(this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasABomb() || this.myGameBoard.getCell((yLeft)/size, (xLeft+ widthBMB)/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+
 	return true;}
 if(this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasABomb()|| this.myGameBoard.getCell((yLeft+widthBMB)/size, (xLeft)/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+	
 	return true;}
 if(this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasABomb() || this.myGameBoard.getCell((yLeft + widthBMB)/size, (xLeft+ widthBMB)/size).getHasADetonateBomb()){
-	System.out.println("IS SHARED WITH A BOMB AND HAS A BOMB");
+	
 	return true;}
-System.out.println("IS not SHARED WITH A BOMB AND HAS NO BOMB");
+
 return false;
 }
 /**
@@ -380,7 +371,7 @@ return false;
 public void moveInsideBomb(int directionMove){
 	 boolean centeredXAxis = checkIfCharacterIsCenteredXAxis(myGameBoard.getBomberMan());
 	 boolean centeredYAxis = checkIfCharacterIsCenteredYAxis(myGameBoard.getBomberMan());
-	System.out.println("MOVING INSIDE A BOMB");
+	
 	 
 	 int xPos =  myGameBoard.getBomberMan().getPositionX();
 	 int yPos =  myGameBoard.getBomberMan().getPositionY();
@@ -532,62 +523,61 @@ public void pickPowerUp(int i, int j){
 	 
 	
 	 if(myGameBoard.getCell(i, j).searcHasAPowerUp() == true && myGameBoard.getCell(i, j).searcHasAConcreteWall() == false ){
-		 System.out.println("DOING THE RIGHT THING");
+		 
 		 if(myGameBoard.getBomberMan().getICell() == i && myGameBoard.getBomberMan().getJCell() == j){
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.SPEED){
-			 System.out.println("Getting speed powerUp");
+			
 			 myGameBoard.getBomberMan().updateSpeed(myGameBoard.getBomberMan().getSpeed()+CONSTANTS.DEFAULT_POWERUPSPEED_INCREASE);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.DETONATOR){
 			 System.out.println("Getting detonator powerUp");
 			 myGameBoard.getBomberMan().setHasDetonator(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBPASS){
-			 System.out.println("Getting bombpass powerUp");
+			
 			 myGameBoard.getCell(i,j).getBomberMan().setBombPass(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMEPASS){
-			 System.out.println("Getting flamepass powerUp");
+			 
 			 myGameBoard.getBomberMan().setFlamePass(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.WALLPASS){
-			 System.out.println("Getting brickpass powerUp");
+			
 			 myGameBoard.getCell(i,j).getBomberMan().setBrickPass(true);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.BOMBS){
-			 System.out.println("Getting bombs powerUp");
+			
 			 myGameBoard.getBomberMan().setNumBombsToDrop(1);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.FLAMES){
-			 System.out.println("Getting bombs powerUp");
+			 
 			 myGameBoard.getBomberMan().setBombRange(1);
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
+			 
 		 }
 		 if(myGameBoard.getCell(i, j).searchAPowerUp().getPowerUpType() == PowerUpType.MYSTERY){
-			 System.out.println("Getting INVISIBILITY powerUp");
+		
 			 myGameBoard.getBomberMan().setInvisibilityPowerUp(true);
 			 myGameBoard.getCell(i,j).getBomberMan().setInvisibilityPowerUp(true);
 			 myGameBoard.getBomberMan().setCreationInvisibilityPowerUp();
 			 myGameBoard.deletePowerUp(i, j);
-			 System.out.println("DELETING POWER UP");
-		 }
+					 }
 		 
 		 }}}
 

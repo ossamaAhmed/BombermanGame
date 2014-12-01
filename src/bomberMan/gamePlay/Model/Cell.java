@@ -15,7 +15,17 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
+/**
+ * This class implements a set of methods that allow the creation of a Cell
+ * object in a game board.
+ * 
+ * 
+ * The documentation for the methods contained in this class includes
+ * briefs descriptions of the implementations. Such descriptions
+ * should be regarded as implementation notes, rather than parts of specifications
+ * @author Andres Felipe Rincon Gamboa
+ * 
+ */
 public class Cell implements java.io.Serializable {
 	
 	/*Instance Variables*/
