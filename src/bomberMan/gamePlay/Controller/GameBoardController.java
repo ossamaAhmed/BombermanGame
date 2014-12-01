@@ -4,7 +4,20 @@ import java.lang.Runnable;
 
 import bomberMan.gamePlay.Model.*;
 
-
+/**
+ * This class implements a thread for always checking if there are bombs in the game board and detonating them, as well as for 
+ * deleting  the invisibility power up of the bomberman when he has it. Moreover, this class contains a set of functions allows to destroy enemies, bricks
+ * , the bomberman and other bombs when bombs detonate. This class updates the board in consequence and also when the bomberman has the detonator power up, this
+ * class inserts bombs that are going to be detonated if the bomberman has the detonator power up
+ * 
+ * 
+ * The documentation for the methods contained in this class includes
+ * briefs descriptions of the implementations. Such descriptions
+ * should be regarded as implementation notes, rather than parts of specifications
+ * @author Andres Felipe Rincon Gamboa
+ * 
+ * 
+ */
 public class GameBoardController extends Thread{
 Calendar timer = Calendar.getInstance();
 Calendar timer2;
@@ -14,12 +27,22 @@ int indexjCell;
 int indexiCell;
 
 DestroyBomb bombDestroyer;
-public GameBoardController(){}
-public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
-/*
- * This function executes the GameBoardController thread, which detonates bombs without detonator 
- * each time a bomb explosion delay expires.
+/**
+ * Default and empty constructor of the GameBoardController.
  */
+public GameBoardController(){}
+/**
+ * This constructor creates a GameBoardController using a GameBoard object.
+ * @param boardGame representing a GameBoard object that contains all the static objects of a gameplay session, the BomberMan and the enemies.
+ */
+public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
+/**
+ * This function executes the GameBoardController thread, which detonates bombs when their delay explosion time expires or when the bomberman detonates them.
+ * each time a bomb explosion delay expires.
+ *
+ *@return void
+ */
+
 
 public void run(){
 	
@@ -31,19 +54,21 @@ public void run(){
 	
 	
 }
-/*
- *This functions detonates bombs that dont have a detonator.
+/**
+ * *
+ *This functions detonates bombs that don't have a detonator.
+ *This function displays flames on the game board for a certain delay of time and also calls other functions to destroy the objects
+ *in the bomb's range.
+ * @return void
  * **/
  
 public void detonateRegularBombs(){
 	
 
-	int iCell = this.gameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
-	int jCell = this.gameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE;
+	
 	if(gameBoard.getBombs().size()>0){
 	for(int k=0;k<gameBoard.getBombs().size();k++)
 	 {
-		     System.out.println("TRYONG TO DETONATE BOMBS");
 		     if(this.gameBoard.getBombs().size() > 0){
 		     int j = gameBoard.getBombs().get(k).getPositionX()/ CONSTANTS.TILE_SIDE_SIZE;
 		     int i = gameBoard.getBombs().get(k).getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
@@ -51,13 +76,7 @@ public void detonateRegularBombs(){
 				
 				 
 				 if(this.gameBoard.getCell(i, j).searchBomb().getExplodeFast() == true ||this.gameBoard.getCell(i, j).searchBomb().getDetonationTime() <= this.gameBoard.getCell(i, j).searchBomb().getBombTimer()){
-					 System.out.println("TimeExplosionA: "+this.gameBoard.getCell(i, j).searchBomb().getDetonationTime());
-					 System.out.println("TimeExplosionB: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
-					 System.out.println("TimeExplosionC: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
-					 System.out.println("TimeExplosionD: "+this.gameBoard.getCell(i, j).searchBomb().getBombTimer());
-					 System.out.println("EXPLODE");
-					System.out.println(i+ " " +j);
-					
+						
 					
 					int counter1 = 1;
 					boolean right = true;
@@ -66,7 +85,7 @@ public void detonateRegularBombs(){
 					boolean up = true;
 					this.destroyBricks(i, j);
 					this.gameBoard.getCell(i,j).setFlameImages();
-					
+					// setting up flame images in the bomb's range.
 					while(counter1 <= gameBoard.getBomberMan().getBombRange()){
 						
 							if(j +counter1  < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES && right == true){
@@ -125,12 +144,13 @@ public void detonateRegularBombs(){
 									
 						counter1++;
 					}
-					
+					 // removing the bomb that is going to be detonated
 					 this.gameBoard.getBombs().remove(k);
 						
+					 // deleteing the bomb					 
 					this.gameBoard.getCell(i, j).deleteElement("Bomb");
 					
-					
+					// eliminating the flames images from the gameboard
 					
 						int counter2 = 1;
 						boolean right2 = true;
@@ -201,9 +221,12 @@ public void detonateRegularBombs(){
 		 }
 	 }
 }}}}
-/*This functions kills the bomberman if for (i,j) in the gameboard, the Bomberman is in the bombs range given by the cells at (i+BombRange, j), (i-Bombrange, j)
+/**
+ * This functions kills the bomberman if for the (i,j) tile on the gameboard, the Bomberman is in the bomb's range given by the cells at (i+BombRange, j), (i-Bombrange, j)
  * (i, j+BombRange), (i, j-Bombrange)
- * 
+ *@param i integer representing a tile coordinate from the 13x31 tiles game board.
+ *@param j integer representing a tile coordinate from the 13x31 tiles game board.
+ * @return void
  */
 public void killBomberman1(int i, int j){
 	boolean up = true;
@@ -211,7 +234,6 @@ public void killBomberman1(int i, int j){
 	boolean right = true;
 	boolean left = true;
 	if(this.gameBoard.getBomberMan().getFlamePass() == false && this.gameBoard.getBomberMan().getICell() == i && this.gameBoard.getBomberMan().getJCell() == j){
-	System.out.println("KILLING BOMBERMAN");
 	this.gameBoard.getBomberMan().die();
 	}
 	
@@ -296,9 +318,12 @@ public void killBomberman1(int i, int j){
 		counter1++;
 	}
 }
-/*
- * Destroys the bricks in the bombs range
- * 	
+/**
+ * This functions destroy bricks, if for (i,j) tile on the gameboard, a brick is in the bomb's range given by the cells at (i+BombRange, j), (i-Bombrange, j)
+ * (i, j+BombRange), (i, j-Bombrange)
+ *@param i integer representing a tile coordinate from the 13x31 tiles game board.
+ *@param j integer representing a tile coordinate from the 13x31 tiles game board.
+ * @return void
  */
 	public void destroyBricks(int i, int j){
 		boolean up = true;
@@ -314,7 +339,7 @@ public void killBomberman1(int i, int j){
 				}}
 				if(right == true && j +counter1 < CONSTANTS.NUMBER_OF_HORIZONTAL_TILES  && this.gameBoard.getCell(i, j+counter1).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i, j+ counter1).searcHasABrickWall() == true){
-						System.out.println("DESTROYING BRICK");
+						
 						this.gameBoard.getCell(i, j+ counter1).deleteElement("Brick");}			
 					
 		         	}
@@ -328,7 +353,7 @@ public void killBomberman1(int i, int j){
 				}}
 				if(left == true && j -counter1 >=0  && this.gameBoard.getCell(i, j-counter1).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i, j- counter1).searcHasABrickWall() == true){
-						System.out.println("DESTROYING BRICK");
+						
 						this.gameBoard.getCell(i, j-counter1).deleteElement("Brick");}
 									
 			}
@@ -342,7 +367,7 @@ public void killBomberman1(int i, int j){
 				}}
 				if(down == true && i +counter1 < CONSTANTS.NUMBER_OF_VERTICAL_TILES  && this.gameBoard.getCell(i+counter1, j).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i +counter1,j).searcHasABrickWall() == true){
-						System.out.println("DESTROYING BRICK");
+						
 						this.gameBoard.getCell(i+counter1,j).deleteElement("Brick");}
 					
 					
@@ -359,7 +384,7 @@ public void killBomberman1(int i, int j){
 				}}
 				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
 					if(this.gameBoard.getCell(i-counter1,j).searcHasABrickWall() == true){
-						System.out.println("DESTROYING BRICK");
+						
 						this.gameBoard.getCell(i-counter1,j).deleteElement("Brick");}
 					
 					
@@ -373,6 +398,14 @@ public void killBomberman1(int i, int j){
 			counter1++;
 		}
 }
+	
+	/**
+	 * This functions destroy an enemy, if for (i,j) tile on the gameboard, an enemy is in the bomb's range given by the cells at (i+BombRange, j), (i-Bombrange, j)
+	 * (i, j+BombRange), (i, j-Bombrange)
+	 *@param i integer representing a tile coordinate from the 13x31 tiles game board.
+	 *@param j integer representing a tile coordinate from the 13x31 tiles game board.
+	 * @return void
+	 */
 	public void destroyEnemies(int i, int j){
 		boolean up = true;
 		boolean down = true;
@@ -457,7 +490,7 @@ public void killBomberman1(int i, int j){
 					synchronized(this.gameBoard.getCell(i-counter1,j))
 					{
 					if(this.gameBoard.getCell(i-counter1,j).isThereAnEnemy() == true){
-						System.out.println("DESTROYING Enemy");
+						
 						for(int first=0;first<this.gameBoard.getCell(i-counter1,j).getEnemies().size();first++)
 						{
 							killedEnemies.add(this.gameBoard.getCell(i-counter1, j).getEnemies().get(first));
@@ -478,8 +511,9 @@ public void killBomberman1(int i, int j){
 		if(killedEnemies.size()>0)
 			this.gameBoard.updateMyScore(killedEnemies);
 }
-	/*
-	 * Detonate a bomb which has a detonator
+	/**
+	 * Detonates the oldest bomb that the bomberman dropped which has a detonator.
+	 *@return void
 	 */
 	public void detonateOldestBomb(){
 		 if(this.gameBoard.getBomberMan().getHasDetonator()){
@@ -498,8 +532,9 @@ public void killBomberman1(int i, int j){
 		
 	}
 	
-	/*
+	/**
 	 * Drops a  bomb that is  going to be detonated
+	 *@return void
 	 */
 	public void dropBombDetonator(){
 		 if(this.gameBoard.getBomberMan().getIsAlive() && this.gameBoard.getBomberMan().getHasDetonator()&& this.gameBoard.getBomberMan().getNumBombsToDrop() >= this.gameBoard.getBomberMan().getQteOfBombsDropped()){
@@ -520,9 +555,12 @@ public void killBomberman1(int i, int j){
 	}
 	
 	
-	/*Function that gives if bomberman is in a power up, if true, the bomberman picks up the powerup
-	 * 
-	 * */
+	/**
+	 * This functions allows to destroy bombs that are in a bomb's range of explosion given the tile(i,j) on the game board.
+	 * @param i integer representing a row on the 13x31 tiles game board.
+	 * @param j integer representing a column on the 13x31 tiles game board.
+	 * @return void
+	 */
    
    public void destroyBombsAround(int i, int j){
 	  
@@ -614,13 +652,13 @@ public void killBomberman1(int i, int j){
 				if(up == true && i -counter1 >= 0  && this.gameBoard.getCell(i-counter1, j).searcHasAConcreteWall() == false){
 					 if(this.gameBoard.getCell(i-counter1, j).getHasADetonateBomb() == false){
 					       this.gameBoard.getCell(i-counter1, j).searchBomb().setExplodeFast(true);
-					   // to complete with power ups and limited numebr of bombs placed..
+					   // to complete with power ups and limited number of bombs placed..
 					   }
 					 if(this.gameBoard.getCell(i-counter1, j).getHasADetonateBomb() == true){
 					       this.gameBoard.getCell(i-counter1, j).searchBomb().setExplodeFast(true);
 					       this.gameBoard.getCell(i-counter1, j).setHasADetonatorBomb(false);
 							this.gameBoard.getBomberMan().removeBomb(j*CONSTANTS.TILE_SIDE_SIZE, (i-counter1)*CONSTANTS.TILE_SIDE_SIZE);
-					   // to complete with power ups and limited numebr of bombs placed..
+					   // to complete with power ups and limited number of bombs placed..
 					   }
 					
 			}
@@ -635,6 +673,12 @@ public void killBomberman1(int i, int j){
 		
    
    }
+   /**
+    * 
+    * This function deletes the invisibility power up from the bomberman when the delay that the bomberman has been given to have this 
+    * power up expires.
+    * @return void
+    */
    public void deleteInvisibilityPowerUp(){
 	 if(this.gameBoard.getBomberMan().getInvisibilibityPowerUp()){
 		if( this.gameBoard.getBomberMan().getCreationInvisibilityPowerUp() <= this.gameBoard.getBomberMan().getEliminationInvisibilityPowerUp() ){
