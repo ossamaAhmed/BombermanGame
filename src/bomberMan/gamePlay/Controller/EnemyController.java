@@ -1,3 +1,9 @@
+/* 
+ * File: EnemyController.java
+ * -----------------------
+ * This Class represents the control of any enemy on screen. Mainly for movement 
+ * and detecting collisions
+ */
 package bomberMan.gamePlay.Controller;
 
 import java.util.ArrayList;
@@ -13,13 +19,22 @@ import bomberMan.gamePlay.Model.HighIntellegenceEnemy;
 import bomberMan.gamePlay.Model.MediumIntelligenceEnemy;
 
 public class EnemyController extends CharacterController {
+	/*Instance variables*/
 	GameBoard myGameBoard;
-
+	/** 
+	 * Constructor
+	 * This method takes care of the passing of the game board to the controller to have
+	 * access to it
+	 * @param board is the game board that the controller will use
+	 */
 	public EnemyController(GameBoard board) {
 		super(board);
 		this.myGameBoard = board;
 	}
-
+	/** 
+	 * This method takes care of the moving all the enmies represented in the game board currently
+	 * It will be called on a reqgular basis
+	 */
 	public void run() {
 		for (int i = 0; i < this.myGameBoard.getEnemies().size(); i++) {
 			if (!(this.myGameBoard.getEnemies().get(i)).getIsAlive())
@@ -36,11 +51,17 @@ public class EnemyController extends CharacterController {
 			}
 		}
 	}
-
+	/** 
+	 * This method takes care of the moving one enemy on the screen
+	 * @param wallPass is true if the enemy had a wall pass and false otehrwise
+	 */
 	public void moveEnemy(Enemy enemy, boolean wallPass) {
+		
+		//calculate the next expected movment for a high AI enemy
 		if (enemy instanceof HighIntellegenceEnemy) {
 			highAI(enemy);
 		}
+		//calculate the next expected movment for a medium AI enemy
 		if (enemy instanceof MediumIntelligenceEnemy) {
 			medAI(enemy);
 		}
@@ -53,39 +74,39 @@ public class EnemyController extends CharacterController {
 				&& !(checkCollision(enemy, 2, collidingObject2))) {
 			if (wallPass) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveRight(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else if (!(checkCollision(enemy, 2, collidingObject3))) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveRight(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.changeDirection();
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			}
 		} else if (enemy.getExpectedMovmentDirection() == 1
@@ -93,39 +114,39 @@ public class EnemyController extends CharacterController {
 				&& !(checkCollision(enemy, 1, collidingObject2))) {
 			if (wallPass) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveLeft(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else if (!(checkCollision(enemy, 1, collidingObject3))) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveLeft(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.changeDirection();
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			}
 
@@ -135,39 +156,39 @@ public class EnemyController extends CharacterController {
 			if (wallPass) {
 
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveDown(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else if (!(checkCollision(enemy, 4, collidingObject3))) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveDown(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.changeDirection();
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			}
 		} else if (enemy.getExpectedMovmentDirection() == 3
@@ -175,50 +196,50 @@ public class EnemyController extends CharacterController {
 				&& !(checkCollision(enemy, 3, collidingObject2))) {
 			if (wallPass) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveUp(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else if (!(checkCollision(enemy, 3, collidingObject3))) {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.moveUp(enemy.getSpeed());
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			} else {
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().remove(enemy);
 				enemy.changeDirection();
 				this.myGameBoard
-						.getCell(
-								enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-								enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+				.getCell(
+						enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+						enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 						.getObjects().add(enemy);
 			}
 		} else {
 			this.myGameBoard
-					.getCell(enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-							enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+			.getCell(enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+					enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 					.getObjects().remove(enemy);
 			enemy.changeDirection();
 			this.myGameBoard
-					.getCell(enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-							enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
+			.getCell(enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+					enemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
 					.getObjects().add(enemy);
 		}
 		if ((enemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE) == (this.myGameBoard
@@ -410,8 +431,8 @@ public class EnemyController extends CharacterController {
 		this.myGameBoard.getCell(
 				myEnemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
 				myEnemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE).setFscore(
-				manhattan(myEnemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
-						myEnemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE));
+						manhattan(myEnemy.getPositionY() / CONSTANTS.TILE_SIDE_SIZE,
+								myEnemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE));
 
 		openSet.add(this.myGameBoard.getCell(myEnemy.getPositionY()
 				/ CONSTANTS.TILE_SIDE_SIZE, myEnemy.getPositionX()

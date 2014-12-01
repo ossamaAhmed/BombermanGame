@@ -10,6 +10,8 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import bomberMan.gamePlay.Model.GameObject;
 public class MusicPlayer 
 {
 	private static final int BUFFER_SIZE = 4096;
@@ -26,8 +28,9 @@ public class MusicPlayer
 	}
     public static void play(String audioFilePath) 
     {
-        File audioFile = new File(audioFilePath);
+       
         try {
+        	 File audioFile = new File(GameObject.class.getResource("/raw/" + audioFilePath).toURI());
            audioStream= AudioSystem.getAudioInputStream(audioFile);
  
             AudioFormat format = audioStream.getFormat();
@@ -61,8 +64,8 @@ public class MusicPlayer
         } catch (LineUnavailableException ex) {
             System.out.println("Audio line for playing back is unavailable.");
             ex.printStackTrace();
-        } catch (IOException ex) {
-            System.out.println("Error playing the audio file.");
+        } catch (Exception ex) {
+            System.out.println("Error playing the audio file: " + audioFilePath);
             ex.printStackTrace();
         }      
     }

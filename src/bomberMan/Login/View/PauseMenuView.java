@@ -1,3 +1,8 @@
+/* 
+ * File: MainMenuView.java
+ * -----------------------
+ * This class draws the main menu game view for the user once the user logs in.
+ */
 package bomberMan.Login.View;
 
 import java.awt.Color;
@@ -20,6 +25,7 @@ import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Controller.EnemyController;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
 import java.util.Date;
@@ -31,7 +37,7 @@ import java.io.*;
 
 public class PauseMenuView extends JPanel
 {
-	//constants to be moved
+	/*Instance Variables*/
 	private Graphics2D myCanvas;
 	private JButton resumeGameButton;
 	private JButton startNewGameButton;
@@ -46,9 +52,14 @@ public class PauseMenuView extends JPanel
 	private GameBoard myBoard;
 	private UserDatabase DB;
 
-	
-	public PauseMenuView(JFrame x, GameBoard myBoard,UserDatabase DB)
-	{
+	/** 
+	 * Constructor
+	 * This method takes care of the initialization of the load game view
+	 * @param x is the JFrame that will be used to display the view
+	 * @param DB is the user database 
+	 * @param DB is the user datbase
+	 */
+	public PauseMenuView(JFrame x, GameBoard myBoard,UserDatabase DB){
 		super();
 		myframe=x;
 		this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
@@ -61,8 +72,10 @@ public class PauseMenuView extends JPanel
 	    this.repaint();
 	    
 	}
-	public void setButtons()
-	{
+	/** 
+	 * This method takes care of the initialization of the buttons to be displayed
+	 */	
+	public void setButtons(){
 		setResumeGameButtonButton();
 		setStartNewGameButtonButton();
 		setSaveGameButton();
@@ -70,8 +83,10 @@ public class PauseMenuView extends JPanel
 		setReturnToMainMenuButton();
 		setExitButton();
 	}
-	public void setResumeGameButtonButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the resume button
+	 */	
+	public void setResumeGameButtonButton(){
 		resumeGameButton= new JButton("RESUME GAME");
 		resumeGameButton.setSize(200, 40);
 		resumeGameButton.setBorderPainted(false);
@@ -80,15 +95,18 @@ public class PauseMenuView extends JPanel
 		resumeGameButton.setForeground(Color.white);
 		resumeGameButton.setLocation(CONSTANTS.WINDOW_WIDTH/2-100, startFrame);
 		 this.add(resumeGameButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 resumeGameButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	resumeGameButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	private void resumeGameButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the resume button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void resumeGameButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		GameBoardView x= new GameBoardView(myframe, this.myBoard, this.myBoard.getLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB,this.myBoard.getStage());
 		myframe.setFocusable(true);
@@ -103,12 +121,10 @@ public class PauseMenuView extends JPanel
 		x.unpause();
         
     }
-	
-	/*
-	 * Create a proper database if existing one is empty or doesn't exist
-	 */
-	public void setStartNewGameButtonButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the start button
+	 */	
+	public void setStartNewGameButtonButton(){
 		startNewGameButton= new JButton("START NEW GAME");
 		startNewGameButton.setSize(200, 40);
 		startNewGameButton.setBorderPainted(false);
@@ -124,8 +140,11 @@ public class PauseMenuView extends JPanel
 	            }
 		 });
 	}
-	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the start button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		StartGameView x= new StartGameView(myframe,this.DB,"Pause");
 		myframe.setFocusable(true);
@@ -138,8 +157,10 @@ public class PauseMenuView extends JPanel
 		myframe.setVisible(true);
         
     }
-	public void setSaveGameButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the save button
+	 */	
+	public void setSaveGameButton(){
 		saveGameButton= new JButton("SAVE GAME");
 		saveGameButton.setSize(200, 40);
 		saveGameButton.setBorderPainted(false);
@@ -154,9 +175,11 @@ public class PauseMenuView extends JPanel
 	            }
 		 });
 	}
-	private void saveGameButtonActionPerformed(ActionEvent evt) 
-	
-	{
+	/** 
+	 * This method takes care of the action performed when the save button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void saveGameButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		SaveGameView x= new SaveGameView(myframe,myBoard,this.DB);
 		myframe.setFocusable(true);
@@ -171,8 +194,10 @@ public class PauseMenuView extends JPanel
 
         
     }
-	public void setLeaderBoardButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the leader board button
+	 */	
+	public void setLeaderBoardButton(){
 		leaderBoardButton= new JButton("VIEW LEADER BOARD");
 		leaderBoardButton.setSize(200, 40);
 		leaderBoardButton.setBorderPainted(false);
@@ -181,15 +206,18 @@ public class PauseMenuView extends JPanel
 		leaderBoardButton.setForeground(Color.white);
 		leaderBoardButton.setLocation(CONSTANTS.WINDOW_WIDTH/2-100, saveGameButton.getY()+saveGameButton.getHeight()+10);
 		 this.add(leaderBoardButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 leaderBoardButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	leaderBoardButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	private void leaderBoardButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the leader button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void leaderBoardButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		LeaderBoardView x=new LeaderBoardView(myframe,this.myBoard, this.DB,"Pause");
 		myframe.setFocusable(true);
@@ -202,9 +230,10 @@ public class PauseMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
-
-	public void setReturnToMainMenuButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the return to main menu button
+	 */	
+	public void setReturnToMainMenuButton(){
 		returnToMainMenuButton= new JButton("RETURN TO MAIN MENU");
 		returnToMainMenuButton.setSize(200, 40);
 		returnToMainMenuButton.setBorderPainted(false);
@@ -220,9 +249,11 @@ public class PauseMenuView extends JPanel
 	            }
 		 });
 	}
-
-	private void returnToMainMenuButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the return to main button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void returnToMainMenuButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		MainMenuView x=new MainMenuView(myframe,this.DB);
 		myframe.setFocusable(true);
@@ -235,8 +266,10 @@ public class PauseMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
-	public void setExitButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the exit button
+	 */	
+	public void setExitButton(){
 		exitButton= new JButton("EXIT");
 		exitButton.setSize(200, 40);
 		exitButton.setBorderPainted(false);
@@ -252,26 +285,26 @@ public class PauseMenuView extends JPanel
 	            }
 		 });
 	}
-	private void exitButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the exit button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void exitButtonActionPerformed(ActionEvent evt) {
         System.exit(1);
     }
 	
-	//setting the background image, should change the size of the window to constants
-	public void setBackgroundImage()
-	{
-	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    mainMenuImage=Toolkit.getDefaultToolkit().createImage("PauseMenu.png");
+	/** 
+	 * This method takes care of the setting and uploading of the background images
+	 */
+	public void setBackgroundImage(){
+	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+	    mainMenuImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "PauseMenu.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
-	
-	//updates the login view, not used till now
-	public void updateLoginView()
-	{
-		this.repaint();
-	}
-	public void paintComponent(Graphics g)
-	{
+	/** 
+	 * This method takes care of the painting of the background images 
+	 */
+	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
 		myCanvas.drawImage(backgroundImage, 0,0,this);

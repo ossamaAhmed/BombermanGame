@@ -1,3 +1,8 @@
+/* 
+ * File: MainMenuView.java
+ * -----------------------
+ * This class draws the main menu game view for the user once the user logs in.
+ */
 package bomberMan.Login.View;
 
 import java.awt.Color;
@@ -19,14 +24,14 @@ import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
 import java.io.*;
 import java.util.List;
 
-public class MainMenuView extends JPanel
-{
-	//constants to be moved
+public class MainMenuView extends JPanel {
+	/*Instance Variables*/
 	private Graphics2D myCanvas;
 	private JButton startNewGameButton;
 	private JButton loadGameButton;
@@ -40,9 +45,13 @@ public class MainMenuView extends JPanel
 	private int startFrame=110;
 	private UserDatabase DB;
 
-	
-	public MainMenuView(JFrame x,UserDatabase DB)
-	{
+	/** 
+	 * Constructor
+	 * This method takes care of the initialization of the load game view
+	 * @param x is the JFrame that will be used to display the view
+	 * @param DB is the user database 
+	 */
+	public MainMenuView(JFrame x,UserDatabase DB){
 		super();
 		myframe=x;
 		this.DB=DB;
@@ -53,11 +62,10 @@ public class MainMenuView extends JPanel
 	    this.repaint();
 	    
 	}
-
-
-	
-	public void setButtons()
-	{
+	/** 
+	 * This method takes care of the initialization of the buttons to be displayed
+	 */	
+	public void setButtons(){
 		setStartNewGameButtonButton();
 		setLoadGameButton();
 		setLeaderBoardButton();
@@ -65,6 +73,9 @@ public class MainMenuView extends JPanel
 		setSignOutButton();
 		setExitButton();
 	}
+	/** 
+	 * This method takes care of the initialization of the start button
+	 */	
 	public void setStartNewGameButtonButton()
 	{
 		startNewGameButton= new JButton("START NEW GAME");
@@ -82,6 +93,10 @@ public class MainMenuView extends JPanel
 	            }
 		 });
 	}
+	/** 
+	 * This method takes care of the action performed when the start button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
 	private void startNewGameButtonButtonActionPerformed(ActionEvent evt) 
 	{
 		
@@ -96,13 +111,9 @@ public class MainMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
-	
-	
-	/*
-	 * Check if a given username already exists in the database
-	 */
-	
-	
+	/** 
+	 * This method takes care of the initialization of the load button
+	 */	
 	public void setLoadGameButton()
 	{
 		loadGameButton= new JButton("LOAD GAME");
@@ -119,8 +130,11 @@ public class MainMenuView extends JPanel
 	            }
 		 });
 	}
-	private void loadGameButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the load button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void loadGameButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		LoadGameView x= new LoadGameView(myframe,this.DB);
 		myframe.setFocusable(true);
@@ -132,9 +146,10 @@ public class MainMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
-	
-	public void setLeaderBoardButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the leader board button
+	 */	
+	public void setLeaderBoardButton(){
 		leaderBoardButton= new JButton("VIEW LEADER BOARD");
 		leaderBoardButton.setSize(200, 40);
 		leaderBoardButton.setBorderPainted(false);
@@ -150,12 +165,14 @@ public class MainMenuView extends JPanel
 	            }
 		 });
 	}
-	private void leaderBoardButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the leader board button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void leaderBoardButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		LeaderBoardView x=new LeaderBoardView(myframe, this.DB,"Main");
 		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -165,8 +182,10 @@ public class MainMenuView extends JPanel
 		myframe.setVisible(true);
         
     }
-	public void setModifyProfileButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the modify profile button
+	 */	
+	public void setModifyProfileButton(){
 		modifyProfileButton= new JButton("MODIFY PROFILE");
 		modifyProfileButton.setSize(200, 40);
 		modifyProfileButton.setBorderPainted(false);
@@ -175,19 +194,25 @@ public class MainMenuView extends JPanel
 		modifyProfileButton.setForeground(Color.white);
 		modifyProfileButton.setLocation(CONSTANTS.WINDOW_WIDTH/2-100, leaderBoardButton.getY()+leaderBoardButton.getHeight()+10);
 		 this.add(modifyProfileButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 modifyProfileButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	modifyProfileButtonActionPerformed(evt);
 	            }
 		 });
 	}
+	/** 
+	 * This method takes care of the action performed when the modify profile button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
 	private void modifyProfileButtonActionPerformed(ActionEvent evt) 
 	{
 		
     }
-	public void setSignOutButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the sign out button
+	 */	
+	public void setSignOutButton(){
 		signOutButton= new JButton("SIGN OUT");
 		signOutButton.setSize(200, 40);
 		signOutButton.setBorderPainted(false);
@@ -203,9 +228,11 @@ public class MainMenuView extends JPanel
 	            }
 		 });
 	}
-
-	private void signOutButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the sign out button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void signOutButtonActionPerformed(ActionEvent evt) {
 		myframe.remove(this);
 		LoginView x=new LoginView(myframe);
 		myframe.setFocusable(true);
@@ -218,8 +245,10 @@ public class MainMenuView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
     }
-	public void setExitButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the exit button
+	 */	
+	public void setExitButton(){
 		exitButton= new JButton("EXIT");
 		exitButton.setSize(200, 40);
 		exitButton.setBorderPainted(false);
@@ -235,26 +264,26 @@ public class MainMenuView extends JPanel
 	            }
 		 });
 	}
-	private void exitButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the exit button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void exitButtonActionPerformed(ActionEvent evt) {
         System.exit(1);
     }
 	
-	//setting the background image, should change the size of the window to constants
-	public void setBackgroundImage()
-	{
-	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    mainMenuImage=Toolkit.getDefaultToolkit().createImage("MainMenu.png");
+	/** 
+	 * This method takes care of the setting and uploading of the background images
+	 */
+	public void setBackgroundImage(){
+	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+	    mainMenuImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "MainMenu.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
-	
-	//updates the login view, not used till now
-	public void updateLoginView()
-	{
-		this.repaint();
-	}
-	public void paintComponent(Graphics g)
-	{
+	/** 
+	 * This method takes care of the painting of the background images 
+	 */
+	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
 		myCanvas.drawImage(backgroundImage, 0,0,this);

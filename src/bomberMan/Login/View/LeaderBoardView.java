@@ -1,3 +1,8 @@
+/* 
+ * File: LeaderBoardView.java
+ * -----------------------
+ * This class draws the leader board view for the user to choose see the top scores
+ */
 package bomberMan.Login.View;
 
 import java.awt.Color;
@@ -25,11 +30,12 @@ import bomberMan.Login.Model.Record;
 import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
-public class LeaderBoardView extends JPanel
-{
-	//constants to be moved
+public class LeaderBoardView extends JPanel{
+	
+			/*Instance Variables*/
 			private int window_width=CONSTANTS.WINDOW_WIDTH;
 			private int window_height=CONSTANTS.WINDOW_HEIGHT;
 			private Graphics2D myCanvas;
@@ -47,28 +53,37 @@ public class LeaderBoardView extends JPanel
 			private String previousView;
 			private GameBoard myBoard;
 
-			
-			public LeaderBoardView(JFrame x,UserDatabase DB,String previousView)
-			{
+			/** 
+			 * Constructor
+			 * This method takes care of the initialization of the leader board view
+			 * @param x is the JFrame that will be used to display the view
+			 * @param DB is the user database 
+			 * @param previousView is a string representing the previous view "Pause" or "Main"
+			 */		
+			public LeaderBoardView(JFrame x,UserDatabase DB,String previousView){
 				super();
 				myframe=x;
 				this.DB=DB;
 				this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
 				this.previousView=previousView;
 			    this.setOpaque(true);
-			   // this.setBackground(Color.WHITE);
 			    setBackgroundImage();
 			    this.setLayout(null);
 				loadTopScores();
 				goBackButton();
 				exitButton();
-			   // seterrorText();
-			    
 			    this.repaint();
 			    
 			}
-			public LeaderBoardView(JFrame x,GameBoard myboard, UserDatabase DB,String previousView)
-			{
+			/** 
+			 * Constructor
+			 * This method takes care of the initialization of the leader board view
+			 * @param x is the JFrame that will be used to display the view
+			 * @param DB is the user database 
+			 * @param previousView is a string representing the previous view "Pause" or "Main"
+			 * @param myboard is a game board that the user would like to return to after viewing the leader board
+			 */	
+			public LeaderBoardView(JFrame x,GameBoard myboard, UserDatabase DB,String previousView){
 				super();
 				myframe=x;
 				this.myframe.setSize(CONSTANTS.WINDOW_WIDTH,CONSTANTS.WINDOW_HEIGHT);
@@ -76,40 +91,32 @@ public class LeaderBoardView extends JPanel
 				this.myBoard=myboard;
 				this.previousView=previousView;
 			    this.setOpaque(true);
-			   // this.setBackground(Color.WHITE);
 			    setBackgroundImage();
 			    this.setLayout(null);
 				loadTopScores();
 				goBackButton();
 				exitButton();
-			   // seterrorText();
-			    
 			    this.repaint();
-			    
 			}
-			public void loadTopScores()
-			{
+			/** 
+			 * This method takes care of the displaying of the top scores and users corresponding to it
+			 */	
+			public void loadTopScores(){
 				 ArrayList<Record> TopScores;
 				 TopScores = LeaderBoard.getTopTenUsers();
-				 //adding action listener and directing it to the appropiate function
 				    JPanel p = new JPanel();
 				    p.setSize(400, 400);
 				    p.setLayout(new GridLayout(TopScores.size(), 3, 10, 0));
-				    for (int row = 0; row < TopScores.size(); row++) 
-				    {
-				      for (int col = 0; col < 3; col++)
-				      {
-				    	  if (col==0)
-				    	  {
+				    for (int row = 0; row < TopScores.size(); row++) {
+				      for (int col = 0; col < 3; col++){
+				    	  if (col==0){
 				    		  p.add(new JLabel(("Position "+(row+1))));
 				    	  }
 				      
-				      else if (col == 1) 
-				        {
+				      else if (col == 1) {
 				          p.add(new JLabel(TopScores.get(row).getUser()));
 				        } 
-				        else 
-				        {
+				        else  {
 				        	p.add(new JLabel( " Score: "+TopScores.get(row).getScore()));
 				        } 
 				       }
@@ -124,9 +131,10 @@ public class LeaderBoardView extends JPanel
 					scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 					 this.add(scrollpane);
 			}
-			
-			private void goBackButton()
-			{
+			/** 
+			 * This method takes care of the initialization of the back button
+			 */
+			private void goBackButton(){
 				goBackButton= new JButton("BACK");
 				goBackButton.setSize(100, 40);
 				goBackButton.setBorderPainted(false);
@@ -135,23 +143,24 @@ public class LeaderBoardView extends JPanel
 				goBackButton.setForeground(Color.white);
 				goBackButton.setLocation(window_width/2, window_height-100);
 					 this.add(goBackButton);
-					 //adding action listener and directing it to the appropiate function
+					 //adding action listener and directing it to the appropriate function
 					 goBackButton.addActionListener(new ActionListener() {
 				            public void actionPerformed(ActionEvent evt) {
 				            	goBackButtonActionPerformed(evt);
 				            }
 					 });
 			}
-			private void goBackButtonActionPerformed(ActionEvent evt) 
-			{
+			/** 
+			 * This method takes care of the action performed when the back button is pressed
+			 * @param evt is the event triggered when the button is pressed 
+			 */
+			private void goBackButtonActionPerformed(ActionEvent evt) {
 				myframe.remove(this);
 				JPanel x;
-				if(previousView.equals("Pause"))
-				{
+				if(previousView.equals("Pause")){
 					x=new PauseMenuView(myframe,this.myBoard,this.DB);
 				}
-				else
-				{
+				else{
 					x=new MainMenuView(myframe,this.DB);
 				}
 				myframe.setFocusable(true);
@@ -163,6 +172,9 @@ public class LeaderBoardView extends JPanel
 			        x.requestFocusInWindow();
 				myframe.setVisible(true);
 		    }
+			/** 
+			 * This method takes care of the initialization and management of the exit button
+			 */
 			private void exitButton()
 			{
 		    		exitButton= new JButton("EXIT");
@@ -173,33 +185,33 @@ public class LeaderBoardView extends JPanel
 					exitButton.setForeground(Color.white);
 					exitButton.setLocation(goBackButton.getX()-exitButton.getWidth()-10, window_height-100);
 					 this.add(exitButton);
-					 //adding action listener and directing it to the appropiate function
+					 //adding action listener and directing it to the appropriate function
 					 exitButton.addActionListener(new ActionListener() {
 				            public void actionPerformed(ActionEvent evt) {
 				            	exitButtonActionPerformed(evt);
 				            }
 					 });
 			}
-			private void exitButtonActionPerformed(ActionEvent evt) 
-			{
+			/** 
+			 * This method takes care of the action performed when the exit button is pressed
+			 * @param evt is the event triggered when the button is pressed 
+			 */
+			private void exitButtonActionPerformed(ActionEvent evt) {
 		        System.exit(1);
 		    }
 			
-			//setting the background image, should change the size of the window to constants
-			public void setBackgroundImage()
-			{
-			    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-			    loadGameImage=Toolkit.getDefaultToolkit().createImage("LeaderBoard.png");
+			/** 
+			 * This method takes care of the setting and uploading of the background images
+			 */
+			public void setBackgroundImage(){
+			    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+			    loadGameImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "LeaderBoard.png"));
 			    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 			}
-			
-			//updates the login view, not used till now
-			public void updateLoginView()
-			{
-				this.repaint();
-			}
-			public void paintComponent(Graphics g)
-			{
+			/** 
+			 * This method takes care of the painting of the background images 
+			 */
+			public void paintComponent(Graphics g){
 				super.paintComponent(g);
 				this.myCanvas = (Graphics2D) g;	
 				myCanvas.drawImage(backgroundImage, 0,0,this);

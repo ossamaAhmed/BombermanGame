@@ -17,7 +17,6 @@ public class UserDatabase
 {
 	
 	private User currentUser;
-	private Game currentGame;
 	private LeaderBoard currentLeaderBoard;
 	private String accountFile;
 

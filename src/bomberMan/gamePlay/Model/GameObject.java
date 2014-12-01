@@ -11,6 +11,8 @@ package bomberMan.gamePlay.Model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javax.imageio.ImageIO;
 
 public class GameObject implements Position, java.io.Serializable {
@@ -138,10 +140,11 @@ public class GameObject implements Position, java.io.Serializable {
 		
 		if(image==null){
 			try {
-				image = ImageIO.read(new File(this.getImageLocation()));
+				image = ImageIO.read(new File(GameObject.class.getResource("/image/" + this.getImageLocation()).toURI()));
+			//	image = ImageIO.read(new File(resthis.getImageLocation()));
 			}
-			catch (IOException e) {
-				System.out.println("Image Not found");
+			catch (Exception e) {
+				System.out.println("Image Not found: " + this.getImageLocation());
 			}
 		}
 		return image;

@@ -1,9 +1,11 @@
+/* 
+ * File: LoadGameView.java
+ * -----------------------
+ * This class draws the load game view for the user to choose a game to load it 
+ */
 package bomberMan.Login.View;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -15,27 +17,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import bomberMan.Login.Controller.LoginController;
 import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
-public class LoadGameView extends JPanel   
-{
-	//constants to be moved
+public class LoadGameView extends JPanel   {
+	
+		/*Instance Variables*/
 		private int window_width=CONSTANTS.WINDOW_WIDTH;
 		private int window_height=CONSTANTS.WINDOW_HEIGHT;
 		private Graphics2D myCanvas;
@@ -50,42 +45,38 @@ public class LoadGameView extends JPanel
 		private int scrollHeight;
 		private int scrollX;
 		private int scrollY;
-
-		
-		public LoadGameView(JFrame x,UserDatabase DB)
-		{
+		/** 
+		 * Constructor
+		 * This method takes care of the initialization of the load game view
+		 * @param x is the JFrame that will be used to display the view
+		 * @param DB is the user database 
+		 */		
+		public LoadGameView(JFrame x,UserDatabase DB){
 			super();
 			myframe=x;
 			this.DB=DB;
 		    this.setOpaque(true);
-		   // this.setBackground(Color.WHITE);
 		    setBackgroundImage();
 		    this.setLayout(null);
 			loadSavedGames();
 			goBackButton();
 			exitButton();
-		   // seterrorText();
-		    
 		    this.repaint();
-		    
 		}
-		public void loadSavedGames()
-		{
+		/** 
+		 * This method takes care of the displaying of the save game of the user for the user to choose a game to load.
+		 */	
+		private void loadSavedGames(){
 			   ArrayList<String>SavedGameLabel = this.DB.getCurrentUser().loadSavedGamesList(this.DB.getCurrentUser().getUserName());
-			 //adding action listener and directing it to the appropiate function
 			    JPanel p = new JPanel();
 			    p.setSize(400, 400);
 			    p.setLayout(new GridLayout(SavedGameLabel.size()-1, 2, 10, 0));
-			    for (int row = 1; row < SavedGameLabel.size(); row++) 
-			    {
-			      for (int col = 0; col < 2; col++)
-			      {
-			        if (col == 0) 
-			        {
+			    for (int row = 1; row < SavedGameLabel.size(); row++)  {
+			      for (int col = 0; col < 2; col++) {
+			        if (col == 0) {
 			          p.add(new JLabel(SavedGameLabel.get(row)));
 			        } 
-			        else 
-			        {
+			        else  {
 			        	JButton temp= new JButton("LOAD");
 			        	temp.setSize(100, 40);
 			        	temp.setBorderPainted(false);
@@ -94,7 +85,7 @@ public class LoadGameView extends JPanel
 			        	temp.setForeground(Color.white);
 						 p.add(temp);
 						 final String temp2=SavedGameLabel.get(row);
-						 //adding action listener and directing it to the appropiate function
+						 //adding action listener and directing it to the appropriate function
 						 temp.addActionListener(new ActionListener() {
 					            public void actionPerformed(ActionEvent evt) {
 					            	loadGameButtonActionPerformed(evt,temp2);
@@ -113,20 +104,21 @@ public class LoadGameView extends JPanel
 				scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 				 this.add(scrollpane);
 		}
+		/** 
+		 * This method takes care of the action performed when the load button is pressed
+		 * @param evt is the event triggered when the button is pressed 
+		 * @param loadGameName is the game name that the user chose to load
+		 */
 		private void loadGameButtonActionPerformed(ActionEvent evt,String loadGameName) 
 		{
 			String fileLocation = this.DB.getCurrentUser().loadSavedGame(loadGameName);
 			GameBoard objectLoad = null;
-		    try
-		    {
-		    	
-		    	
+		    try{
 		       FileInputStream fileIn = new FileInputStream(fileLocation);
 		       ObjectInputStream in = new ObjectInputStream(fileIn);
 		       objectLoad = (GameBoard) in.readObject();
 		       in.close();
 		       fileIn.close();
-		       System.out.println("Serialized data loaded!");
 		       GameBoardView x= new GameBoardView(myframe,objectLoad,objectLoad.getLives(),objectLoad.getBomberMan().getPowerUpsKeptAfterDeath(),this.DB,objectLoad.getStage());
 				myframe.remove(this);
 				myframe.setFocusable(true);
@@ -138,20 +130,20 @@ public class LoadGameView extends JPanel
 			        myframe.repaint();
 			        x.requestFocusInWindow();
 				myframe.setVisible(true);
-		    }catch(IOException i)
-		    {
+		    }catch(IOException i) {
 		       i.printStackTrace();
 		       return;
-		    }catch(ClassNotFoundException c)
-		    {
+		    }catch(ClassNotFoundException c){
 		       System.out.println("GameBoard class not found");
 		       c.printStackTrace();
 		       return;
 		    }
 
 	    }
-		private void goBackButton()
-		{
+		/** 
+		 * This method takes care of the initialization of the back button
+		 */
+		private void goBackButton(){
 			goBackButton= new JButton("BACK");
 			goBackButton.setSize(100, 40);
 			goBackButton.setBorderPainted(false);
@@ -167,8 +159,11 @@ public class LoadGameView extends JPanel
 			            }
 				 });
 		}
-		private void goBackButtonActionPerformed(ActionEvent evt) 
-		{
+		/** 
+		 * This method takes care of the action performed when the back button is pressed
+		 * @param evt is the event triggered when the button is pressed 
+		 */
+		private void goBackButtonActionPerformed(ActionEvent evt) {
 			myframe.remove(this);
 			MainMenuView x=new MainMenuView(myframe,this.DB);
 			myframe.setFocusable(true);
@@ -180,8 +175,10 @@ public class LoadGameView extends JPanel
 		        x.requestFocusInWindow();
 			myframe.setVisible(true);
 	    }
-		private void exitButton()
-		{
+		/** 
+		 * This method takes care of the initialization and management of the exit button
+		 */
+		private void exitButton(){
 	    		exitButton= new JButton("EXIT");
 				exitButton.setSize(100, 40);
 				exitButton.setBorderPainted(false);
@@ -190,33 +187,33 @@ public class LoadGameView extends JPanel
 				exitButton.setForeground(Color.white);
 				exitButton.setLocation(goBackButton.getX()-exitButton.getWidth()-10, window_height-100);
 				 this.add(exitButton);
-				 //adding action listener and directing it to the appropiate function
+				 //adding action listener and directing it to the appropriate function
 				 exitButton.addActionListener(new ActionListener() {
 			            public void actionPerformed(ActionEvent evt) {
 			            	exitButtonActionPerformed(evt);
 			            }
 				 });
 		}
-		private void exitButtonActionPerformed(ActionEvent evt) 
-		{
+		/** 
+		 * This method takes care of the action performed when the exit button is pressed
+		 * @param evt is the event triggered when the button is pressed 
+		 */
+		private void exitButtonActionPerformed(ActionEvent evt) {
 	        System.exit(1);
 	    }
 		
-		//setting the background image, should change the size of the window to constants
-		public void setBackgroundImage()
-		{
-		    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-		    loadGameImage=Toolkit.getDefaultToolkit().createImage("LoadGame.png");
+		/** 
+		 * This method takes care of the setting and uploading of the background images
+		 */
+		public void setBackgroundImage(){
+		    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+		    loadGameImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "LoadGame.png"));
 		    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 		}
-		
-		//updates the login view, not used till now
-		public void updateLoginView()
-		{
-			this.repaint();
-		}
-		public void paintComponent(Graphics g)
-		{
+		/** 
+		 * This method takes care of the painting of the background images 
+		 */
+		public void paintComponent(Graphics g){
 			super.paintComponent(g);
 			this.myCanvas = (Graphics2D) g;	
 			myCanvas.drawImage(backgroundImage, 0,0,this);

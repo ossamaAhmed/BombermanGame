@@ -5,6 +5,7 @@ import javax.swing.*;
 import bomberMan.Login.Controller.LoginController;
 import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,7 +16,7 @@ import java.awt.event.*;
 
 public class SaveGameView extends JPanel  
 {
-	//constants to be moved
+	/*Instance Variables*/
 	private int window_width=CONSTANTS.WINDOW_WIDTH;
 	private int window_height=CONSTANTS.WINDOW_HEIGHT;
 	private Graphics2D myCanvas;
@@ -30,12 +31,16 @@ public class SaveGameView extends JPanel
 	private UserDatabase DB;
 	private GameBoard myBoard;
 
-	
-	public SaveGameView(JFrame x, GameBoard myBoard,UserDatabase DB)
-	{
+	/** 
+	 * Constructor
+	 * This method takes care of the initialization of the load game view
+	 * @param x is the JFrame that will be used to display the view
+	 * @param DB is the user database 
+	 * @param myBoard is the game board that the user wants to go back to after saving the game
+	 */		
+	public SaveGameView(JFrame x, GameBoard myBoard,UserDatabase DB){
 		super();
 		myframe=x;
-//		DB=new UserDatabase("CSVfiles/trial.csv");
 		this.DB=DB;
 	    this.setOpaque(true);
 	    this.myBoard=myBoard;
@@ -47,19 +52,24 @@ public class SaveGameView extends JPanel
 	    this.repaint();
 	    
 	}
-	public void setTextFields()
-	{
+	/** 
+	 * This method takes care of the initialization of the text fields to be displayed
+	 */		
+	public void setTextFields(){
 		setSavedGameNameTextField();
 	}
-	public void setButtons()
-	{
+	/** 
+	 * This method takes care of the initialization of the buttons to be displayed
+	 */	
+	public void setButtons(){
 		setSaveButton();
 		setExitButton();
 		setBackButton();
-
 	}
-	public void setSaveButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the save button
+	 */	
+	public void setSaveButton(){
 		saveButton= new JButton("Save");
 		saveButton.setSize(100, 40);
 		saveButton.setBorderPainted(false);
@@ -68,43 +78,41 @@ public class SaveGameView extends JPanel
 		saveButton.setForeground(Color.white);
 		saveButton.setLocation(window_width/2+40, window_height-200);
 		 this.add(saveButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 saveButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	saveButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	public void seterrorText()
-	{
+	/** 
+	 * This method takes care of the initialization of the error label 
+	 */
+	public void seterrorText(){
 		 error= new JLabel("Invalid username and password");
 		 error.setSize(200, 40);
 		 error.setOpaque(true);
 		 error.setForeground(Color.red);
 		 error.setBackground(new Color(0, 0, 0, 0));
 		 error.setLocation(window_width/2, window_height-250);
-		 //adding action listener and directing it to the appropiate function
 	}
-	private void saveButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the save button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void saveButtonActionPerformed(ActionEvent evt) {
         System.out.println();
         System.out.println();
     
         if(!DB.getCurrentUser().gameExists(savedGameName.getText()).equals(" ")) {
-        	// DIsplay a message box
         	JOptionPane.showMessageDialog(null, "Game already exists!");
         	return;
         } else {
             DB.getCurrentUser().saveGame(this.myBoard, savedGameName.getText());
         }
-
-//        int errorCode=myController.login(savedGameName.getText(), savedGameName.getText());
-//        if(errorCode==0)
-//        {	
         myframe.remove(this);
 			PauseMenuView x=new PauseMenuView(myframe,this.myBoard,this.DB);
 			myframe.setFocusable(true);
-			//myframe.addKeyListener(x);
 			x.setBackground(Color.black);
 			x.setVisible(true);
 			myframe.add(x);
@@ -112,15 +120,12 @@ public class SaveGameView extends JPanel
 		        myframe.repaint();
 		        x.requestFocusInWindow();
 			myframe.setVisible(true);
-//		}
-//        else
-//        {
-//        	this.add(error);
-//        }
         
     }
-	public void setExitButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the exit button
+	 */	
+	public void setExitButton(){
 		exitButton= new JButton("EXIT");
 		exitButton.setSize(100, 40);
 		exitButton.setBorderPainted(false);
@@ -129,21 +134,24 @@ public class SaveGameView extends JPanel
 		exitButton.setForeground(Color.white);
 		exitButton.setLocation(saveButton.getX()-saveButton.getWidth()-10, window_height-200);
 		 this.add(exitButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 exitButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	exitButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	private void exitButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the exit button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void exitButtonActionPerformed(ActionEvent evt) {
         System.exit(1);
     }
-	
-
-	public void setBackButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the back button
+	 */	
+	public void setBackButton(){
 		backButton= new JButton("GO BACK");
 		backButton.setSize(100, 40);
 		backButton.setBorderPainted(false);
@@ -158,12 +166,14 @@ public class SaveGameView extends JPanel
 	            }
 		 });
 	}
-	private void backButtonActionPerformed(ActionEvent evt)
-	{
+	/** 
+	 * This method takes care of the action performed when the back button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void backButtonActionPerformed(ActionEvent evt){
 		myframe.remove(this);
 		PauseMenuView x=new PauseMenuView(myframe,this.myBoard,this.DB);
 		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -172,9 +182,10 @@ public class SaveGameView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
 	}
-
-	public void setSavedGameNameTextField()
-	{
+	/** 
+	 * This method takes care of the initialization of save game text field
+	 */
+	public void setSavedGameNameTextField(){
 		savedGameName=new JTextField();
 		savedGameName.setSize(220, 25);
 		savedGameName.setBackground(Color.BLACK);
@@ -183,21 +194,18 @@ public class SaveGameView extends JPanel
 		savedGameName.setLocation(window_width/2,window_height/3 );
 		this.add(savedGameName);	
 	}
-	//setting the background image, should change the size of the window to constants
-	public void setBackgroundImage()
-	{
-	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    loginImage=Toolkit.getDefaultToolkit().createImage("SaveGame.png");
+	/** 
+	 * This method takes care of the setting and uploading of the background images
+	 */
+	public void setBackgroundImage(){
+	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+	    loginImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "SaveGame.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
-	
-	//updates the login view, not used till now
-	public void updateLoginView()
-	{
-		this.repaint();
-	}
-	public void paintComponent(Graphics g)
-	{
+	/** 
+	 * This method takes care of the painting of the background images 
+	 */
+	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
 		myCanvas.drawImage(backgroundImage, 0,0,this);

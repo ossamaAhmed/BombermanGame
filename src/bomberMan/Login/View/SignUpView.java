@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import bomberMan.Login.Controller.SignUpController;
 import bomberMan.Login.Model.UserDatabase;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
 public class SignUpView extends JPanel   
@@ -251,8 +252,8 @@ public class SignUpView extends JPanel
 	//setting the background image, should change the size of the window to constants
 	public void setBackgroundImage()
 	{
-	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    loginImage=Toolkit.getDefaultToolkit().createImage("SignupMenu.png");
+	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+	    loginImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "SignupMenu.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
 	

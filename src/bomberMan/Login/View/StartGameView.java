@@ -1,3 +1,8 @@
+/* 
+ * File: StartGameView.java
+ * -----------------------
+ * This class draws the start game view for the user to choose a stage number
+ */
 package bomberMan.Login.View;
 
 import java.awt.Color;
@@ -17,12 +22,12 @@ import javax.swing.JTextField;
 import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Model.CONSTANTS;
 import bomberMan.gamePlay.Model.GameBoard;
+import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
-public class StartGameView extends JPanel
-{
+public class StartGameView extends JPanel {
 
-	//constants to be moved
+	/*Instance Variables*/
 	private int window_width=CONSTANTS.WINDOW_WIDTH;
 	private int window_height=CONSTANTS.WINDOW_HEIGHT;
 	private Graphics2D myCanvas;
@@ -39,12 +44,16 @@ public class StartGameView extends JPanel
 	private GameBoard myBoard;
 	private String previousView;
 
-	
-	public StartGameView(JFrame x,UserDatabase DB,String previousView)
-	{
+	/** 
+	 * Constructor
+	 * This method takes care of the initialization of the start game view
+	 * @param x is the JFrame that will be used to display the view
+	 * @param DB is the user database 
+	 * @param previousView is a string representing the previous view "Pause" or "Main"
+	 */
+	public StartGameView(JFrame x,UserDatabase DB,String previousView){
 		super();
 		myframe=x;
-//		DB=new UserDatabase("CSVfiles/trial.csv");
 		this.DB=DB;
 	    this.setOpaque(true);
 	    setBackgroundImage();
@@ -56,20 +65,26 @@ public class StartGameView extends JPanel
 	    this.repaint();
 	    
 	}
-	public void setTextFields()
-	{
+	/** 
+	 * This method takes care of the initialization of the text fields and labels
+	 */
+	public void setTextFields(){
 		setUnlockedStageNumberTextField();
 		setMessageText();
 	}
-	public void setButtons()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the buttons
+	 */
+	public void setButtons(){
 		setStartButton();
 		setExitButton();
 		setBackButton();
 
 	}
-	public void setStartButton()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the start button
+	 */
+	public void setStartButton(){
 		startButton= new JButton("Start");
 		startButton.setSize(100, 40);
 		startButton.setBorderPainted(false);
@@ -78,15 +93,17 @@ public class StartGameView extends JPanel
 		startButton.setForeground(Color.white);
 		startButton.setLocation(window_width/2+40, window_height-200);
 		 this.add(startButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 startButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	startButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	public void setMessageText()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the message label
+	 */
+	public void setMessageText(){
 		Message= new JLabel("Please enter any Stage between 1 and "+this.DB.getCurrentUser().getUnlockedLevel());
 		Message.setSize(400, 40);
 		Message.setOpaque(true);
@@ -94,10 +111,12 @@ public class StartGameView extends JPanel
 		Message.setBackground(new Color(0, 0, 0, 0));
 		Message.setLocation(window_width/2-100, window_height-375);
 		 this.add(Message);
-		 //adding action listener and directing it to the appropiate function
 	}
-	public void seterrorText()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the error label when
+	 * the user try to access a locked stage
+	 */
+	public void seterrorText(){
 		 error= new JLabel("Not allowed to access this stage");
 		 error.setSize(300, 40);
 		 error.setOpaque(true);
@@ -105,14 +124,16 @@ public class StartGameView extends JPanel
 		 error.setBackground(new Color(0, 0, 0, 0));
 		 error.setLocation(window_width/2-100, window_height-250);
 	}
+	/** 
+	 * This method takes care of the action performed when the start button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
 	private void startButtonActionPerformed(ActionEvent evt) 
 	{
-		if(Integer.parseInt(unlockedStageNumber.getText())>this.DB.getCurrentUser().getUnlockedLevel())
-		{
+		if(Integer.parseInt(unlockedStageNumber.getText())>this.DB.getCurrentUser().getUnlockedLevel()){
 			this.add(error);
 		}
-		else
-		{
+		else{
 			myframe.remove(this);
 			int [] powerUps = new int[3];
 			powerUps[0]=0;
@@ -131,8 +152,10 @@ public class StartGameView extends JPanel
 		}
         
     }
-	public void setExitButton()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the exit button
+	 */
+	public void setExitButton(){
 		exitButton= new JButton("EXIT");
 		exitButton.setSize(100, 40);
 		exitButton.setBorderPainted(false);
@@ -141,21 +164,25 @@ public class StartGameView extends JPanel
 		exitButton.setForeground(Color.white);
 		exitButton.setLocation(startButton.getX()-startButton.getWidth()-10, window_height-200);
 		 this.add(exitButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 exitButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	exitButtonActionPerformed(evt);
 	            }
 		 });
 	}
+	/** 
+	 * This method takes care of the action performed when the exit button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
 	private void exitButtonActionPerformed(ActionEvent evt) 
 	{
         System.exit(1);
     }
-	
-
-	public void setBackButton()
-	{
+	/** 
+	 * This method takes care of the initialization of the back button
+	 */
+	public void setBackButton(){
 		backButton= new JButton("GO BACK");
 		backButton.setSize(100, 40);
 		backButton.setBorderPainted(false);
@@ -170,20 +197,20 @@ public class StartGameView extends JPanel
 	            }
 		 });
 	}
-	private void backButtonActionPerformed(ActionEvent evt)
-	{
+	/** 
+	 * This method takes care of the action performed when the back button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void backButtonActionPerformed(ActionEvent evt){
 		JPanel x;
-		if(previousView.equals("Pause"))
-		{
+		if(previousView.equals("Pause")){
 			x=new PauseMenuView(myframe,this.myBoard,this.DB);
 		}
-		else
-		{
+		else{
 			x=new MainMenuView(myframe,this.DB);
 		}
 		myframe.remove(this);
 		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -192,9 +219,11 @@ public class StartGameView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
 	}
-
-	public void setUnlockedStageNumberTextField()
-	{
+	/** 
+	 * This method takes care of the initialization and drawing of the text field 
+	 * that the user will enter the stage number in
+	 */
+	public void setUnlockedStageNumberTextField(){
 		unlockedStageNumber=new JTextField();
 		unlockedStageNumber.setSize(220, 25);
 		unlockedStageNumber.setBackground(Color.BLACK);
@@ -203,21 +232,18 @@ public class StartGameView extends JPanel
 		unlockedStageNumber.setLocation(window_width/2,window_height/3 );
 		this.add(unlockedStageNumber);	
 	}
-	//setting the background image, should change the size of the window to constants
-	public void setBackgroundImage()
-	{
-	    backgroundImage = Toolkit.getDefaultToolkit().createImage("giphy.gif");
-	    loginImage=Toolkit.getDefaultToolkit().createImage("StartGame.png");
+	/** 
+	 * This method takes care of the setting and uploading of the background images
+	 */
+	public void setBackgroundImage(){
+	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
+	    loginImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "StartGame.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
-	
-	//updates the login view, not used till now
-	public void updateLoginView()
-	{
-		this.repaint();
-	}
-	public void paintComponent(Graphics g)
-	{
+	/** 
+	 * This method takes care of the painting of the background images 
+	 */
+	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
 		myCanvas.drawImage(backgroundImage, 0,0,this);
