@@ -382,13 +382,11 @@ public class GameBoardView extends JPanel implements KeyListener {
 		int jBMBCell = this.myBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE;
 		
 		if(iExitCell== iBMBCell && jBMBCell == jExitCell){
-				System.out.println("YESSSS2");
 				if(this.myBoard.getNumEnemies() == 0){
 					timer2.stop();
 					 myFrame.remove(this);
 						GameBoardView x=new GameBoardView(myFrame, this.myBoard.getLives(), this.myBoard.getBomberMan().getPowerUpsKeptAfterDeath(), this.DB,curStage+1);
 						myFrame.setFocusable(true);
-						//myframe.addKeyListener(x);
 						x.setBackground(Color.black);
 						x.setVisible(true);
 						myFrame.add(x);

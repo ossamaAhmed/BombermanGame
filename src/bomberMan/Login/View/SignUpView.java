@@ -1,3 +1,8 @@
+/* 
+ * File: SignUpView.java
+ * -----------------------
+ * This class draws the main menu game view for the user once the user logs in and presses sign up.
+ */
 package bomberMan.Login.View;
 
 import java.awt.Color;
@@ -20,13 +25,12 @@ import bomberMan.Login.Model.UserDatabase;
 import bomberMan.gamePlay.Model.GameObject;
 import bomberMan.gamePlay.View.GameBoardView;
 
-public class SignUpView extends JPanel   
-{
-	//constants to be moved
+public class SignUpView extends JPanel   {
+	
+	/*Instance Variables*/
 	private Graphics2D myCanvas;
 	private JTextField userNameInput;
 	private JTextField userFirstNameInput;
-	//private JTextField userLastNameInput;
 	private JPasswordField userPasswordInput;
 	private JPasswordField confirmUserPasswordInput;
 	private JLabel error;
@@ -39,9 +43,12 @@ public class SignUpView extends JPanel
 	private UserDatabase DB;
 	private int startFrame=110;
 
-	
-	public SignUpView(JFrame x)
-	{
+	/** 
+	 * Constructor
+	 * This method takes care of the initialization of the start game view
+	 * @param x is the JFrame that will be used to display the view
+	 */
+	public SignUpView(JFrame x){
 		super();
 		myframe=x;
 		DB=new UserDatabase("CSVfiles/trial.csv");
@@ -54,16 +61,19 @@ public class SignUpView extends JPanel
 	    this.repaint();
 	    
 	}
-	public void setTextFields()
-	{
+	/** 
+	 * This method takes care of the initialization of the text fields 
+	 */
+	public void setTextFields(){
 		setUserFirstNameTextField();
-		//setUserLastNameTextField();
 		setUserNameTextField();
 		setPasswordTextField();
 		setConfirmPasswordTextField();
 	}
-	public void setUserFirstNameTextField()
-	{
+	/** 
+	 * This method takes care of the initialization of the user real name text field
+	 */
+	public void setUserFirstNameTextField(){
 		userFirstNameInput=new JTextField();
 		userFirstNameInput.setSize(220, 25);
 		userFirstNameInput.setBackground(Color.BLACK);
@@ -73,19 +83,10 @@ public class SignUpView extends JPanel
 		this.add(userFirstNameInput);
 		
 	}
-//	public void setUserLastNameTextField()
-//	{
-//		userLastNameInput=new JTextField();
-//		userLastNameInput.setSize(220, 25);
-//		userLastNameInput.setBackground(Color.BLACK);
-//		userLastNameInput.setCaretColor(Color.BLUE);
-//		userLastNameInput.setForeground(Color.WHITE);
-//		userLastNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,userFirstNameInput.getY()+userFirstNameInput.getHeight()+10 );
-//		this.add(userLastNameInput);
-//		
-//	}
-	public void setUserNameTextField()
-	{
+	/** 
+	 * This method takes care of the initialization of the user name text field
+	 */
+	public void setUserNameTextField(){
 		userNameInput=new JTextField();
 		userNameInput.setSize(220, 25);
 		userNameInput.setBackground(Color.BLACK);
@@ -94,8 +95,10 @@ public class SignUpView extends JPanel
 		userNameInput.setLocation(CONSTANTS.WINDOW_WIDTH/2,userFirstNameInput.getY()+userFirstNameInput.getHeight()+10 );
 		this.add(userNameInput);	
 	}
-	public void setPasswordTextField()
-	{
+	/** 
+	 * This method takes care of the initialization of the password text field
+	 */
+	public void setPasswordTextField(){
 		userPasswordInput=new JPasswordField();
 		userPasswordInput.setSize(220, 25);
 		userPasswordInput.setBackground(Color.BLACK);
@@ -103,11 +106,11 @@ public class SignUpView extends JPanel
 		userPasswordInput.setForeground(Color.WHITE);
 		userPasswordInput.setLocation(CONSTANTS.WINDOW_WIDTH/2, userNameInput.getY()+userNameInput.getHeight()+10);
 		this.add(userPasswordInput);
-		
 	}
-
-	public void setConfirmPasswordTextField()
-	{
+	/** 
+	 * This method takes care of the initialization of the confirm password text field
+	 */
+	public void setConfirmPasswordTextField(){
 		confirmUserPasswordInput=new JPasswordField();
 		confirmUserPasswordInput.setSize(220, 25);
 		confirmUserPasswordInput.setBackground(Color.BLACK);
@@ -116,25 +119,29 @@ public class SignUpView extends JPanel
 		confirmUserPasswordInput.setLocation(CONSTANTS.WINDOW_WIDTH/2, userPasswordInput.getY()+userPasswordInput.getHeight()+10);
 		this.add(confirmUserPasswordInput);
 	}
-	public void setErrorText()
-	{
+	/** 
+	 * This method takes care of the initialization of the error label if the user exits, password mismatch..etc
+	 */
+	public void setErrorText(){
 		 error= new JLabel();
 		 error.setSize(200, 40);
 		 error.setOpaque(true);
 		 error.setForeground(Color.red);
 		 error.setBackground(new Color(0, 0, 0, 0));
 		 error.setLocation(CONSTANTS.WINDOW_WIDTH/2, confirmButton.getY()+confirmButton.getHeight()+10);
-		 //adding action listener and directing it to the appropiate function
 	}
-	
-	public void setButtons()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the buttons
+	 */
+	public void setButtons(){
 		setConfirmButton();
 		setGoBackButton();
 		setExitButton();
 	}
-	public void setConfirmButton()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the confirm button
+	 */
+	public void setConfirmButton(){
 		confirmButton= new JButton("CONFIRM");
 		confirmButton.setSize(110, 40);
 		confirmButton.setBorderPainted(false);
@@ -143,48 +150,44 @@ public class SignUpView extends JPanel
 		confirmButton.setForeground(Color.white);
 		 confirmButton.setLocation(CONSTANTS.WINDOW_WIDTH/2+40, CONSTANTS.WINDOW_HEIGHT-200);
 		 this.add(confirmButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 confirmButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	setConfirmButtonActionPerformed(evt);
 	            }
 		 });
 	}
-	private void setConfirmButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the confirm button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void setConfirmButtonActionPerformed(ActionEvent evt) {
 		 System.out.println(userNameInput.getText()+"hi");
 	        System.out.println(userPasswordInput.getText());
 	        SignUpController myController=new SignUpController(DB);
 	        int errorNum=myController.signUp(userFirstNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
-	        if(errorNum==3)
-	        {
+	        if(errorNum==3){
 	        	error.setText("please fill out all the information above");
 	        	this.add(error);
-	        	
 	        }
-	        else if(errorNum==1)
-	        {
+	        else if(errorNum==1){
 	        	error.setText("user name already exists");
 	        	this.add(error);
 	        }
 	        //check also for password match 
-	        else if(errorNum==4)
-	        {
+	        else if(errorNum==4){
 	        	error.setText("Password doesn't match");
 	        	this.add(error);
 	        }
-	        else if(errorNum==2)
-	        {
+	        else if(errorNum==2) {
 	        	error.setText("Password is wrong format");
 	        	this.add(error);
 	        }
 	        
-	        else
-	        {
+	        else {
 	        	myframe.remove(this);
 				LoginView x=new LoginView(myframe);
 				myframe.setFocusable(true);
-				//myframe.addKeyListener(x);
 				x.setBackground(Color.black);
 				x.setVisible(true);
 				myframe.add(x);
@@ -193,10 +196,11 @@ public class SignUpView extends JPanel
 			        x.requestFocusInWindow();
 				myframe.setVisible(true);
 			}
-        
     }
-	public void setExitButton()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the exit button
+	 */
+	public void setExitButton(){
 		exitButton= new JButton("EXIT");
 		exitButton.setSize(100, 40);
 		exitButton.setBorderPainted(false);
@@ -212,14 +216,18 @@ public class SignUpView extends JPanel
 	            }
 		 });
 	}
-	private void exitButtonActionPerformed(ActionEvent evt) 
-	{
+	/** 
+	 * This method takes care of the action performed when the exit button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void exitButtonActionPerformed(ActionEvent evt) {
         System.exit(1);
     }
 	
-
-	public void setGoBackButton()
-	{
+	/** 
+	 * This method takes care of the initialization and management of the confirm button
+	 */
+	public void setGoBackButton(){
 		goBackButton= new JButton("<<BACK");
 		goBackButton.setSize(120, 40);
 		goBackButton.setBorderPainted(false);
@@ -234,8 +242,11 @@ public class SignUpView extends JPanel
 	            }
 		 });
 	}
-	private void goBackButtonActionPerformed(ActionEvent evt)
-	{
+	/** 
+	 * This method takes care of the action performed when the back button is pressed
+	 * @param evt is the event triggered when the button is pressed 
+	 */
+	private void goBackButtonActionPerformed(ActionEvent evt){
 		myframe.remove(this);
 		LoginView x=new LoginView(myframe);
 		myframe.setFocusable(true);
@@ -248,22 +259,18 @@ public class SignUpView extends JPanel
 	        x.requestFocusInWindow();
 		myframe.setVisible(true);
 	}
-
-	//setting the background image, should change the size of the window to constants
-	public void setBackgroundImage()
-	{
+	/** 
+	 * This method takes care of the setting and uploading of the background images
+	 */
+	public void setBackgroundImage(){
 	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
 	    loginImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "SignupMenu.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
-	
-	//updates the login view, not used till now
-	public void updateLoginView()
-	{
-		this.repaint();
-	}
-	public void paintComponent(Graphics g)
-	{
+	/** 
+	 * This method takes care of the painting of the background images 
+	 */
+	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		this.myCanvas = (Graphics2D) g;	
 		myCanvas.drawImage(backgroundImage, 0,0,this);

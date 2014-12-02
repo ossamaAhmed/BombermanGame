@@ -1,3 +1,8 @@
+/* 
+ * File: SaveGameView.java
+ * -----------------------
+ * This class draws the save game view for the user once the user wants to save a game.
+ */
 package bomberMan.Login.View;
 
 import javax.swing.*;

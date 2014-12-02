@@ -40,7 +40,7 @@ public class GameBoardTest {
 
 		Bomb myBomb=new Bomb();
 		myBoard.addBomb(5, 5, myBomb);
-		int expected = myBoard.getBombs().size()-1;
+		int expected = myBoard.getBombs().size();
 		System.out.println(expected);
 		myBoard.removeBomb(5*CONSTANTS.TILE_SIDE_SIZE, 5*CONSTANTS.TILE_SIDE_SIZE);
 		int actual =myBoard.getBombs().size();

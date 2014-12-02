@@ -258,8 +258,6 @@ public class GameBoard implements java.io.Serializable {
 		while(powerUpNumberChosen == exitNumberChosen){
 			powerUpNumberChosen = objectRandom.nextInt(numberOfBricks-1); 
 		}
-		System.out.println("NUMBER CHOSEN FOR EXIT" + exitNumberChosen);
-		System.out.println("NUMBER CHOSEN FOR powerup" + powerUpNumberChosen);
 		boolean exitAlreadyPlaced = false;
 		boolean powerUpAlreadyPlaced = false;
 		int counter = 0;

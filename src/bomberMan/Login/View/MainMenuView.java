@@ -207,7 +207,16 @@ public class MainMenuView extends JPanel {
 	 */
 	private void modifyProfileButtonActionPerformed(ActionEvent evt) 
 	{
-		
+		myframe.remove(this);
+		ModifyProfileView x=new ModifyProfileView(myframe,this.DB);
+		myframe.setFocusable(true);
+		x.setBackground(Color.black);
+		x.setVisible(true);
+		myframe.add(x);
+	        myframe.validate();
+	        myframe.repaint();
+	        x.requestFocusInWindow();
+		myframe.setVisible(true);
     }
 	/** 
 	 * This method takes care of the initialization of the sign out button
@@ -236,7 +245,6 @@ public class MainMenuView extends JPanel {
 		myframe.remove(this);
 		LoginView x=new LoginView(myframe);
 		myframe.setFocusable(true);
-		//myframe.addKeyListener(x);
 		x.setBackground(Color.black);
 		x.setVisible(true);
 		myframe.add(x);
@@ -257,7 +265,7 @@ public class MainMenuView extends JPanel {
 		exitButton.setForeground(Color.white);
 		exitButton.setLocation(CONSTANTS.WINDOW_WIDTH/2-100, signOutButton.getY()+signOutButton.getHeight()+10);
 		 this.add(exitButton);
-		 //adding action listener and directing it to the appropiate function
+		 //adding action listener and directing it to the appropriate function
 		 exitButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent evt) {
 	            	exitButtonActionPerformed(evt);

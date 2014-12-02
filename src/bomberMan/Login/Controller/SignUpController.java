@@ -54,7 +54,7 @@ public class SignUpController {
 		}
 
 	}
-
+	
 	/**
 	 * Checks whether or not password matches.
 	 * 
@@ -110,6 +110,22 @@ public class SignUpController {
 			return true;
 		} else {
 			return false;
+		}
+
+	}
+	public int modifyProfile(String realName, String username, String password1,
+			String password2) {
+		if (realName.length() == 0 || username.length() == 0
+				|| password1.length() == 0 || password2.length() == 0) {
+			return 3;
+		}  else if (checkPassWordMatches(password1, password2) == false) {
+			return 4;
+		} else if (checkPassWordStrength(password1) == false) {
+			return 2;
+		} else {
+			String[] temp = { realName, password1, username, "0", "1" };
+			DB.modifyProfile(temp);
+			return 0;
 		}
 
 	}
