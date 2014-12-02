@@ -256,7 +256,7 @@ public class EnemyController extends CharacterController {
 	 * @param myEnemy
 	 *            the enemy which will be controlled
 	 */
-	private void medAI(Enemy myEnemy) {
+	public void medAI(Enemy myEnemy) {
 
 		int ran = myEnemy.getMovmentDirection();
 		Random random = new Random();
@@ -343,7 +343,7 @@ public class EnemyController extends CharacterController {
 	 * @param myEnemy
 	 *            the enemy that will have its movement altered
 	 */
-	private void highAI(Enemy myEnemy) {
+	public void highAI(Enemy myEnemy) {
 
 		int ran = myEnemy.getMovmentDirection();
 		Random random = new Random();
