@@ -1,3 +1,15 @@
+/* 
+ * File: UserDatabase.java
+ * -----------------------
+ * This Class represents the General Database of user information for all the users of the game.
+ */
+/**
+ * This class contains functions dealing with reading and writing to the CSVfiles/trial.csv.
+ * The user information fields stored in this csv file are: "Name","Password","Username","Score","Level Unlocked"
+ * These functions are described in detail below.
+ * @author Mariam Khan
+ * 
+ */
 package bomberMan.Login.Model;
 
 import java.util.List;
@@ -26,6 +38,13 @@ public class UserDatabase
 	public static final int SCORE_IND = 3;
 	public static final int LEVEL_IND = 4;
 	
+	/** 
+	 * Constructor
+	 * This method takes care of giving the UserDatabase class the location of the userdatabase csv file and
+	 * allows the functions under this class to access to it.
+	 * @param String filename of the location of userdatabase csv file: CSVfiles/trial.csv 
+	 * @return N/A.
+	 */
 	public UserDatabase(String fileName) 
 	{
 		accountFile = fileName;		
@@ -34,9 +53,12 @@ public class UserDatabase
 	public void setCurrentUser(User user) {
 		currentUser = user;
 	}
-	
-	/*
-	 * Create a proper database if existing one is empty or doesn't exist
+
+	/** 
+	 * This method creates a proper database if existing one is empty or doesn't exist
+	 * 
+	 * @param String accountFile of the location and name of userdatabase csv file to be created: CSVfiles/trial.csv 
+	 * @return a boolean, true if userdatabase was successfully created, false otherwise 
 	 */
 	public boolean createDatabase(String accountFile) 
 	{
@@ -44,6 +66,11 @@ public class UserDatabase
 		// Name,Password,Username,Score,Level Unlocked
 		
 		try {
+			// Check if the parent folder exists - create one otherwise
+			File f = new File(accountFile);
+			if (!f.getParentFile().exists()) {
+				f.getParentFile().mkdirs();
+			}
 			// Open up the database file for writing
 	        CSVWriter writer = new CSVWriter(new FileWriter(accountFile));
 	        writer.writeNext(new String[]{"Name","Password","Username","Score", "Level Unlocked"});
@@ -55,12 +82,15 @@ public class UserDatabase
 		}        
 		return true;        
 	}
-	
-	/*
-	 * Check if a given username already exists in the database
+
+	/** 
+	 * This method check if a given username already exists in the database on the event when a new user is trying to
+	 * open an account in the Bomberman game.
+	 * 
+	 * @param String username input by user from Sign up page 
+	 * @return a boolean, true if username already exists, false otherwise 
 	 */
 	public boolean userExists(String user) {
-		System.out.println("FILE: " + accountFile);
 		try {
 	        CSVReader reader = new CSVReader(new FileReader(accountFile));
 	        List<String[]> allRecords = reader.readAll();
@@ -87,8 +117,12 @@ public class UserDatabase
 		}
 		return false;
 	}
-	/*
-	 * Add a new user to the existing database
+
+	/** 
+	 * This method adds the new user information to the existing database.
+	 * 
+	 * @param An array of type String containing user information inputted by user from Sign up page 
+	 * @return a boolean, true if user was successfully created, false otherwise 
 	 */
 	public  boolean createUser(String[] userData) {
 		// User data is passed as string array. Data is as follows:
@@ -135,8 +169,13 @@ public class UserDatabase
 		return true;
 	}
 
-	/*
-	 * Remove a user from the existing database
+	
+	/** 
+	 * This method remove a user from the existing database on the request of the user.
+	 * This function is called when the user would like to delete his account.
+	 * 
+	 * @param An object of the User class
+	 * @return a boolean, true if user was successfully removed, false otherwise 
 	 */
 	public boolean removeUser(User user) {
 		boolean userFound = false;
@@ -179,7 +218,13 @@ public class UserDatabase
 		return false;		
 	}
 	
-
+	/** 
+	 * This method allows a user to modify his real name and password. The user does not have the option to modify
+	 * his username
+	 * 
+	 * @param An array of type String containing the information the user would like modified
+	 * @return a boolean, true if the user information was successfully modified, false otherwise 
+	 */
 public boolean modifyProfile(String[] userData) {
 		boolean userFound = false;
         String[] record;
@@ -230,6 +275,13 @@ public boolean modifyProfile(String[] userData) {
 		return true;
 	}
 	
+	/** 
+	 * This method updates the current user's score in the user database and current
+	 * user object when called.
+	 * 
+	 * @param An integer containing the score field to update
+	 * @return a boolean, true if the score was successfully updated, false otherwise 
+	 */
 	public boolean updateScore(int score) {
 		boolean userFound = false;
         String[] record;
@@ -271,6 +323,12 @@ public boolean modifyProfile(String[] userData) {
 		return false;		
 	}
 
+	/** 
+	 * This method updates the current user's number of Unlocked levels when called.
+	 * 
+	 * @param An integer containing the unlocked level field to update
+	 * @return a boolean, true if the unlocked level was successfully updated, false otherwise 
+	 */
 	public boolean setUnlockedLevel(int unlockedLevel) {
 		boolean userFound = false;
         String[] record;
@@ -316,8 +374,13 @@ public boolean modifyProfile(String[] userData) {
 		return currentUser;
 	}
 
-	/*
-	 * Search the database and return true if given username and password is found
+
+	/** 
+	 * This method searches the database csv file to check if the user trying to sign in currently holds an account.
+	 * It matches the inputted username and password with the user information in the database.  
+	 * 
+	 * @param Two String variables username and password
+	 * @return a boolean, true if the login credentials matched, false otherwise 
 	 */
 	public  boolean login(String userName, String password) {
 		try {

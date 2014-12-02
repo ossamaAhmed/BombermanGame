@@ -1,3 +1,8 @@
+/* 
+ * File: LeaderBoard.java
+ * -----------------------
+ * This Class takes care of arranging the users' records according to their scores in descending order
+ */
 package bomberMan.Login.Model;
 
 import java.io.File;
@@ -19,9 +24,12 @@ public class LeaderBoard {
 	private static Record myRecord;	
 	
 	private static String file = "./CSVfiles/trial.csv";
-	
-	/*
-	 * Check if a given username already exists in the database
+
+	/**
+	 * This function returns an Arraylist of Record objects having all the Scores in descending order
+	 * 
+	 * @param N/A
+	 * @return Arraylist of Record objects
 	 */
 	public static ArrayList<Record> getTopTenUsers() {
 		try {
@@ -62,16 +70,5 @@ public class LeaderBoard {
 		file = filePath;
 	}
 	
-	  public static void main (String[] args) {
-		  
-		  ArrayList<Record> allRecords = new ArrayList<Record>();
-
-		  allRecords = getTopTenUsers();
-		  for (int i=0; i<allRecords.size(); i++) {
-			  System.out.println("Position " + (i+1) + " User: " + allRecords.get(i).getUser() + " Score: " +
-		                         allRecords.get(i).getScore()); //[SCORE_IND]);
-		  }
-			
-	  }
 
 }

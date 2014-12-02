@@ -1,3 +1,18 @@
+/* 
+ * File: User.java
+ * -----------------------
+ * This Class contains all the information unique to each user in the game
+ */
+/**
+ * This class contains functions dealing with storing and loading the user's games
+ * It also deals with calculating the user's score everytime an enemy or a number of enemies are killed by a bomb 
+ * This class also has a csv file for saving games but this one is specific to each user and contains the
+ * fields: "Game Name","Date/Time".
+ * It is stored at CSVFiles\ userName\savedGames.txt where username stores the current user's username
+ * These functions are described in detail below.
+ * @author Mariam Khan
+ * 
+ */
 package bomberMan.Login.Model;
 
 import java.io.BufferedOutputStream;
@@ -51,6 +66,13 @@ public class User
 		this.rootFolder = "CSVFiles";
 	}
 	
+	
+	/** 
+	 * This method creates a saved games database for new users in the directory CSVfiles\ username where username is 
+	 * the player's created username
+	 * @param String filename gives the location where the savedGames.txt database should be created 
+	 * @return a boolean, true if the savedGames.txt database was created, false otherwise 
+	 */
 	private boolean createSaveGameDB(String fileName) 
 	{
 		// Write header in the following format:
@@ -70,6 +92,15 @@ public class User
 	}
 	
 	//save game function
+	
+	/** 
+	 * This method saves the current game of the user under the directory CSVfiles\ username where username is 
+	 * the player's created username
+	 * It saves it in the format of GameName_Date_Time where the Date_Time format is yyyy_MM_dd_HH_mm_ss
+	 * @param String filename gives the location where the savedGames.txt database should be created 
+	 * @param GameBoard myBoard is the current gameBoard of the user
+	 * @return a boolean, true if the savedGames.txt database was created, false otherwise 
+	 */
 	public String saveGame(GameBoard myBoard, String saveGameName)
 	{
 		try{
@@ -88,7 +119,8 @@ public class User
 			   String gameFileName = rootFolder + File.separator + 
 					   userName+ File.separator + saveGameName + 
 					   "_" + saveGameTime + ".ser";
-
+			   
+			   //This function is implemented below
 			   addSavedGame(saveGameName, saveGameTime);
 			   
 			   OutputStream fileOut = new FileOutputStream(gameFileName);
@@ -109,9 +141,12 @@ public class User
 	}
 	
 	
-	/*
-	 * Add a saved game to the saved game list
-	 * 
+	/** 
+	 * This method adds the user's saved game name in the savedGames.txt database in the directory CSVfiles\ username
+	 * It saves it under two separate columns "Game Name","Date/Time"
+	 * @param String gameName is the user's inputted GameName
+	 * @param String dateTime is the datestamp of when the Game was saved
+	 * @return a boolean, true if the saved Game details were successfully appended to savedGames.txt, false otherwise
 	 */
 	public boolean addSavedGame(String gameName, String dateTime) {
 		
@@ -145,6 +180,14 @@ public class User
 
 			return true;		
 	}
+	
+	/** 
+	 * This method checks if a game name already exists in the case when a user wants to create a new saved game name
+	 * or when a user wants to load a saved game. The savedGames.txt file is checked under the directory
+	 * CSVfiles\ username
+	 * @param String loadGameName is the user's inputted GameName which is being checked for
+	 * @return a String is returned if successful of the GameName appended with the date-time stamp, otherwise returns empty String
+	 */
 		public String gameExists(String loadGameName) {
 		
 		String fileName = rootFolder + File.separator +this.userName + File.separator + "savedGames.txt";
@@ -170,8 +213,11 @@ public class User
 		return " ";
 
 	}
-		/*
-		 * Load a saved game from the user's saved game list
+
+		/** 
+		 * This method loads a saved game from the user's saved game list
+		 * @param String loadGameName is the user's inputted GameName which is being checked for
+		 * @return a String of the file location of the Game to be loaded
 		 */
 		public String loadSavedGame(String loadGameName) {
 			
@@ -182,6 +228,12 @@ public class User
 			   		
 		}
 		
+		/** 
+		 * This method returns the list of saved games of a user saved under savedGames.txt
+		 * @param String username of the user whose saved game list needs to be returned
+		 * @return an Arraylist of Type String with all the saved game names. Only returns the Game Names and not the
+		 * Date/Time stamp
+		 */
 		public ArrayList<String> loadSavedGamesList(String user){
 
 			ArrayList<String> savedGames = new ArrayList<String>();
@@ -253,6 +305,12 @@ public class User
 	public void setUnlockedLevel(int unlockedLevel) {
 		this.unlockedLevel = unlockedLevel;
 	}
+	
+	/** 
+	 * This method calculates the score of the current user based on the number of enemies killed with one bomb
+	 * @param ArrayList of Enemy objects killed by the bomb 
+	 * @return void
+	 */
 	public void calculateMyScore(ArrayList<Enemy> killedEnemies)
 	{
 
