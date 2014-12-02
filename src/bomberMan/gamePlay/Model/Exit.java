@@ -30,8 +30,8 @@ public class Exit extends GameObject
 	/** 
 	 * Constructor
 	 * This method takes care of the initialization of the exit door including position.
-	 * @param x is the x position on the screen
-	 * @param y is the y position on the screen
+	 * @param xPos is the x position on the screen
+	 * @param yPos is the y position on the screen
 	 * @param location is the image location
 	 * @param objectType should be Exitdoor
 	 */

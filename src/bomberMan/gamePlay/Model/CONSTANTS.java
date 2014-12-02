@@ -39,7 +39,7 @@ public class CONSTANTS implements java.io.Serializable{
 	public final static int NUMBER_OF_VERTICAL_TILES=13;
 	public final static int TILE_SIDE_SIZE=40; //in pixels
 	public final static String EXIT_IMAGE = "ExitDoorImage.png";
-	public final static String CONCRETE_WALL_IMAGE="concrete.png";
+	public final static String CONCRETE_WALL_IMAGE="Concrete.png";
 	public final static String BRICK_WALL_IMAGE="Brick.png";
 	public final static String BomberMan_IMAGE="Bomberman.png";
 	public final static String BALLOON_IMAGE="balloon.png";

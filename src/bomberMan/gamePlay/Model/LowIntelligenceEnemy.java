@@ -12,8 +12,8 @@ public class LowIntelligenceEnemy extends Enemy implements java.io.Serializable{
 	 * Constructor
 	 * This method takes care of the initialization of the low intelligence enemy
 	 *  including position, initial Movement direction and enemyName.
-	 * @param x is the x position of the wall on the screen 
-	 * @param y is the y position of the wall on the screen
+	 * @param xPos is the x position of the wall on the screen 
+	 * @param yPos is the y position of the wall on the screen
 	 * @param movmentDirection is the initial movment direction of the enemy.
 	 * @param enemyName is the enemy name, it have to be Balloom or Doll
 	 */

@@ -31,7 +31,6 @@ public class BomberManController extends CharacterController {
  * Constructs a BomberManController objects given a Gameboar object which represents a given map for 
  * the gameplay.	
  * @param myGameBoard the gameboard or map that contains the static objects as well as the enemies that are going to be displayed during a game session
- * @return N/A.
  */
 public BomberManController(GameBoard myGameBoard){
 
@@ -41,7 +40,7 @@ super(myGameBoard);
  * This functions checks if the bomberman next moves are going to cause a collision with other GameObjects.
  * 
  * 
- * @param character the object character represents a character on the game, like an enemy or the bomberman.
+ * @param myCharacter the object character represents a character on the game, like an enemy or the bomberman.
  * @param direction an integer that represents the direction that the character object is following
  * @return a boolean, tru if the character has a collision for the given direction, false otherwise.
  */
@@ -67,7 +66,6 @@ public boolean checkCollision(Character myCharacter, int direction){
  * it used the collision function to detect if a move should take place
  *
  *@param keyE an integer that represents the key typed by the user.
- *@return void
  */
  public void move(int keyE) {
 	 this.pickPowerUp(myGameBoard.getBomberMan().getPositionY()/CONSTANTS.TILE_SIDE_SIZE, myGameBoard.getBomberMan().getPositionX()/CONSTANTS.TILE_SIDE_SIZE);
@@ -335,7 +333,7 @@ return offset;
 }
 /**
  * Verifies if the current bomberman cell is shared with a bomb.
- * @param the character that is going to be checked. 
+ * @param character that is going to be checked. 
  * @return boolean true if the character shares a cell or a tile with a bomb object. False otherwise.
  */
 public boolean isCellSharedWithBOMB(Character character){
@@ -364,7 +362,6 @@ return false;
  * the bomberman moves inside a cell where there is also a bomb recently dropped.
  * 
  * @param directionMove integer representing the direction of the bomberman movement inside a cell that also has a Bomb object.
- * @return void
  */
 public void moveInsideBomb(int directionMove){
 	 boolean centeredXAxis = checkIfCharacterIsCenteredXAxis(myGameBoard.getBomberMan());
@@ -480,7 +477,6 @@ public void moveInsideBomb(int directionMove){
 }
 /**
  *  * Drops a  bomb that is not going to be detonated
- *@return void
  */
 public void dropBomb(){
 	 

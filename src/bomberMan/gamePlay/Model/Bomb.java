@@ -87,7 +87,6 @@ public class Bomb extends GameObject implements java.io.Serializable {
 	}
 	/**
 	 * This method activates the detonator of a bomb that is going to be detonated by the bomberman.
-	 * @return void
 	 * 
 	 */
 	public void activateDetonator() {
@@ -95,7 +94,6 @@ public class Bomb extends GameObject implements java.io.Serializable {
 	}
 	/**
 	 * This method desactivates the detonator of a bomb that is going to be detonated by the bomberman.
-	 * @return void
 	 * 
 	 */
 	public void desactivateDetonator() {
@@ -104,27 +102,21 @@ public class Bomb extends GameObject implements java.io.Serializable {
 	/**
 	 * This method sets the time at which the bomb is going to explode.
 	 * @param time a long integer representing the bomb's time of explosion
-	 * @return void
-	 * 
 	 */
     public void setTimeToExplode(long time){this.timeToExplode = time;}
     /**
 	 * This method gets the time at which the bomb is going to explode.
-	 * @param time when the bomb is going to explode.
 	 *@return long the time of explosion of the bomb
 	 * 
 	 */
     public long getTimeToExplode(){return this.timeToExplode;}
     /**
 	 * This method sets the detonation time at which the bomb is going to explode.
-	 * @param time a long integer representing the bomb's detonation time.
-	 * @return void
-	 * 
+	 * @param time a long integer representing the bomb's detonation time. 
 	 */
     public void setDetonationTime(long time){this.detonationTime = time;}
     /**
    	 * This method gets the detonation time at which the bomb is going to explode.
-   	 * @param time  the detonation time when the bomb is going to explode.
    	 *@return long the detonation time of the bomb
    	 * 
    	 */
@@ -143,7 +135,7 @@ public class Bomb extends GameObject implements java.io.Serializable {
     public int getBombRange(){return this.explosionRange;}
     /**
    	 * This method sets the explosion range of the bomb.
-   	 *@return void
+   	 * @param range is the range of the bomb
    	 * 
    	 */
     public void setBombRange(int range){this.explosionRange = range;}
@@ -157,7 +149,6 @@ public class Bomb extends GameObject implements java.io.Serializable {
     /**
    	 * This method sets a boolean that makes the bomb explode suddenly.
    	 * @param set true if the bomb has to explode now, false otherwise.
-   	 *@return void
    	 * 
    	 */
     public void setExplodeFast(boolean set){this.explodeFast = set;}

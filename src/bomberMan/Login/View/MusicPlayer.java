@@ -17,7 +17,7 @@ public class MusicPlayer
 	private static final int BUFFER_SIZE = 4096;
     /**
      * Play a given audio file.
-     * @param audioFilePath Path of the audio file.
+     * audioFilePath Path of the audio file.
      */
 	private static  AudioInputStream audioStream ;
 	private static SourceDataLine audioLine;
@@ -30,8 +30,7 @@ public class MusicPlayer
     {
        
         try {
-        	 File audioFile = new File(GameObject.class.getResource("/raw/" + audioFilePath).toURI());
-           audioStream= AudioSystem.getAudioInputStream(audioFile);
+           audioStream= AudioSystem.getAudioInputStream(GameObject.class.getResourceAsStream("/raw/" + audioFilePath));
  
             AudioFormat format = audioStream.getFormat();
  

@@ -25,18 +25,12 @@ public class BomberManMain {
 	      {  	
 	    		game.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    		game.setSize(window_width, window_height); 		
-	    		//gameView.setResizable(false); //Resizing Not working should look into it
-	    		//login.setBackground(Color.white);	
 	    		login.setVisible(true);	
 	    		game.add(login);		
 	    		game.setVisible(true);
 	    	
 	      }
 	    });
-		while(true)
-		{
-			player.play(audioFilePath);
-		}
 	}
 
 }

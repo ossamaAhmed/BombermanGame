@@ -260,7 +260,7 @@ public class ModifyProfileView extends JPanel
 	 */
 	public void setBackgroundImage(){
 	    backgroundImage = Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "giphy.gif"));
-	    loginImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "SignupMenu.png"));
+	    loginImage=Toolkit.getDefaultToolkit().createImage(GameObject.class.getResource("/image/" + "ModifyProfile.png"));
 	    backgroundImage=backgroundImage.getScaledInstance(CONSTANTS.WINDOW_WIDTH, CONSTANTS.WINDOW_HEIGHT, Image.SCALE_DEFAULT);
 	}
 	/** 

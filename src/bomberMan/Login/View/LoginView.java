@@ -105,8 +105,6 @@ public class LoginView extends JPanel
 	 * @param evt is the event triggered when the button is pressed 
 	 */
 	private void loginButtonActionPerformed(ActionEvent evt) {
-        System.out.println();
-        System.out.println();
         LoginController myController=new LoginController(DB);
         int errorCode=myController.login(userNameInput.getText(), userPasswordInput.getText());
         if(errorCode==0){

@@ -40,7 +40,6 @@ public GameBoardController(GameBoard boardGame){this.gameBoard = boardGame;}
  * This function executes the GameBoardController thread, which detonates bombs when their delay explosion time expires or when the bomberman detonates them.
  * each time a bomb explosion delay expires.
  *
- *@return void
  */
 
 
@@ -59,7 +58,6 @@ public void run(){
  *This functions detonates bombs that don't have a detonator.
  *This function displays flames on the game board for a certain delay of time and also calls other functions to destroy the objects
  *in the bomb's range.
- * @return void
  * **/
  
 public void detonateRegularBombs(){
@@ -224,7 +222,6 @@ public void detonateRegularBombs(){
  * (i, j+BombRange), (i, j-Bombrange)
  *@param i integer representing a tile coordinate from the 13x31 tiles game board.
  *@param j integer representing a tile coordinate from the 13x31 tiles game board.
- * @return void
  */
 public void killBomberman1(int i, int j){
 	boolean up = true;
@@ -321,7 +318,6 @@ public void killBomberman1(int i, int j){
  * (i, j+BombRange), (i, j-Bombrange)
  *@param i integer representing a tile coordinate from the 13x31 tiles game board.
  *@param j integer representing a tile coordinate from the 13x31 tiles game board.
- * @return void
  */
 	public void destroyBricks(int i, int j){
 		boolean up = true;
@@ -402,7 +398,6 @@ public void killBomberman1(int i, int j){
 	 * (i, j+BombRange), (i, j-Bombrange)
 	 *@param i integer representing a tile coordinate from the 13x31 tiles game board.
 	 *@param j integer representing a tile coordinate from the 13x31 tiles game board.
-	 * @return void
 	 */
 	public void destroyEnemies(int i, int j){
 		boolean up = true;
@@ -511,7 +506,6 @@ public void killBomberman1(int i, int j){
 }
 	/**
 	 * Detonates the oldest bomb that the bomberman dropped which has a detonator.
-	 *@return void
 	 */
 	public void detonateOldestBomb(){
 		 if(this.gameBoard.getBomberMan().getHasDetonator()){
@@ -532,7 +526,6 @@ public void killBomberman1(int i, int j){
 	
 	/**
 	 * Drops a  bomb that is  going to be detonated
-	 *@return void
 	 */
 	public void dropBombDetonator(){
 		 if(this.gameBoard.getBomberMan().getIsAlive() && this.gameBoard.getBomberMan().getHasDetonator()&& this.gameBoard.getBomberMan().getNumBombsToDrop() >= this.gameBoard.getBomberMan().getQteOfBombsDropped()){
@@ -557,7 +550,6 @@ public void killBomberman1(int i, int j){
 	 * This functions allows to destroy bombs that are in a bomb's range of explosion given the tile(i,j) on the game board.
 	 * @param i integer representing a row on the 13x31 tiles game board.
 	 * @param j integer representing a column on the 13x31 tiles game board.
-	 * @return void
 	 */
    
    public void destroyBombsAround(int i, int j){
@@ -675,7 +667,6 @@ public void killBomberman1(int i, int j){
     * 
     * This function deletes the invisibility power up from the bomberman when the delay that the bomberman has been given to have this 
     * power up expires.
-    * @return void
     */
    public void deleteInvisibilityPowerUp(){
 	 if(this.gameBoard.getBomberMan().getInvisibilibityPowerUp()){

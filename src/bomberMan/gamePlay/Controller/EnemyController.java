@@ -275,7 +275,6 @@ public class EnemyController extends CharacterController {
 				&& enemyAtEdgeOfCell) {
 			ran = random.nextInt(10);
 			if (ran == 1) {
-				System.out.println(ran);
 				ran = myEnemy.getMovmentDirection();
 				while (ran == myEnemy.getMovmentDirection()) {
 					ran = random.nextInt(4) + 1;
@@ -356,9 +355,7 @@ public class EnemyController extends CharacterController {
 				&& this.myGameBoard.getBomberMan().getIsAlive()
 				&& enemyAtEdgeOfCell
 				&& !this.myGameBoard.getBomberMan().getInvisibilibityPowerUp()) {
-			System.out.println("entering astar");
 			int moves[] = aStar(myEnemy);
-			System.out.println("exiting astar");
 			if (moves != null)
 				myEnemy.setExpectedMovmentDirection(moves[0]);
 
@@ -389,7 +386,7 @@ public class EnemyController extends CharacterController {
 	 * @return boolean on whether or not a high AI enemy is in range of
 	 *         bomberman.
 	 */
-	public boolean bomberManInRangeHighAI(Enemy myEnemy) {
+	private boolean bomberManInRangeHighAI(Enemy myEnemy) {
 
 		int dX = Math
 				.abs((myEnemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
@@ -406,9 +403,9 @@ public class EnemyController extends CharacterController {
 	/**
 	 * Path finding algorithm for the high AI enemy, using a* search. Does this
 	 * by evaluating each frontier cell and picking the best candidate. Each
-	 * frontier cell gets placed into ArrayList<Cell> openSet, while searched
-	 * cells are put into ArrayList<Cell> closedSet. Cells with obstacles are
-	 * put into ArrayList<Cell> obstacles. Repeats these two steps until it
+	 * frontier cell gets placed into ArrayList openSet, while searched
+	 * cells are put into ArrayList closedSet. Cells with obstacles are
+	 * put into ArrayList obstacles. Repeats these two steps until it
 	 * finds the destination cell, which is bomberman.
 	 * 
 	 * @param myEnemy
@@ -439,7 +436,6 @@ public class EnemyController extends CharacterController {
 				/ CONSTANTS.TILE_SIDE_SIZE));
 		while (openSet.size() != 0) {
 			myCell = getMinCell(openSet);
-			System.out.println(myCell.getX() + ", " + myCell.getY());
 			openSet.remove(myCell);
 			closedSet.add(myCell);
 
@@ -494,8 +490,6 @@ public class EnemyController extends CharacterController {
 							&& openSet.contains(successor) == false
 							&& closedSet.contains(successor) == false
 							&& successor != null) {
-						System.out.println("seeting parent of "
-								+ successor.getX() + " Y:" + successor.getY());
 						successor.setParent(myCell);
 						openSet.add(successor);
 					}
@@ -559,9 +553,7 @@ public class EnemyController extends CharacterController {
 		for (int i = 0; i < route.length; i++) {
 
 			route[i] = (int) temp.pop();
-			System.out.println(route[i] + " ");
 		}
-		System.out.println(route[0]);
 		return route;
 	}
 

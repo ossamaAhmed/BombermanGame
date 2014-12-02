@@ -194,6 +194,20 @@ writer.close();
 		
 	}
 	
+	@Test
+	public void testLogin(){
+		//Test Login using existing username and password
+		boolean check1 = userdatabase.login(userExistsData[USER_IND],userExistsData[PASS_IND]);
+		assertTrue(check1);
+		
+		//Existing user but wrong password
+		boolean check3 = userdatabase.login("natalieportman","wrongpassword1@");
+		assertFalse(check3);
+		
+		
+		
+	}
+	
     @After
     public void cleanUp() {
        assertTrue(csvFile.exists());

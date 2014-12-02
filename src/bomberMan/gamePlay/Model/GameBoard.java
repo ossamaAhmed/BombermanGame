@@ -30,7 +30,7 @@ public class GameBoard implements java.io.Serializable {
 	 * This method takes care of the initialization of the grid for the stage specified
 	 * @param stageNumber is the stage number you want
 	 * @param stage is a one dimensional array that have the number of enemies, type of powerup..etc
-	 * @param powersKeptAfterDeath is an array which corresponds to the powerups that bomberman doesn't lose after death
+	 * @param powerUpsKeptAfterDeath is an array which corresponds to the powerups that bomberman doesn't lose after death
 	 * @param nLives are the lives of bomberman left
 	 * @param user is the user playing this game now
 	 * @param remTime is the remaining time for the game  
@@ -422,7 +422,7 @@ public class GameBoard implements java.io.Serializable {
 	}
 	/** 
 	 * This sets remaining time 
-	 * @param seTime is the time remaining for the current game
+	 * @param setTime is the time remaining for the current game
 	 */
 	public void setRemainingTime(long setTime){
 		this.remainingTime = setTime;

@@ -162,8 +162,6 @@ public class SignUpView extends JPanel   {
 	 * @param evt is the event triggered when the button is pressed 
 	 */
 	private void setConfirmButtonActionPerformed(ActionEvent evt) {
-		 System.out.println(userNameInput.getText()+"hi");
-	        System.out.println(userPasswordInput.getText());
 	        SignUpController myController=new SignUpController(DB);
 	        int errorNum=myController.signUp(userFirstNameInput.getText(), userNameInput.getText(), userPasswordInput.getText(), confirmUserPasswordInput.getText());
 	        if(errorNum==3){
@@ -186,7 +184,7 @@ public class SignUpView extends JPanel   {
 	        
 	        else {
 	        	myframe.remove(this);
-				LoginView x=new LoginView(myframe);
+				MainMenuView x=new MainMenuView(myframe,this.DB);
 				myframe.setFocusable(true);
 				x.setBackground(Color.black);
 				x.setVisible(true);

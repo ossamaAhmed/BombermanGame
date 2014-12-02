@@ -107,7 +107,7 @@ public class Character extends GameObject implements java.io.Serializable {
 	}
 	/** 
 	 * This method sets the boolean alive
-	 * @param serLive is true if the character is alive and false if not 
+	 * @param setLive is true if the character is alive and false if not 
 	 */
 	public void setIAlive(boolean setLive){
 		this.alive = setLive;

@@ -49,7 +49,7 @@ public class BomberMan extends Character implements java.io.Serializable {
 	 * the BomberMan private variables. BomberMan has a list of powerUps where it gets
 	 * updated every time he picks a powerUp and also we keep track of the bombs bomberMan
 	 * drops for detonating purposes.
-	 * @parm xPos the x position of the bomberman on the x axis of the game board.
+	 * @param xPos the x position of the bomberman on the x axis of the game board.
 	 * @param yPos the y position of the bomberman on the x axis of the game board.
 	 */
 	public BomberMan(int xPos,int yPos)	{
@@ -63,7 +63,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	 * This method prints out the position of bomberMan for debugging purposes.
 	 * It should be deleted at the end of the project. When everything is tested out, or 
 	 * moved to testing package.
-	 * @return void
 	 */
 	public void infoToString() {
 		System.out.print("My Position(x,y) is: ");
@@ -105,7 +104,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	}
 	/**
 	 * This function removes the oldest bomb dropped by the bomberman
-	 * @return void
 	 */
 	public void removeOldestBomb(){
 		if(this.myBombs.size() > 0){
@@ -136,7 +134,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	}
 	/**
 	 * This method makes the bomberman die.
-	 * @return void
 	 */
 	public void die(){
 		//if bomberm
@@ -156,7 +153,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method adds the detonator power up to the bomberman.
 	 * @param set true if the bomberman has the detonator power up, false otherwise
-	 * @return void
 	 */
 	public void setHasDetonator(boolean set){this.hasDetonator = set;}
 	/**
@@ -169,13 +165,11 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method adds the range value to the current bomb exlosion range for bombs dropped by the bomberman.
 	 *@param range the bomb's explosion range added to the current bomb's range.
-	 * @return void
 	 */
 	public void setBombRange(int range){this.currentBombRange += range;}
 	/**
 	 * This method sets  the current bomb exlosion range for bombs dropped by the bomberman.
 	 *@param range the new bomb's explosion range
-	 * @return void
 	 */
 	public void setBombRange1(int range){this.currentBombRange = range;}
 	/**
@@ -187,19 +181,16 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method adds the num value to the current number of bombs that the bomberman can drop at a time.
 	 *@param num the number of bombs added to the current number of bombs that the bomberman can drop at a time.
-	 * @return void
 	 */
 	public void setNumBombsToDrop(int num){this.numBombsAllowToDrop += num;}
 	/**
 	 * This method sets  the number of bombs that the bomberman can drop at a time.
 	 *@param num the number of bombs that the bomberman can drop at a time.
-	 * @return void
 	 */
 	public void setNumBombsToDrop1(int num){this.numBombsAllowToDrop = num;}
 	/**
 	 * This method adds the wall pass power up to the bomberman.
 	 * @param set true if the bomberman has the wall pass power up, false otherwise
-	 * @return void
 	 */
 	public void setBrickPass(boolean set){this.canBrickPass = set;}
 	/**
@@ -210,7 +201,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method adds the bomb pass power up to the bomberman.
 	 * @param set true if the bomberman has the bomb pass power up, false otherwise
-	 * @return void
 	 */
 	public void setBombPass(boolean set){this.canBombPass = set;}
 	/**
@@ -221,7 +211,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method adds the flame pass power up to the bomberman.
 	 * @param set true if the bomberman has the flame pass power up, false otherwise
-	 * @return void
 	 */
 	public void setFlamePass(boolean set){this.canFlamePass = set;}
 	/**
@@ -237,7 +226,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method add the num value to the number of bombs dropped by the bomberman.
 	 * @param num integer value added to the number of bombs dropped by the bomberman.
-	 * @return void
 	 */
 	public void setQteOfBombsDropped(int num){ this.bombsDropped += num;}
 	/**
@@ -248,7 +236,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	/**
 	 * This method adds the invisibility power up to the bomberman.
 	 * @param set true if the bomberman has the invisibility pass power up, false otherwise
-	 * @return void
 	 */
 	public void setInvisibilityPowerUp(boolean set){
 		this.invisibilityPowerUp = set;}
@@ -259,7 +246,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	public long getCreationInvisibilityPowerUp(){return this.creationInvisibilityPowerup;}
 	/**
 	 * This method sets the time  creation of the invisibility power up of the bomberman.
-	 *  @return void
 	 */
 	public void setCreationInvisibilityPowerUp(){
 		this.creationInvisibilityPowerup = timer.getTimeInMillis();
@@ -268,7 +254,6 @@ public class BomberMan extends Character implements java.io.Serializable {
 	}
 	/**
 	 * This method  updates the time  creation of the invisibility power up of the bomberman.
-	 *  @return void
 	 */
 	public void addTimeCreationInvisibilitPowerUp(){this.creationInvisibilityPowerup=Calendar.getInstance().getTimeInMillis();}
 	/**

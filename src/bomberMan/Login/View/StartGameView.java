@@ -203,12 +203,7 @@ public class StartGameView extends JPanel {
 	 */
 	private void backButtonActionPerformed(ActionEvent evt){
 		JPanel x;
-		if(previousView.equals("Pause")){
-			x=new PauseMenuView(myframe,this.myBoard,this.DB);
-		}
-		else{
-			x=new MainMenuView(myframe,this.DB);
-		}
+		x=new MainMenuView(myframe,this.DB);
 		myframe.remove(this);
 		myframe.setFocusable(true);
 		x.setBackground(Color.black);

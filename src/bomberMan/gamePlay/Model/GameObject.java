@@ -140,7 +140,7 @@ public class GameObject implements Position, java.io.Serializable {
 		
 		if(image==null){
 			try {
-				image = ImageIO.read(new File(GameObject.class.getResource("/image/" + this.getImageLocation()).toURI()));
+				image = ImageIO.read(GameObject.class.getResourceAsStream("/image/" + this.getImageLocation()));
 			}
 			catch (Exception e) {
 				System.out.println("Image Not found: " + this.getImageLocation());

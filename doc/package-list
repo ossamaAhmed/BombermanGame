@@ -1,1 +1,10 @@
+LoginControllerTests
+LoginModelTests
+bomberMan.Login.Controller
+bomberMan.Login.Model
 bomberMan.Login.View
+bomberMan.gamePlay.Controller
+bomberMan.gamePlay.Model
+bomberMan.gamePlay.View
+gameModelTests
+gamePlayControllerTests

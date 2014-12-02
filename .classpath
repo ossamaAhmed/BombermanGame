@@ -2,9 +2,8 @@
 <classpath>
 	<classpathentry excluding="bomberMan/gamePlay/Model/ExitDoor.java" kind="src" path="src"/>
 	<classpathentry kind="src" output="target/test-classes" path="Tests"/>
-	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="lib"/>
-	<classpathentry kind="src" path="CSVfiles"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/opencsv-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/opencsv-3.0.jar"/>

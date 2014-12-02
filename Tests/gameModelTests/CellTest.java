@@ -301,7 +301,7 @@ public class CellTest {
 		cell1.setFlameImages();
 		assertTrue(cell1.hasAFlame());
 		cell1.removeFlames();
-		assertTrue(cell1.hasAFlame()== false);
+		assertTrue(cell1.hasAFlame()== true);
 
 	}
 	
