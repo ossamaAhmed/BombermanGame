@@ -256,7 +256,7 @@ public class EnemyController extends CharacterController {
 	 * @param myEnemy
 	 *            the enemy which will be controlled
 	 */
-	public void medAI(Enemy myEnemy) {
+	private void medAI(Enemy myEnemy) {
 
 		int ran = myEnemy.getMovmentDirection();
 		Random random = new Random();
@@ -275,7 +275,6 @@ public class EnemyController extends CharacterController {
 				&& enemyAtEdgeOfCell) {
 			ran = random.nextInt(10);
 			if (ran == 1) {
-				System.out.println(ran);
 				ran = myEnemy.getMovmentDirection();
 				while (ran == myEnemy.getMovmentDirection()) {
 					ran = random.nextInt(4) + 1;
@@ -343,7 +342,7 @@ public class EnemyController extends CharacterController {
 	 * @param myEnemy
 	 *            the enemy that will have its movement altered
 	 */
-	public void highAI(Enemy myEnemy) {
+	private void highAI(Enemy myEnemy) {
 
 		int ran = myEnemy.getMovmentDirection();
 		Random random = new Random();
@@ -356,9 +355,7 @@ public class EnemyController extends CharacterController {
 				&& this.myGameBoard.getBomberMan().getIsAlive()
 				&& enemyAtEdgeOfCell
 				&& !this.myGameBoard.getBomberMan().getInvisibilibityPowerUp()) {
-			System.out.println("entering astar");
 			int moves[] = aStar(myEnemy);
-			System.out.println("exiting astar");
 			if (moves != null)
 				myEnemy.setExpectedMovmentDirection(moves[0]);
 
@@ -389,7 +386,7 @@ public class EnemyController extends CharacterController {
 	 * @return boolean on whether or not a high AI enemy is in range of
 	 *         bomberman.
 	 */
-	public boolean bomberManInRangeHighAI(Enemy myEnemy) {
+	private boolean bomberManInRangeHighAI(Enemy myEnemy) {
 
 		int dX = Math
 				.abs((myEnemy.getPositionX() / CONSTANTS.TILE_SIDE_SIZE)
@@ -439,7 +436,6 @@ public class EnemyController extends CharacterController {
 				/ CONSTANTS.TILE_SIDE_SIZE));
 		while (openSet.size() != 0) {
 			myCell = getMinCell(openSet);
-			System.out.println(myCell.getX() + ", " + myCell.getY());
 			openSet.remove(myCell);
 			closedSet.add(myCell);
 
@@ -494,8 +490,6 @@ public class EnemyController extends CharacterController {
 							&& openSet.contains(successor) == false
 							&& closedSet.contains(successor) == false
 							&& successor != null) {
-						System.out.println("seeting parent of "
-								+ successor.getX() + " Y:" + successor.getY());
 						successor.setParent(myCell);
 						openSet.add(successor);
 					}
@@ -559,9 +553,7 @@ public class EnemyController extends CharacterController {
 		for (int i = 0; i < route.length; i++) {
 
 			route[i] = (int) temp.pop();
-			System.out.println(route[i] + " ");
 		}
-		System.out.println(route[0]);
 		return route;
 	}
 

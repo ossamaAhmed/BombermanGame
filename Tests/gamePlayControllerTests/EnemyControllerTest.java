@@ -45,26 +45,26 @@ public class EnemyControllerTest {
 		//enemy uses pixel base, divide by 40 to get actual cell
 		myEnemy=new MediumIntelligenceEnemy(80,40,CONSTANTS.RIGHT,"Ovapi");
 		expected=CONSTANTS.LEFT;
-		myController.medAI(myEnemy);
+		myController.moveEnemy(myEnemy, true);
 		actual = myEnemy.getExpectedMovmentDirection();
 		assertEquals(expected, actual);//chase bomberman med AI
 		
 		myEnemy=new MediumIntelligenceEnemy(40,120,CONSTANTS.RIGHT,"Kondoria");
 		expected = CONSTANTS.RIGHT;
-		myController.medAI(myEnemy);
+		myController.moveEnemy(myEnemy, true);
 		actual = myEnemy.getExpectedMovmentDirection();
 		assertEquals(expected, actual);//normal movement med AI
 		
 		myEnemy=new HighIntellegenceEnemy(120,160,CONSTANTS.DOWN,"Kondoria");
 		expected = CONSTANTS.DOWN;
-		myController.highAI(myEnemy);
+		myController.moveEnemy(myEnemy, true);
 		actual = myEnemy.getExpectedMovmentDirection();
 		assertEquals(expected, actual);//normal movement high AI
 		
 		
-		myEnemy=new HighIntellegenceEnemy(40,120,CONSTANTS.RIGHT,"Kondoria");
-		expected = CONSTANTS.UP;
-		myController.highAI(myEnemy);
+		myEnemy=new HighIntellegenceEnemy(120,39,CONSTANTS.RIGHT,"Kondoria");
+		expected = CONSTANTS.LEFT;
+		myController.moveEnemy(myEnemy, true);
 		actual = myEnemy.getExpectedMovmentDirection();
 		assertEquals(expected, actual);//chase bomberman high AI
 			
